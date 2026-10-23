@@ -1,0 +1,103 @@
+name: autotests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: autotests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start QuantReplay simulator
+        working-directory: sim-run
+        run: docker compose up -d
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Wait for simulator (REST 9050, FIX 9051)
+        run: |
+          for i in $(seq 1 60); do
+            curl -sf http://localhost:9050/api/venues >/dev/null && nc -z localhost 9051 && exit 0
+            sleep 5
+          done
+          docker compose -f sim-run/docker-compose.yml logs --tail=100
+          exit 1
+
+      - name: Run tests
+        run: pytest --alluredir=allure-results --junitxml=junit.xml
+
+      - name: Test summary
+        if: always()
+        uses: mikepenz/action-junit-report@v5
+        with:
+          report_paths: junit.xml
+          detailed_summary: true
+          include_passed: true
+
+      - name: Upload Allure results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results
+
+      - name: Upload simulator logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulator-logs
+          path: sim-run/log
+
+  report:
+    # Publish the Allure report (with run history) to GitHub Pages for pushes to main.
+    needs: tests
+    if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results
+
+      - name: Get report history
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Generate Allure report
+        run: |
+          [ -d gh-pages/history ] && cp -r gh-pages/history allure-results/history || true
+          cat > allure-results/executor.json <<JSON
+          {"name": "GitHub Actions", "type": "github", "buildName": "Run #${{ github.run_number }}",
+           "buildUrl": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+           "reportUrl": "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"}
+          JSON
+          npx -y allure-commandline@2 generate allure-results -o allure-report --clean
+
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-report

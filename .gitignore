@@ -1,0 +1,21 @@
+# Python
+.venv/
+__pycache__/
+.pytest_cache/
+
+# Reports
+allure-results/
+allure-report/
+
+# Upstream QuantReplay sources (cloned separately, see README)
+simulator/
+
+# Simulator runtime data
+sim-run/database_files/
+sim-run/log/
+sim-run/files_store_path_common/
+sim-run/cfg/*.bak*
+
+# Local secrets
+reportportal/.env
+*.env

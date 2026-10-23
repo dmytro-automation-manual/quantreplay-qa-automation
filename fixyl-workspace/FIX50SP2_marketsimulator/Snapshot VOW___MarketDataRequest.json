@@ -1,0 +1,27 @@
+{
+  "msg": "MarketDataRequest",
+  "data": {
+    "MDReqID": "{auto-gen}",
+    "SubscriptionRequestType": "0",
+    "MarketDepth": "0",
+    "MDReqGrp": {
+      "NoMDEntryTypes": [
+        {
+          "MDEntryType": "0"
+        },
+        {
+          "MDEntryType": "1"
+        }
+      ]
+    },
+    "InstrmtMDReqGrp": {
+      "NoRelatedSym": [
+        {
+          "Instrument": {
+            "Symbol": "VOW"
+          }
+        }
+      ]
+    }
+  }
+}

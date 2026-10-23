@@ -1,0 +1,16 @@
+[
+  {
+    "type": "CLIENT",
+    "name": "QuantReplay XETRA",
+    "ip": "127.0.0.1",
+    "port": 9051,
+    "senderCompId": "FIXYL",
+    "targetCompId": "SIM_XETRA",
+    "fixVersion": "5",
+    "hbInterval": 30,
+    "dictionaryLocation": "/home/dmytro/Fintech project/fixyl-workspace/dictionaries/FIX50SP2_marketsimulator.xml",
+    "transportDictionaryLocation": "/home/dmytro/Fintech project/fixyl-workspace/dictionaries/FIXT11_marketsimulator.xml",
+    "autoLoginEnabled": true,
+    "autoLoginMsg": "Logon"
+  }
+]

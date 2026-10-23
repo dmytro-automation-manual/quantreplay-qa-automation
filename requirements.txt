@@ -1,0 +1,6 @@
+pytest>=8
+simplefix>=1.0.17
+httpx>=0.28
+psycopg[binary]>=3.2
+allure-pytest>=2.13
+pytest-reportportal>=5.4

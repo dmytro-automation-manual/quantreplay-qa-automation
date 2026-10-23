@@ -1,0 +1,16 @@
+{
+  "msg": "OrderCancelReplaceRequest",
+  "data": {
+    "ClOrdID": "{auto-gen}",
+    "Instrument": {
+      "Symbol": "VOW"
+    },
+    "Side": "1",
+    "TransactTime": "{auto-gen}",
+    "OrderQtyData": {
+      "OrderQty": "10"
+    },
+    "OrdType": "2",
+    "Price": "0.02"
+  }
+}

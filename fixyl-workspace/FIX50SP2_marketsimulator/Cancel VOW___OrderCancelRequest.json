@@ -1,0 +1,11 @@
+{
+  "msg": "OrderCancelRequest",
+  "data": {
+    "ClOrdID": "{auto-gen}",
+    "Instrument": {
+      "Symbol": "VOW"
+    },
+    "Side": "1",
+    "TransactTime": "{auto-gen}"
+  }
+}

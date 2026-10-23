@@ -1,0 +1,19 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\MiniFIX]
+"ConnectHistory"="0 0 1 0 14 localhost:9051"
+"FixVersion"="7 FIX.4.4"
+"SenderCompId"="7 MINIFIX"
+"TargetCompId"="9 SIM_XETRA"
+"HbInterval"="2 30"
+"InSeqNo"="1 1"
+"OutSeqNo"="1 1"
+"Securities"="0 0 5 0 13 15=EUR|55=VOW 13 15=EUR|55=AMZ 13 15=EUR|55=MSF 13 15=EUR|55=NFC 14 15=EUR|55=VODI"
+"IsConfigured"="1"
+
+[HKEY_CURRENT_USER\Software\MiniFIX\Transaction]
+"Logon"="0 0 4 0 5 +35=A 5 +98=0 11 +108=$HBINT 6 +141=Y"
+"NewOrderSingle"="0 0 9 0 5 +35=D 11 +11=$UNIQUE 7 +55=VOW 5 +54=1 14 +60=$TIMESTAMP 5 +40=2 8 +44=0.01 6 +38=10 5 +59=0"
+"OrderCancelReplaceRequest"="0 0 9 0 5 +35=G 4 +41= 11 +11=$UNIQUE 7 +55=VOW 5 +54=1 14 +60=$TIMESTAMP 5 +40=2 8 +44=0.02 6 +38=10"
+"OrderCancelRequest"="0 0 6 0 5 +35=F 4 +41= 11 +11=$UNIQUE 7 +55=VOW 5 +54=1 14 +60=$TIMESTAMP"
+"MarketDataRequest"="0 0 9 0 5 +35=V 12 +262=$UNIQUE 6 +263=0 6 +264=0 6 +267=2 6 +269=0 6 +269=1 6 +146=1 7 +55=VOW"
