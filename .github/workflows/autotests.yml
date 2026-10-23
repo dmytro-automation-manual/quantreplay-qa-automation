@@ -33,7 +33,12 @@ jobs:
 
       - name: Start QuantReplay simulator
         working-directory: sim-run
-        run: docker compose up -d
+        # The simulator container runs as uid 1000; the runner's checkout belongs to another uid,
+        # so the mounted directory must be writable for it (logs, FIX store).
+        run: |
+          mkdir -p log files_store_path_common
+          chmod -R a+rwX .
+          docker compose up -d
 
       - name: Wait for simulator (REST 9050, FIX 9051)
         run: |
