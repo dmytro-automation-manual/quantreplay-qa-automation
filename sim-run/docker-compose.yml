@@ -29,16 +29,24 @@ services:
     ports:
       - 15432:5432
     volumes:
-      - ./database_files:/var/lib/postgresql/data
+      # Test database kept on the host (in git): loaded on every start, after the image's init.sql
+      # that creates the `sim` user and schema. Rebuild it with scripts/build_test_db.sh.
+      - ./db/simdb_test_data.sql:/docker-entrypoint-initdb.d/zz_simdb_test_data.sql:ro
+    # Data lives in memory: every (re)start of the container begins from the test database above,
+    # so a test run can never leave anything behind for the next one.
+    tmpfs:
+      - /var/lib/postgresql/data
     environment:
       - POSTGRES_DB=simdb
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready --user=postgres --dbname=simdb" ]
-      retries: 2
-      interval: 5s
-      timeout: 10s
+      # Over TCP and as the application user: true only after the init scripts have loaded the test data
+      # (during init Postgres listens on the unix socket only).
+      test: [ "CMD-SHELL", "PGPASSWORD=sim psql -h 127.0.0.1 -U sim -d simdb -tAc 'select count(*) from sim.listing' | grep -q '^[1-9]'" ]
+      retries: 30
+      interval: 2s
+      timeout: 5s
 
   liquibase:
     image: ghcr.io/quod-financial/liquibase:latest
