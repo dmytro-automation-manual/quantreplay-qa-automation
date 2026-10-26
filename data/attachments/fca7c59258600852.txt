@@ -1,0 +1,10 @@
+REST price seed VODI vs sim.price_seed
+field           expected      actual        result
+price_seed_id   4             4             ok    
+symbol          VODI          VODI          ok    
+security_type   CS            CS            ok    
+price_currency  EUR           EUR           ok    
+security_id     GB00BH4HKS39  GB00BH4HKS39  ok    
+bid_price       1.409         1.409         ok    
+mid_price       1.41          1.41          ok    
+offer_price     1.411         1.411         ok    

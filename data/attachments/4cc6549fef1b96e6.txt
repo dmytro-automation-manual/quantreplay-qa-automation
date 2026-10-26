@@ -1,0 +1,9 @@
+Price seed USD/JPY
+field           expected  actual   result
+symbol          USD/JPY   USD/JPY  ok    
+security_type   FXSPOT    FXSPOT   ok    
+price_currency  JPY       JPY      ok    
+security_id     <none>    <none>   ok    
+bid_price       156.802   156.802  ok    
+mid_price       156.803   156.803  ok    
+offer_price     156.804   156.804  ok    

@@ -1,0 +1,5 @@
+Book after killed FOK
+field       expected  actual    result
+entry_type  OFFER(1)  OFFER(1)  ok    
+price       244.90    244.9     ok    
+size        50        50        ok    

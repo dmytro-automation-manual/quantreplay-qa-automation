@@ -1,0 +1,3 @@
+Seed after update
+field      expected  actual  result
+mid_price  222.60    222.6   ok    

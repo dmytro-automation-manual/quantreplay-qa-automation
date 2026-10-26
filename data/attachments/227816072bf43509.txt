@@ -1,0 +1,12 @@
+sim.listing NFC
+field              expected      actual        result
+security_type      CS            CS            ok    
+price_currency     EUR           EUR           ok    
+fx_base_currency   <none>        <none>        ok    
+security_exchange  XETR          XETR          ok    
+isin_id            US64110L1061  US64110L1061  ok    
+price_tick_size    0.01          0.01          ok    
+qty_minimum        1             1             ok    
+qty_maximum        50000         50000         ok    
+qty_multiple       1             1             ok    
+enabled            True          True          ok    

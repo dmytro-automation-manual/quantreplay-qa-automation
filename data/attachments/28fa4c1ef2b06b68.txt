@@ -1,0 +1,3 @@
+AMZ: prices on tick 0.05
+field      expected  actual                                                        result
+condition  true      True (Decimal('222.5'), Decimal('222.55'), Decimal('222.6'))  ok    

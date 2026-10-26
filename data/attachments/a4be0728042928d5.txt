@@ -1,0 +1,5 @@
+Entry
+field          expected   actual     result
+update_action  DELETE(2)  DELETE(2)  ok    
+entry_type     BID(0)     BID(0)     ok    
+price          200.25     200.25     ok    

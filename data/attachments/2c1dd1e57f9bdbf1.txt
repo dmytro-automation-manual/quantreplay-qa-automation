@@ -1,0 +1,48 @@
+18:42:06.846 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=155|52=20261026-18:42:06.846|11=da0cab2cc90e4fd7|55=NFC|54=1|60=20261026-18:42:06.846|40=2|44=53.61|38=200|59=0|10=198|
+18:42:06.847 fix    << 8=FIXT.1.1|9=198|35=8|34=166|49=SIM_XETRA|52=20261026-18:42:06.847|56=CLIENT_XETRA|6=0|11=da0cab2cc90e4fd7|14=0|17=261026184206000012-1|37=261026184206000012|38=200|39=0|40=2|44=53.61|54=1|55=NFC|59=0|150=0|151=200|10=094|
+18:42:06.847 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=156|52=20261026-18:42:06.847|11=b3092fe446394d56|55=NFC|54=2|60=20261026-18:42:06.847|40=2|44=65.55|38=400|59=0|10=196|
+18:42:06.848 fix    << 8=FIXT.1.1|9=198|35=8|34=167|49=SIM_XETRA|52=20261026-18:42:06.847|56=CLIENT_XETRA|6=0|11=b3092fe446394d56|14=0|17=261026184206000013-1|37=261026184206000013|38=400|39=0|40=2|44=65.55|54=2|55=NFC|59=0|150=0|151=400|10=094|
+18:42:06.848 fix    >> 8=FIXT.1.1|9=130|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=157|52=20261026-18:42:06.848|262=c8e45de1942b494a|263=0|264=0|267=2|269=0|269=1|146=1|55=NFC|10=098|
+18:42:06.848 fix    << 8=FIXT.1.1|9=209|35=W|34=168|49=SIM_XETRA|52=20261026-18:42:06.848|56=CLIENT_XETRA|55=NFC|262=c8e45de1942b494a|268=2|269=0|278=1793040092:9|270=53.61|271=200|269=1|278=1793040092:10|270=65.55|271=400|779=20261026-18:42:06.848|10=198|
+18:42:06.849 check  Book size
+field   expected  actual  result
+bids    1         1       ok    
+offers  1         1       ok    
+18:42:06.849 check  Bid in the snapshot: one BID at 53.61
+field      expected  actual        result
+condition  true      True found 1  ok    
+18:42:06.849 check  Bid in the snapshot
+field       expected  actual  result
+entry_type  BID(0)    BID(0)  ok    
+price       53.61     53.61   ok    
+size        200       200     ok    
+18:42:06.849 check  Offer in the snapshot: one OFFER at 65.55
+field      expected  actual        result
+condition  true      True found 1  ok    
+18:42:06.850 check  Offer in the snapshot
+field       expected  actual    result
+entry_type  OFFER(1)  OFFER(1)  ok    
+price       65.55     65.55     ok    
+size        400       400       ok
+18:42:07.652 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=158|52=20261026-18:42:07.652|41=da0cab2cc90e4fd7|11=448aa1a851ac4438|37=261026184206000012|55=NFC|54=1|60=20261026-18:42:07.652|10=048|
+18:42:07.653 fix    << 8=FIXT.1.1|9=216|35=8|34=169|49=SIM_XETRA|52=20261026-18:42:07.653|56=CLIENT_XETRA|6=0|11=448aa1a851ac4438|14=0|17=261026184206000012-2|37=261026184206000012|38=200|39=4|40=2|41=da0cab2cc90e4fd7|44=53.61|54=1|55=NFC|59=0|150=4|151=0|10=199|
+18:42:07.653 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261026184206000012   261026184206000012   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      NFC                  NFC                  ok    
+order_qty   200                  200                  ok    
+price       53.61                53.61                ok    
+18:42:07.653 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=159|52=20261026-18:42:07.653|41=b3092fe446394d56|11=d25a924afcb84151|37=261026184206000013|55=NFC|54=2|60=20261026-18:42:07.653|10=088|
+18:42:07.654 fix    << 8=FIXT.1.1|9=216|35=8|34=170|49=SIM_XETRA|52=20261026-18:42:07.654|56=CLIENT_XETRA|6=0|11=d25a924afcb84151|14=0|17=261026184206000013-2|37=261026184206000013|38=400|39=4|40=2|41=b3092fe446394d56|44=65.55|54=2|55=NFC|59=0|150=4|151=0|10=238|
+18:42:07.654 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261026184206000013   261026184206000013   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      NFC                  NFC                  ok    
+order_qty   400                  400                  ok    
+price       65.55                65.55                ok

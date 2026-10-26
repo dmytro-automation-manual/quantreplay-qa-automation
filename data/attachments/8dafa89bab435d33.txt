@@ -1,0 +1,3 @@
+Listings of the venue
+field    expected                              actual                                result
+symbols  ['AMZ', 'MSF', 'NFC', 'VODI', 'VOW']  ['AMZ', 'MSF', 'NFC', 'VODI', 'VOW']  ok    

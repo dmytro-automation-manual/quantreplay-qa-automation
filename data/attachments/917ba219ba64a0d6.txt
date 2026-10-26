@@ -1,0 +1,14 @@
+18:43:52.227 rest   >> GET /priceseeds/999999 
+18:43:52.236 httpx  HTTP Request: GET http://localhost:9052/api/priceseeds/999999 "HTTP/1.1 404 Not Found"
+18:43:52.236 rest   << 404 {"result":"Can not resolve a single PriceSeed by a given key"}
+18:43:52.237 check  GET unknown seed
+field        expected                                           actual                                             result
+status_code  404                                                404                                                ok    
+result       Can not resolve a single PriceSeed by a given key  Can not resolve a single PriceSeed by a given key  ok    
+18:43:52.237 rest   >> PUT /priceseeds/999999 {"midPrice": 1}
+18:43:52.246 httpx  HTTP Request: PUT http://localhost:9052/api/priceseeds/999999 "HTTP/1.1 404 Not Found"
+18:43:52.247 rest   << 404 {"result":"Can not resolve a single PriceSeed by a given key"}
+18:43:52.247 check  PUT unknown seed
+field        expected                                           actual                                             result
+status_code  404                                                404                                                ok    
+result       Can not resolve a single PriceSeed by a given key  Can not resolve a single PriceSeed by a given key  ok

@@ -1,0 +1,3 @@
+Book with DAY order: one BID at 1.00736
+field      expected  actual        result
+condition  true      True found 1  ok    

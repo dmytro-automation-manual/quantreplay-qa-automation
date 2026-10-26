@@ -1,0 +1,3 @@
+Listing in DB
+field        expected   actual     result
+qty_maximum  100000000  100000000  ok    

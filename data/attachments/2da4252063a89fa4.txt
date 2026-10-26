@@ -1,0 +1,13 @@
+18:43:41.834 fix    >> 8=FIXT.1.1|9=180|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=293|52=20261026-18:43:41.833|11=fc829d868cbf464b|55=EUR/USD|54=1|60=20261026-18:43:41.833|40=2|44=1.00736|38=1000000|59=6|432=20200101|10=041|
+18:43:41.834 fix    << 8=FIXT.1.1|9=245|35=8|34=325|49=SIM_FASTMATCH|52=20261026-18:43:41.834|56=CLIENT_FASTMATCH|6=0|11=fc829d868cbf464b|14=0|17=261026184341000044-1|37=261026184341000044|38=1000000|39=8|40=2|44=1.00736|54=1|55=EUR/USD|58=order already expired|59=6|150=8|151=1000000|10=019|
+18:43:41.835 check  ExecutionReport for GoodTillDate with invalid expiry
+field          expected               actual                 result
+msg_type       EXECUTION_REPORT(8)    EXECUTION_REPORT(8)    ok    
+order_id       <non-empty>            261026184341000044     ok    
+exec_type      REJECTED(8)            REJECTED(8)            ok    
+ord_status     REJECTED(8)            REJECTED(8)            ok    
+symbol         EUR/USD                EUR/USD                ok    
+order_qty      1000000                1000000                ok    
+price          1.00736                1.00736                ok    
+time_in_force  GOOD_TILL_DATE(6)      GOOD_TILL_DATE(6)      ok    
+text           order already expired  order already expired  ok

@@ -1,0 +1,14 @@
+Venue FASTMATCH
+field                 expected          actual            result
+venue_id              FASTMATCH         FASTMATCH         ok    
+name                  FASTMATCH         FASTMATCH         ok    
+engine_type           Matching          Matching          ok    
+support_tif_ioc       True              True              ok    
+support_tif_fok       True              True              ok    
+support_tif_day       True              True              ok    
+include_own_orders    True              True              ok    
+rest_port             9052              9052              ok    
+order_on_startup      False             False             ok    
+persistence_enabled   False             False             ok    
+cancel_on_disconnect  False             False             ok    
+timezone              America/New_York  America/New_York  ok    

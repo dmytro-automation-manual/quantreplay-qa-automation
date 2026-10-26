@@ -1,0 +1,48 @@
+18:43:24.788 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=207|52=20261026-18:43:24.788|11=147a891305724324|55=GBP/USD|54=1|60=20261026-18:43:24.788|40=2|44=1.20313|38=1000000|59=0|10=140|
+18:43:24.789 fix    << 8=FIXT.1.1|9=220|35=8|34=226|49=SIM_FASTMATCH|52=20261026-18:43:24.789|56=CLIENT_FASTMATCH|6=0|11=147a891305724324|14=0|17=261026184324000012-1|37=261026184324000012|38=1000000|39=0|40=2|44=1.20313|54=1|55=GBP/USD|59=0|150=0|151=1000000|10=208|
+18:43:24.789 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=208|52=20261026-18:43:24.789|11=d819e421e72f47dc|55=GBP/USD|54=2|60=20261026-18:43:24.789|40=2|44=1.47053|38=2000000|59=0|10=150|
+18:43:24.790 fix    << 8=FIXT.1.1|9=220|35=8|34=227|49=SIM_FASTMATCH|52=20261026-18:43:24.790|56=CLIENT_FASTMATCH|6=0|11=d819e421e72f47dc|14=0|17=261026184324000013-1|37=261026184324000013|38=2000000|39=0|40=2|44=1.47053|54=2|55=GBP/USD|59=0|150=0|151=2000000|10=211|
+18:43:24.790 fix    >> 8=FIXT.1.1|9=142|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=209|52=20261026-18:43:24.790|262=fa4d4b5f9d874a96|263=0|264=0|267=2|269=0|269=1|146=1|55=GBP/USD|10=229|
+18:43:24.791 fix    << 8=FIXT.1.1|9=233|35=W|34=228|49=SIM_FASTMATCH|52=20261026-18:43:24.790|56=CLIENT_FASTMATCH|55=GBP/USD|262=fa4d4b5f9d874a96|268=2|269=0|278=1793040092:9|270=1.20313|271=1000000|269=1|278=1793040092:10|270=1.47053|271=2000000|779=20261026-18:43:24.790|10=118|
+18:43:24.791 check  Book size
+field   expected  actual  result
+bids    1         1       ok    
+offers  1         1       ok    
+18:43:24.791 check  Bid in the snapshot: one BID at 1.20313
+field      expected  actual        result
+condition  true      True found 1  ok    
+18:43:24.791 check  Bid in the snapshot
+field       expected  actual   result
+entry_type  BID(0)    BID(0)   ok    
+price       1.20313   1.20313  ok    
+size        1000000   1000000  ok    
+18:43:24.792 check  Offer in the snapshot: one OFFER at 1.47053
+field      expected  actual        result
+condition  true      True found 1  ok    
+18:43:24.792 check  Offer in the snapshot
+field       expected  actual    result
+entry_type  OFFER(1)  OFFER(1)  ok    
+price       1.47053   1.47053   ok    
+size        2000000   2000000   ok
+18:43:25.594 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=210|52=20261026-18:43:25.594|41=147a891305724324|11=8215ee0c840043ef|37=261026184324000012|55=GBP/USD|54=1|60=20261026-18:43:25.594|10=217|
+18:43:25.595 fix    << 8=FIXT.1.1|9=234|35=8|34=229|49=SIM_FASTMATCH|52=20261026-18:43:25.595|56=CLIENT_FASTMATCH|6=0|11=8215ee0c840043ef|14=0|17=261026184324000012-2|37=261026184324000012|38=1000000|39=4|40=2|41=147a891305724324|44=1.20313|54=1|55=GBP/USD|59=0|150=4|151=0|10=138|
+18:43:25.596 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261026184324000012   261026184324000012   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      GBP/USD              GBP/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.20313              1.20313              ok    
+18:43:25.596 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=211|52=20261026-18:43:25.596|41=d819e421e72f47dc|11=6673c61439734bc1|37=261026184324000013|55=GBP/USD|54=2|60=20261026-18:43:25.596|10=132|
+18:43:25.596 fix    << 8=FIXT.1.1|9=234|35=8|34=230|49=SIM_FASTMATCH|52=20261026-18:43:25.596|56=CLIENT_FASTMATCH|6=0|11=6673c61439734bc1|14=0|17=261026184324000013-2|37=261026184324000013|38=2000000|39=4|40=2|41=d819e421e72f47dc|44=1.47053|54=2|55=GBP/USD|59=0|150=4|151=0|10=053|
+18:43:25.597 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261026184324000013   261026184324000013   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      GBP/USD              GBP/USD              ok    
+order_qty   2000000              2000000              ok    
+price       1.47053              1.47053              ok

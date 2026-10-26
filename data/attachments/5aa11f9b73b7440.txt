@@ -1,0 +1,3 @@
+Book with GOOD_TILL_CANCEL order: one BID at 200.25
+field      expected  actual        result
+condition  true      True found 1  ok    

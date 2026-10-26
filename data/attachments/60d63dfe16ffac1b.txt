@@ -1,0 +1,10 @@
+REST price seed VOW vs sim.price_seed
+field           expected      actual        result
+price_seed_id   5             5             ok    
+symbol          VOW           VOW           ok    
+security_type   CS            CS            ok    
+price_currency  EUR           EUR           ok    
+security_id     DE0007664005  DE0007664005  ok    
+bid_price       68.68         68.68         ok    
+mid_price       68.7          68.7          ok    
+offer_price     68.72         68.72         ok    

@@ -1,0 +1,3 @@
+DELETE price seed
+field        expected  actual  result
+status_code  204       204     ok    

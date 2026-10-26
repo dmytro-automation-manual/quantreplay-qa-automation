@@ -1,0 +1,12 @@
+18:41:56.380 fix    >> 8=FIXT.1.1|9=151|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=105|52=20261026-18:41:56.380|11=c0fc42c3b09b4ca6|55=MSF|54=1|60=20261026-18:41:56.380|40=2|44=421.95|38=20.5|59=0|10=201|
+18:41:56.381 fix    << 8=FIXT.1.1|9=248|35=8|34=110|49=SIM_XETRA|52=20261026-18:41:56.381|56=CLIENT_XETRA|6=0|11=c0fc42c3b09b4ca6|14=0|17=261026184156000007-1|37=261026184156000007|38=20.5|39=8|40=2|44=421.95|54=1|55=MSF|58=order quantity multiple constraint violated|59=0|150=8|151=20.5|10=131|
+18:41:56.381 check  ExecutionReport for OrderQty off the lot size
+field       expected                                     actual                                       result
+msg_type    EXECUTION_REPORT(8)                          EXECUTION_REPORT(8)                          ok    
+order_id    <non-empty>                                  261026184156000007                           ok    
+exec_type   REJECTED(8)                                  REJECTED(8)                                  ok    
+ord_status  REJECTED(8)                                  REJECTED(8)                                  ok    
+symbol      MSF                                          MSF                                          ok    
+order_qty   20.5                                         20.5                                         ok    
+price       421.95                                       421.95                                       ok    
+text        order quantity multiple constraint violated  order quantity multiple constraint violated  ok

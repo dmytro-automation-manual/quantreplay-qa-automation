@@ -1,0 +1,4 @@
+Book size
+field   expected  actual  result
+bids    1         1       ok    
+offers  1         1       ok    

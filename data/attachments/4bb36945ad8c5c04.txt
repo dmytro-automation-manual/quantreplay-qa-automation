@@ -1,0 +1,22 @@
+18:43:32.405 fix    >> 8=FIXT.1.1|9=199|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=243|52=20261026-18:43:32.405|11=a00ffc99d60f4c06|55=USD/JPY|167=FXSPOT|207=FASTMATCH|15=USD|54=1|60=20261026-18:43:32.405|40=2|44=141.121|38=1000000|59=0|10=113|
+18:43:32.406 fix    << 8=FIXT.1.1|9=252|35=8|34=266|49=SIM_FASTMATCH|52=20261026-18:43:32.405|56=CLIENT_FASTMATCH|6=0|11=a00ffc99d60f4c06|14=0|15=USD|17=261026184332000008-1|37=261026184332000008|38=1000000|39=0|40=2|44=141.121|54=1|55=USD/JPY|59=0|150=0|151=1000000|167=FXSPOT|207=FASTMATCH|10=207|
+18:43:32.406 check  ExecutionReport for order with instrument attributes
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261026184332000008   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      USD/JPY              USD/JPY              ok    
+order_qty   1000000              1000000              ok    
+price       141.121              141.121              ok
+18:43:32.808 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=244|52=20261026-18:43:32.807|41=a00ffc99d60f4c06|11=ebf399675c4c4200|37=261026184332000008|55=USD/JPY|54=1|60=20261026-18:43:32.807|10=031|
+18:43:32.809 fix    << 8=FIXT.1.1|9=266|35=8|34=267|49=SIM_FASTMATCH|52=20261026-18:43:32.808|56=CLIENT_FASTMATCH|6=0|11=ebf399675c4c4200|14=0|15=USD|17=261026184332000008-2|37=261026184332000008|38=1000000|39=4|40=2|41=a00ffc99d60f4c06|44=141.121|54=1|55=USD/JPY|59=0|150=4|151=0|167=FXSPOT|207=FASTMATCH|10=155|
+18:43:32.809 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261026184332000008   261026184332000008   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      USD/JPY              USD/JPY              ok    
+order_qty   1000000              1000000              ok    
+price       141.121              141.121              ok

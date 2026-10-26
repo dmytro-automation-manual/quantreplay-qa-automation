@@ -1,0 +1,39 @@
+18:42:40.069 rest   >> POST /halt/XETRA {"allowCancels": true}
+18:42:40.070 httpx  HTTP Request: POST http://localhost:9050/api/halt/XETRA "HTTP/1.1 200 OK"
+18:42:40.071 rest   << 200 {"result":"The market was successfully halted."}
+18:42:40.071 check  POST halt
+field        expected                             actual                               result
+status_code  200                                  200                                  ok    
+result       The market was successfully halted.  The market was successfully halted.  ok    
+18:42:40.071 rest   >> POST /resume/XETRA 
+18:42:40.072 httpx  HTTP Request: POST http://localhost:9050/api/resume/XETRA "HTTP/1.1 200 OK"
+18:42:40.072 rest   << 200 {"result":"The market was successfully resumed."}
+18:42:40.072 check  POST resume
+field        expected                              actual                                result
+status_code  200                                   200                                   ok    
+result       The market was successfully resumed.  The market was successfully resumed.  ok    
+18:42:40.073 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=317|52=20261026-18:42:40.073|11=9617dcb78daa44bf|55=AMZ|54=1|60=20261026-18:42:40.073|40=2|44=200.25|38=50|59=0|10=111|
+18:42:40.073 fix    << 8=FIXT.1.1|9=197|35=8|34=351|49=SIM_XETRA|52=20261026-18:42:40.073|56=CLIENT_XETRA|6=0|11=9617dcb78daa44bf|14=0|17=261026184240000054-1|37=261026184240000054|38=50|39=0|40=2|44=200.25|54=1|55=AMZ|59=0|150=0|151=50|10=230|
+18:42:40.073 check  ExecutionReport after resume
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261026184240000054   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       200.25               200.25               ok
+18:42:40.075 rest   >> POST /resume/XETRA 
+18:42:40.075 httpx  HTTP Request: POST http://localhost:9050/api/resume/XETRA "HTTP/1.1 409 Conflict"
+18:42:40.076 rest   << 409 {"result":"There is no halt request to terminate."}
+18:42:40.477 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=318|52=20261026-18:42:40.477|41=9617dcb78daa44bf|11=5f5a6b94b0c04146|37=261026184240000054|55=AMZ|54=1|60=20261026-18:42:40.477|10=247|
+18:42:40.478 fix    << 8=FIXT.1.1|9=216|35=8|34=352|49=SIM_XETRA|52=20261026-18:42:40.478|56=CLIENT_XETRA|6=0|11=5f5a6b94b0c04146|14=0|17=261026184240000054-2|37=261026184240000054|38=50|39=4|40=2|41=9617dcb78daa44bf|44=200.25|54=1|55=AMZ|59=0|150=4|151=0|10=137|
+18:42:40.478 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261026184240000054   261026184240000054   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       200.25               200.25               ok

@@ -1,0 +1,3 @@
+VOW: bid < mid < offer
+field      expected  actual                                                      result
+condition  true      True (Decimal('68.68'), Decimal('68.7'), Decimal('68.72'))  ok    

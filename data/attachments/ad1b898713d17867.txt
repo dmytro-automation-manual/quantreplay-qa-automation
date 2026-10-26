@@ -1,0 +1,23 @@
+18:43:02.635 fix    >> 8=FIXT.1.1|9=168|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=102|52=20261026-18:43:02.635|11=02fe0e448cf8474d|55=EUR/GBP|54=1|60=20261026-18:43:02.634|40=2|44=0.75354|38=50000000|59=0|10=167|
+18:43:02.635 fix    << 8=FIXT.1.1|9=222|35=8|34=107|49=SIM_FASTMATCH|52=20261026-18:43:02.635|56=CLIENT_FASTMATCH|6=0|11=02fe0e448cf8474d|14=0|17=261026184302000005-1|37=261026184302000005|38=50000000|39=0|40=2|44=0.75354|54=1|55=EUR/GBP|59=0|150=0|151=50000000|10=045|
+18:43:02.636 check  ExecutionReport for OrderQty = qtyMaximum
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261026184302000005   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      EUR/GBP              EUR/GBP              ok    
+order_qty   50000000             50000000             ok    
+price       0.75354              0.75354              ok    
+leaves_qty  50000000             50000000             ok
+18:43:03.037 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=103|52=20261026-18:43:03.037|41=02fe0e448cf8474d|11=4641b5c42b98443d|37=261026184302000005|55=EUR/GBP|54=1|60=20261026-18:43:03.037|10=143|
+18:43:03.039 fix    << 8=FIXT.1.1|9=235|35=8|34=108|49=SIM_FASTMATCH|52=20261026-18:43:03.038|56=CLIENT_FASTMATCH|6=0|11=4641b5c42b98443d|14=0|17=261026184302000005-2|37=261026184302000005|38=50000000|39=4|40=2|41=02fe0e448cf8474d|44=0.75354|54=1|55=EUR/GBP|59=0|150=4|151=0|10=136|
+18:43:03.039 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261026184302000005   261026184302000005   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      EUR/GBP              EUR/GBP              ok    
+order_qty   50000000             50000000             ok    
+price       0.75354              0.75354              ok

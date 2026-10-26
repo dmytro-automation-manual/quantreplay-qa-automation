@@ -1,0 +1,15 @@
+18:41:47.424 fix    >> 8=FIXT.1.1|9=135|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=46|52=20261026-18:41:47.424|262=5cffbd904c354e95|263=1|264=0|265=1|267=2|269=0|269=1|146=1|55=AMZ|10=127|
+18:41:47.424 fix    << 8=FIXT.1.1|9=125|35=W|34=50|49=SIM_XETRA|52=20261026-18:41:47.424|56=CLIENT_XETRA|55=AMZ|262=5cffbd904c354e95|268=0|779=20261026-18:41:47.424|10=074|
+18:41:47.424 check  Initial snapshot
+field      expected                 actual                   result
+msg_type   MARKET_DATA_SNAPSHOT(W)  MARKET_DATA_SNAPSHOT(W)  ok    
+md_req_id  5cffbd904c354e95         5cffbd904c354e95         ok    
+18:41:47.425 fix    >> 8=FIXT.1.1|9=135|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=47|52=20261026-18:41:47.425|262=5cffbd904c354e95|263=1|264=0|265=1|267=2|269=0|269=1|146=1|55=AMZ|10=129|
+18:41:47.425 fix    << 8=FIXT.1.1|9=130|35=Y|34=51|49=SIM_XETRA|52=20261026-18:41:47.425|56=CLIENT_XETRA|58=request identifier is used already|262=5cffbd904c354e95|281=1|10=098|
+18:41:47.425 check  MarketDataRequestReject for duplicate MDReqID
+field      expected                            actual                              result
+msg_type   MARKET_DATA_REQUEST_REJECT(Y)       MARKET_DATA_REQUEST_REJECT(Y)       ok    
+md_req_id  5cffbd904c354e95                    5cffbd904c354e95                    ok    
+reason     DUPLICATE_MD_REQ_ID(1)              DUPLICATE_MD_REQ_ID(1)              ok    
+text       request identifier is used already  request identifier is used already  ok
+18:41:47.426 fix    >> 8=FIXT.1.1|9=129|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=48|52=20261026-18:41:47.426|262=5cffbd904c354e95|263=2|264=0|267=2|269=0|269=1|146=1|55=AMZ|10=123|

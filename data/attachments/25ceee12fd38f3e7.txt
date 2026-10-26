@@ -1,0 +1,5 @@
+Bid in the snapshot
+field       expected  actual  result
+entry_type  BID(0)    BID(0)  ok    
+price       53.61     53.61   ok    
+size        200       200     ok    

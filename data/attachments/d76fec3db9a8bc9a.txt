@@ -1,0 +1,3 @@
+EUR/GBP: prices on tick 0.00001
+field      expected  actual                                                             result
+condition  true      True (Decimal('0.83727'), Decimal('0.83728'), Decimal('0.83729'))  ok    

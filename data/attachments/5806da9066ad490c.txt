@@ -1,0 +1,3 @@
+GBP/USD: bid < mid < offer
+field      expected  actual                                                             result
+condition  true      True (Decimal('1.33682'), Decimal('1.33683'), Decimal('1.33684'))  ok    

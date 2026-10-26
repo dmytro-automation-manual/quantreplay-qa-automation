@@ -1,0 +1,20 @@
+18:43:16.151 rest   >> GET /listings/EUR%2FUSD 
+18:43:16.162 httpx  HTTP Request: GET http://localhost:9052/api/listings/EUR%2FUSD "HTTP/1.1 200 OK"
+18:43:16.162 rest   << 200 {"id":6,"venueId":"FASTMATCH","symbol":"EUR/USD","securityType":"FXSPOT","priceCurrency":"USD","fxBaseCurrency":"EUR","instrSymbol":"EUR/USD","qtyMinimum":10000.0,"qtyMaximum":50000000.0,"qtyMultiple":1000.0,"priceTickSize":0.00001,"enabled":true,"randomQtyMaximum":5000000.0,"randomDepthLevels":5,"randomOrdersSpread":0.00001,"randomOrdersRate":2,"randomTickRange":10,"securityExchange":"FASTMATCH","randomQtyMinimum":100000.0,"randomOrdersEnabled":true,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+18:43:16.163 check  GET /api/listings/EUR/USD
+field        expected  actual  result
+status_code  200       200     ok    
+18:43:16.163 check  Listing EUR/USD
+field              expected   actual      result
+symbol             EUR/USD    EUR/USD     ok    
+venue_id           FASTMATCH  FASTMATCH   ok    
+security_type      FXSPOT     FXSPOT      ok    
+price_currency     USD        USD         ok    
+fx_base_currency   EUR        EUR         ok    
+security_exchange  FASTMATCH  FASTMATCH   ok    
+isin_id            <none>     <none>      ok    
+price_tick_size    0.00001    0.00001     ok    
+qty_minimum        10000      10000.0     ok    
+qty_maximum        50000000   50000000.0  ok    
+qty_multiple       1000       1000.0      ok    
+enabled            True       True        ok

@@ -1,0 +1,5 @@
+Book after rejected replace
+field       expected  actual   result
+entry_type  BID(0)    BID(0)   ok    
+price       0.74190   0.7419   ok    
+size        1000000   1000000  ok    

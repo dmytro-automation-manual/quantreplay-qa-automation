@@ -1,0 +1,3 @@
+Book after rejected replace: one BID at 1.20313
+field      expected  actual        result
+condition  true      True found 1  ok    

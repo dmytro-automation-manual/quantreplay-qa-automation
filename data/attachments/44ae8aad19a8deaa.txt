@@ -1,0 +1,9 @@
+18:42:21.463 fix    >> 8=FIXT.1.1|9=131|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=226|52=20261026-18:42:21.463|262=f2bd7fe9585b46ab|263=0|264=0|267=2|269=0|269=1|146=1|55=VODI|10=021|
+18:42:21.464 fix    << 8=FIXT.1.1|9=127|35=W|34=249|49=SIM_XETRA|52=20261026-18:42:21.463|56=CLIENT_XETRA|55=VODI|262=f2bd7fe9585b46ab|268=0|779=20261026-18:42:21.463|10=249|
+18:42:21.464 check  MarketDataSnapshotFullRefresh
+field     expected                 actual                   result
+msg_type  MARKET_DATA_SNAPSHOT(W)  MARKET_DATA_SNAPSHOT(W)  ok    
+symbol    VODI                     VODI                     ok    
+18:42:21.464 check  No bids / offers in an empty book
+field      expected  actual            result
+condition  true      True entries: []  ok

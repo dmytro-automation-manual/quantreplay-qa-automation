@@ -1,0 +1,5 @@
+REST settings vs sim.setting
+field                        expected                                                 actual                                                   result
+DisplayName                  MKTSIMULATOR                                             MKTSIMULATOR                                             ok    
+SeedPriceDatabaseConnection  postgresql://user:password@127.0.0.1:5432/database_name  postgresql://user:password@127.0.0.1:5432/database_name  ok    
+SeedPricesLastUpdated        2024-03-14 14:35:06                                      2024-03-14 14:35:06                                      ok    

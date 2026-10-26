@@ -1,0 +1,8 @@
+sim.price_seed VODI
+field           expected      actual        result
+security_type   CS            CS            ok    
+price_currency  EUR           EUR           ok    
+security_id     GB00BH4HKS39  GB00BH4HKS39  ok    
+bid_price       1.409         1.409         ok    
+mid_price       1.410         1.41          ok    
+offer_price     1.411         1.411         ok    

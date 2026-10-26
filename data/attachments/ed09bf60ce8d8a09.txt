@@ -1,0 +1,10 @@
+18:41:53.104 db     SQL select price_seed_id, symbol, security_type, price_currency, security_id, bid_price::numeric as bid_price, mid_price::numeric as mid_price, offer_price::numeric as offer_price from sim.price_seed order by price_seed_id 
+18:41:53.105 db     rows: 10
+18:41:53.105 check  sim.price_seed MSF
+field           expected      actual        result
+security_type   CS            CS            ok    
+price_currency  EUR           EUR           ok    
+security_id     US5949181045  US5949181045  ok    
+bid_price       468.85        468.85        ok    
+mid_price       468.90        468.9         ok    
+offer_price     468.95        468.95        ok

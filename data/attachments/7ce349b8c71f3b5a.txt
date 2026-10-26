@@ -1,0 +1,5 @@
+Offer in the snapshot
+field       expected  actual    result
+entry_type  OFFER(1)  OFFER(1)  ok    
+price       0.90680   0.9068    ok    
+size        2000000   2000000   ok    

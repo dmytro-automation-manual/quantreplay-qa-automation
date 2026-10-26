@@ -1,0 +1,3 @@
+GET /api/listings/EUR/GBP
+field        expected  actual  result
+status_code  200       200     ok    

@@ -1,0 +1,16 @@
+REST listing USD/CHF vs sim.listing
+field                  expected   actual      result
+listing_id             9          9           ok    
+symbol                 USD/CHF    USD/CHF     ok    
+venue_id               FASTMATCH  FASTMATCH   ok    
+security_type          FXSPOT     FXSPOT      ok    
+price_currency         CHF        CHF         ok    
+fx_base_currency       USD        USD         ok    
+security_exchange      FASTMATCH  FASTMATCH   ok    
+isin_id                <none>     <none>      ok    
+qty_minimum            10000      10000.0     ok    
+qty_maximum            50000000   50000000.0  ok    
+qty_multiple           1000       1000.0      ok    
+price_tick_size        0.00001    0.00001     ok    
+enabled                True       True        ok    
+random_orders_enabled  True       True        ok    

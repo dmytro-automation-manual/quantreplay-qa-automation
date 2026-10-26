@@ -1,0 +1,14 @@
+Listing MSF
+field              expected      actual        result
+symbol             MSF           MSF           ok    
+venue_id           XETRA         XETRA         ok    
+security_type      CS            CS            ok    
+price_currency     EUR           EUR           ok    
+fx_base_currency   <none>        <none>        ok    
+security_exchange  XETR          XETR          ok    
+isin_id            US5949181045  US5949181045  ok    
+price_tick_size    0.05          0.05          ok    
+qty_minimum        1             1.0           ok    
+qty_maximum        10000         10000.0       ok    
+qty_multiple       1             1.0           ok    
+enabled            True          True          ok    

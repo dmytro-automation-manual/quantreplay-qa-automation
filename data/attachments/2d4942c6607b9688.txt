@@ -1,0 +1,20 @@
+18:42:57.258 rest   >> GET /listings/USD%2FCHF 
+18:42:57.268 httpx  HTTP Request: GET http://localhost:9052/api/listings/USD%2FCHF "HTTP/1.1 200 OK"
+18:42:57.268 rest   << 200 {"id":9,"venueId":"FASTMATCH","symbol":"USD/CHF","securityType":"FXSPOT","priceCurrency":"CHF","fxBaseCurrency":"USD","instrSymbol":"USD/CHF","qtyMinimum":10000.0,"qtyMaximum":50000000.0,"qtyMultiple":1000.0,"priceTickSize":0.00001,"enabled":true,"randomQtyMaximum":5000000.0,"randomDepthLevels":5,"randomOrdersSpread":0.00001,"randomOrdersRate":2,"randomTickRange":10,"securityExchange":"FASTMATCH","randomQtyMinimum":100000.0,"randomOrdersEnabled":true,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+18:42:57.268 check  GET /api/listings/USD/CHF
+field        expected  actual  result
+status_code  200       200     ok    
+18:42:57.269 check  Listing USD/CHF
+field              expected   actual      result
+symbol             USD/CHF    USD/CHF     ok    
+venue_id           FASTMATCH  FASTMATCH   ok    
+security_type      FXSPOT     FXSPOT      ok    
+price_currency     CHF        CHF         ok    
+fx_base_currency   USD        USD         ok    
+security_exchange  FASTMATCH  FASTMATCH   ok    
+isin_id            <none>     <none>      ok    
+price_tick_size    0.00001    0.00001     ok    
+qty_minimum        10000      10000.0     ok    
+qty_maximum        50000000   50000000.0  ok    
+qty_multiple       1000       1000.0      ok    
+enabled            True       True        ok

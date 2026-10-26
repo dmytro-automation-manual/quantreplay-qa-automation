@@ -1,0 +1,4 @@
+PUT listing by symbol
+field        expected                                  actual                                    result
+status_code  200                                       200                                       ok    
+result       Successfully updated the EUR/USD listing  Successfully updated the EUR/USD listing  ok    

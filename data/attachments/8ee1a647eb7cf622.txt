@@ -1,0 +1,23 @@
+18:42:23.903 fix    >> 8=FIXT.1.1|9=154|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=237|52=20261026-18:42:23.903|11=8b0d7e2b00824594|55=VODI|54=1|60=20261026-18:42:23.903|40=2|44=1.268|38=2000000|59=0|10=186|
+18:42:23.903 fix    << 8=FIXT.1.1|9=207|35=8|34=260|49=SIM_XETRA|52=20261026-18:42:23.903|56=CLIENT_XETRA|6=0|11=8b0d7e2b00824594|14=0|17=261026184223000005-1|37=261026184223000005|38=2000000|39=0|40=2|44=1.268|54=1|55=VODI|59=0|150=0|151=2000000|10=015|
+18:42:23.904 check  ExecutionReport for OrderQty = qtyMaximum
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261026184223000005   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      VODI                 VODI                 ok    
+order_qty   2000000              2000000              ok    
+price       1.268                1.268                ok    
+leaves_qty  2000000              2000000              ok
+18:42:24.305 fix    >> 8=FIXT.1.1|9=166|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=238|52=20261026-18:42:24.305|41=8b0d7e2b00824594|11=d2fc54a1f3a44800|37=261026184223000005|55=VODI|54=1|60=20261026-18:42:24.305|10=147|
+18:42:24.306 fix    << 8=FIXT.1.1|9=221|35=8|34=261|49=SIM_XETRA|52=20261026-18:42:24.306|56=CLIENT_XETRA|6=0|11=d2fc54a1f3a44800|14=0|17=261026184223000005-2|37=261026184223000005|38=2000000|39=4|40=2|41=8b0d7e2b00824594|44=1.268|54=1|55=VODI|59=0|150=4|151=0|10=232|
+18:42:24.306 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261026184223000005   261026184223000005   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      VODI                 VODI                 ok    
+order_qty   2000000              2000000              ok    
+price       1.268                1.268                ok

@@ -1,0 +1,13 @@
+18:42:46.402 rest   >> GET /venues/NOSUCHVENUE 
+18:42:46.412 httpx  HTTP Request: GET http://localhost:9050/api/venues/NOSUCHVENUE "HTTP/1.1 404 Not Found"
+18:42:46.412 rest   << 404 {"result":"Can not resolve a single Venue by a given key"}
+18:42:46.412 check  GET unknown venue
+field        expected                                       actual                                         result
+status_code  404                                            404                                            ok    
+result       Can not resolve a single Venue by a given key  Can not resolve a single Venue by a given key  ok    
+18:42:46.412 rest   >> PUT /venues/NOSUCHVENUE {"name": "x"}
+18:42:46.422 httpx  HTTP Request: PUT http://localhost:9050/api/venues/NOSUCHVENUE "HTTP/1.1 404 Not Found"
+18:42:46.422 rest   << 404 {"result":"Can not resolve a single Venue by a given key"}
+18:42:46.423 check  PUT unknown venue
+field        expected  actual  result
+status_code  404       404     ok

@@ -1,0 +1,23 @@
+18:43:12.084 fix    >> 8=FIXT.1.1|9=168|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=147|52=20261026-18:43:12.084|11=8ca6590ed124472f|55=EUR/USD|54=1|60=20261026-18:43:12.084|40=2|44=1.00736|38=50000000|59=0|10=136|
+18:43:12.085 fix    << 8=FIXT.1.1|9=222|35=8|34=158|49=SIM_FASTMATCH|52=20261026-18:43:12.084|56=CLIENT_FASTMATCH|6=0|11=8ca6590ed124472f|14=0|17=261026184312000015-1|37=261026184312000015|38=50000000|39=0|40=2|44=1.00736|54=1|55=EUR/USD|59=0|150=0|151=50000000|10=015|
+18:43:12.085 check  ExecutionReport for OrderQty = qtyMaximum
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261026184312000015   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   50000000             50000000             ok    
+price       1.00736              1.00736              ok    
+leaves_qty  50000000             50000000             ok
+18:43:12.487 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=148|52=20261026-18:43:12.487|41=8ca6590ed124472f|11=88a9bdc1d1a644ef|37=261026184312000015|55=EUR/USD|54=1|60=20261026-18:43:12.487|10=078|
+18:43:12.488 fix    << 8=FIXT.1.1|9=235|35=8|34=159|49=SIM_FASTMATCH|52=20261026-18:43:12.487|56=CLIENT_FASTMATCH|6=0|11=88a9bdc1d1a644ef|14=0|17=261026184312000015-2|37=261026184312000015|38=50000000|39=4|40=2|41=8ca6590ed124472f|44=1.00736|54=1|55=EUR/USD|59=0|150=4|151=0|10=053|
+18:43:12.488 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261026184312000015   261026184312000015   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   50000000             50000000             ok    
+price       1.00736              1.00736              ok

@@ -1,0 +1,3 @@
+USD/JPY: prices on tick 0.001
+field      expected  actual                                                             result
+condition  true      True (Decimal('156.802'), Decimal('156.803'), Decimal('156.804'))  ok    

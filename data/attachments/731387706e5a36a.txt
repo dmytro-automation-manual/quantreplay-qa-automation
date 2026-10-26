@@ -1,0 +1,9 @@
+Price seed GBP/USD
+field           expected  actual   result
+symbol          GBP/USD   GBP/USD  ok    
+security_type   FXSPOT    FXSPOT   ok    
+price_currency  USD       USD      ok    
+security_id     <none>    <none>   ok    
+bid_price       1.33682   1.33682  ok    
+mid_price       1.33683   1.33683  ok    
+offer_price     1.33684   1.33684  ok    

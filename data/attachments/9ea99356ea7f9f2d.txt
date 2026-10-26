@@ -1,0 +1,48 @@
+18:42:56.446 fix    >> 8=FIXT.1.1|9=166|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=72|52=20261026-18:42:56.446|11=bf468f1ef3de48d4|55=USD/CHF|54=1|60=20261026-18:42:56.446|40=2|44=0.74190|38=1000000|59=0|10=179|
+18:42:56.447 fix    << 8=FIXT.1.1|9=218|35=8|34=73|49=SIM_FASTMATCH|52=20261026-18:42:56.447|56=CLIENT_FASTMATCH|6=0|11=bf468f1ef3de48d4|14=0|17=261026184256000012-1|37=261026184256000012|38=1000000|39=0|40=2|44=0.7419|54=1|55=USD/CHF|59=0|150=0|151=1000000|10=220|
+18:42:56.447 fix    >> 8=FIXT.1.1|9=166|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=73|52=20261026-18:42:56.447|11=9b5b37832345452d|55=USD/CHF|54=2|60=20261026-18:42:56.447|40=2|44=0.90680|38=2000000|59=0|10=194|
+18:42:56.448 fix    << 8=FIXT.1.1|9=218|35=8|34=74|49=SIM_FASTMATCH|52=20261026-18:42:56.448|56=CLIENT_FASTMATCH|6=0|11=9b5b37832345452d|14=0|17=261026184256000013-1|37=261026184256000013|38=2000000|39=0|40=2|44=0.9068|54=2|55=USD/CHF|59=0|150=0|151=2000000|10=237|
+18:42:56.448 fix    >> 8=FIXT.1.1|9=141|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=74|52=20261026-18:42:56.448|262=2920ef844a8b44fd|263=0|264=0|267=2|269=0|269=1|146=1|55=USD/CHF|10=117|
+18:42:56.449 fix    << 8=FIXT.1.1|9=230|35=W|34=75|49=SIM_FASTMATCH|52=20261026-18:42:56.449|56=CLIENT_FASTMATCH|55=USD/CHF|262=2920ef844a8b44fd|268=2|269=0|278=1793040092:9|270=0.7419|271=1000000|269=1|278=1793040092:10|270=0.9068|271=2000000|779=20261026-18:42:56.448|10=183|
+18:42:56.449 check  Book size
+field   expected  actual  result
+bids    1         1       ok    
+offers  1         1       ok    
+18:42:56.449 check  Bid in the snapshot: one BID at 0.74190
+field      expected  actual        result
+condition  true      True found 1  ok    
+18:42:56.449 check  Bid in the snapshot
+field       expected  actual   result
+entry_type  BID(0)    BID(0)   ok    
+price       0.74190   0.7419   ok    
+size        1000000   1000000  ok    
+18:42:56.450 check  Offer in the snapshot: one OFFER at 0.90680
+field      expected  actual        result
+condition  true      True found 1  ok    
+18:42:56.450 check  Offer in the snapshot
+field       expected  actual    result
+entry_type  OFFER(1)  OFFER(1)  ok    
+price       0.90680   0.9068    ok    
+size        2000000   2000000   ok
+18:42:57.252 fix    >> 8=FIXT.1.1|9=176|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=75|52=20261026-18:42:57.252|41=bf468f1ef3de48d4|11=fb25d0baeff440d3|37=261026184256000012|55=USD/CHF|54=1|60=20261026-18:42:57.252|10=189|
+18:42:57.253 fix    << 8=FIXT.1.1|9=232|35=8|34=76|49=SIM_FASTMATCH|52=20261026-18:42:57.253|56=CLIENT_FASTMATCH|6=0|11=fb25d0baeff440d3|14=0|17=261026184256000012-2|37=261026184256000012|38=1000000|39=4|40=2|41=bf468f1ef3de48d4|44=0.7419|54=1|55=USD/CHF|59=0|150=4|151=0|10=072|
+18:42:57.253 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261026184256000012   261026184256000012   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      USD/CHF              USD/CHF              ok    
+order_qty   1000000              1000000              ok    
+price       0.74190              0.7419               ok    
+18:42:57.254 fix    >> 8=FIXT.1.1|9=176|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=76|52=20261026-18:42:57.254|41=9b5b37832345452d|11=c8d1996dc1ae40a2|37=261026184256000013|55=USD/CHF|54=2|60=20261026-18:42:57.254|10=115|
+18:42:57.254 fix    << 8=FIXT.1.1|9=232|35=8|34=77|49=SIM_FASTMATCH|52=20261026-18:42:57.254|56=CLIENT_FASTMATCH|6=0|11=c8d1996dc1ae40a2|14=0|17=261026184256000013-2|37=261026184256000013|38=2000000|39=4|40=2|41=9b5b37832345452d|44=0.9068|54=2|55=USD/CHF|59=0|150=4|151=0|10=255|
+18:42:57.255 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261026184256000013   261026184256000013   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      USD/CHF              USD/CHF              ok    
+order_qty   2000000              2000000              ok    
+price       0.90680              0.9068               ok

@@ -1,0 +1,3 @@
+Symbols in sim.listing
+field    expected                              actual                                result
+symbols  ['AMZ', 'MSF', 'NFC', 'VODI', 'VOW']  ['AMZ', 'MSF', 'NFC', 'VODI', 'VOW']  ok    

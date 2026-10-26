@@ -1,0 +1,4 @@
+DELETE unknown seed
+field        expected                                           actual                                             result
+status_code  404                                                400                                                FAILED
+result       Can not resolve a single PriceSeed by a given key  Can not resolve a single PriceSeed by a given key  ok    

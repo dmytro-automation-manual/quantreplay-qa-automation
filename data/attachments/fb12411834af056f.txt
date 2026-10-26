@@ -1,0 +1,13 @@
+ExecutionReport for OrderCancelRequest
+field           expected             actual               result
+msg_type        EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id        261026184143000008   261026184143000008   ok    
+exec_type       CANCELED(4)          CANCELED(4)          ok    
+ord_status      CANCELED(4)          CANCELED(4)          ok    
+symbol          AMZ                  AMZ                  ok    
+order_qty       50                   50                   ok    
+price           200.25               200.25               ok    
+side            BUY(1)               BUY(1)               ok    
+orig_cl_ord_id  d18d639bf7d84ec9     d18d639bf7d84ec9     ok    
+leaves_qty      0                    0                    ok    
+cum_qty         0                    0                    ok    

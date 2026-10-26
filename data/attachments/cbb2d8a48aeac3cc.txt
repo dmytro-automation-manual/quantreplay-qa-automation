@@ -1,0 +1,4 @@
+POST price seed
+field        expected                              actual                                result
+status_code  201                                   201                                   ok    
+result       Successfully inserted new price seed  Successfully inserted new price seed  ok    

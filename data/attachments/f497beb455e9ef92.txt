@@ -1,0 +1,3 @@
+PUT unknown venue
+field        expected  actual  result
+status_code  404       404     ok    

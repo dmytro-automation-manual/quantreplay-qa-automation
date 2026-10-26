@@ -1,0 +1,12 @@
+ExecutionReport Canceled for IOC remainder
+field       expected                                      actual                                        result
+msg_type    EXECUTION_REPORT(8)                           EXECUTION_REPORT(8)                           ok    
+order_id    261026184231000036                            261026184231000036                            ok    
+exec_type   CANCELED(4)                                   CANCELED(4)                                   ok    
+ord_status  CANCELED(4)                                   CANCELED(4)                                   ok    
+symbol      AMZ                                           AMZ                                           ok    
+order_qty   150                                           150                                           ok    
+price       244.90                                        244.9                                         ok    
+cum_qty     50                                            50                                            ok    
+leaves_qty  0                                             0                                             ok    
+text        not enough liquidity to fully fill IoC order  not enough liquidity to fully fill IoC order  ok    

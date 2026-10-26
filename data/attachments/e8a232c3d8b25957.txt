@@ -1,0 +1,10 @@
+REST price seed EUR/GBP vs sim.price_seed
+field           expected  actual   result
+price_seed_id   10        10       ok    
+symbol          EUR/GBP   EUR/GBP  ok    
+security_type   FXSPOT    FXSPOT   ok    
+price_currency  GBP       GBP      ok    
+security_id     <none>    <none>   ok    
+bid_price       0.83727   0.83727  ok    
+mid_price       0.83728   0.83728  ok    
+offer_price     0.83729   0.83729  ok    

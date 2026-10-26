@@ -1,0 +1,4 @@
+Initial snapshot
+field      expected                 actual                   result
+msg_type   MARKET_DATA_SNAPSHOT(W)  MARKET_DATA_SNAPSHOT(W)  ok    
+md_req_id  cfe1b09d1e8c4940         cfe1b09d1e8c4940         ok    

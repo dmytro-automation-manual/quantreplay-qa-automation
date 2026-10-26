@@ -1,0 +1,12 @@
+18:42:54.414 fix    >> 8=FIXT.1.1|9=173|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=62|52=20261026-18:42:54.414|11=10e078693a4748ff|55=USD/CHF|167=CS|54=1|60=20261026-18:42:54.414|40=2|44=0.74190|38=1000000|59=0|10=083|
+18:42:54.414 fix    << 8=FIXT.1.1|9=236|35=8|34=61|49=SIM_FASTMATCH|52=20261026-18:42:54.414|56=CLIENT_FASTMATCH|6=0|11=10e078693a4748ff|14=0|17=261026184254000002-1|37=261026184254000002|38=1000000|39=8|44=0.7419|54=1|55=USD/CHF|58=listing not found|150=8|151=1000000|167=CS|10=046|
+18:42:54.415 check  ExecutionReport for wrong SecurityType
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261026184254000002   ok    
+exec_type   REJECTED(8)          REJECTED(8)          ok    
+ord_status  REJECTED(8)          REJECTED(8)          ok    
+symbol      USD/CHF              USD/CHF              ok    
+order_qty   1000000              1000000              ok    
+price       0.74190              0.7419               ok    
+text        listing not found    listing not found    ok

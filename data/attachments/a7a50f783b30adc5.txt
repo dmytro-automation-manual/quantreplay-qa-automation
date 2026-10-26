@@ -1,0 +1,22 @@
+18:42:09.373 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=168|52=20261026-18:42:09.373|11=6ae9faea932c4ce8|55=VOW|54=1|60=20261026-18:42:09.373|40=2|44=61.82|38=150|59=0|10=210|
+18:42:09.374 fix    << 8=FIXT.1.1|9=198|35=8|34=181|49=SIM_XETRA|52=20261026-18:42:09.373|56=CLIENT_XETRA|6=0|11=6ae9faea932c4ce8|14=0|17=261026184209000000-1|37=261026184209000000|38=150|39=0|40=2|44=61.82|54=1|55=VOW|59=0|150=0|151=150|10=104|
+18:42:09.374 check  ExecutionReport for price on tick
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261026184209000000   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      VOW                  VOW                  ok    
+order_qty   150                  150                  ok    
+price       61.82                61.82                ok
+18:42:09.775 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=169|52=20261026-18:42:09.775|41=6ae9faea932c4ce8|11=a048f4f705bd41ee|37=261026184209000000|55=VOW|54=1|60=20261026-18:42:09.775|10=173|
+18:42:09.776 fix    << 8=FIXT.1.1|9=216|35=8|34=182|49=SIM_XETRA|52=20261026-18:42:09.776|56=CLIENT_XETRA|6=0|11=a048f4f705bd41ee|14=0|17=261026184209000000-2|37=261026184209000000|38=150|39=4|40=2|41=6ae9faea932c4ce8|44=61.82|54=1|55=VOW|59=0|150=4|151=0|10=059|
+18:42:09.776 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261026184209000000   261026184209000000   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      VOW                  VOW                  ok    
+order_qty   150                  150                  ok    
+price       61.82                61.82                ok

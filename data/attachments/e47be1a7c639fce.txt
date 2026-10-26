@@ -1,0 +1,5 @@
+Book with GOOD_TILL_CANCEL order
+field       expected  actual   result
+entry_type  BID(0)    BID(0)   ok    
+price       1.00736   1.00736  ok    
+size        1000000   1000000  ok    

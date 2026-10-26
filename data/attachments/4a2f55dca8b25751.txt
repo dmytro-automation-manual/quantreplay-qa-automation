@@ -1,0 +1,6 @@
+Entry
+field          expected  actual   result
+update_action  NEW(0)    NEW(0)   ok    
+entry_type     BID(0)    BID(0)   ok    
+price          1.00736   1.00736  ok    
+size           1000000   1000000  ok    

@@ -1,0 +1,10 @@
+REST price seed AMZ vs sim.price_seed
+field           expected      actual        result
+price_seed_id   1             1             ok    
+symbol          AMZ           AMZ           ok    
+security_type   CS            CS            ok    
+price_currency  EUR           EUR           ok    
+security_id     US0231351067  US0231351067  ok    
+bid_price       222.5         222.5         ok    
+mid_price       222.55        222.55        ok    
+offer_price     222.6         222.6         ok    

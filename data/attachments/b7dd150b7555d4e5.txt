@@ -1,0 +1,4 @@
+PUT price seed
+field        expected                                               actual                                                 result
+status_code  200                                                    200                                                    ok    
+result       Successfully updated the price seed with 1 identifier  Successfully updated the price seed with 1 identifier  ok    

@@ -1,0 +1,12 @@
+18:42:52.986 fix    >> 8=FIXT.1.1|9=163|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=56|52=20261026-18:42:52.986|11=ed61ba5069fa43e9|55=USD/CHF|54=1|60=20261026-18:42:52.986|40=2|44=0.74190|38=9000|59=0|10=251|
+18:42:52.987 fix    << 8=FIXT.1.1|9=258|35=8|34=55|49=SIM_FASTMATCH|52=20261026-18:42:52.987|56=CLIENT_FASTMATCH|6=0|11=ed61ba5069fa43e9|14=0|17=261026184252000004-1|37=261026184252000004|38=9000|39=8|40=2|44=0.7419|54=1|55=USD/CHF|58=minimal order quantity constraint violated|59=0|150=8|151=9000|10=240|
+18:42:52.987 check  ExecutionReport for OrderQty below qtyMinimum
+field       expected                                    actual                                      result
+msg_type    EXECUTION_REPORT(8)                         EXECUTION_REPORT(8)                         ok    
+order_id    <non-empty>                                 261026184252000004                          ok    
+exec_type   REJECTED(8)                                 REJECTED(8)                                 ok    
+ord_status  REJECTED(8)                                 REJECTED(8)                                 ok    
+symbol      USD/CHF                                     USD/CHF                                     ok    
+order_qty   9000                                        9000                                        ok    
+price       0.74190                                     0.7419                                      ok    
+text        minimal order quantity constraint violated  minimal order quantity constraint violated  ok

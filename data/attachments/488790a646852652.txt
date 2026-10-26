@@ -1,0 +1,4 @@
+PUT /api/settings
+field        expected                               actual                                 result
+status_code  200                                    200                                    ok    
+result       General settings updated successfully  General settings updated successfully  ok    

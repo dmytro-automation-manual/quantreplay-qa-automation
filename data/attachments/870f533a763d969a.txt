@@ -1,0 +1,10 @@
+REST price seed USD/CHF vs sim.price_seed
+field           expected  actual   result
+price_seed_id   9         9        ok    
+symbol          USD/CHF   USD/CHF  ok    
+security_type   FXSPOT    FXSPOT   ok    
+price_currency  CHF       CHF      ok    
+security_id     <none>    <none>   ok    
+bid_price       0.82434   0.82434  ok    
+mid_price       0.82435   0.82435  ok    
+offer_price     0.82436   0.82436  ok    

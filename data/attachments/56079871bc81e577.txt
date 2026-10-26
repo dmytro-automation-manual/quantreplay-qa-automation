@@ -1,0 +1,3 @@
+Venue ids
+field  expected                actual                  result
+ids    ['FASTMATCH', 'XETRA']  ['FASTMATCH', 'XETRA']  ok    

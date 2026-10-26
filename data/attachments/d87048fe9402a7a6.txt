@@ -1,0 +1,32 @@
+18:43:46.538 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=314|52=20261026-18:43:46.538|11=12f008278c384cf3|55=EUR/USD|54=1|60=20261026-18:43:46.538|40=2|44=1.00736|38=1000000|59=0|10=050|
+18:43:46.539 fix    << 8=FIXT.1.1|9=220|35=8|34=348|49=SIM_FASTMATCH|52=20261026-18:43:46.539|56=CLIENT_FASTMATCH|6=0|11=12f008278c384cf3|14=0|17=261026184346000053-1|37=261026184346000053|38=1000000|39=0|40=2|44=1.00736|54=1|55=EUR/USD|59=0|150=0|151=1000000|10=145|
+18:43:46.539 rest   >> POST /halt/FASTMATCH {"allowCancels": false}
+18:43:46.540 httpx  HTTP Request: POST http://localhost:9052/api/halt/FASTMATCH "HTTP/1.1 200 OK"
+18:43:46.541 rest   << 200 {"result":"The market was successfully halted."}
+18:43:46.541 check  POST halt
+field        expected                             actual                               result
+status_code  200                                  200                                  ok    
+result       The market was successfully halted.  The market was successfully halted.  ok    
+18:43:46.541 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=315|52=20261026-18:43:46.541|41=12f008278c384cf3|11=9da0c54d5aa84dd7|37=261026184346000053|55=EUR/USD|54=1|60=20261026-18:43:46.541|10=025|
+18:43:46.542 fix    << 8=FIXT.1.1|9=207|35=9|34=349|49=SIM_FASTMATCH|52=20261026-18:43:46.541|56=CLIENT_FASTMATCH|11=9da0c54d5aa84dd7|37=261026184346000053|39=8|41=12f008278c384cf3|58=request cannot be processed during halted trading status|434=1|10=198|
+18:43:46.542 check  OrderCancelReject during halt
+field                expected                                                  actual                                                    result
+msg_type             ORDER_CANCEL_REJECT(9)                                    ORDER_CANCEL_REJECT(9)                                    ok    
+order_id             261026184346000053                                        261026184346000053                                        ok    
+ord_status           REJECTED(8)                                               REJECTED(8)                                               ok    
+cxl_rej_response_to  ORDER_CANCEL_REQUEST(1)                                   ORDER_CANCEL_REQUEST(1)                                   ok    
+text                 request cannot be processed during halted trading status  request cannot be processed during halted trading status  ok
+18:43:46.543 rest   >> POST /resume/FASTMATCH 
+18:43:46.544 httpx  HTTP Request: POST http://localhost:9052/api/resume/FASTMATCH "HTTP/1.1 200 OK"
+18:43:46.544 rest   << 200 {"result":"The market was successfully resumed."}
+18:43:46.946 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=316|52=20261026-18:43:46.946|41=12f008278c384cf3|11=5f74c19902054f23|37=261026184346000053|55=EUR/USD|54=1|60=20261026-18:43:46.946|10=062|
+18:43:46.947 fix    << 8=FIXT.1.1|9=234|35=8|34=350|49=SIM_FASTMATCH|52=20261026-18:43:46.946|56=CLIENT_FASTMATCH|6=0|11=5f74c19902054f23|14=0|17=261026184346000053-2|37=261026184346000053|38=1000000|39=4|40=2|41=12f008278c384cf3|44=1.00736|54=1|55=EUR/USD|59=0|150=4|151=0|10=238|
+18:43:46.947 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261026184346000053   261026184346000053   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.00736              1.00736              ok

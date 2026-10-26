@@ -1,0 +1,10 @@
+XETRA-VOW-HISTORY
+field          expected                                                      actual                                                        result
+venueId        XETRA                                                         XETRA                                                         ok    
+format         CSV                                                           CSV                                                           ok    
+type           OrderBook                                                     OrderBook                                                     ok    
+enabled        True                                                          True                                                          ok    
+connection     /market-simulator/quod/data/datasources/xetra_vow_history...  /market-simulator/quod/data/datasources/xetra_vow_history...  ok    
+textDelimiter  ,                                                             ,                                                             ok    
+textHeaderRow  1                                                             1                                                             ok    
+textDataRow    2                                                             2                                                             ok    

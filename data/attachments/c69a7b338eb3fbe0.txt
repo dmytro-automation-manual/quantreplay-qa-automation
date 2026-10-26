@@ -1,0 +1,10 @@
+REST price seed EUR/USD vs sim.price_seed
+field           expected  actual   result
+price_seed_id   6         6        ok    
+symbol          EUR/USD   EUR/USD  ok    
+security_type   FXSPOT    FXSPOT   ok    
+price_currency  USD       USD      ok    
+security_id     <none>    <none>   ok    
+bid_price       1.11929   1.11929  ok    
+mid_price       1.1193    1.1193   ok    
+offer_price     1.11931   1.11931  ok    

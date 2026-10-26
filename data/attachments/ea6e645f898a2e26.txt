@@ -1,0 +1,12 @@
+18:43:31.995 fix    >> 8=FIXT.1.1|9=174|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=241|52=20261026-18:43:31.995|11=a01514e60304452e|55=USD/JPY|15=JPY|54=1|60=20261026-18:43:31.995|40=2|44=141.121|38=1000000|59=0|10=134|
+18:43:31.995 fix    << 8=FIXT.1.1|9=238|35=8|34=264|49=SIM_FASTMATCH|52=20261026-18:43:31.995|56=CLIENT_FASTMATCH|6=0|11=a01514e60304452e|14=0|15=JPY|17=261026184331000009-1|37=261026184331000009|38=1000000|39=8|44=141.121|54=1|55=USD/JPY|58=listing not found|150=8|151=1000000|10=148|
+18:43:31.996 check  ExecutionReport for wrong Currency
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261026184331000009   ok    
+exec_type   REJECTED(8)          REJECTED(8)          ok    
+ord_status  REJECTED(8)          REJECTED(8)          ok    
+symbol      USD/JPY              USD/JPY              ok    
+order_qty   1000000              1000000              ok    
+price       141.121              141.121              ok    
+text        listing not found    listing not found    ok

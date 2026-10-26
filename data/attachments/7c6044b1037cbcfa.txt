@@ -1,0 +1,4 @@
+GET unknown listing
+field        expected                                         actual                                           result
+status_code  404                                              404                                              ok    
+result       Can not resolve a single Listing by a given key  Can not resolve a single Listing by a given key  ok    

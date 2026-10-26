@@ -1,0 +1,3 @@
+Venue in DB
+field  expected  actual    result
+name   XETRA QA  XETRA QA  ok    

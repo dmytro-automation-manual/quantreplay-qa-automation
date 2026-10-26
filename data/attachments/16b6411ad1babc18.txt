@@ -1,0 +1,3 @@
+Settings in DB
+field        expected         actual           result
+DisplayName  MKTSIMULATOR-QA  MKTSIMULATOR-QA  ok    
