@@ -16,6 +16,30 @@
     {
       "key": "symbol",
       "value": "VOW"
+    },
+    {
+      "key": "persistenceFile",
+      "value": "/market-simulator/quod/data/state/XETRA_state.json"
+    },
+    {
+      "key": "phaseMinutes",
+      "value": "10"
+    },
+    {
+      "key": "phaseStart",
+      "value": ""
+    },
+    {
+      "key": "phaseEnd",
+      "value": ""
+    },
+    {
+      "key": "datasourceFile",
+      "value": "/market-simulator/quod/data/datasources/xetra_vow_history.csv"
+    },
+    {
+      "key": "datasourceId",
+      "value": ""
     }
   ],
   "item": [
@@ -366,6 +390,901 @@
                 "genstart",
                 "{{venueId}}"
               ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Order book",
+      "item": [
+        {
+          "name": "Clear order book (reset)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset",
+                "{{venueId}}"
+              ]
+            },
+            "description": "Fully empties all XETRA order books:\n1. sets persistenceEnabled=false and orderOnStartup=false,\n2. resets the venue (books cleared, FIX sessions reconnect). The generator stays stopped.\n\nTo fill the book again: Order generation -> Start generator.\nTo use Store/Recover again: Persisted market state -> 1. Enable persistence (+ reset)."
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 1) Turn off persistence (no restore from XETRA_state.json) and auto-start of the generator after reset",
+                  "pm.sendRequest({ url: pm.collectionVariables.get('baseUrl') + '/api/' + 'venues/' + pm.collectionVariables.get('venueId'), method: 'PUT',",
+                  "  header: { 'Content-Type': 'application/json' }, body: { mode: 'raw', raw: JSON.stringify({ persistenceEnabled: false, orderOnStartup: false }) } },",
+                  "  (err, res) => { if (err || res.code !== 200) console.log('Disable persistence failed', err || res.code); });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Persisted market state",
+      "description": "Store/recover order book + L1 market data of XETRA.\n\nFile format is JSON (per docs, not CSV).\nContainer path: {{persistenceFile}}\nOn host: ~/Fintech project/sim-run/state/XETRA_state.json\n\nRun 1 once (it also resets the venue). Then use 2 / 3 any time.",
+      "item": [
+        {
+          "name": "1. Enable persistence (+ reset)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/venues/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "venues",
+                "{{venueId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"persistenceEnabled\": true,\n  \"persistenceFilePath\": \"{{persistenceFile}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Turns on persistence, sets the state file path and calls reset so the setting takes effect. Wait ~5 s before Store."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "// Apply the new settings right away (otherwise store returns 403 'Persistence is disabled.')",
+                  "pm.sendRequest({ url: pm.collectionVariables.get('baseUrl') + '/api/reset/' + pm.collectionVariables.get('venueId'), method: 'POST' },",
+                  "  (err, res) => pm.test('Reset applied', () => { pm.expect(err).to.be.null; pm.expect(res.code).to.eql(200); }));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "2. Store state",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/store/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "store",
+                "{{venueId}}"
+              ]
+            },
+            "description": "Saves current order books to the JSON file."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+                  "pm.test(\"State persisted\", () => pm.expect(pm.response.json().result).to.include(\"persisted\"));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "3. Recover state",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/recover/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "recover",
+                "{{venueId}}"
+              ]
+            },
+            "description": "Restores order books from the JSON file. TradeAtLast orders and resting auction market orders are not restored."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+                  "pm.test(\"State recovered\", () => pm.expect(pm.response.json().result).to.include(\"recovered\"));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Market phases",
+      "description": "Real phases supported by QuantReplay: Open, Closed, PreOpen, PreClose, Auction, TradeAtLast, Halted.\nThere is no 'PostAuction' phase: after the closing auction (PreClose) comes TradeAtLast (Post-Trading).\n\nEach request sets a one-phase schedule from now for {{phaseMinutes}} min and resets the venue.\nFIX tag 625 (TradingSessionSubID) per phase: PreOpen=2, Open=3, PreClose=4, TradeAtLast=5, Auction=6, Closed=10.\nDuring an auction call: 326=3; at uncrossing: 326=2.",
+      "item": [
+        {
+          "name": "PreOpen (opening auction)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/venues/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "venues",
+                "{{venueId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phases\": [\n    {\n      \"phase\": \"PreOpen\",\n      \"startTime\": \"{{phaseStart}}\",\n      \"endTime\": \"{{phaseEnd}}\",\n      \"endTimeRange\": 0\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Switches XETRA to PreOpen now for {{phaseMinutes}} min (UTC), then calls reset to apply.\nFIX SecurityStatus (35=f): 336=1, 625=2.\nAfter the phase ends the venue returns to Open.\nWARNING: reset clears order books."
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Build a phase window starting now (venue timezone = UTC), length = phaseMinutes",
+                  "const pad = n => String(n).padStart(2, '0');",
+                  "const now = new Date();",
+                  "const startMin = now.getUTCHours() * 60 + now.getUTCMinutes();",
+                  "const endMin = Math.min(startMin + Number(pm.collectionVariables.get('phaseMinutes')), 24 * 60 - 1);",
+                  "const hhmm = m => pad(Math.floor(m / 60)) + ':' + pad(m % 60);",
+                  "pm.collectionVariables.set('phaseStart', hhmm(startMin));",
+                  "pm.collectionVariables.set('phaseEnd', hhmm(endMin));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "// Apply the new schedule right away",
+                  "pm.sendRequest({ url: pm.collectionVariables.get('baseUrl') + '/api/reset/' + pm.collectionVariables.get('venueId'), method: 'POST' },",
+                  "  (err, res) => pm.test('Reset applied', () => { pm.expect(err).to.be.null; pm.expect(res.code).to.eql(200); }));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Auction (intraday auction)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/venues/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "venues",
+                "{{venueId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phases\": [\n    {\n      \"phase\": \"Auction\",\n      \"startTime\": \"{{phaseStart}}\",\n      \"endTime\": \"{{phaseEnd}}\",\n      \"endTimeRange\": 0\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Switches XETRA to Auction now for {{phaseMinutes}} min (UTC), then calls reset to apply.\nFIX SecurityStatus (35=f): 336=1, 625=6.\nAfter the phase ends the venue returns to Open.\nWARNING: reset clears order books."
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Build a phase window starting now (venue timezone = UTC), length = phaseMinutes",
+                  "const pad = n => String(n).padStart(2, '0');",
+                  "const now = new Date();",
+                  "const startMin = now.getUTCHours() * 60 + now.getUTCMinutes();",
+                  "const endMin = Math.min(startMin + Number(pm.collectionVariables.get('phaseMinutes')), 24 * 60 - 1);",
+                  "const hhmm = m => pad(Math.floor(m / 60)) + ':' + pad(m % 60);",
+                  "pm.collectionVariables.set('phaseStart', hhmm(startMin));",
+                  "pm.collectionVariables.set('phaseEnd', hhmm(endMin));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "// Apply the new schedule right away",
+                  "pm.sendRequest({ url: pm.collectionVariables.get('baseUrl') + '/api/reset/' + pm.collectionVariables.get('venueId'), method: 'POST' },",
+                  "  (err, res) => pm.test('Reset applied', () => { pm.expect(err).to.be.null; pm.expect(res.code).to.eql(200); }));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "PreClose (closing auction)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/venues/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "venues",
+                "{{venueId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phases\": [\n    {\n      \"phase\": \"PreClose\",\n      \"startTime\": \"{{phaseStart}}\",\n      \"endTime\": \"{{phaseEnd}}\",\n      \"endTimeRange\": 0\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Switches XETRA to PreClose now for {{phaseMinutes}} min (UTC), then calls reset to apply.\nFIX SecurityStatus (35=f): 336=1, 625=4.\nAfter the phase ends the venue returns to Open.\nWARNING: reset clears order books."
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Build a phase window starting now (venue timezone = UTC), length = phaseMinutes",
+                  "const pad = n => String(n).padStart(2, '0');",
+                  "const now = new Date();",
+                  "const startMin = now.getUTCHours() * 60 + now.getUTCMinutes();",
+                  "const endMin = Math.min(startMin + Number(pm.collectionVariables.get('phaseMinutes')), 24 * 60 - 1);",
+                  "const hhmm = m => pad(Math.floor(m / 60)) + ':' + pad(m % 60);",
+                  "pm.collectionVariables.set('phaseStart', hhmm(startMin));",
+                  "pm.collectionVariables.set('phaseEnd', hhmm(endMin));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "// Apply the new schedule right away",
+                  "pm.sendRequest({ url: pm.collectionVariables.get('baseUrl') + '/api/reset/' + pm.collectionVariables.get('venueId'), method: 'POST' },",
+                  "  (err, res) => pm.test('Reset applied', () => { pm.expect(err).to.be.null; pm.expect(res.code).to.eql(200); }));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TradeAtLast (post-trading)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/venues/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "venues",
+                "{{venueId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phases\": [\n    {\n      \"phase\": \"TradeAtLast\",\n      \"startTime\": \"{{phaseStart}}\",\n      \"endTime\": \"{{phaseEnd}}\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Switches XETRA to TradeAtLast now for {{phaseMinutes}} min (UTC), then calls reset to apply.\nFIX SecurityStatus (35=f): 336=1, 625=5.\nAfter the phase ends the venue returns to Open.\nWARNING: reset clears order books."
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Build a phase window starting now (venue timezone = UTC), length = phaseMinutes",
+                  "const pad = n => String(n).padStart(2, '0');",
+                  "const now = new Date();",
+                  "const startMin = now.getUTCHours() * 60 + now.getUTCMinutes();",
+                  "const endMin = Math.min(startMin + Number(pm.collectionVariables.get('phaseMinutes')), 24 * 60 - 1);",
+                  "const hhmm = m => pad(Math.floor(m / 60)) + ':' + pad(m % 60);",
+                  "pm.collectionVariables.set('phaseStart', hhmm(startMin));",
+                  "pm.collectionVariables.set('phaseEnd', hhmm(endMin));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "// Apply the new schedule right away",
+                  "pm.sendRequest({ url: pm.collectionVariables.get('baseUrl') + '/api/reset/' + pm.collectionVariables.get('venueId'), method: 'POST' },",
+                  "  (err, res) => pm.test('Reset applied', () => { pm.expect(err).to.be.null; pm.expect(res.code).to.eql(200); }));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Closed",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/venues/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "venues",
+                "{{venueId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phases\": [\n    {\n      \"phase\": \"Closed\",\n      \"startTime\": \"{{phaseStart}}\",\n      \"endTime\": \"{{phaseEnd}}\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Switches XETRA to Closed now for {{phaseMinutes}} min (UTC), then calls reset to apply.\nFIX SecurityStatus (35=f): 336=1, 625=10.\nAfter the phase ends the venue returns to Open.\nWARNING: reset clears order books."
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Build a phase window starting now (venue timezone = UTC), length = phaseMinutes",
+                  "const pad = n => String(n).padStart(2, '0');",
+                  "const now = new Date();",
+                  "const startMin = now.getUTCHours() * 60 + now.getUTCMinutes();",
+                  "const endMin = Math.min(startMin + Number(pm.collectionVariables.get('phaseMinutes')), 24 * 60 - 1);",
+                  "const hhmm = m => pad(Math.floor(m / 60)) + ':' + pad(m % 60);",
+                  "pm.collectionVariables.set('phaseStart', hhmm(startMin));",
+                  "pm.collectionVariables.set('phaseEnd', hhmm(endMin));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "// Apply the new schedule right away",
+                  "pm.sendRequest({ url: pm.collectionVariables.get('baseUrl') + '/api/reset/' + pm.collectionVariables.get('venueId'), method: 'POST' },",
+                  "  (err, res) => pm.test('Reset applied', () => { pm.expect(err).to.be.null; pm.expect(res.code).to.eql(200); }));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Back to Open (clear schedule)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/venues/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "venues",
+                "{{venueId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phases\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Removes all scheduled phases -> default Open phase (625=3). Calls reset to apply."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "// Apply the new schedule right away",
+                  "pm.sendRequest({ url: pm.collectionVariables.get('baseUrl') + '/api/reset/' + pm.collectionVariables.get('venueId'), method: 'POST' },",
+                  "  (err, res) => pm.test('Reset applied', () => { pm.expect(err).to.be.null; pm.expect(res.code).to.eql(200); }));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get current schedule",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/venues/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "venues",
+                "{{venueId}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "console.log(\"phases:\", JSON.stringify(pm.response.json().phases));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Datasources (historical playback)",
+      "description": "Plays back historical bid/ask levels from CSV into the matching engine; they match against random (synthetic) or your manual FIX orders.\n\nCSV on host: ~/Fintech project/sim-run/datasources/xetra_vow_history.csv\nIn container: {{datasourceFile}}\n1 row = timestamp, instrument, bid party/qty/price, ask price/qty/party. 10 rows, VOW, 2 s apart. Timestamp format: YYYY-MM-DD HH:MM:SS.MMM\n\nOrder: 1 -> 2 -> 3 -> 4.",
+      "item": [
+        {
+          "name": "1. Add CSV datasource",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/datasources",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "datasources"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": true,\n  \"name\": \"XETRA-VOW-HISTORY\",\n  \"venueId\": \"{{venueId}}\",\n  \"connection\": \"{{datasourceFile}}\",\n  \"format\": \"CSV\",\n  \"type\": \"OrderBook\",\n  \"repeat\": false,\n  \"textDelimiter\": \",\",\n  \"textHeaderRow\": 1,\n  \"textDataRow\": 2,\n  \"columnMapping\": [\n    {\n      \"columnFrom\": \"ReceivedTimeStamp\",\n      \"columnTo\": \"ReceivedTimeStamp\"\n    },\n    {\n      \"columnFrom\": \"MessageTimeStamp\",\n      \"columnTo\": \"MessageTimeStamp\"\n    },\n    {\n      \"columnFrom\": \"Instrument\",\n      \"columnTo\": \"Instrument\"\n    },\n    {\n      \"columnFrom\": \"BidParty\",\n      \"columnTo\": \"BidParty\"\n    },\n    {\n      \"columnFrom\": \"BidQuantity\",\n      \"columnTo\": \"BidQuantity\"\n    },\n    {\n      \"columnFrom\": \"BidPrice\",\n      \"columnTo\": \"BidPrice\"\n    },\n    {\n      \"columnFrom\": \"AskPrice\",\n      \"columnTo\": \"AskPrice\"\n    },\n    {\n      \"columnFrom\": \"AskQuantity\",\n      \"columnTo\": \"AskQuantity\"\n    },\n    {\n      \"columnFrom\": \"AskParty\",\n      \"columnTo\": \"AskParty\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "2. Get datasources",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/datasources",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "datasources"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "const ds = pm.response.json().dataSources.find(d => d.name === 'XETRA-VOW-HISTORY');",
+                  "pm.test('Datasource exists', () => pm.expect(ds).to.be.an('object'));",
+                  "if (ds) pm.collectionVariables.set('datasourceId', ds.id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "3. Apply settings (reset)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset",
+                "{{venueId}}"
+              ]
+            },
+            "description": "Reloads venue settings from DB. Clears current order books (restored from persistence file if enabled), restarts FIX/REST engines: FIX sessions reconnect."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "4. Start playback (genstart)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/genstart/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "genstart",
+                "{{venueId}}"
+              ]
+            },
+            "description": "Starts random generation + datasource playback. Rows are played with the delays between ReceivedTimeStamp values."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get single datasource",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/datasources/{{datasourceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "datasources",
+                "{{datasourceId}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Disable datasource",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/datasources/{{datasourceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "datasources",
+                "{{datasourceId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": false,\n  \"venueId\": \"{{venueId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Disable, then reset to stop it from being played."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Enable repeat (loop the file)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/datasources/{{datasourceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "datasources",
+                "{{datasourceId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"repeat\": true,\n  \"venueId\": \"{{venueId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "event": [
