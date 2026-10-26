@@ -70,9 +70,15 @@ does not accept a call without them.
 
 Tests marked `known_issue` assert the documented behaviour and are reported as `xfail` until the simulator
 is fixed (a fixed issue turns the test into a strict-xfail failure, so the marker must then be removed).
-Found so far: reject texts `... constraint violated` vs documented `... constraint is violated`,
-OrdStatus in OrderCancelReject for an active order, outdated REST answer texts, DELETE of an unknown
-price seed answers 400 instead of 404.
+Found so far (36 test cases):
+
+| Area | Documentation (RoE / REST API) | Simulator | Tests |
+|---|---|---|---|
+| FIX reject text: price tick, qty min / max / lot | `... constraint is violated` | `... constraint violated` | 25 |
+| FIX OrderCancelReject for a replace of an active order | OrdStatus = Rejected (8) | current OrdStatus (New / PartiallyFilled) | 2 |
+| FIX MarketDataRequestReject for several symbols | `... are now allowed` (typo) | `... are not allowed` | 1 |
+| REST DELETE of an unknown price seed | 404 | 400 | 1 |
+| REST answer texts: listings, venues, datasources, settings, generator | e.g. `No such listing`, `NotRunning` | e.g. `Can not resolve a single Listing by a given key`, `Stopped` | 7 |
 
 ## Test data
 
