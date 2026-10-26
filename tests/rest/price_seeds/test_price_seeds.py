@@ -10,6 +10,7 @@ from allure import step
 
 from framework.assertions.expect import check_fields, check_true
 from framework.services.rest_api import to_price_seed
+from tests.support.bugs import BUG_001
 from tests.support.rest import check_response
 
 NOT_FOUND = "Can not resolve a single PriceSeed by a given key"
@@ -84,7 +85,6 @@ def test_unknown_price_seed_returns_404(api):
                    result=NOT_FOUND)
 
 
-@pytest.mark.known_issue("Documented DELETE of an unknown seed: 404 'Can not resolve a single PriceSeed by a given key'; "
-                         "the venue answers 400")
+@pytest.mark.known_issue(BUG_001)
 def test_delete_unknown_price_seed_returns_404(api):
     check_response(api.delete_price_seed(999999), "DELETE unknown seed", status_code=404, result=NOT_FOUND)

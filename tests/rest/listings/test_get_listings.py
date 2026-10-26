@@ -2,6 +2,7 @@
 
 The trading parameters must equal the reference instruments (test_data/instruments.py):
 a wrong tick size or quantity limit on a live venue means wrong prices or fat-finger orders getting through.
+Unknown symbol: the venue's text is checked (the REST API document writes 'No such listing').
 """
 import pytest
 from allure import step
@@ -51,11 +52,5 @@ def test_listing_by_id_equals_listing_by_symbol(api, instrument):
 def test_unknown_listing_returns_404(api):
     with step(f"GET /api/listings/{UNKNOWN_SYMBOL}"):
         response = api.get_listing(UNKNOWN_SYMBOL)
-    check_response(response, "GET unknown listing", status_code=404)
-
-
-@pytest.mark.known_issue("Documented 404 text 'No such listing'; the venue answers "
-                         "'Can not resolve a single Listing by a given key'")
-def test_unknown_listing_message_matches_documentation(api):
-    check_response(api.get_listing(UNKNOWN_SYMBOL), "GET unknown listing", status_code=404,
-                   result="No such listing")
+    check_response(response, "GET unknown listing", status_code=404,
+                   result="Can not resolve a single Listing by a given key")

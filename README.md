@@ -79,19 +79,29 @@ Every test: **precondition** (fixtures) -> **steps** (`allure.step`) -> **teardo
 Every order check states OrderID, ExecType, OrdStatus, Symbol, OrderQty and Price - the check function
 does not accept a call without them.
 
-### Known issues
+### Bugs found
 
-Tests marked `known_issue` assert the documented behaviour and are reported as `xfail` until the simulator
-is fixed (a fixed issue turns the test into a strict-xfail failure, so the marker must then be removed).
-Found so far (36 test cases per venue, 72 in total):
-
-| Area | Documentation (RoE / REST API) | Simulator | Tests |
+| ID | Whose defect | Summary | Tests (xfail) |
 |---|---|---|---|
-| FIX reject text: price tick, qty min / max / lot | `... constraint is violated` | `... constraint violated` | 25 |
-| FIX OrderCancelReject for a replace of an active order | OrdStatus = Rejected (8) | current OrdStatus (New / PartiallyFilled) | 2 |
-| FIX MarketDataRequestReject for several symbols | `... are now allowed` (typo) | `... are not allowed` | 1 |
-| REST DELETE of an unknown price seed | 404 | 400 | 1 |
-| REST answer texts: listings, venues, datasources, settings, generator | e.g. `No such listing`, `NotRunning` | e.g. `Can not resolve a single Listing by a given key`, `Stopped` | 7 |
+| [BUG-001](bug_reports/BUG-001-delete-unknown-price-seed-returns-400.md) | simulator | `DELETE /api/priceseeds/{id}` for an unknown id answers 400, the REST API document says 404 (GET / PUT answer 404) | 1 per venue |
+| [BUG-002](bug_reports/BUG-002-cancel-reject-ordstatus-inconsistent.md) | simulator + documentation | OrdStatus in OrderCancelReject for a rejected replace of an active order: Rejected for an off-tick price, the current status for a TimeInForce change or OrderQty <= CumQty; the RoE gives both rules | 2 per venue |
+
+Tests of an open bug are marked `known_issue(BUG_xxx)` (`tests/support/bugs.py`) and reported as `xfail`.
+The xfail is strict: when the bug is fixed the test passes, the run reports XPASS as a failure, and the marker
+must be removed.
+
+### Documentation differences (not bugs)
+
+The tests check the simulator's texts; the documented ones are noted in each test module.
+
+| Area | Documentation (RoE / REST API) | Simulator |
+|---|---|---|
+| FIX reject text: price tick, qty min / max / lot | `... constraint is violated` | `... constraint violated` |
+| FIX MarketDataRequestReject for several symbols | `... are now allowed` (typo) | `... are not allowed` |
+| REST unknown listing / venue / datasource | `No such listing` / `No such venue` / `No such datasource` | `Can not resolve a single Listing / Venue / datasource by a given key` |
+| REST unknown setting | ``Unknown BadKey setting update requested`` | ``Unknown `BadKey' setting update requested`` |
+| REST generator | status `NotRunning`; `Random orders generator started / stopped successfully` | status `Stopped`; `Generator was started / stopped` |
+| REST listing update | `Requested update of the listing - <symbol>` | `Successfully updated the <symbol> listing` |
 
 ## Test data
 

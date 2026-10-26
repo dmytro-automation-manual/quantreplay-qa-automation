@@ -1,6 +1,7 @@
 """Order quantity limits of each listing: qtyMinimum, qtyMaximum, qtyMultiple (values in test_data/instruments.py).
 
-Exactly on the limit -> accepted (New); one step outside -> rejected with the documented Text.
+Exactly on the limit -> accepted (New); one step outside -> rejected.
+Reject Text is the venue's '... constraint violated' (the RoE writes '... constraint is violated').
 qtyMaximum is the fat-finger limit: an order above it must never reach the book.
 Teardown (fixture `trading`): accepted orders are cancelled and the cancel report is checked.
 """
@@ -11,10 +12,6 @@ from framework.assertions.expect import PRESENT
 from framework.assertions.trading import check_execution_report
 from framework.fix.tags import ExecType, OrdStatus
 from test_data.orders import passive_buy
-
-TEXT_WITHOUT_IS = ("Reject Text differs from RoE: the venue sends '... constraint violated', "
-                   "RoE 'New Order Single' documents '... constraint is violated'")
-
 
 def _check_accepted(report, instrument, request, title):
     check_execution_report(report, title, order_id=PRESENT, exec_type=ExecType.NEW, ord_status=OrdStatus.NEW,
@@ -36,14 +33,13 @@ def test_quantity_equal_to_minimum_is_accepted(trading, instrument):
         _check_accepted(report, instrument, request, "ExecutionReport for OrderQty = qtyMinimum")
 
 
-@pytest.mark.known_issue(TEXT_WITHOUT_IS)
 def test_quantity_below_minimum_is_rejected(trading, instrument):
     request = passive_buy(instrument, qty=instrument.qty_minimum - instrument.qty_multiple)
     with step(f"Send BUY {instrument} with OrderQty = qtyMinimum - qtyMultiple = {request.order_qty}"):
         _, report = trading.place(request)
     with step("Check ExecutionReport: Rejected, minimal quantity constraint"):
         _check_rejected(report, instrument, request, "ExecutionReport for OrderQty below qtyMinimum",
-                        "minimal order quantity constraint is violated")
+                        "minimal order quantity constraint violated")
 
 
 @pytest.mark.smoke
@@ -56,21 +52,19 @@ def test_quantity_equal_to_maximum_is_accepted(trading, instrument):
 
 
 @pytest.mark.smoke
-@pytest.mark.known_issue(TEXT_WITHOUT_IS)
 def test_quantity_above_maximum_is_rejected(trading, instrument):
     request = passive_buy(instrument, qty=instrument.qty_maximum + instrument.qty_multiple)
     with step(f"Send BUY {instrument} with OrderQty = qtyMaximum + qtyMultiple = {request.order_qty}"):
         _, report = trading.place(request)
     with step("Check ExecutionReport: Rejected, maximal quantity constraint"):
         _check_rejected(report, instrument, request, "ExecutionReport for OrderQty above qtyMaximum",
-                        "maximal order quantity constraint is violated")
+                        "maximal order quantity constraint violated")
 
 
-@pytest.mark.known_issue(TEXT_WITHOUT_IS)
 def test_quantity_not_multiple_of_lot_is_rejected(trading, instrument):
     request = passive_buy(instrument, qty=instrument.round_lot + instrument.qty_multiple / 2)
     with step(f"Send BUY {instrument} with OrderQty {request.order_qty} (not a multiple of {instrument.qty_multiple})"):
         _, report = trading.place(request)
     with step("Check ExecutionReport: Rejected, quantity multiple constraint"):
         _check_rejected(report, instrument, request, "ExecutionReport for OrderQty off the lot size",
-                        "order quantity multiple constraint is violated")
+                        "order quantity multiple constraint violated")

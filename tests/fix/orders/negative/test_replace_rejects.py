@@ -15,10 +15,7 @@ from framework.fix.tags import CxlRejResponseTo, ExecType, OrdStatus, Side, Time
 from test_data.instruments import ticks_away
 from test_data.orders import passive_buy
 from tests.support.book import check_order_rests
-
-
-REPLACE_REJECT_STATUS = ("OrderCancelReject for a replace of an ACTIVE order carries the order's current OrdStatus "
-                         "(New / PartiallyFilled) instead of Rejected required by RoE 'Order Cancel Replace Request'")
+from tests.support.bugs import BUG_002
 
 
 def _place_resting_buy(trading, instrument):
@@ -50,7 +47,7 @@ def test_replace_of_cancelled_order_is_rejected(market, trading):
                             text="order not found")
 
 
-@pytest.mark.known_issue(REPLACE_REJECT_STATUS)
+@pytest.mark.known_issue(BUG_002)
 def test_replace_changing_time_in_force_is_rejected(market, trading, market_data):
     """TimeInForce cannot be amended: 'time in force can not be changed'; the order keeps its price and qty."""
     instrument = market.main
@@ -67,7 +64,7 @@ def test_replace_changing_time_in_force_is_rejected(market, trading, market_data
                           "Book after rejected replace")
 
 
-@pytest.mark.known_issue(REPLACE_REJECT_STATUS)
+@pytest.mark.known_issue(BUG_002)
 def test_replace_quantity_not_above_executed_is_rejected(market, trading, market_data):
     """New OrderQty <= CumQty is rejected: 'invalid quantity' (partially filled resting order)."""
     instrument = market.main

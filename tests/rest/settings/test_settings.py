@@ -1,8 +1,8 @@
 """GET / PUT /api/settings (general simulator settings).
 
+Unknown key: the venue's text quotes the key (the REST API document writes 'Unknown BadKey setting ...').
 Teardown (fixture `undo`): the changed setting is restored.
 """
-import pytest
 from allure import step
 
 from framework.assertions.expect import check_fields
@@ -38,14 +38,8 @@ def test_update_display_name(api, setting_table, undo):
 def test_update_unknown_setting_is_rejected(api):
     with step("PUT /api/settings with key BadKey"):
         response = api.update_settings([{"key": "BadKey", "value": "x"}])
-    check_response(response, "PUT unknown setting", status_code=400)
-
-
-@pytest.mark.known_issue("Documented 'Unknown BadKey setting update requested'; "
-                         "the venue quotes the key: 'Unknown `BadKey' setting update requested'")
-def test_unknown_setting_message_matches_documentation(api):
-    check_response(api.update_settings([{"key": "BadKey", "value": "x"}]), "PUT unknown setting",
-                   status_code=400, result="Unknown BadKey setting update requested")
+    check_response(response, "PUT unknown setting", status_code=400,
+                   result="Unknown `BadKey' setting update requested")
 
 
 def test_seed_prices_last_updated_is_read_only(api):

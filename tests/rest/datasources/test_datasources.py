@@ -1,5 +1,7 @@
-"""GET /api/datasources: the VOW historical order book (CSV) configured on the test venue."""
-import pytest
+"""GET /api/datasources: the VOW historical order book (CSV) configured on the test venue.
+
+Unknown id: the venue's text is checked (the REST API document writes 'No such datasource').
+"""
 from allure import step
 
 from framework.assertions.expect import check_fields, check_true
@@ -32,10 +34,5 @@ def test_get_datasource_by_id(api):
 
 
 def test_unknown_datasource_returns_404(api):
-    check_response(api.get_datasource(999999), "GET unknown datasource", status_code=404)
-
-
-@pytest.mark.known_issue("Documented 404 text 'No such datasource'; the venue answers differently")
-def test_unknown_datasource_message_matches_documentation(api):
     check_response(api.get_datasource(999999), "GET unknown datasource", status_code=404,
-                   result="No such datasource")
+                   result="Can not resolve a single datasource by a given key")

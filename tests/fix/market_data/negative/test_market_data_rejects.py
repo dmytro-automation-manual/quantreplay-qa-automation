@@ -1,8 +1,9 @@
 """MarketDataRequestReject (35=Y) reasons (Rules of Engagement, "Market Data Request" reject table).
 
+The several-securities reject text is the venue's '... are not allowed'; the RoE has a typo ('are now allowed').
+
 Teardown (fixture `market_data`): subscriptions opened as preconditions are closed.
 """
-import pytest
 from allure import step
 
 from framework.assertions.expect import ABSENT, check_fields
@@ -43,8 +44,6 @@ def test_unsubscribe_without_subscription_is_rejected(market, market_data):
                       "text": "no subscription found for the request id"})
 
 
-@pytest.mark.known_issue("RoE text is 'market data requests on multiple securities are now allowed' (typo 'now'); "
-                         "the venue sends '... are not allowed'")
 def test_request_for_several_symbols_is_rejected(market, market_data):
     """Each market data request can be associated with only one listing."""
     first, second = market.instruments[:2]
@@ -53,4 +52,4 @@ def test_request_for_several_symbols_is_rejected(market, market_data):
     with step("Check MarketDataRequestReject for several securities"):
         check_fields("MarketDataRequestReject for several symbols", reject,
                      {"msg_type": MsgType.MARKET_DATA_REQUEST_REJECT, "reason": ABSENT,
-                      "text": "market data requests on multiple securities are now allowed"})
+                      "text": "market data requests on multiple securities are not allowed"})
