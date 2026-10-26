@@ -21,6 +21,27 @@ services:
       liquibase:
         condition: service_completed_successfully
 
+  FASTMATCH:
+    # Second venue (FX spot), same image and database; its own FIX config in fastmatch/cfg,
+    # the FIX dictionaries are shared with XETRA.
+    image: ghcr.io/quod-financial/deploy_marketsim:latest
+    platform: linux/amd64
+    container_name: FASTMATCH
+    networks:
+      - market-simulator-net
+    ports:
+      - "9052:9052" # REST API (sim.venue.rest_port)
+      - "9053:9053" # FIX
+    volumes:
+      - ./fastmatch/:/market-simulator/quod/data/
+      - ./cfg/default/:/market-simulator/quod/data/cfg/default/:ro
+    environment:
+      - INSTANCE_ID=FASTMATCH
+      - PREFIX=QUOD
+    depends_on:
+      liquibase:
+        condition: service_completed_successfully
+
   database:
     image: ghcr.io/quod-financial/postgres_marketsim:latest
     container_name: market-simulator-database

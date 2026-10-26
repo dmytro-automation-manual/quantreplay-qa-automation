@@ -8,38 +8,37 @@ from allure import step
 
 from framework.assertions.expect import check_fields, check_true
 from framework.services.rest_api import to_listing
-from test_data.instruments import INSTRUMENTS, UNKNOWN_SYMBOL
+from test_data.instruments import UNKNOWN_SYMBOL
 from tests.support.rest import check_response
 
-VENUE = "XETRA"
 
 
-def test_get_all_listings_returns_every_instrument_of_the_venue(api):
+def test_get_all_listings_returns_every_instrument_of_the_venue(market, api):
     with step("GET /api/listings"):
         response = api.get_listings()
     check_response(response, "GET /api/listings", status_code=200)
     with step("Check the venue lists exactly the reference instruments"):
-        symbols = sorted(item["symbol"] for item in response.body["listings"] if item["venueId"] == VENUE)
+        symbols = sorted(item["symbol"] for item in response.body["listings"]
+                         if item["venueId"] == market.venue_id)
         check_fields("Listings of the venue", {"symbols": symbols},
-                     {"symbols": sorted(i.symbol for i in INSTRUMENTS)})
+                     {"symbols": sorted(i.symbol for i in market.instruments)})
 
 
 @pytest.mark.smoke
-@pytest.mark.parametrize("instrument", INSTRUMENTS, ids=str)
-def test_listing_trading_parameters_match_reference(api, instrument):
+def test_listing_trading_parameters_match_reference(market, api, instrument):
     with step(f"GET /api/listings/{instrument}"):
         response = api.get_listing(instrument.symbol)
     check_response(response, f"GET /api/listings/{instrument}", status_code=200)
     with step("Check tick size, quantity limits and identifiers"):
         check_fields(f"Listing {instrument}", to_listing(response.body), {
-            "symbol": instrument.symbol, "venue_id": VENUE, "security_type": "CS",
-            "price_currency": instrument.currency, "security_exchange": instrument.security_exchange,
+            "symbol": instrument.symbol, "venue_id": market.venue_id, "security_type": instrument.security_type,
+            "price_currency": instrument.currency, "fx_base_currency": instrument.fx_base_currency,
+            "security_exchange": instrument.security_exchange,
             "isin_id": instrument.isin, "price_tick_size": instrument.tick_size,
             "qty_minimum": instrument.qty_minimum, "qty_maximum": instrument.qty_maximum,
             "qty_multiple": instrument.qty_multiple, "enabled": True})
 
 
-@pytest.mark.parametrize("instrument", INSTRUMENTS, ids=str)
 def test_listing_by_id_equals_listing_by_symbol(api, instrument):
     by_symbol = api.get_listing(instrument.symbol)
     with step(f"GET /api/listings/{by_symbol.body['id']} (id of {instrument})"):

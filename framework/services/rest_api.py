@@ -4,6 +4,7 @@ Layer rule: depends on an injected HTTP client with request(); maps JSON to mode
 JSON numbers are parsed as Decimal so prices and ticks compare exactly.
 """
 import json
+from urllib.parse import quote
 from dataclasses import dataclass
 from decimal import Decimal
 from typing import Any, Protocol
@@ -53,11 +54,11 @@ class SimulatorApi:
         return self._call("GET", "/listings")
 
     def get_listing(self, key: str | int) -> ApiResponse:
-        """key = listing id or symbol."""
-        return self._call("GET", f"/listings/{key}")
+        """key = listing id or symbol (FX symbols contain '/', sent as %2F)."""
+        return self._call("GET", f"/listings/{_path(key)}")
 
     def update_listing(self, key: str | int, changes: dict) -> ApiResponse:
-        return self._call("PUT", f"/listings/{key}", changes)
+        return self._call("PUT", f"/listings/{_path(key)}", changes)
 
     # --- price seeds -----------------------------------------------------------------------------
     def get_price_seeds(self) -> ApiResponse:
@@ -118,6 +119,10 @@ class SimulatorApi:
         return ApiResponse(status_code=response.status_code, body=parsed, text=response.text)
 
 
+def _path(key: str | int) -> str:
+    return quote(str(key), safe="")
+
+
 # --- JSON -> models --------------------------------------------------------------------------------
 def to_venue(body: dict) -> Venue:
     return Venue(venue_id=body["id"], name=body.get("name"), engine_type=body.get("engineType"),
@@ -135,7 +140,8 @@ def _dec(value) -> Decimal | None:
 def to_listing(body: dict) -> Listing:
     return Listing(listing_id=body["id"], symbol=body["symbol"], venue_id=body["venueId"],
                    security_type=body.get("securityType"), price_currency=body.get("priceCurrency"),
-                   security_exchange=body.get("securityExchange"), isin_id=body.get("isinId"),
+                   fx_base_currency=body.get("fxBaseCurrency"), security_exchange=body.get("securityExchange"),
+                   isin_id=body.get("isinId"),
                    qty_minimum=_dec(body.get("qtyMinimum")), qty_maximum=_dec(body.get("qtyMaximum")),
                    qty_multiple=_dec(body.get("qtyMultiple")), price_tick_size=_dec(body.get("priceTickSize")),
                    enabled=body.get("enabled"), random_orders_enabled=body.get("randomOrdersEnabled"))

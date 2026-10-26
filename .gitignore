@@ -16,6 +16,9 @@ sim-run/db/snapshots/
 sim-run/state/
 sim-run/log/
 sim-run/files_store_path_common/
+sim-run/fastmatch/log/
+sim-run/fastmatch/state/
+sim-run/fastmatch/files_store_path_common/
 sim-run/cfg/*.bak*
 
 # Local secrets

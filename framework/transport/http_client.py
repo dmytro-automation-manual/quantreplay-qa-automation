@@ -10,8 +10,10 @@ log = logging.getLogger("rest")
 
 class HttpClient:
     def __init__(self, base_url: str, timeout: float = 5):
-        self._http = httpx.Client(base_url=base_url, timeout=timeout,
-                                  headers={"Accept": "application/json"})
+        # No keep-alive: /api/reset restarts the simulator's HTTP server, and a request sent over a pooled
+        # connection to the old server is never answered (the client waits for the timeout).
+        self._http = httpx.Client(base_url=base_url, timeout=timeout, headers={"Accept": "application/json"},
+                                  limits=httpx.Limits(max_keepalive_connections=0))
 
     def request(self, method: str, path: str, json: dict | None = None) -> httpx.Response:
         body = jsonlib.dumps(json, default=_number) if json is not None else None

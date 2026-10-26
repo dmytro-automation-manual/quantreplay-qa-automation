@@ -2,6 +2,7 @@
 
 Layer rule: imports nothing from the framework. Other layers never import this module;
 the composition root (tests/conftest.py) reads the settings and passes plain values down.
+Ports and CompIDs belong to each venue and are in test_data/markets.py.
 """
 import os
 from dataclasses import dataclass
@@ -10,16 +11,13 @@ from dataclasses import dataclass
 @dataclass(frozen=True)
 class FixSettings:
     host: str = os.getenv("FIX_HOST", "localhost")
-    port: int = int(os.getenv("FIX_PORT", "9051"))
-    sender_comp_id: str = os.getenv("FIX_SENDER", "CLIENT_XETRA")
-    target_comp_id: str = os.getenv("FIX_TARGET", "SIM_XETRA")
     timeout: float = float(os.getenv("FIX_TIMEOUT", "5"))
     heartbeat: int = int(os.getenv("FIX_HEARTBEAT", "30"))
 
 
 @dataclass(frozen=True)
 class RestSettings:
-    base_url: str = os.getenv("REST_URL", "http://localhost:9050/api")
+    host: str = os.getenv("REST_HOST", "localhost")
     timeout: float = float(os.getenv("REST_TIMEOUT", "5"))
 
 
@@ -34,7 +32,6 @@ class DbSettings:
 
 @dataclass(frozen=True)
 class Settings:
-    venue_id: str = os.getenv("VENUE", "XETRA")
     startup_timeout: float = float(os.getenv("SIM_STARTUP_TIMEOUT", "60"))
     fix: FixSettings = FixSettings()
     rest: RestSettings = RestSettings()

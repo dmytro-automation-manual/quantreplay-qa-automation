@@ -7,13 +7,12 @@ from allure import step
 
 from framework.assertions.expect import check_fields, check_true
 from framework.fix.tags import ExecType, MDEntryType, MDUpdateAction, MsgType, Side, TimeInForce
-from test_data.instruments import INSTRUMENTS, MSF, NFC, VOW, ticks_away
+from test_data.instruments import ticks_away
 from test_data.orders import limit_order, passive_buy, passive_sell
 from tests.support.book import check_book_empty, check_order_rests
 
 
 @pytest.mark.smoke
-@pytest.mark.parametrize("instrument", INSTRUMENTS, ids=str)
 def test_snapshot_shows_resting_bid_and_offer(trading, market_data, instrument):
     """Both own resting orders appear in the full book at their price and quantity."""
     bid, offer = passive_buy(instrument), passive_sell(instrument, qty=instrument.round_lot * 2)
@@ -29,15 +28,16 @@ def test_snapshot_shows_resting_bid_and_offer(trading, market_data, instrument):
         check_order_rests(snapshot, Side.SELL, offer.price, offer.order_qty, "Offer in the snapshot")
 
 
-def test_top_of_book_shows_only_best_bid(trading, market_data):
+def test_top_of_book_shows_only_best_bid(market, trading, market_data):
     """MarketDepth=1 returns only the best (highest) bid."""
-    worse = passive_buy(NFC)
-    better = passive_buy(NFC, price=ticks_away(worse.price, NFC, 5))
+    instrument = market.main
+    worse = passive_buy(instrument)
+    better = passive_buy(instrument, price=ticks_away(worse.price, instrument, 5))
     with step(f"Precondition: two bids {worse.price} and {better.price}"):
         trading.place(worse)
         trading.place(better)
     with step("Send Snapshot with MarketDepth=1"):
-        snapshot = market_data.snapshot(NFC.symbol, market_depth=1, entry_types=(MDEntryType.BID,))
+        snapshot = market_data.snapshot(instrument.symbol, market_depth=1, entry_types=(MDEntryType.BID,))
     with step("Check only the best bid is reported"):
         check_true("One bid level at depth 1", len(snapshot.side(MDEntryType.BID)) == 1,
                    f"found {snapshot.side(MDEntryType.BID)}")
@@ -45,12 +45,13 @@ def test_top_of_book_shows_only_best_bid(trading, market_data):
 
 
 @pytest.mark.smoke
-def test_incremental_updates_follow_new_and_cancel(trading, market_data):
+def test_incremental_updates_follow_new_and_cancel(market, trading, market_data):
     """Incremental refresh: a new order adds a level (action New), its cancel removes it (action Delete)."""
-    with step(f"Precondition: subscribe to {MSF} with incremental updates"):
-        initial = market_data.subscribe(MSF.symbol, incremental=True)
+    instrument = market.main
+    with step(f"Precondition: subscribe to {instrument} with incremental updates"):
+        initial = market_data.subscribe(instrument.symbol, incremental=True)
         check_book_empty(initial, "Initial snapshot")
-    request = passive_buy(MSF)
+    request = passive_buy(instrument)
 
     with step(f"Place BUY {request.order_qty} @ {request.price}"):
         order, _ = trading.place(request)
@@ -70,26 +71,29 @@ def test_incremental_updates_follow_new_and_cancel(trading, market_data):
 
 
 @pytest.mark.smoke
-def test_trade_reduces_resting_offer_in_book(trading, market_data):
+def test_trade_reduces_resting_offer_in_book(market, trading, market_data):
     """After a partial execution the book shows only the open remainder of the resting order."""
-    offer = passive_sell(VOW, qty=VOW.round_lot * 3)
-    with step(f"Precondition: resting SELL {offer.order_qty} {VOW} @ {offer.price}"):
+    instrument = market.main
+    offer = passive_sell(instrument, qty=instrument.round_lot * 3)
+    with step(f"Precondition: resting SELL {offer.order_qty} {instrument} @ {offer.price}"):
         resting, _ = trading.place(offer)
-    taken = VOW.round_lot
+    taken = instrument.round_lot
     with step(f"IOC BUY {taken} @ {offer.price} trades against it"):
-        trading.place(limit_order(VOW, Side.BUY, qty=taken, price=offer.price, tif=TimeInForce.IMMEDIATE_OR_CANCEL))
+        trading.place(limit_order(instrument, Side.BUY, qty=taken, price=offer.price,
+                                  tif=TimeInForce.IMMEDIATE_OR_CANCEL))
         trading.next_report(resting, ExecType.TRADE)
     with step("Check the book: offer size = original - traded"):
-        check_order_rests(market_data.snapshot(VOW.symbol), Side.SELL, offer.price, offer.order_qty - taken,
+        check_order_rests(market_data.snapshot(instrument.symbol), Side.SELL, offer.price, offer.order_qty - taken,
                           "Offer after partial execution")
 
 
-def test_unsubscribe_stops_updates(trading, market_data):
+def test_unsubscribe_stops_updates(market, trading, market_data):
     """After Unsubscribe the venue sends no more updates for that MDReqID."""
-    with step(f"Precondition: subscribe to {MSF}, then unsubscribe"):
-        initial = market_data.subscribe(MSF.symbol, incremental=True)
-        market_data.unsubscribe(initial.md_req_id, MSF.symbol)
+    instrument = market.main
+    with step(f"Precondition: subscribe to {instrument}, then unsubscribe"):
+        initial = market_data.subscribe(instrument.symbol, incremental=True)
+        market_data.unsubscribe(initial.md_req_id, instrument.symbol)
     with step("Place an order that changes the book"):
-        trading.place(passive_buy(MSF))
+        trading.place(passive_buy(instrument))
     with step("Check no update arrives for the closed subscription within 1 s"):
         check_true("No MarketDataIncrementalRefresh after Unsubscribe", market_data.no_update(initial.md_req_id))

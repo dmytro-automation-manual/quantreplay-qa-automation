@@ -30,6 +30,7 @@ class Listing:
     venue_id: str
     security_type: str | None
     price_currency: str | None
+    fx_base_currency: str | None
     security_exchange: str | None
     isin_id: str | None
     qty_minimum: Decimal | None

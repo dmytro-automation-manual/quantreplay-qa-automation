@@ -31,19 +31,20 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Start QuantReplay simulator
+      - name: Start QuantReplay simulators (XETRA, FASTMATCH)
         working-directory: sim-run
         # The simulator container runs as uid 1000; the runner's checkout belongs to another uid,
         # so the mounted directory must be writable for it (logs, FIX store).
         run: |
-          mkdir -p log files_store_path_common
+          mkdir -p log files_store_path_common fastmatch/log fastmatch/files_store_path_common
           chmod -R a+rwX .
           docker compose up -d
 
-      - name: Wait for simulator (REST 9050, FIX 9051)
+      - name: Wait for simulators (XETRA REST 9050 / FIX 9051, FASTMATCH REST 9052 / FIX 9053)
         run: |
           for i in $(seq 1 60); do
-            curl -sf http://localhost:9050/api/venues >/dev/null && nc -z localhost 9051 && exit 0
+            curl -sf http://localhost:9050/api/venues >/dev/null && nc -z localhost 9051 &&
+              curl -sf http://localhost:9052/api/venues >/dev/null && nc -z localhost 9053 && exit 0
             sleep 5
           done
           docker compose -f sim-run/docker-compose.yml logs --tail=100
@@ -72,7 +73,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: simulator-logs
-          path: sim-run/log
+          path: |
+            sim-run/log
+            sim-run/fastmatch/log
 
   report:
     # Publish the Allure report (with run history) to GitHub Pages for pushes to main.

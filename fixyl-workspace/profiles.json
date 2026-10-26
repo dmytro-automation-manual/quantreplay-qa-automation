@@ -12,5 +12,19 @@
     "transportDictionaryLocation": "/home/dmytro/Fintech project/fixyl-workspace/dictionaries/FIXT11_marketsimulator.xml",
     "autoLoginEnabled": true,
     "autoLoginMsg": "Logon"
+  },
+  {
+    "type": "CLIENT",
+    "name": "QuantReplay FASTMATCH",
+    "ip": "127.0.0.1",
+    "port": 9053,
+    "senderCompId": "FIXYL",
+    "targetCompId": "SIM_FASTMATCH",
+    "fixVersion": "5",
+    "hbInterval": 30,
+    "dictionaryLocation": "/home/dmytro/Fintech project/fixyl-workspace/dictionaries/FIX50SP2_marketsimulator.xml",
+    "transportDictionaryLocation": "/home/dmytro/Fintech project/fixyl-workspace/dictionaries/FIXT11_marketsimulator.xml",
+    "autoLoginEnabled": true,
+    "autoLoginMsg": "Logon"
   }
 ]

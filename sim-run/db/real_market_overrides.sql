@@ -1,4 +1,7 @@
--- Real-market reference data for the XETRA test venue (Xetra close 23.10.2026).
+-- Real-market reference data for the test venues:
+--   XETRA     - equities, Xetra close 23.10.2026;
+--   FASTMATCH - FX spot, ECB reference rates 23.10.2026 (EUR/USD 1.1193, EUR/GBP 0.83728, EUR/JPY 175.51,
+--               EUR/CHF 0.9227; GBP/USD, USD/JPY, USD/CHF are the cross rates).
 -- Applied on top of the QuantReplay demo data; the result is dumped to simdb_test_data.sql
 -- (scripts/build_test_db.sh), which the database container loads on start.
 --
@@ -72,5 +75,43 @@ SELECT c, c, 1 FROM unnest(ARRAY['ReceivedTimeStamp', 'MessageTimeStamp', 'Instr
                                  'BidPrice', 'AskPrice', 'AskQuantity', 'AskParty']) AS c
 ON CONFLICT DO NOTHING;
 SELECT setval('sim.data_source_data_source_id_seq', (SELECT max(data_source_id) FROM sim.data_source));
+
+-- FASTMATCH: FX spot venue (second simulator instance, REST 9052, FIX 9053).
+-- Prices: 5 decimals (0.00001), JPY pairs 3 decimals (0.001); bid / offer one tick around the mid.
+-- Quantities in the base currency: minimum 10 000, multiple of 1 000, fat-finger limit 50 000 000.
+INSERT INTO sim.venue (venue_id, name, engine_type, support_tif_ioc, support_tif_fok, support_tif_day,
+                       include_own_orders, rest_port, order_on_startup, random_party_count, tns_enabled,
+                       tns_qty_enabled, tns_side_enabled, tns_parties_enabled, timezone, cancel_on_disconnect,
+                       persistence_enabled)
+VALUES ('FASTMATCH', 'FASTMATCH', 'Matching', true, true, true, true, 9052, false, 10, true, true, true, true,
+        'America/New_York', false, false);
+
+INSERT INTO sim.listing (listing_id, symbol, venue_id, security_type, price_currency, fx_base_currency, instr_symbol,
+                         qty_minimum, qty_maximum, qty_multiple, price_tick_size, enabled, random_qty_minimum,
+                         random_qty_maximum, random_depth_levels, random_orders_spread, random_orders_rate,
+                         random_tick_range, security_exchange, random_orders_enabled,
+                         random_price_exclude_current_listing)
+SELECT v.id, v.symbol, 'FASTMATCH', 'FXSPOT', v.quote, v.base, v.symbol, 10000, 50000000, 1000, v.tick, true,
+       100000, 5000000, 5, v.tick, 2, 10, 'FASTMATCH', true, false
+FROM (VALUES
+    (6,  'EUR/USD', 'EUR', 'USD', 0.00001::real),
+    (7,  'GBP/USD', 'GBP', 'USD', 0.00001::real),
+    (8,  'USD/JPY', 'USD', 'JPY', 0.001::real),
+    (9,  'USD/CHF', 'USD', 'CHF', 0.00001::real),
+    (10, 'EUR/GBP', 'EUR', 'GBP', 0.00001::real)
+) AS v(id, symbol, base, quote, tick);
+SELECT setval('sim.listing_listing_id_seq', (SELECT max(listing_id) FROM sim.listing));
+
+INSERT INTO sim.price_seed (price_seed_id, symbol, security_type, price_currency, instrument_symbol,
+                            bid_price, mid_price, offer_price, last_update)
+SELECT v.id, v.symbol, 'FXSPOT', v.quote, v.symbol, v.bid, v.mid, v.offer, '2026-10-23 14:15:00'
+FROM (VALUES
+    (6,  'EUR/USD', 'USD', 1.11929::real, 1.11930::real, 1.11931::real),
+    (7,  'GBP/USD', 'USD', 1.33682::real, 1.33683::real, 1.33684::real),
+    (8,  'USD/JPY', 'JPY', 156.802::real, 156.803::real, 156.804::real),
+    (9,  'USD/CHF', 'CHF', 0.82434::real, 0.82435::real, 0.82436::real),
+    (10, 'EUR/GBP', 'GBP', 0.83727::real, 0.83728::real, 0.83729::real)
+) AS v(id, symbol, quote, bid, mid, offer);
+SELECT setval('sim.price_seed_price_seed_id_seq', (SELECT max(price_seed_id) FROM sim.price_seed));
 
 COMMIT;

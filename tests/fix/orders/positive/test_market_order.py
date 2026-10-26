@@ -9,12 +9,10 @@ from allure import step
 from framework.assertions.expect import ABSENT, PRESENT
 from framework.assertions.trading import check_execution_report
 from framework.fix.tags import ExecType, OrdStatus, OrdType, Side
-from test_data.instruments import AMZ, INSTRUMENTS
 from test_data.orders import market_order, passive_sell
 
 
 @pytest.mark.smoke
-@pytest.mark.parametrize("instrument", INSTRUMENTS, ids=str)
 def test_market_buy_fills_at_best_offer(trading, instrument):
     """A market buy smaller than the resting offer is filled completely at the offer price."""
     resting_request = passive_sell(instrument, qty=instrument.round_lot * 2)
@@ -49,14 +47,15 @@ def test_market_buy_fills_at_best_offer(trading, instrument):
                                cum_qty=request.order_qty, leaves_qty=resting_request.order_qty - request.order_qty)
 
 
-def test_market_order_without_liquidity_is_cancelled(trading):
+def test_market_order_without_liquidity_is_cancelled(market, trading):
     """With an empty book a market order cannot trade and is cancelled at once (it never rests)."""
-    request = market_order(AMZ, Side.BUY)
-    with step(f"Send market BUY {request.order_qty} {AMZ} into an empty book"):
+    instrument = market.main
+    request = market_order(instrument, Side.BUY)
+    with step(f"Send market BUY {request.order_qty} {instrument} into an empty book"):
         order, report = trading.place(request)
 
     with step("Check ExecutionReport: Canceled, 'no facing orders found', nothing filled"):
         check_execution_report(report, "ExecutionReport for market order without liquidity",
                                order_id=PRESENT, exec_type=ExecType.CANCELED, ord_status=OrdStatus.CANCELED,
-                               symbol=AMZ.symbol, order_qty=request.order_qty, price=ABSENT,
+                               symbol=instrument.symbol, order_qty=request.order_qty, price=ABSENT,
                                cum_qty=0, leaves_qty=0, text="no facing orders found")

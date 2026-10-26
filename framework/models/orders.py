@@ -16,6 +16,9 @@ class NewOrderRequest:
     time_in_force: TimeInForce | None = TimeInForce.DAY
     expire_date: str | None = None         # YYYYMMDD, local market date
     expire_time: str | None = None         # YYYYMMDD-HH:MM:SS, UTC
+    security_type: str | None = None       # optional instrument attributes: the venue resolves the listing
+    security_exchange: str | None = None   # by Symbol and checks every attribute that is sent
+    currency: str | None = None            # FX: currency of the quantity (base currency)
 
 
 @dataclass

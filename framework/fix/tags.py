@@ -18,6 +18,7 @@ class Tag(IntEnum):
     AVG_PX = 6
     CL_ORD_ID = 11
     CUM_QTY = 14
+    CURRENCY = 15
     EXEC_ID = 17
     LAST_PX = 31
     LAST_QTY = 32
@@ -36,6 +37,8 @@ class Tag(IntEnum):
     EXPIRE_TIME = 126
     NO_RELATED_SYM = 146
     EXEC_TYPE = 150
+    SECURITY_TYPE = 167
+    SECURITY_EXCHANGE = 207
     LEAVES_QTY = 151
     MD_REQ_ID = 262
     SUBSCRIPTION_REQUEST_TYPE = 263

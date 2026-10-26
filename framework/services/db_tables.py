@@ -26,7 +26,8 @@ class VenueTable:
 
 
 class ListingTable:
-    _COLUMNS = """listing_id, symbol, venue_id, security_type, price_currency, security_exchange, isin_id,
+    _COLUMNS = """listing_id, symbol, venue_id, security_type, price_currency, fx_base_currency, security_exchange,
+                  isin_id,
                   qty_minimum::numeric as qty_minimum, qty_maximum::numeric as qty_maximum,
                   qty_multiple::numeric as qty_multiple, price_tick_size::numeric as price_tick_size,
                   enabled, random_orders_enabled"""

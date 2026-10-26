@@ -9,12 +9,10 @@ from allure import step
 from framework.assertions.expect import PRESENT
 from framework.assertions.trading import check_execution_report
 from framework.fix.tags import ExecType, OrdStatus
-from test_data.instruments import INSTRUMENTS
 from test_data.orders import passive_buy, passive_sell
 
 
 @pytest.mark.smoke
-@pytest.mark.parametrize("instrument", INSTRUMENTS, ids=str)
 @pytest.mark.parametrize("make_order", [passive_buy, passive_sell], ids=["buy", "sell"])
 def test_cancel_active_order(trading, instrument, make_order):
     """The cancel is acknowledged as Canceled on the same OrderID with nothing left open (LeavesQty=0)."""

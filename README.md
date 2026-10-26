@@ -6,11 +6,18 @@
 Test automation and manual-testing setup for **[QuantReplay](https://github.com/Quod-Financial/quantreplay)**,
 an open-source multi-asset market simulator (matching engine) by Quod Financial.
 
+Two venues run as separate simulator instances on one database, and every test runs on both:
+
+| Venue | Asset class | Instruments | REST / FIX port |
+|---|---|---|---|
+| XETRA | equities | AMZ, MSF, NFC, VODI, VOW | 9050 / 9051 |
+| FASTMATCH | FX spot | EUR/USD, GBP/USD, USD/JPY, USD/CHF, EUR/GBP | 9052 / 9053 |
+
 The suite checks the simulator through all of its interfaces:
 
 | Interface | Protocol | What is tested |
 |---|---|---|
-| Trading | **FIX** - FIXT.1.1 / FIX 5.0 SP2 (per the simulator's Rules of Engagement) | order lifecycle (new / replace / cancel), rejects, quantity / tick limits, all TimeInForce values, market data |
+| Trading | **FIX** - FIXT.1.1 / FIX 5.0 SP2 (per the simulator's Rules of Engagement) | order lifecycle (new / replace / cancel), rejects, quantity / tick limits, all TimeInForce values, instrument resolution (SecurityType, Currency), market data |
 | Administration | **REST** | every documented endpoint: settings, venues, listings, price seeds, datasources, venue status, order generator, halt / resume |
 | Storage | **PostgreSQL** (schema created by Liquibase) | reference data in each table, REST <-> DB consistency |
 
@@ -28,7 +35,7 @@ without touching the tests.
 ```
 tests            what is checked: steps + expected values, nothing about sockets or SQL
   │ fixtures (tests/conftest.py) build the objects and own setup / teardown
-test_data        reference instruments (real Xetra data), order factories, price helpers
+test_data        venues (ports, CompIDs, instruments), real market data, order factories, price helpers
 framework/
   assertions     expected-vs-actual tables (logged, attached to Allure / ReportPortal)
   services       business actions: trading, market data, REST API, DB tables - no assertions
@@ -44,8 +51,8 @@ framework/
 tests/
   fix/
     orders/
-      positive/          new order, replace (price, then quantity), cancel, market orders
-      negative/          new order / cancel / replace rejects
+      positive/          new order, replace (price, then quantity), cancel, market orders, instrument attributes
+      negative/          new order / cancel / replace rejects, instrument attributes that match no listing
       boundary/          qty min / max / lot size, price tick - for every instrument
       time_in_force/     Day, GTC, GTD (and its expiry rules), IOC, FOK
     market_data/
@@ -57,6 +64,12 @@ tests/
   db/                    one folder per table: venue, listing, price_seed, setting
   support/               test-side helpers: isolation (undo stack), order book checks, REST checks
 ```
+
+Venues are a parameter, not a copy of the tests: `tests/conftest.py` runs every test once per venue in
+`test_data/markets.py`, and a test that takes `instrument` runs for every instrument of every venue -
+`test_new_limit_order_is_accepted[XETRA-AMZ-buy]`, `...[FASTMATCH-EUR/USD-buy]`. All XETRA tests run first,
+then all FASTMATCH tests (one FIX logon and one isolation check per venue).
+`pytest -k FASTMATCH` runs one venue only.
 
 Folder names are markers: `pytest -m negative`, `pytest -m "fix and boundary"`, `pytest -m smoke`.
 `smoke` = core trading flow and everything that can lose money (fills, fat-finger and tick limits,
@@ -70,7 +83,7 @@ does not accept a call without them.
 
 Tests marked `known_issue` assert the documented behaviour and are reported as `xfail` until the simulator
 is fixed (a fixed issue turns the test into a strict-xfail failure, so the marker must then be removed).
-Found so far (36 test cases):
+Found so far (36 test cases per venue, 72 in total):
 
 | Area | Documentation (RoE / REST API) | Simulator | Tests |
 |---|---|---|---|
@@ -84,8 +97,13 @@ Found so far (36 test cases):
 
 `sim-run/db/simdb_test_data.sql` is the test database (in git). The database container loads it on every
 start and keeps its data in memory (tmpfs), so each start is clean. It is the QuantReplay demo data plus
-`sim-run/db/real_market_overrides.sql`: real Xetra instruments (close of 23.10.2026) - prices, ISINs,
-tick sizes (band 11 table for non-EU shares, ESMA band 5 for VOW), lot size 1, fat-finger qty limits.
+`sim-run/db/real_market_overrides.sql`: real market data of 23.10.2026.
+
+* XETRA: Xetra close - prices, ISINs, tick sizes (band 11 table for non-EU shares, ESMA band 5 for VOW),
+  lot size 1, fat-finger qty limits.
+* FASTMATCH (venue, listings and price seeds added on top of the demo data): ECB reference rates
+  (GBP/USD, USD/JPY, USD/CHF as cross rates), 5-decimal prices (3 for JPY), quantity in the base currency:
+  minimum 10 000, multiple of 1 000, fat-finger limit 50 000 000.
 The same values are the reference in `test_data/instruments.py`. Rebuild the dump with
 `scripts/build_test_db.sh` after changing the overrides.
 
@@ -97,7 +115,17 @@ The same values are the reference in `test_data/instruments.py`. Rebuild the dum
 | VODI | Vodafone Group | 1.410 | 0.001 | 2 000 000 |
 | VOW | Volkswagen St. | 68.70 | 0.02 | 50 000 |
 
+| Pair | Mid | Tick | Min / lot / max qty (base currency) |
+|---|---|---|---|
+| EUR/USD | 1.11930 | 0.00001 | 10 000 / 1 000 / 50 000 000 |
+| GBP/USD | 1.33683 | 0.00001 | same |
+| USD/JPY | 156.803 | 0.001 | same |
+| USD/CHF | 0.82435 | 0.00001 | same |
+| EUR/GBP | 0.83728 | 0.00001 | same |
+
 ### Isolation
+
+Per venue:
 
 * session start: generator stopped, all order books empty (otherwise the venue is reset), DB content captured;
 * each test: orders left active are cancelled **and the cancel report is checked**, subscriptions closed,
@@ -125,7 +153,7 @@ Save / restore the DB by hand: `scripts/db_snapshot.sh save [FILE]`, `scripts/db
 
 Every push and pull request runs `.github/workflows/autotests.yml`:
 
-1. starts the simulator with Docker Compose,
+1. starts both simulators (XETRA, FASTMATCH) and the database with Docker Compose,
 2. runs the whole suite,
 3. shows a test summary on the run page,
 4. on `main` publishes the **[Allure report](https://dmytro-automation-manual.github.io/quantreplay-qa-automation/)** with run history to GitHub Pages.
@@ -134,7 +162,7 @@ Every push and pull request runs `.github/workflows/autotests.yml`:
 
 | Tool | Used for |
 |---|---|
-| FIXYL | FIX client on the spec session `FIXYL -> SIM_XETRA` (FIXT.1.1 / FIX 5.0 SP2) |
+| FIXYL | FIX client on the spec sessions `FIXYL -> SIM_XETRA` and `FIXYL -> SIM_FASTMATCH` (FIXT.1.1 / FIX 5.0 SP2) |
 | Postman | REST API (`postman/QuantReplay.postman_collection.json`) |
 | DBeaver | browsing `simdb` (user `sim`, port 15432) |
 | MiniFIX | quick checks on a FIX 4.4 session - not the simulator's spec version, findings are re-checked on FIXT.1.1 |
@@ -143,6 +171,7 @@ Every push and pull request runs `.github/workflows/autotests.yml`:
 
 | SenderCompID (client) | TargetCompID | Version | Purpose |
 |---|---|---|---|
-| `CLIENT_XETRA` | `SIM_XETRA` | FIXT.1.1 / FIX 5.0 SP2 | autotests |
-| `FIXYL` | `SIM_XETRA` | FIXT.1.1 / FIX 5.0 SP2 | manual testing (FIXYL) |
+| `CLIENT_XETRA` | `SIM_XETRA` (port 9051) | FIXT.1.1 / FIX 5.0 SP2 | autotests |
+| `CLIENT_FASTMATCH` | `SIM_FASTMATCH` (port 9053) | FIXT.1.1 / FIX 5.0 SP2 | autotests |
+| `FIXYL` | `SIM_XETRA` / `SIM_FASTMATCH` | FIXT.1.1 / FIX 5.0 SP2 | manual testing (FIXYL) |
 | `MINIFIX` | `SIM_XETRA` | FIX 4.4 | manual testing (MiniFIX) |

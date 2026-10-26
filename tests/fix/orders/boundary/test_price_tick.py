@@ -9,7 +9,7 @@ from allure import step
 from framework.assertions.expect import PRESENT
 from framework.assertions.trading import check_cancel_reject, check_execution_report
 from framework.fix.tags import CxlRejResponseTo, ExecType, OrdStatus, Side
-from test_data.instruments import INSTRUMENTS, off_tick_price, passive_buy_price, ticks_away
+from test_data.instruments import off_tick_price, passive_buy_price, ticks_away
 from test_data.orders import passive_buy
 from tests.support.book import check_order_rests
 
@@ -17,7 +17,6 @@ TEXT_WITHOUT_IS = ("Reject Text differs from RoE: the venue sends 'order price t
                    "RoE documents 'order price tick constraint is violated'")
 
 
-@pytest.mark.parametrize("instrument", INSTRUMENTS, ids=str)
 def test_price_one_tick_from_valid_price_is_accepted(trading, instrument):
     """The smallest price step (one tick) is a valid price."""
     price = ticks_away(passive_buy_price(instrument), instrument, 1)
@@ -32,7 +31,6 @@ def test_price_one_tick_from_valid_price_is_accepted(trading, instrument):
 
 @pytest.mark.smoke
 @pytest.mark.known_issue(TEXT_WITHOUT_IS)
-@pytest.mark.parametrize("instrument", INSTRUMENTS, ids=str)
 def test_new_order_price_off_tick_is_rejected(trading, instrument):
     """A price between two ticks is rejected and never reaches the book."""
     price = off_tick_price(instrument)
@@ -47,7 +45,6 @@ def test_new_order_price_off_tick_is_rejected(trading, instrument):
 
 
 @pytest.mark.known_issue(TEXT_WITHOUT_IS + "; OrdStatus of the OrderCancelReject is the current one, not Rejected")
-@pytest.mark.parametrize("instrument", INSTRUMENTS, ids=str)
 def test_replace_to_price_off_tick_is_rejected(trading, market_data, instrument):
     """A replace to an off-tick price is rejected and the order keeps its price."""
     request = passive_buy(instrument)

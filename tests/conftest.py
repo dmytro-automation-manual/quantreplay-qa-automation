@@ -1,6 +1,8 @@
 """Composition root: the only place where the framework layers are wired together.
 
-Session level (once per run):
+Venues: every test runs once per venue in test_data/markets.py (XETRA equities, FASTMATCH FX spot);
+a test that takes `instrument` runs for every instrument of every venue: test_x[XETRA-AMZ], test_x[FASTMATCH-EUR/USD].
+Session level (once per venue):
   * wait for the simulator, stop the random order generator, make sure every order book is empty;
   * capture the configuration tables and, after the last test, prove that nothing changed.
 Test level (every test):
@@ -23,7 +25,7 @@ from framework.services.trading import TradingService
 from framework.transport.db_client import DbClient
 from framework.transport.fix_session import FixSession
 from framework.transport.http_client import HttpClient
-from test_data.instruments import INSTRUMENTS
+from test_data.markets import MARKETS, Market
 from tests.support.isolation import UndoStack, wait_until
 
 log = logging.getLogger("setup")
@@ -43,6 +45,36 @@ def pytest_collection_modifyitems(items):
             item.add_marker(pytest.mark.xfail(reason=f"KNOWN ISSUE: {known.args[0]}", strict=True))
 
 
+class VenueOrder:
+    """Runs after pytest's own reordering: all tests of one venue, then the next
+    (one FIX logon and one isolation check per venue)."""
+
+    @pytest.hookimpl(trylast=True)
+    def pytest_collection_modifyitems(self, items):
+        order = {market.venue_id: n for n, market in enumerate(MARKETS)}
+        items.sort(key=lambda item: order[item.callspec.params["market"].venue_id])
+
+
+def pytest_configure(config):
+    config.pluginmanager.register(VenueOrder(), "venue-order")
+
+
+def pytest_generate_tests(metafunc):
+    """Session-scoped venue parameter: pytest runs all tests of one venue, then switches to the next."""
+    if "instrument" in metafunc.fixturenames:
+        pairs = [(market, instrument) for market in MARKETS for instrument in market.instruments]
+        metafunc.parametrize(("market", "instrument"), pairs, indirect=["market"], scope="session",
+                             ids=[f"{market}-{instrument}" for market, instrument in pairs])
+    elif "market" in metafunc.fixturenames:
+        metafunc.parametrize("market", MARKETS, indirect=True, scope="session", ids=str)
+
+
+@pytest.fixture(scope="session")
+def market(request) -> Market:
+    """The venue under test: connection details and reference instruments."""
+    return request.param
+
+
 # --- clients (session) -----------------------------------------------------------------------------
 @pytest.fixture(scope="session")
 def settings() -> Settings:
@@ -50,8 +82,8 @@ def settings() -> Settings:
 
 
 @pytest.fixture(scope="session")
-def api(settings):
-    http = HttpClient(settings.rest.base_url, settings.rest.timeout)
+def api(settings, market):
+    http = HttpClient(f"http://{settings.rest.host}:{market.rest_port}/api", settings.rest.timeout)
     yield SimulatorApi(http)
     http.close()
 
@@ -63,16 +95,11 @@ def db(settings):
     client.close()
 
 
-def _new_fix_session(settings: Settings) -> FixSession:
-    s = settings.fix
-    return FixSession(s.host, s.port, s.sender_comp_id, s.target_comp_id, timeout=s.timeout, heartbeat=s.heartbeat)
-
-
-def _non_empty_books(session: FixSession) -> dict[str, int]:
+def _non_empty_books(session: FixSession, market: Market) -> dict[str, int]:
     """Number of entries per non-empty book."""
     service = MarketDataService(session)
     non_empty = {}
-    for instrument in INSTRUMENTS:
+    for instrument in market.instruments:
         snapshot = service.snapshot(instrument.symbol)
         if snapshot.entries:
             non_empty[instrument.symbol] = len(snapshot.entries)
@@ -82,11 +109,11 @@ def _non_empty_books(session: FixSession) -> dict[str, int]:
 class Venue:
     """Venue-level control used by session setup and by the few tests that must reset the venue."""
 
-    def __init__(self, settings: Settings, api: SimulatorApi, fix_session: FixSession):
-        self.settings, self.api, self.fix_session = settings, api, fix_session
+    def __init__(self, settings: Settings, market: Market, api: SimulatorApi, fix_session: FixSession):
+        self.settings, self.market, self.api, self.fix_session = settings, market, api, fix_session
 
     def wait_ready(self) -> None:
-        wait_until(lambda: self.api.get_venue(self.settings.venue_id).status_code == 200,
+        wait_until(lambda: self.api.get_venue(self.market.venue_id).status_code == 200,
                    self.settings.startup_timeout, "Simulator REST API")
 
     def reset(self) -> None:
@@ -95,14 +122,14 @@ class Venue:
         with allure.step("Reset venue (config reload, empty order books)"):
             if not self.fix_session.connected:
                 self.fix_session.logon()
-            self.api.reset(self.settings.venue_id)
+            self.api.reset(self.market.venue_id)
             self.fix_session.wait_disconnect(self.settings.startup_timeout)
             wait_until(self._logon_and_probe, self.settings.startup_timeout, "FIX order session after reset")
 
     def _logon_and_probe(self) -> bool:
         try:
             self.fix_session.logon()
-            MarketDataService(self.fix_session).snapshot(INSTRUMENTS[0].symbol)
+            MarketDataService(self.fix_session).snapshot(self.market.main.symbol)
             return True
         except (OSError, TimeoutError):
             self.fix_session.close()
@@ -110,41 +137,43 @@ class Venue:
 
 
 @pytest.fixture(scope="session")
-def fix_session(settings):
-    session = _new_fix_session(settings)
+def fix_session(settings, market):
+    s = settings.fix
+    session = FixSession(s.host, market.fix_port, market.sender_comp_id, market.target_comp_id,
+                         timeout=s.timeout, heartbeat=s.heartbeat)
     yield session
     session.logout()
 
 
 @pytest.fixture(scope="session")
-def venue(settings, api, fix_session) -> Venue:
-    return Venue(settings, api, fix_session)
+def venue(settings, market, api, fix_session) -> Venue:
+    return Venue(settings, market, api, fix_session)
 
 
 @pytest.fixture(scope="session", autouse=True)
-def clean_venue(settings, api, db, fix_session, venue):
-    """Session precondition and final isolation proof."""
-    venue_id = settings.venue_id
-    with allure.step("Session setup: simulator is up, generator stopped, books empty"):
+def clean_venue(market, api, db, fix_session, venue):
+    """Session precondition and final isolation proof (per venue)."""
+    venue_id = market.venue_id
+    with allure.step(f"Session setup ({venue_id}): simulator is up, generator stopped, books empty"):
         venue.wait_ready()
         generator_was_running = api.get_generator_status(venue_id).result == "Running"
         if generator_was_running:
             api.stop_generator(venue_id)
         fix_session.logon()
-        dirty = _non_empty_books(fix_session)
+        dirty = _non_empty_books(fix_session, market)
         if dirty:
-            log.warning("Order books are not empty before the run (%s) - resetting the venue", dirty)
+            log.warning("%s order books are not empty before the run (%s) - resetting the venue", venue_id, dirty)
             venue.reset()
-            dirty = _non_empty_books(fix_session)
+            dirty = _non_empty_books(fix_session, market)
             assert not dirty, f"Order books still not empty after reset: {dirty}"
         state_before = DatabaseState(db).capture()
 
     yield
 
-    with allure.step("Session teardown: no order and no configuration change left behind"):
+    with allure.step(f"Session teardown ({venue_id}): no order and no configuration change left behind"):
         problems = []
         if fix_session.connected:
-            dirty = _non_empty_books(fix_session)
+            dirty = _non_empty_books(fix_session, market)
             if dirty:
                 problems.append(f"orders left in the books: {dirty}")
         state_after = DatabaseState(db).capture()
@@ -153,7 +182,7 @@ def clean_venue(settings, api, db, fix_session, venue):
             problems.append(f"configuration tables changed by the run: {changed}")
         if generator_was_running:
             api.start_generator(venue_id)
-        assert not problems, "Test isolation broken: " + "; ".join(problems)
+        assert not problems, f"Test isolation broken on {venue_id}: " + "; ".join(problems)
 
 
 # --- services (per test) ---------------------------------------------------------------------------

@@ -9,12 +9,11 @@ from allure import step
 from framework.assertions.expect import PRESENT
 from framework.assertions.trading import check_execution_report
 from framework.fix.tags import ExecType, OrdStatus
-from test_data.instruments import INSTRUMENTS, ticks_away
+from test_data.instruments import ticks_away
 from test_data.orders import passive_buy
 
 
 @pytest.mark.smoke
-@pytest.mark.parametrize("instrument", INSTRUMENTS, ids=str)
 def test_replace_price_then_quantity(trading, instrument):
     """Each replace is acknowledged as Replaced on the same OrderID and changes only the requested field."""
     request = passive_buy(instrument)

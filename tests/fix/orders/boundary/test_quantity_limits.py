@@ -10,7 +10,6 @@ from allure import step
 from framework.assertions.expect import PRESENT
 from framework.assertions.trading import check_execution_report
 from framework.fix.tags import ExecType, OrdStatus
-from test_data.instruments import INSTRUMENTS
 from test_data.orders import passive_buy
 
 TEXT_WITHOUT_IS = ("Reject Text differs from RoE: the venue sends '... constraint violated', "
@@ -29,7 +28,6 @@ def _check_rejected(report, instrument, request, title, text):
                            order_qty=request.order_qty, price=request.price, text=text)
 
 
-@pytest.mark.parametrize("instrument", INSTRUMENTS, ids=str)
 def test_quantity_equal_to_minimum_is_accepted(trading, instrument):
     request = passive_buy(instrument, qty=instrument.qty_minimum)
     with step(f"Send BUY {instrument} with OrderQty = qtyMinimum = {request.order_qty}"):
@@ -39,7 +37,6 @@ def test_quantity_equal_to_minimum_is_accepted(trading, instrument):
 
 
 @pytest.mark.known_issue(TEXT_WITHOUT_IS)
-@pytest.mark.parametrize("instrument", INSTRUMENTS, ids=str)
 def test_quantity_below_minimum_is_rejected(trading, instrument):
     request = passive_buy(instrument, qty=instrument.qty_minimum - instrument.qty_multiple)
     with step(f"Send BUY {instrument} with OrderQty = qtyMinimum - qtyMultiple = {request.order_qty}"):
@@ -50,7 +47,6 @@ def test_quantity_below_minimum_is_rejected(trading, instrument):
 
 
 @pytest.mark.smoke
-@pytest.mark.parametrize("instrument", INSTRUMENTS, ids=str)
 def test_quantity_equal_to_maximum_is_accepted(trading, instrument):
     request = passive_buy(instrument, qty=instrument.qty_maximum)
     with step(f"Send BUY {instrument} with OrderQty = qtyMaximum = {request.order_qty}"):
@@ -61,7 +57,6 @@ def test_quantity_equal_to_maximum_is_accepted(trading, instrument):
 
 @pytest.mark.smoke
 @pytest.mark.known_issue(TEXT_WITHOUT_IS)
-@pytest.mark.parametrize("instrument", INSTRUMENTS, ids=str)
 def test_quantity_above_maximum_is_rejected(trading, instrument):
     request = passive_buy(instrument, qty=instrument.qty_maximum + instrument.qty_multiple)
     with step(f"Send BUY {instrument} with OrderQty = qtyMaximum + qtyMultiple = {request.order_qty}"):
@@ -72,7 +67,6 @@ def test_quantity_above_maximum_is_rejected(trading, instrument):
 
 
 @pytest.mark.known_issue(TEXT_WITHOUT_IS)
-@pytest.mark.parametrize("instrument", INSTRUMENTS, ids=str)
 def test_quantity_not_multiple_of_lot_is_rejected(trading, instrument):
     request = passive_buy(instrument, qty=instrument.round_lot + instrument.qty_multiple / 2)
     with step(f"Send BUY {instrument} with OrderQty {request.order_qty} (not a multiple of {instrument.qty_multiple})"):

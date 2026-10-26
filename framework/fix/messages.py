@@ -29,8 +29,9 @@ def transact_time() -> str:
 
 # --- outgoing --------------------------------------------------------------------------------------
 def new_order_single(order: NewOrderRequest, cl_ord_id: str, transact_time: str) -> Fields:
-    return [(Tag.CL_ORD_ID, cl_ord_id), (Tag.SYMBOL, order.symbol), (Tag.SIDE, order.side.value),
-            (Tag.TRANSACT_TIME, transact_time), (Tag.ORD_TYPE, order.ord_type.value),
+    return [(Tag.CL_ORD_ID, cl_ord_id), (Tag.SYMBOL, order.symbol), (Tag.SECURITY_TYPE, order.security_type),
+            (Tag.SECURITY_EXCHANGE, order.security_exchange), (Tag.CURRENCY, order.currency),
+            (Tag.SIDE, order.side.value), (Tag.TRANSACT_TIME, transact_time), (Tag.ORD_TYPE, order.ord_type.value),
             (Tag.PRICE, order.price), (Tag.ORDER_QTY, order.order_qty),
             (Tag.TIME_IN_FORCE, order.time_in_force.value if order.time_in_force else None),
             (Tag.EXPIRE_DATE, order.expire_date), (Tag.EXPIRE_TIME, order.expire_time)]
