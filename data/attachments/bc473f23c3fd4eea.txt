@@ -1,0 +1,12 @@
+20:11:48.788 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=195|52=20261027-20:11:48.788|11=1a8d8214020a4272|55=GBP/USD|54=1|60=20261027-20:11:48.788|40=2|44=1.20313|38=1000500|59=0|10=223|
+20:11:48.789 fix    << 8=FIXT.1.1|9=267|35=8|34=212|49=SIM_FASTMATCH|52=20261027-20:11:48.789|56=CLIENT_FASTMATCH|6=0|11=1a8d8214020a4272|14=0|17=261027201148000007-1|37=261027201148000007|38=1000500|39=8|40=2|44=1.20313|54=1|55=GBP/USD|58=order quantity multiple constraint violated|59=0|150=8|151=1000500|10=010|
+20:11:48.790 check  ExecutionReport for OrderQty off the lot size
+field       expected                                     actual                                       result
+msg_type    EXECUTION_REPORT(8)                          EXECUTION_REPORT(8)                          ok    
+order_id    <non-empty>                                  261027201148000007                           ok    
+exec_type   REJECTED(8)                                  REJECTED(8)                                  ok    
+ord_status  REJECTED(8)                                  REJECTED(8)                                  ok    
+symbol      GBP/USD                                      GBP/USD                                      ok    
+order_qty   1000500                                      1000500                                      ok    
+price       1.20313                                      1.20313                                      ok    
+text        order quantity multiple constraint violated  order quantity multiple constraint violated  ok

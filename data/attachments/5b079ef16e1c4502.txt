@@ -1,0 +1,10 @@
+ExecutionReport for OrderQty below qtyMinimum
+field       expected                                    actual                                      result
+msg_type    EXECUTION_REPORT(8)                         EXECUTION_REPORT(8)                         ok    
+order_id    <non-empty>                                 261027201146000004                          ok    
+exec_type   REJECTED(8)                                 REJECTED(8)                                 ok    
+ord_status  REJECTED(8)                                 REJECTED(8)                                 ok    
+symbol      EUR/GBP                                     EUR/GBP                                     ok    
+order_qty   9000                                        9000                                        ok    
+price       0.75354                                     0.75354                                     ok    
+text        minimal order quantity constraint violated  minimal order quantity constraint violated  ok    

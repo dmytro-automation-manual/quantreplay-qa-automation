@@ -1,0 +1,24 @@
+20:11:52.353 rest   >> GET /listings/EUR%2FUSD 
+20:11:52.364 httpx  HTTP Request: GET http://localhost:9052/api/listings/EUR%2FUSD "HTTP/1.1 200 OK"
+20:11:52.364 rest   << 200 {"id":6,"venueId":"FASTMATCH","symbol":"EUR/USD","securityType":"FXSPOT","priceCurrency":"USD","fxBaseCurrency":"EUR","instrSymbol":"EUR/USD","qtyMinimum":10000.0,"qtyMaximum":50000000.0,"qtyMultiple":1000.0,"priceTickSize":0.00001,"enabled":true,"randomQtyMaximum":5000000.0,"randomDepthLevels":5,"randomOrdersSpread":0.00001,"randomOrdersRate":2,"randomTickRange":10,"securityExchange":"FASTMATCH","randomQtyMinimum":100000.0,"randomOrdersEnabled":true,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+20:11:52.365 rest   >> PUT /listings/EUR%2FUSD {"qtyMaximum": 100000000.0}
+20:11:52.378 httpx  HTTP Request: PUT http://localhost:9052/api/listings/EUR%2FUSD "HTTP/1.1 200 OK"
+20:11:52.379 rest   << 200 {"result":"Successfully updated the EUR/USD listing"}
+20:11:52.379 check  PUT listing by symbol
+field        expected                                  actual                                    result
+status_code  200                                       200                                       ok    
+result       Successfully updated the EUR/USD listing  Successfully updated the EUR/USD listing  ok    
+20:11:52.380 rest   >> GET /listings/EUR%2FUSD 
+20:11:52.395 httpx  HTTP Request: GET http://localhost:9052/api/listings/EUR%2FUSD "HTTP/1.1 200 OK"
+20:11:52.396 rest   << 200 {"id":6,"venueId":"FASTMATCH","symbol":"EUR/USD","securityType":"FXSPOT","priceCurrency":"USD","fxBaseCurrency":"EUR","instrSymbol":"EUR/USD","qtyMinimum":10000.0,"qtyMaximum":100000000.0,"qtyMultiple":1000.0,"priceTickSize":0.00001,"enabled":true,"randomQtyMaximum":5000000.0,"randomDepthLevels":5,"randomOrdersSpread":0.00001,"randomOrdersRate":2,"randomTickRange":10,"securityExchange":"FASTMATCH","randomQtyMinimum":100000.0,"randomOrdersEnabled":true,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+20:11:52.396 check  Listing in REST
+field        expected   actual       result
+qty_maximum  100000000  100000000.0  ok    
+20:11:52.396 db     SQL select listing_id, symbol, venue_id, security_type, price_currency, fx_base_currency, security_exchange, isin_id, qty_minimum::numeric as qty_minimum, qty_maximum::numeric as qty_maximum, qty_multiple::numeric as qty_multiple, price_tick_size::numeric as price_tick_size, enabled, random_orders_enabled from sim.listing where venue_id = %s and symbol = %s ('FASTMATCH', 'EUR/USD')
+20:11:52.397 db     rows: 1
+20:11:52.397 check  Listing in DB
+field        expected   actual     result
+qty_maximum  100000000  100000000  ok
+20:11:52.399 rest   >> PUT /listings/EUR%2FUSD {"qtyMaximum": 50000000.0}
+20:11:52.412 httpx  HTTP Request: PUT http://localhost:9052/api/listings/EUR%2FUSD "HTTP/1.1 200 OK"
+20:11:52.413 rest   << 200 {"result":"Successfully updated the EUR/USD listing"}

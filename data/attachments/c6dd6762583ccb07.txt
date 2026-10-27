@@ -1,0 +1,22 @@
+20:11:46.704 fix    >> 8=FIXT.1.1|9=199|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=108|52=20261027-20:11:46.704|11=a656c4f05eff41e0|55=EUR/GBP|167=FXSPOT|207=FASTMATCH|15=EUR|54=1|60=20261027-20:11:46.704|40=2|44=0.75354|38=1000000|59=0|10=093|
+20:11:46.705 fix    << 8=FIXT.1.1|9=252|35=8|34=113|49=SIM_FASTMATCH|52=20261027-20:11:46.705|56=CLIENT_FASTMATCH|6=0|11=a656c4f05eff41e0|14=0|15=EUR|17=261027201146000008-1|37=261027201146000008|38=1000000|39=0|40=2|44=0.75354|54=1|55=EUR/GBP|59=0|150=0|151=1000000|167=FXSPOT|207=FASTMATCH|10=171|
+20:11:46.705 check  ExecutionReport for order with instrument attributes
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261027201146000008   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      EUR/GBP              EUR/GBP              ok    
+order_qty   1000000              1000000              ok    
+price       0.75354              0.75354              ok
+20:11:46.756 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=109|52=20261027-20:11:46.756|41=a656c4f05eff41e0|11=88627a5edb754844|37=261027201146000008|55=EUR/GBP|54=1|60=20261027-20:11:46.756|10=213|
+20:11:46.757 fix    << 8=FIXT.1.1|9=266|35=8|34=114|49=SIM_FASTMATCH|52=20261027-20:11:46.757|56=CLIENT_FASTMATCH|6=0|11=88627a5edb754844|14=0|15=EUR|17=261027201146000008-2|37=261027201146000008|38=1000000|39=4|40=2|41=a656c4f05eff41e0|44=0.75354|54=1|55=EUR/GBP|59=0|150=4|151=0|167=FXSPOT|207=FASTMATCH|10=083|
+20:11:46.757 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027201146000008   261027201146000008   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      EUR/GBP              EUR/GBP              ok    
+order_qty   1000000              1000000              ok    
+price       0.75354              0.75354              ok

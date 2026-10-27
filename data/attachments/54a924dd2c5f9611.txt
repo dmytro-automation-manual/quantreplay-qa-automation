@@ -1,0 +1,13 @@
+ExecutionReport for OrderCancelRequest
+field           expected             actual               result
+msg_type        EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id        261027201148000024   261027201148000024   ok    
+exec_type       CANCELED(4)          CANCELED(4)          ok    
+ord_status      CANCELED(4)          CANCELED(4)          ok    
+symbol          EUR/USD              EUR/USD              ok    
+order_qty       1000000              1000000              ok    
+price           1.00736              1.00736              ok    
+side            BUY(1)               BUY(1)               ok    
+orig_cl_ord_id  2b763bcd421d4c12     2b763bcd421d4c12     ok    
+leaves_qty      0                    0                    ok    
+cum_qty         0                    0                    ok    

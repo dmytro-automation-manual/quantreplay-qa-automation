@@ -1,0 +1,12 @@
+ExecutionReport Trade for resting sell
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027201145000014   261027201145000014   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  PARTIALLY_FILLED(1)  PARTIALLY_FILLED(1)  ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   100                  100                  ok    
+price       244.90               244.9                ok    
+last_qty    50                   50                   ok    
+cum_qty     50                   50                   ok    
+leaves_qty  50                   50                   ok    

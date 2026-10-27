@@ -1,0 +1,14 @@
+20:11:44.562 db     SQL select listing_id, symbol, venue_id, security_type, price_currency, fx_base_currency, security_exchange, isin_id, qty_minimum::numeric as qty_minimum, qty_maximum::numeric as qty_maximum, qty_multiple::numeric as qty_multiple, price_tick_size::numeric as price_tick_size, enabled, random_orders_enabled from sim.listing where venue_id = %s and symbol = %s ('XETRA', 'AMZ')
+20:11:44.563 db     rows: 1
+20:11:44.563 check  sim.listing AMZ
+field              expected      actual        result
+security_type      CS            CS            ok    
+price_currency     EUR           EUR           ok    
+fx_base_currency   <none>        <none>        ok    
+security_exchange  XETR          XETR          ok    
+isin_id            US0231351067  US0231351067  ok    
+price_tick_size    0.05          0.05          ok    
+qty_minimum        1             1             ok    
+qty_maximum        20000         20000         ok    
+qty_multiple       1             1             ok    
+enabled            True          True          ok

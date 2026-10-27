@@ -1,0 +1,14 @@
+20:11:50.565 fix    >> 8=FIXT.1.1|9=156|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=271|52=20261027-20:11:50.565|11=56b82ff6e52e4702|55=EUR/USD|54=1|60=20261027-20:11:50.565|40=1|38=1000000|59=3|10=070|
+20:11:50.566 fix    << 8=FIXT.1.1|9=229|35=8|34=300|49=SIM_FASTMATCH|52=20261027-20:11:50.566|56=CLIENT_FASTMATCH|6=0|11=56b82ff6e52e4702|14=0|17=261027201150000032-1|37=261027201150000032|38=1000000|39=4|40=1|54=1|55=EUR/USD|58=no facing orders found|59=3|150=4|151=0|10=110|
+20:11:50.566 check  ExecutionReport for market order without liquidity
+field       expected                actual                  result
+msg_type    EXECUTION_REPORT(8)     EXECUTION_REPORT(8)     ok    
+order_id    <non-empty>             261027201150000032      ok    
+exec_type   CANCELED(4)             CANCELED(4)             ok    
+ord_status  CANCELED(4)             CANCELED(4)             ok    
+symbol      EUR/USD                 EUR/USD                 ok    
+order_qty   1000000                 1000000                 ok    
+price       <not sent>              <none>                  ok    
+cum_qty     0                       0                       ok    
+leaves_qty  0                       0                       ok    
+text        no facing orders found  no facing orders found  ok

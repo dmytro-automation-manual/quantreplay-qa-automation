@@ -1,0 +1,12 @@
+20:11:49.868 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=240|52=20261027-20:11:49.868|11=4e44289809c442f3|55=USD/JPY|54=1|60=20261027-20:11:49.868|40=2|44=141.121|38=1000500|59=0|10=012|
+20:11:49.868 fix    << 8=FIXT.1.1|9=267|35=8|34=263|49=SIM_FASTMATCH|52=20261027-20:11:49.868|56=CLIENT_FASTMATCH|6=0|11=4e44289809c442f3|14=0|17=261027201149000007-1|37=261027201149000007|38=1000500|39=8|40=2|44=141.121|54=1|55=USD/JPY|58=order quantity multiple constraint violated|59=0|150=8|151=1000500|10=071|
+20:11:49.869 check  ExecutionReport for OrderQty off the lot size
+field       expected                                     actual                                       result
+msg_type    EXECUTION_REPORT(8)                          EXECUTION_REPORT(8)                          ok    
+order_id    <non-empty>                                  261027201149000007                           ok    
+exec_type   REJECTED(8)                                  REJECTED(8)                                  ok    
+ord_status  REJECTED(8)                                  REJECTED(8)                                  ok    
+symbol      USD/JPY                                      USD/JPY                                      ok    
+order_qty   1000500                                      1000500                                      ok    
+price       141.121                                      141.121                                      ok    
+text        order quantity multiple constraint violated  order quantity multiple constraint violated  ok

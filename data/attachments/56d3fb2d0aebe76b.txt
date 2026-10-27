@@ -1,0 +1,10 @@
+20:11:48.430 db     SQL select price_seed_id, symbol, security_type, price_currency, security_id, bid_price::numeric as bid_price, mid_price::numeric as mid_price, offer_price::numeric as offer_price from sim.price_seed order by price_seed_id 
+20:11:48.431 db     rows: 10
+20:11:48.431 check  sim.price_seed GBP/USD
+field           expected  actual   result
+security_type   FXSPOT    FXSPOT   ok    
+price_currency  USD       USD      ok    
+security_id     <none>    <none>   ok    
+bid_price       1.33682   1.33682  ok    
+mid_price       1.33683   1.33683  ok    
+offer_price     1.33684   1.33684  ok

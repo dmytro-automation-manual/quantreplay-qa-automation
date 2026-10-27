@@ -1,0 +1,48 @@
+20:11:46.886 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=117|52=20261027-20:11:46.886|11=599ac7e419ea4e26|55=MSF|54=1|60=20261027-20:11:46.885|40=2|44=421.95|38=20|59=0|10=042|
+20:11:46.887 fix    << 8=FIXT.1.1|9=197|35=8|34=124|49=SIM_XETRA|52=20261027-20:11:46.887|56=CLIENT_XETRA|6=0|11=599ac7e419ea4e26|14=0|17=261027201146000012-1|37=261027201146000012|38=20|39=0|40=2|44=421.95|54=1|55=MSF|59=0|150=0|151=20|10=132|
+20:11:46.888 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=118|52=20261027-20:11:46.888|11=2f16630a3a6d417a|55=MSF|54=2|60=20261027-20:11:46.888|40=2|44=515.85|38=40|59=0|10=238|
+20:11:46.888 fix    << 8=FIXT.1.1|9=197|35=8|34=125|49=SIM_XETRA|52=20261027-20:11:46.888|56=CLIENT_XETRA|6=0|11=2f16630a3a6d417a|14=0|17=261027201146000013-1|37=261027201146000013|38=40|39=0|40=2|44=515.85|54=2|55=MSF|59=0|150=0|151=40|10=072|
+20:11:46.889 fix    >> 8=FIXT.1.1|9=130|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=119|52=20261027-20:11:46.888|262=62c32efe80a34e19|263=0|264=0|267=2|269=0|269=1|146=1|55=MSF|10=102|
+20:11:46.889 fix    << 8=FIXT.1.1|9=209|35=W|34=126|49=SIM_XETRA|52=20261027-20:11:46.889|56=CLIENT_XETRA|55=MSF|262=62c32efe80a34e19|268=2|269=0|278=1793131896:9|270=421.95|271=20|269=1|278=1793131896:10|270=515.85|271=40|779=20261027-20:11:46.889|10=233|
+20:11:46.889 check  Book size
+field   expected  actual  result
+bids    1         1       ok    
+offers  1         1       ok    
+20:11:46.890 check  Bid in the snapshot: one BID at 421.95
+field      expected  actual        result
+condition  true      True found 1  ok    
+20:11:46.890 check  Bid in the snapshot
+field       expected  actual  result
+entry_type  BID(0)    BID(0)  ok    
+price       421.95    421.95  ok    
+size        20        20      ok    
+20:11:46.890 check  Offer in the snapshot: one OFFER at 515.85
+field      expected  actual        result
+condition  true      True found 1  ok    
+20:11:46.891 check  Offer in the snapshot
+field       expected  actual    result
+entry_type  OFFER(1)  OFFER(1)  ok    
+price       515.85    515.85    ok    
+size        40        40        ok
+20:11:46.942 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=120|52=20261027-20:11:46.942|41=599ac7e419ea4e26|11=b0b4b1d3a466401b|37=261027201146000012|55=MSF|54=1|60=20261027-20:11:46.942|10=155|
+20:11:46.943 fix    << 8=FIXT.1.1|9=216|35=8|34=127|49=SIM_XETRA|52=20261027-20:11:46.943|56=CLIENT_XETRA|6=0|11=b0b4b1d3a466401b|14=0|17=261027201146000012-2|37=261027201146000012|38=20|39=4|40=2|41=599ac7e419ea4e26|44=421.95|54=1|55=MSF|59=0|150=4|151=0|10=060|
+20:11:46.943 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027201146000012   261027201146000012   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      MSF                  MSF                  ok    
+order_qty   20                   20                   ok    
+price       421.95               421.95               ok    
+20:11:46.944 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=121|52=20261027-20:11:46.944|41=2f16630a3a6d417a|11=ca014be20dcf4dbb|37=261027201146000013|55=MSF|54=2|60=20261027-20:11:46.944|10=027|
+20:11:46.944 fix    << 8=FIXT.1.1|9=216|35=8|34=128|49=SIM_XETRA|52=20261027-20:11:46.944|56=CLIENT_XETRA|6=0|11=ca014be20dcf4dbb|14=0|17=261027201146000013-2|37=261027201146000013|38=40|39=4|40=2|41=2f16630a3a6d417a|44=515.85|54=2|55=MSF|59=0|150=4|151=0|10=191|
+20:11:46.944 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027201146000013   261027201146000013   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      MSF                  MSF                  ok    
+order_qty   40                   40                   ok    
+price       515.85               515.85               ok

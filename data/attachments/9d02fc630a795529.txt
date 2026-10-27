@@ -1,0 +1,12 @@
+20:12:03.787 rest   >> GET /settings 
+20:12:03.797 httpx  HTTP Request: GET http://localhost:9050/api/settings "HTTP/1.1 200 OK"
+20:12:03.798 rest   << 200 {"settings":[{"key":"SeedPricesLastUpdated","value":"2024-03-14 14:35:06"},{"key":"SeedPriceDatabaseConnection","value":"postgresql://user:password@127.0.0.1:5432/database_name"},{"key":"DisplayName","value":"MKTSIMULATOR"}]}
+20:12:03.798 rest   >> PUT /settings {"settings": [{"key": "SeedPricesLastUpdated", "value": "2000-01-01 00:00:00"}]}
+20:12:03.799 httpx  HTTP Request: PUT http://localhost:9050/api/settings "HTTP/1.1 200 OK"
+20:12:03.800 rest   << 200 {"result":"General settings updated successfully"}
+20:12:03.800 rest   >> GET /settings 
+20:12:03.810 httpx  HTTP Request: GET http://localhost:9050/api/settings "HTTP/1.1 200 OK"
+20:12:03.810 rest   << 200 {"settings":[{"key":"SeedPricesLastUpdated","value":"2024-03-14 14:35:06"},{"key":"SeedPriceDatabaseConnection","value":"postgresql://user:password@127.0.0.1:5432/database_name"},{"key":"DisplayName","value":"MKTSIMULATOR"}]}
+20:12:03.810 check  SeedPricesLastUpdated unchanged
+field                  expected             actual               result
+SeedPricesLastUpdated  2024-03-14 14:35:06  2024-03-14 14:35:06  ok

@@ -1,0 +1,9 @@
+20:11:47.211 fix    >> 8=FIXT.1.1|9=130|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=129|52=20261027-20:11:47.211|262=8e00f2d6428344a7|263=0|264=0|267=2|269=0|269=1|146=1|55=NFC|10=230|
+20:11:47.212 fix    << 8=FIXT.1.1|9=126|35=W|34=138|49=SIM_XETRA|52=20261027-20:11:47.212|56=CLIENT_XETRA|55=NFC|262=8e00f2d6428344a7|268=0|779=20261027-20:11:47.212|10=188|
+20:11:47.212 check  MarketDataSnapshotFullRefresh
+field     expected                 actual                   result
+msg_type  MARKET_DATA_SNAPSHOT(W)  MARKET_DATA_SNAPSHOT(W)  ok    
+symbol    NFC                      NFC                      ok    
+20:11:47.212 check  No bids / offers in an empty book
+field      expected  actual            result
+condition  true      True entries: []  ok

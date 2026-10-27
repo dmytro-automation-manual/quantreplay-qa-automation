@@ -1,3 +1,0 @@
-Venues in allvenuestatus
-field  expected                actual                  result
-ids    ['FASTMATCH', 'XETRA']  ['FASTMATCH', 'XETRA']  ok    

@@ -1,0 +1,11 @@
+ExecutionReport for GoodTillDate with invalid expiry
+field          expected                                    actual                                      result
+msg_type       EXECUTION_REPORT(8)                         EXECUTION_REPORT(8)                         ok    
+order_id       <non-empty>                                 261027201150000043                          ok    
+exec_type      REJECTED(8)                                 REJECTED(8)                                 ok    
+ord_status     REJECTED(8)                                 REJECTED(8)                                 ok    
+symbol         EUR/USD                                     EUR/USD                                     ok    
+order_qty      1000000                                     1000000                                     ok    
+price          1.00736                                     1.00736                                     ok    
+time_in_force  GOOD_TILL_DATE(6)                           GOOD_TILL_DATE(6)                           ok    
+text           both expire date and expire time specified  both expire date and expire time specified  ok    

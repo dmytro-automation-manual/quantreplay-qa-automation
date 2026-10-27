@@ -1,0 +1,12 @@
+20:11:45.866 fix    >> 8=FIXT.1.1|9=148|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=72|52=20261027-20:11:45.866|11=8821bc26d30c415a|55=AMZ|54=1|60=20261027-20:11:45.866|40=1|44=200.25|38=50|59=3|10=168|
+20:11:45.867 fix    << 8=FIXT.1.1|9=226|35=8|34=73|49=SIM_XETRA|52=20261027-20:11:45.867|56=CLIENT_XETRA|6=0|11=8821bc26d30c415a|14=0|17=261027201145000022-1|37=261027201145000022|38=50|39=8|40=1|44=200.25|54=1|55=AMZ|58=order price is not allowed|59=3|150=8|151=50|10=131|
+20:11:45.867 check  ExecutionReport for market order with price
+field       expected                    actual                      result
+msg_type    EXECUTION_REPORT(8)         EXECUTION_REPORT(8)         ok    
+order_id    <non-empty>                 261027201145000022          ok    
+exec_type   REJECTED(8)                 REJECTED(8)                 ok    
+ord_status  REJECTED(8)                 REJECTED(8)                 ok    
+symbol      AMZ                         AMZ                         ok    
+order_qty   50                          50                          ok    
+price       200.25                      200.25                      ok    
+text        order price is not allowed  order price is not allowed  ok

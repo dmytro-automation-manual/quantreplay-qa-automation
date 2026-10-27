@@ -1,9 +1,0 @@
-ExecutionReport after resume
-field       expected             actual               result
-msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
-order_id    <non-empty>          261026184347000054   ok    
-exec_type   NEW(0)               NEW(0)               ok    
-ord_status  NEW(0)               NEW(0)               ok    
-symbol      EUR/USD              EUR/USD              ok    
-order_qty   1000000              1000000              ok    
-price       1.00736              1.00736              ok    

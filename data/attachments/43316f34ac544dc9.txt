@@ -1,0 +1,17 @@
+ExecutionReport for NewOrderSingle
+field          expected             actual                result
+msg_type       EXECUTION_REPORT(8)  EXECUTION_REPORT(8)   ok    
+order_id       <non-empty>          261027201148000025    ok    
+exec_type      NEW(0)               NEW(0)                ok    
+ord_status     NEW(0)               NEW(0)                ok    
+symbol         EUR/USD              EUR/USD               ok    
+order_qty      1000000              1000000               ok    
+price          1.00736              1.00736               ok    
+cl_ord_id      4db7d4d7ce2d4fee     4db7d4d7ce2d4fee      ok    
+side           BUY(1)               BUY(1)                ok    
+ord_type       LIMIT(2)             LIMIT(2)              ok    
+time_in_force  DAY(0)               DAY(0)                ok    
+leaves_qty     1000000              1000000               ok    
+cum_qty        0                    0                     ok    
+avg_px         0                    0                     ok    
+exec_id        <non-empty>          261027201148000025-1  ok    

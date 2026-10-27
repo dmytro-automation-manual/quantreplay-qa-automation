@@ -1,0 +1,39 @@
+20:11:50.938 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=294|52=20261027-20:11:50.938|11=349da31186974e48|55=AMZ|54=1|60=20261027-20:11:50.938|40=2|44=200.25|38=50|59=0|10=141|
+20:11:50.939 fix    << 8=FIXT.1.1|9=197|35=8|34=326|49=SIM_XETRA|52=20261027-20:11:50.939|56=CLIENT_XETRA|6=0|11=349da31186974e48|14=0|17=261027201150000045-1|37=261027201150000045|38=50|39=0|40=2|44=200.25|54=1|55=AMZ|59=0|150=0|151=50|10=240|
+20:11:50.939 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=295|52=20261027-20:11:50.939|11=fd0b5f2583b84c7a|55=AMZ|54=1|60=20261027-20:11:50.939|40=2|44=200.50|38=50|59=0|10=067|
+20:11:50.940 fix    << 8=FIXT.1.1|9=196|35=8|34=327|49=SIM_XETRA|52=20261027-20:11:50.939|56=CLIENT_XETRA|6=0|11=fd0b5f2583b84c7a|14=0|17=261027201150000046-1|37=261027201150000046|38=50|39=0|40=2|44=200.5|54=1|55=AMZ|59=0|150=0|151=50|10=117|
+20:11:50.940 fix    >> 8=FIXT.1.1|9=124|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=296|52=20261027-20:11:50.940|262=8e43bc5055e4460a|263=0|264=1|267=1|269=0|146=1|55=AMZ|10=030|
+20:11:50.941 fix    << 8=FIXT.1.1|9=167|35=W|34=328|49=SIM_XETRA|52=20261027-20:11:50.940|56=CLIENT_XETRA|55=AMZ|262=8e43bc5055e4460a|268=1|269=0|278=1793131896:31|270=200.5|271=50|779=20261027-20:11:50.940|10=169|
+20:11:50.941 check  One bid level at depth 1
+field      expected  actual                                                                                                                             result
+condition  true      True found [MDEntry(entry_type=BID(0), price=Decimal('200.5'), size=Decimal('50'), entry_id='1793131896:31', update_action=None)]  ok    
+20:11:50.941 check  Best bid: one BID at 200.50
+field      expected  actual        result
+condition  true      True found 1  ok    
+20:11:50.941 check  Best bid
+field       expected  actual  result
+entry_type  BID(0)    BID(0)  ok    
+price       200.50    200.5   ok    
+size        50        50      ok
+20:11:50.993 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=297|52=20261027-20:11:50.993|41=349da31186974e48|11=dabcd3c5dcb34ef6|37=261027201150000045|55=AMZ|54=1|60=20261027-20:11:50.993|10=032|
+20:11:50.994 fix    << 8=FIXT.1.1|9=216|35=8|34=329|49=SIM_XETRA|52=20261027-20:11:50.994|56=CLIENT_XETRA|6=0|11=dabcd3c5dcb34ef6|14=0|17=261027201150000045-2|37=261027201150000045|38=50|39=4|40=2|41=349da31186974e48|44=200.25|54=1|55=AMZ|59=0|150=4|151=0|10=173|
+20:11:50.994 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027201150000045   261027201150000045   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       200.25               200.25               ok    
+20:11:50.995 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=298|52=20261027-20:11:50.995|41=fd0b5f2583b84c7a|11=3db478fba0b24971|37=261027201150000046|55=AMZ|54=1|60=20261027-20:11:50.995|10=239|
+20:11:50.995 fix    << 8=FIXT.1.1|9=215|35=8|34=330|49=SIM_XETRA|52=20261027-20:11:50.995|56=CLIENT_XETRA|6=0|11=3db478fba0b24971|14=0|17=261027201150000046-2|37=261027201150000046|38=50|39=4|40=2|41=fd0b5f2583b84c7a|44=200.5|54=1|55=AMZ|59=0|150=4|151=0|10=062|
+20:11:50.995 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027201150000046   261027201150000046   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       200.50               200.5                ok

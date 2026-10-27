@@ -1,0 +1,39 @@
+20:11:50.963 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=294|52=20261027-20:11:50.963|11=34d039604ec842f4|55=EUR/USD|54=1|60=20261027-20:11:50.963|40=2|44=1.00736|38=1000000|59=0|10=030|
+20:11:50.964 fix    << 8=FIXT.1.1|9=220|35=8|34=326|49=SIM_FASTMATCH|52=20261027-20:11:50.963|56=CLIENT_FASTMATCH|6=0|11=34d039604ec842f4|14=0|17=261027201150000045-1|37=261027201150000045|38=1000000|39=0|40=2|44=1.00736|54=1|55=EUR/USD|59=0|150=0|151=1000000|10=097|
+20:11:50.964 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=295|52=20261027-20:11:50.964|11=ad2d2e6fb4794f69|55=EUR/USD|54=1|60=20261027-20:11:50.964|40=2|44=1.00741|38=1000000|59=0|10=185|
+20:11:50.964 fix    << 8=FIXT.1.1|9=220|35=8|34=327|49=SIM_FASTMATCH|52=20261027-20:11:50.964|56=CLIENT_FASTMATCH|6=0|11=ad2d2e6fb4794f69|14=0|17=261027201150000046-1|37=261027201150000046|38=1000000|39=0|40=2|44=1.00741|54=1|55=EUR/USD|59=0|150=0|151=1000000|10=253|
+20:11:50.965 fix    >> 8=FIXT.1.1|9=136|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=296|52=20261027-20:11:50.964|262=630ec4ea25c247c0|263=0|264=1|267=1|269=0|146=1|55=EUR/USD|10=157|
+20:11:50.965 fix    << 8=FIXT.1.1|9=186|35=W|34=328|49=SIM_FASTMATCH|52=20261027-20:11:50.965|56=CLIENT_FASTMATCH|55=EUR/USD|262=630ec4ea25c247c0|268=1|269=0|278=1793131896:29|270=1.00741|271=1000000|779=20261027-20:11:50.965|10=135|
+20:11:50.965 check  One bid level at depth 1
+field      expected  actual                                                                                                                                    result
+condition  true      True found [MDEntry(entry_type=BID(0), price=Decimal('1.00741'), size=Decimal('1000000'), entry_id='1793131896:29', update_action=None)]  ok    
+20:11:50.966 check  Best bid: one BID at 1.00741
+field      expected  actual        result
+condition  true      True found 1  ok    
+20:11:50.966 check  Best bid
+field       expected  actual   result
+entry_type  BID(0)    BID(0)   ok    
+price       1.00741   1.00741  ok    
+size        1000000   1000000  ok
+20:11:51.018 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=297|52=20261027-20:11:51.018|41=34d039604ec842f4|11=ca466e5c08714efd|37=261027201150000045|55=EUR/USD|54=1|60=20261027-20:11:51.018|10=200|
+20:11:51.018 fix    << 8=FIXT.1.1|9=234|35=8|34=329|49=SIM_FASTMATCH|52=20261027-20:11:51.018|56=CLIENT_FASTMATCH|6=0|11=ca466e5c08714efd|14=0|17=261027201150000045-2|37=261027201150000045|38=1000000|39=4|40=2|41=34d039604ec842f4|44=1.00736|54=1|55=EUR/USD|59=0|150=4|151=0|10=128|
+20:11:51.019 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027201150000045   261027201150000045   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.00736              1.00736              ok    
+20:11:51.019 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=298|52=20261027-20:11:51.019|41=ad2d2e6fb4794f69|11=2d2fb465b30d475b|37=261027201150000046|55=EUR/USD|54=1|60=20261027-20:11:51.019|10=046|
+20:11:51.020 fix    << 8=FIXT.1.1|9=234|35=8|34=330|49=SIM_FASTMATCH|52=20261027-20:11:51.019|56=CLIENT_FASTMATCH|6=0|11=2d2fb465b30d475b|14=0|17=261027201150000046-2|37=261027201150000046|38=1000000|39=4|40=2|41=ad2d2e6fb4794f69|44=1.00741|54=1|55=EUR/USD|59=0|150=4|151=0|10=217|
+20:11:51.020 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027201150000046   261027201150000046   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.00741              1.00741              ok

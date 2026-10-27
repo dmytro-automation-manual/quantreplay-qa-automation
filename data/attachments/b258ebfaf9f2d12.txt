@@ -1,0 +1,26 @@
+20:11:49.306 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=219|52=20261027-20:11:49.306|11=43faf09cb4c24c52|55=MSF|54=2|60=20261027-20:11:49.306|40=2|44=515.85|38=20|59=0|10=059|
+20:11:49.307 fix    << 8=FIXT.1.1|9=197|35=8|34=240|49=SIM_XETRA|52=20261027-20:11:49.307|56=CLIENT_XETRA|6=0|11=43faf09cb4c24c52|14=0|17=261027201149000018-1|37=261027201149000018|38=20|39=0|40=2|44=515.85|54=2|55=MSF|59=0|150=0|151=20|10=172|
+20:11:49.307 check  ExecutionReport for NewOrderSingle
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261027201149000018   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      MSF                  MSF                  ok    
+order_qty   20                   20                   ok    
+price       515.85               515.85               ok    
+20:11:49.308 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=220|52=20261027-20:11:49.308|41=43faf09cb4c24c52|11=ab2a8f313b07453f|37=261027201149000018|55=MSF|54=2|60=20261027-20:11:49.308|10=205|
+20:11:49.308 fix    << 8=FIXT.1.1|9=216|35=8|34=241|49=SIM_XETRA|52=20261027-20:11:49.308|56=CLIENT_XETRA|6=0|11=ab2a8f313b07453f|14=0|17=261027201149000018-2|37=261027201149000018|38=20|39=4|40=2|41=43faf09cb4c24c52|44=515.85|54=2|55=MSF|59=0|150=4|151=0|10=118|
+20:11:49.309 check  ExecutionReport for OrderCancelRequest
+field           expected             actual               result
+msg_type        EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id        261027201149000018   261027201149000018   ok    
+exec_type       CANCELED(4)          CANCELED(4)          ok    
+ord_status      CANCELED(4)          CANCELED(4)          ok    
+symbol          MSF                  MSF                  ok    
+order_qty       20                   20                   ok    
+price           515.85               515.85               ok    
+side            SELL(2)              SELL(2)              ok    
+orig_cl_ord_id  43faf09cb4c24c52     43faf09cb4c24c52     ok    
+leaves_qty      0                    0                    ok    
+cum_qty         0                    0                    ok

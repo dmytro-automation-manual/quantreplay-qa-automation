@@ -1,0 +1,7 @@
+20:11:52.695 rest   >> GET /genstatus/XETRA 
+20:11:52.696 httpx  HTTP Request: GET http://localhost:9050/api/genstatus/XETRA "HTTP/1.1 200 OK"
+20:11:52.697 rest   << 200 {"result":"Stopped"}
+20:11:52.697 check  GET genstatus
+field        expected  actual   result
+status_code  200       200      ok    
+result       Stopped   Stopped  ok

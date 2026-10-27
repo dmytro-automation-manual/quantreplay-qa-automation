@@ -1,0 +1,48 @@
+20:11:45.356 fix    >> 8=FIXT.1.1|9=148|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=40|52=20261027-20:11:45.356|11=35567df839844425|55=AMZ|54=1|60=20261027-20:11:45.356|40=2|44=200.25|38=50|59=0|10=035|
+20:11:45.357 fix    << 8=FIXT.1.1|9=196|35=8|34=44|49=SIM_XETRA|52=20261027-20:11:45.357|56=CLIENT_XETRA|6=0|11=35567df839844425|14=0|17=261027201145000016-1|37=261027201145000016|38=50|39=0|40=2|44=200.25|54=1|55=AMZ|59=0|150=0|151=50|10=148|
+20:11:45.357 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=41|52=20261027-20:11:45.357|11=b6ea1cdfedd44cd5|55=AMZ|54=2|60=20261027-20:11:45.357|40=2|44=244.90|38=100|59=0|10=248|
+20:11:45.358 fix    << 8=FIXT.1.1|9=197|35=8|34=45|49=SIM_XETRA|52=20261027-20:11:45.357|56=CLIENT_XETRA|6=0|11=b6ea1cdfedd44cd5|14=0|17=261027201145000017-1|37=261027201145000017|38=100|39=0|40=2|44=244.9|54=2|55=AMZ|59=0|150=0|151=100|10=101|
+20:11:45.358 fix    >> 8=FIXT.1.1|9=129|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=42|52=20261027-20:11:45.358|262=3f1cc5a78ec34e76|263=0|264=0|267=2|269=0|269=1|146=1|55=AMZ|10=105|
+20:11:45.359 fix    << 8=FIXT.1.1|9=209|35=W|34=46|49=SIM_XETRA|52=20261027-20:11:45.359|56=CLIENT_XETRA|55=AMZ|262=3f1cc5a78ec34e76|268=2|269=0|278=1793131896:12|270=200.25|271=50|269=1|278=1793131896:13|270=244.9|271=100|779=20261027-20:11:45.359|10=253|
+20:11:45.359 check  Book size
+field   expected  actual  result
+bids    1         1       ok    
+offers  1         1       ok    
+20:11:45.360 check  Bid in the snapshot: one BID at 200.25
+field      expected  actual        result
+condition  true      True found 1  ok    
+20:11:45.360 check  Bid in the snapshot
+field       expected  actual  result
+entry_type  BID(0)    BID(0)  ok    
+price       200.25    200.25  ok    
+size        50        50      ok    
+20:11:45.360 check  Offer in the snapshot: one OFFER at 244.90
+field      expected  actual        result
+condition  true      True found 1  ok    
+20:11:45.360 check  Offer in the snapshot
+field       expected  actual    result
+entry_type  OFFER(1)  OFFER(1)  ok    
+price       244.90    244.9     ok    
+size        100       100       ok
+20:11:45.412 fix    >> 8=FIXT.1.1|9=164|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=43|52=20261027-20:11:45.412|41=35567df839844425|11=0c26274dc5624267|37=261027201145000016|55=AMZ|54=1|60=20261027-20:11:45.412|10=045|
+20:11:45.413 fix    << 8=FIXT.1.1|9=215|35=8|34=47|49=SIM_XETRA|52=20261027-20:11:45.413|56=CLIENT_XETRA|6=0|11=0c26274dc5624267|14=0|17=261027201145000016-2|37=261027201145000016|38=50|39=4|40=2|41=35567df839844425|44=200.25|54=1|55=AMZ|59=0|150=4|151=0|10=206|
+20:11:45.413 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027201145000016   261027201145000016   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       200.25               200.25               ok    
+20:11:45.414 fix    >> 8=FIXT.1.1|9=164|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=44|52=20261027-20:11:45.414|41=b6ea1cdfedd44cd5|11=83b1751f1c2a4097|37=261027201145000017|55=AMZ|54=2|60=20261027-20:11:45.414|10=251|
+20:11:45.414 fix    << 8=FIXT.1.1|9=215|35=8|34=48|49=SIM_XETRA|52=20261027-20:11:45.414|56=CLIENT_XETRA|6=0|11=83b1751f1c2a4097|14=0|17=261027201145000017-2|37=261027201145000017|38=100|39=4|40=2|41=b6ea1cdfedd44cd5|44=244.9|54=2|55=AMZ|59=0|150=4|151=0|10=160|
+20:11:45.415 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027201145000017   261027201145000017   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   100                  100                  ok    
+price       244.90               244.9                ok

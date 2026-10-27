@@ -1,0 +1,12 @@
+20:11:49.817 fix    >> 8=FIXT.1.1|9=154|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=239|52=20261027-20:11:49.817|11=2ed62dc3bd2141df|55=VODI|54=1|60=20261027-20:11:49.817|40=2|44=1.268|38=2000001|59=0|10=120|
+20:11:49.818 fix    << 8=FIXT.1.1|9=253|35=8|34=262|49=SIM_XETRA|52=20261027-20:11:49.818|56=CLIENT_XETRA|6=0|11=2ed62dc3bd2141df|14=0|17=261027201149000006-1|37=261027201149000006|38=2000001|39=8|40=2|44=1.268|54=1|55=VODI|58=maximal order quantity constraint violated|59=0|150=8|151=2000001|10=040|
+20:11:49.818 check  ExecutionReport for OrderQty above qtyMaximum
+field       expected                                    actual                                      result
+msg_type    EXECUTION_REPORT(8)                         EXECUTION_REPORT(8)                         ok    
+order_id    <non-empty>                                 261027201149000006                          ok    
+exec_type   REJECTED(8)                                 REJECTED(8)                                 ok    
+ord_status  REJECTED(8)                                 REJECTED(8)                                 ok    
+symbol      VODI                                        VODI                                        ok    
+order_qty   2000001                                     2000001                                     ok    
+price       1.268                                       1.268                                       ok    
+text        maximal order quantity constraint violated  maximal order quantity constraint violated  ok

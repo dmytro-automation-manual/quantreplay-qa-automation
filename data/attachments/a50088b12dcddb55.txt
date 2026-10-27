@@ -1,0 +1,6 @@
+MarketDataRequestReject for unknown subscription
+field      expected                                  actual                                    result
+msg_type   MARKET_DATA_REQUEST_REJECT(Y)             MARKET_DATA_REQUEST_REJECT(Y)             ok    
+md_req_id  43efe19a9bbf4dc6                          43efe19a9bbf4dc6                          ok    
+reason     <not sent>                                <none>                                    ok    
+text       no subscription found for the request id  no subscription found for the request id  ok    

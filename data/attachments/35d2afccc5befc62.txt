@@ -1,0 +1,41 @@
+20:11:44.555 rest   >> GET /venues/FASTMATCH 
+20:11:44.571 httpx  HTTP Request: GET http://localhost:9052/api/venues/FASTMATCH "HTTP/1.1 200 OK"
+20:11:44.572 rest   << 200 {"id":"FASTMATCH","name":"FASTMATCH","engineType":"Matching","supportTifIoc":true,"supportTifFok":true,"supportTifDay":true,"includeOwnOrders":true,"restPort":9052,"orderOnStartup":false,"randomPartyCount":10,"timeAndSalesEnabled":true,"timeAndSalesQuantityEnabled":true,"timeAndSalesSideEnabled":true,"timeAndSalesPartiesEnabled":true,"timezone":"America/New_York","cancelOnDisconnect":false,"persistenceEnabled":false,"phases":[]}
+20:11:44.572 rest   >> GET /genstatus/FASTMATCH 
+20:11:44.574 httpx  HTTP Request: GET http://localhost:9052/api/genstatus/FASTMATCH "HTTP/1.1 200 OK"
+20:11:44.574 rest   << 200 {"result":"Stopped"}
+20:11:44.574 fix    >> 8=FIXT.1.1|9=97|35=A|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=1|52=20261027-20:11:44.574|98=0|108=30|141=Y|1137=9|10=096|
+20:11:44.575 fix    << 8=FIXT.1.1|9=97|35=A|34=1|49=SIM_FASTMATCH|52=20261027-20:11:44.575|56=CLIENT_FASTMATCH|98=0|108=30|141=Y|1137=9|10=097|
+20:11:44.576 fix    >> 8=FIXT.1.1|9=140|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=2|52=20261027-20:11:44.575|262=04a9c1755f2841e8|263=0|264=0|267=2|269=0|269=1|146=1|55=EUR/USD|10=234|
+20:11:44.587 fix    << 8=FIXT.1.1|9=136|35=W|34=2|49=SIM_FASTMATCH|52=20261027-20:11:44.587|56=CLIENT_FASTMATCH|55=EUR/USD|262=04a9c1755f2841e8|268=0|779=20261027-20:11:44.587|10=206|
+20:11:44.587 fix    >> 8=FIXT.1.1|9=140|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=3|52=20261027-20:11:44.587|262=28703f43392e4971|263=0|264=0|267=2|269=0|269=1|146=1|55=GBP/USD|10=127|
+20:11:44.588 fix    << 8=FIXT.1.1|9=136|35=W|34=3|49=SIM_FASTMATCH|52=20261027-20:11:44.588|56=CLIENT_FASTMATCH|55=GBP/USD|262=28703f43392e4971|268=0|779=20261027-20:11:44.588|10=098|
+20:11:44.588 fix    >> 8=FIXT.1.1|9=140|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=4|52=20261027-20:11:44.588|262=3d155d1cd95f4043|263=0|264=0|267=2|269=0|269=1|146=1|55=USD/JPY|10=031|
+20:11:44.589 fix    << 8=FIXT.1.1|9=136|35=W|34=4|49=SIM_FASTMATCH|52=20261027-20:11:44.589|56=CLIENT_FASTMATCH|55=USD/JPY|262=3d155d1cd95f4043|268=0|779=20261027-20:11:44.589|10=003|
+20:11:44.589 fix    >> 8=FIXT.1.1|9=140|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=5|52=20261027-20:11:44.589|262=0f52ac547474420d|263=0|264=0|267=2|269=0|269=1|146=1|55=USD/CHF|10=204|
+20:11:44.590 fix    << 8=FIXT.1.1|9=136|35=W|34=5|49=SIM_FASTMATCH|52=20261027-20:11:44.589|56=CLIENT_FASTMATCH|55=USD/CHF|262=0f52ac547474420d|268=0|779=20261027-20:11:44.589|10=175|
+20:11:44.590 fix    >> 8=FIXT.1.1|9=140|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=6|52=20261027-20:11:44.590|262=0d571b7fb8154d29|263=0|264=0|267=2|269=0|269=1|146=1|55=EUR/GBP|10=006|
+20:11:44.590 fix    << 8=FIXT.1.1|9=136|35=W|34=6|49=SIM_FASTMATCH|52=20261027-20:11:44.590|56=CLIENT_FASTMATCH|55=EUR/GBP|262=0d571b7fb8154d29|268=0|779=20261027-20:11:44.590|10=225|
+20:11:44.590 db     SQL select * from sim.venue where venue_id = %s ('FASTMATCH',)
+20:11:44.592 db     rows: 1
+20:11:44.592 db     SQL select * from sim.listing where venue_id = %s ('FASTMATCH',)
+20:11:44.593 db     rows: 5
+20:11:44.594 db     SQL select * from sim.price_seed 
+20:11:44.594 db     rows: 10
+20:11:44.594 db     SQL select * from sim.setting 
+20:11:44.596 db     rows: 3
+20:11:44.596 db     SQL select * from sim.data_source where venue_id = %s ('FASTMATCH',)
+20:11:44.597 db     rows: 0
+20:11:44.597 db     SQL select * from sim.column_mapping 
+20:11:44.597 db     rows: 9
+20:11:44.597 db     SQL select * from sim.data_source_listing 
+20:11:44.598 db     rows: 0
+20:11:44.598 db     SQL select * from sim.listing_random_price_source 
+20:11:44.598 db     rows: 0
+20:11:44.598 db     SQL select * from sim.market_phase where venue_id = %s ('FASTMATCH',)
+20:11:44.599 db     rows: 0
+20:11:44.600 db     SQL select listing_id, symbol, venue_id, security_type, price_currency, fx_base_currency, security_exchange, isin_id, qty_minimum::numeric as qty_minimum, qty_maximum::numeric as qty_maximum, qty_multiple::numeric as qty_multiple, price_tick_size::numeric as price_tick_size, enabled, random_orders_enabled from sim.listing where venue_id = %s order by listing_id ('FASTMATCH',)
+20:11:44.601 db     rows: 5
+20:11:44.601 check  Symbols in sim.listing
+field    expected                                                 actual                                                   result
+symbols  ['EUR/GBP', 'EUR/USD', 'GBP/USD', 'USD/CHF', 'USD/JPY']  ['EUR/GBP', 'EUR/USD', 'GBP/USD', 'USD/CHF', 'USD/JPY']  ok

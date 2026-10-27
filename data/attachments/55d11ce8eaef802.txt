@@ -1,0 +1,9 @@
+20:12:03.662 rest   >> GET /settings 
+20:12:03.673 httpx  HTTP Request: GET http://localhost:9052/api/settings "HTTP/1.1 200 OK"
+20:12:03.674 rest   << 200 {"settings":[{"key":"DisplayName","value":"MKTSIMULATOR"},{"key":"SeedPricesLastUpdated","value":"2024-03-14 14:35:06"},{"key":"SeedPriceDatabaseConnection","value":"postgresql://user:password@127.0.0.1:5432/database_name"}]}
+20:12:03.674 check  GET /api/settings
+field        expected  actual  result
+status_code  200       200     ok    
+20:12:03.674 check  Setting keys
+field  expected                                                      actual                                                        result
+keys   ['DisplayName', 'SeedPriceDatabaseConnection', 'SeedPrice...  ['DisplayName', 'SeedPriceDatabaseConnection', 'SeedPrice...  ok

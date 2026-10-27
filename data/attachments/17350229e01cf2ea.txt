@@ -1,0 +1,7 @@
+Venue status
+field            expected     actual                                                        result
+id               XETRA        XETRA                                                         ok    
+name             XETRA        XETRA                                                         ok    
+startTime        <non-empty>  2026-10-27 20:11:36.749784                                    ok    
+version          <non-empty>  12.1792505299_39111b63(2026-10-20 17:08:19 +0300)             ok    
+sessionSettings  <non-empty>  [{'section': 'DEFAULT', 'settings': {'ALLOWUNKNOWNMSGFIEL...  ok    

@@ -1,6 +1,0 @@
-MarketDataRequestReject for duplicate MDReqID
-field      expected                            actual                              result
-msg_type   MARKET_DATA_REQUEST_REJECT(Y)       MARKET_DATA_REQUEST_REJECT(Y)       ok    
-md_req_id  cfe1b09d1e8c4940                    cfe1b09d1e8c4940                    ok    
-reason     DUPLICATE_MD_REQ_ID(1)              DUPLICATE_MD_REQ_ID(1)              ok    
-text       request identifier is used already  request identifier is used already  ok    

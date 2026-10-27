@@ -1,6 +1,0 @@
-18:41:47.479 fix    >> 8=FIXT.1.1|9=123|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=52|52=20261026-18:41:47.479|262=4a914c626c0747a7|263=0|264=0|267=1|269=1|146=1|55=AMZ|10=206|
-18:41:47.479 fix    << 8=FIXT.1.1|9=125|35=W|34=55|49=SIM_XETRA|52=20261026-18:41:47.479|56=CLIENT_XETRA|55=AMZ|262=4a914c626c0747a7|268=0|779=20261026-18:41:47.479|10=203|
-18:41:47.479 check  MarketDataSnapshotFullRefresh
-field     expected                 actual                   result
-msg_type  MARKET_DATA_SNAPSHOT(W)  MARKET_DATA_SNAPSHOT(W)  ok    
-symbol    AMZ                      AMZ                      ok

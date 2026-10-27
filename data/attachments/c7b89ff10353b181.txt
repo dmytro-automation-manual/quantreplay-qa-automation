@@ -1,0 +1,13 @@
+ExecutionReport for FILL_OR_KILL without liquidity
+field          expected                actual                  result
+msg_type       EXECUTION_REPORT(8)     EXECUTION_REPORT(8)     ok    
+order_id       <non-empty>             261027201150000034      ok    
+exec_type      CANCELED(4)             CANCELED(4)             ok    
+ord_status     CANCELED(4)             CANCELED(4)             ok    
+symbol         EUR/USD                 EUR/USD                 ok    
+order_qty      1000000                 1000000                 ok    
+price          1.00736                 1.00736                 ok    
+time_in_force  FILL_OR_KILL(4)         FILL_OR_KILL(4)         ok    
+cum_qty        0                       0                       ok    
+leaves_qty     0                       0                       ok    
+text           no facing orders found  no facing orders found  ok    

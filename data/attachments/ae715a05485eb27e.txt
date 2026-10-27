@@ -1,0 +1,54 @@
+20:11:46.771 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=110|52=20261027-20:11:46.771|11=91953dc835464556|55=EUR/GBP|54=2|60=20261027-20:11:46.771|40=2|44=0.92102|38=2000000|59=0|10=176|
+20:11:46.772 fix    << 8=FIXT.1.1|9=220|35=8|34=115|49=SIM_FASTMATCH|52=20261027-20:11:46.772|56=CLIENT_FASTMATCH|6=0|11=91953dc835464556|14=0|17=261027201146000009-1|37=261027201146000009|38=2000000|39=0|40=2|44=0.92102|54=2|55=EUR/GBP|59=0|150=0|151=2000000|10=006|
+20:11:46.772 fix    >> 8=FIXT.1.1|9=156|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=111|52=20261027-20:11:46.772|11=12ea198c7eb645b2|55=EUR/GBP|54=1|60=20261027-20:11:46.772|40=1|38=1000000|59=3|10=094|
+20:11:46.773 fix    << 8=FIXT.1.1|9=209|35=8|34=116|49=SIM_FASTMATCH|52=20261027-20:11:46.773|56=CLIENT_FASTMATCH|6=0|11=12ea198c7eb645b2|14=0|17=261027201146000010-1|37=261027201146000010|38=1000000|39=0|40=1|54=1|55=EUR/GBP|59=3|150=0|151=1000000|10=171|
+20:11:46.773 check  ExecutionReport New for market order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261027201146000010   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      EUR/GBP              EUR/GBP              ok    
+order_qty   1000000              1000000              ok    
+price       <not sent>           <none>               ok    
+ord_type    MARKET(1)            MARKET(1)            ok    
+20:11:46.774 fix    << 8=FIXT.1.1|9=237|35=8|34=117|49=SIM_FASTMATCH|52=20261027-20:11:46.773|56=CLIENT_FASTMATCH|6=0.92102|11=12ea198c7eb645b2|14=1000000|17=261027201146000010-2|31=0.92102|32=1000000|37=261027201146000010|38=1000000|39=2|40=1|54=1|55=EUR/GBP|59=3|150=F|151=0|10=228|
+20:11:46.774 fix    << 8=FIXT.1.1|9=254|35=8|34=118|49=SIM_FASTMATCH|52=20261027-20:11:46.773|56=CLIENT_FASTMATCH|6=0.92102|11=91953dc835464556|14=1000000|17=261027201146000009-2|31=0.92102|32=1000000|37=261027201146000009|38=2000000|39=1|40=2|44=0.92102|54=2|55=EUR/GBP|59=0|150=F|151=1000000|10=103|
+20:11:46.774 check  ExecutionReport Trade for market order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027201146000010   261027201146000010   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  FILLED(2)            FILLED(2)            ok    
+symbol      EUR/GBP              EUR/GBP              ok    
+order_qty   1000000              1000000              ok    
+price       <not sent>           <none>               ok    
+last_px     0.92102              0.92102              ok    
+last_qty    1000000              1000000              ok    
+cum_qty     1000000              1000000              ok    
+leaves_qty  0                    0                    ok    
+avg_px      0.92102              0.92102              ok    
+20:11:46.775 check  ExecutionReport Trade for resting order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027201146000009   261027201146000009   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  PARTIALLY_FILLED(1)  PARTIALLY_FILLED(1)  ok    
+symbol      EUR/GBP              EUR/GBP              ok    
+order_qty   2000000              2000000              ok    
+price       0.92102              0.92102              ok    
+last_px     0.92102              0.92102              ok    
+last_qty    1000000              1000000              ok    
+cum_qty     1000000              1000000              ok    
+leaves_qty  1000000              1000000              ok
+20:11:46.826 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=112|52=20261027-20:11:46.826|41=91953dc835464556|11=36f84eaa7163420f|37=261027201146000009|55=EUR/GBP|54=2|60=20261027-20:11:46.826|10=013|
+20:11:46.826 fix    << 8=FIXT.1.1|9=246|35=8|34=119|49=SIM_FASTMATCH|52=20261027-20:11:46.826|56=CLIENT_FASTMATCH|6=0.92102|11=36f84eaa7163420f|14=1000000|17=261027201146000009-3|37=261027201146000009|38=2000000|39=4|40=2|41=91953dc835464556|44=0.92102|54=2|55=EUR/GBP|59=0|150=4|151=0|10=025|
+20:11:46.827 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027201146000009   261027201146000009   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      EUR/GBP              EUR/GBP              ok    
+order_qty   2000000              2000000              ok    
+price       0.92102              0.92102              ok
