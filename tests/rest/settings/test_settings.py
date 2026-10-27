@@ -3,10 +3,14 @@
 Unknown key: the venue's text quotes the key (the REST API document writes 'Unknown BadKey setting ...').
 Teardown (fixture `undo`): the changed setting is restored.
 """
+import pytest
 from allure import step
 
 from framework.assertions.expect import check_fields
 from tests.support.rest import check_response
+
+# Settings and price seeds are shared by both venues: one venue at a time (see `shared_tables`).
+pytestmark = pytest.mark.usefixtures("shared_tables")
 
 
 def _settings(api) -> dict:

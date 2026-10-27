@@ -38,7 +38,8 @@ scripts/db_snapshot.sh save "sim-run/db/snapshots/pre_run_$(date +%Y%m%d_%H%M%S)
 echo "== run tests"
 set -a; . reportportal/.env; set +a
 status=0
-.venv/bin/pytest --reportportal --alluredir=allure-results --clean-alluredir "$@" || status=$?
+rm -rf allure-results      # not --clean-alluredir: with parallel workers each one would clean the folder
+.venv/bin/pytest --reportportal --alluredir=allure-results "$@" || status=$?
 
 echo "== restart simulator stack (fresh test database, empty books)"
 "${COMPOSE[@]}" down

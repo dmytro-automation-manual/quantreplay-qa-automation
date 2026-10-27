@@ -2,6 +2,8 @@
 
 Venues: every test runs once per venue in test_data/markets.py (XETRA equities, FASTMATCH FX spot);
 a test that takes `instrument` runs for every instrument of every venue: test_x[XETRA-AMZ], test_x[FASTMATCH-EUR/USD].
+Parallel run (pytest.ini: -n 2): one pytest-xdist worker per venue - the venues are separate simulators.
+The tables both venues share (setting, price_seed) are guarded by a lock between the workers (`shared_tables`).
 Session level (once per venue):
   * wait for the simulator, stop the random order generator, make sure every order book is empty;
   * capture the configuration tables and, after the last test, prove that nothing changed.
@@ -11,9 +13,11 @@ Test level (every test):
     and undoes REST changes - so every test starts from the same state, in any order.
 """
 import logging
+from pathlib import Path
 
 import allure
 import pytest
+from xdist.scheduler import LoadScopeScheduling
 
 from framework.assertions.trading import check_execution_report
 from framework.config import Settings
@@ -26,7 +30,7 @@ from framework.transport.db_client import DbClient
 from framework.transport.fix_session import FixSession
 from framework.transport.http_client import HttpClient
 from test_data.markets import MARKETS, Market
-from tests.support.isolation import UndoStack, wait_until
+from tests.support.isolation import UndoStack, exclusive_lock, wait_until
 
 log = logging.getLogger("setup")
 
@@ -57,6 +61,18 @@ class VenueOrder:
 
 def pytest_configure(config):
     config.pluginmanager.register(VenueOrder(), "venue-order")
+
+
+class VenueScheduling(LoadScopeScheduling):
+    """All tests of one venue go to the same worker, in collection order."""
+
+    def _split_scope(self, nodeid: str) -> str:
+        return next(market.venue_id for market in MARKETS if f"[{market.venue_id}" in nodeid)
+
+
+@pytest.hookimpl(optionalhook=True)
+def pytest_xdist_make_scheduler(config, log):
+    return VenueScheduling(config, log)
 
 
 def pytest_generate_tests(metafunc):
@@ -150,11 +166,25 @@ def venue(settings, market, api, fix_session) -> Venue:
     return Venue(settings, market, api, fix_session)
 
 
+@pytest.fixture(scope="session")
+def shared_lock(tmp_path_factory) -> Path:
+    """Lock file common to all workers of one run."""
+    return tmp_path_factory.getbasetemp().parent / "shared_tables.lock"
+
+
+@pytest.fixture
+def shared_tables(shared_lock):
+    """For tests that change or reload the tables both venues share: the other venue's tests wait meanwhile."""
+    with exclusive_lock(shared_lock):
+        yield
+
+
 @pytest.fixture(scope="session", autouse=True)
-def clean_venue(market, api, db, fix_session, venue):
+def clean_venue(market, api, db, fix_session, venue, shared_lock):
     """Session precondition and final isolation proof (per venue)."""
     venue_id = market.venue_id
-    with allure.step(f"Session setup ({venue_id}): simulator is up, generator stopped, books empty"):
+    with allure.step(f"Session setup ({venue_id}): simulator is up, generator stopped, books empty"), \
+            exclusive_lock(shared_lock):
         venue.wait_ready()
         generator_was_running = api.get_generator_status(venue_id).result == "Running"
         if generator_was_running:
@@ -166,17 +196,18 @@ def clean_venue(market, api, db, fix_session, venue):
             venue.reset()
             dirty = _non_empty_books(fix_session, market)
             assert not dirty, f"Order books still not empty after reset: {dirty}"
-        state_before = DatabaseState(db).capture()
+        state_before = DatabaseState(db).capture(venue_id)
 
     yield
 
-    with allure.step(f"Session teardown ({venue_id}): no order and no configuration change left behind"):
+    with allure.step(f"Session teardown ({venue_id}): no order and no configuration change left behind"), \
+            exclusive_lock(shared_lock):
         problems = []
         if fix_session.connected:
             dirty = _non_empty_books(fix_session, market)
             if dirty:
                 problems.append(f"orders left in the books: {dirty}")
-        state_after = DatabaseState(db).capture()
+        state_after = DatabaseState(db).capture(venue_id)
         changed = [t for t in state_before if state_before[t] != state_after[t]]
         if changed:
             problems.append(f"configuration tables changed by the run: {changed}")

@@ -16,7 +16,8 @@ from tests.support.rest import check_response
 
 
 @pytest.fixture
-def generator_cleanup(market, api, venue, undo):
+def generator_cleanup(shared_tables, market, api, venue, undo):
+    """The venue reset reloads its configuration from the DB: no shared table may be half-changed meanwhile."""
     undo.push("reset venue: remove random orders from the books", venue.reset)
     undo.push("stop the generator", lambda: api.stop_generator(market.venue_id))
 
