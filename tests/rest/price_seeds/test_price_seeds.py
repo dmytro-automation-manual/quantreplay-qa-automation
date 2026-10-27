@@ -15,8 +15,8 @@ from tests.support.rest import check_response
 
 NOT_FOUND = "Can not resolve a single PriceSeed by a given key"
 
-# Settings and price seeds are shared by both venues: one venue at a time (see `shared_tables`).
-pytestmark = pytest.mark.usefixtures("shared_tables")
+# Settings and price seeds are shared by both venues: one venue at a time (see `one_venue_at_a_time`).
+pytestmark = pytest.mark.usefixtures("one_venue_at_a_time")
 
 
 def _seed_by_symbol(api, symbol):

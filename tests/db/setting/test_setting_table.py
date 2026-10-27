@@ -4,8 +4,8 @@ from allure import step
 
 from framework.assertions.expect import check_fields
 
-# Settings and price seeds are shared by both venues: one venue at a time (see `shared_tables`).
-pytestmark = pytest.mark.usefixtures("shared_tables")
+# Settings and price seeds are shared by both venues: one venue at a time (see `one_venue_at_a_time`).
+pytestmark = pytest.mark.usefixtures("one_venue_at_a_time")
 
 
 def test_rest_settings_equal_database_rows(api, setting_table):

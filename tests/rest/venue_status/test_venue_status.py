@@ -1,4 +1,5 @@
 """GET /api/venuestatus, /api/venuestatus/{venueId}, /api/allvenuestatus."""
+import pytest
 from allure import step
 
 from framework.assertions.expect import PRESENT, check_fields
@@ -23,6 +24,9 @@ def test_venue_status_of_current_venue_equals_explicit_one(market, api):
                                                           "startTime": explicit.body["startTime"]})
 
 
+# Each venue asks every other venue for its status: called on both venues at the same moment, both answer
+# only after 5 s and without the other venue's details. One venue at a time.
+@pytest.mark.usefixtures("one_venue_at_a_time")
 def test_all_venue_status_contains_every_venue(api):
     with step("GET /api/allvenuestatus"):
         response = api.get_all_venue_status()

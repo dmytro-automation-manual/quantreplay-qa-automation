@@ -3,7 +3,8 @@
 Venues: every test runs once per venue in test_data/markets.py (XETRA equities, FASTMATCH FX spot);
 a test that takes `instrument` runs for every instrument of every venue: test_x[XETRA-AMZ], test_x[FASTMATCH-EUR/USD].
 Parallel run (pytest.ini: -n 2): one pytest-xdist worker per venue - the venues are separate simulators.
-The tables both venues share (setting, price_seed) are guarded by a lock between the workers (`shared_tables`).
+What both venues share (tables setting and price_seed, GET /allvenuestatus) is used by one venue at a time:
+a lock between the workers (`one_venue_at_a_time`).
 Session level (once per venue):
   * wait for the simulator, stop the random order generator, make sure every order book is empty;
   * capture the configuration tables and, after the last test, prove that nothing changed.
@@ -169,12 +170,13 @@ def venue(settings, market, api, fix_session) -> Venue:
 @pytest.fixture(scope="session")
 def shared_lock(tmp_path_factory) -> Path:
     """Lock file common to all workers of one run."""
-    return tmp_path_factory.getbasetemp().parent / "shared_tables.lock"
+    return tmp_path_factory.getbasetemp().parent / "one_venue_at_a_time.lock"
 
 
 @pytest.fixture
-def shared_tables(shared_lock):
-    """For tests that change or reload the tables both venues share: the other venue's tests wait meanwhile."""
+def one_venue_at_a_time(shared_lock):
+    """For tests that use what both venues share (tables setting / price_seed, venue-to-venue requests):
+    the other venue's worker waits meanwhile."""
     with exclusive_lock(shared_lock):
         yield
 

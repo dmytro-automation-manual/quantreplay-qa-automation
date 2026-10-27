@@ -9,8 +9,8 @@ from allure import step
 from framework.assertions.expect import check_fields
 from tests.support.rest import check_response
 
-# Settings and price seeds are shared by both venues: one venue at a time (see `shared_tables`).
-pytestmark = pytest.mark.usefixtures("shared_tables")
+# Settings and price seeds are shared by both venues: one venue at a time (see `one_venue_at_a_time`).
+pytestmark = pytest.mark.usefixtures("one_venue_at_a_time")
 
 
 def _settings(api) -> dict:
