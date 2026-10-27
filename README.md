@@ -70,7 +70,8 @@ Venues are a parameter, not a copy of the tests: `tests/conftest.py` runs every 
 `test_new_limit_order_is_accepted[XETRA-AMZ-buy]`, `...[FASTMATCH-EUR/USD-buy]`.
 The venues run in parallel, one pytest-xdist worker each (`-n 2` in `pytest.ini`; `-n 0` = one process):
 one FIX logon and one isolation check per venue. Settings and price seeds are one table for both venues,
-so the tests that change them hold a lock and run one venue at a time.
+and `GET /allvenuestatus` queries every venue, so the tests that use them hold a lock and run one venue
+at a time.
 `pytest -k FASTMATCH` runs one venue only.
 
 Folder names are markers: `pytest -m negative`, `pytest -m "fix and boundary"`, `pytest -m smoke`.
