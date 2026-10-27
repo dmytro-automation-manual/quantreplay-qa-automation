@@ -116,16 +116,26 @@ class FixSession:
 
     def clear_inbox(self) -> None:
         """Drop unread messages, e.g. between tests, so nothing leaks from one test into another."""
-        self._read_into_inbox()
+        self.drain(quiet=0.01)                    # what the previous test left is already in the buffer
         self._inbox.clear()
 
-    def _read_into_inbox(self) -> None:
+    def drain(self, quiet: float = 0.05) -> None:
+        """Read everything the venue has already sent: returns when the socket stays silent for `quiet` seconds."""
+        self._sock.settimeout(quiet)
+        try:
+            while self._read_into_inbox():
+                pass
+        finally:
+            self._sock.settimeout(0.2)
+
+    def _read_into_inbox(self) -> bool:
+        """Move messages from the socket to the inbox. False if nothing arrived within the socket timeout."""
         msg = self._parser.get_message()
         if msg is None:
             try:
                 data = self._sock.recv(65536)
             except (socket.timeout, TimeoutError):
-                return
+                return False
             if not data:
                 raise ConnectionError("FIX connection closed by the simulator")
             self._parser.append_buffer(data)
@@ -137,3 +147,4 @@ class FixSession:
             elif msg.get(35) != b"0":                     # Heartbeats are not interesting for tests
                 self._inbox.append(msg)
             msg = self._parser.get_message()
+        return True

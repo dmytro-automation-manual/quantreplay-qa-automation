@@ -1,6 +1,6 @@
 """Order entry service: business actions on the FIX order session (place, replace, cancel, wait for fills).
 
-Layer rule: depends on a session object with send()/receive() (duck-typed, injected by the caller),
+Layer rule: depends on a session object with send()/receive()/drain() (duck-typed, injected by the caller),
 on the FIX mapping and on the models. Makes no assertions - tests decide what is right.
 """
 from decimal import Decimal
@@ -14,6 +14,7 @@ from framework.models.orders import ExecutionReport, NewOrderRequest, Order, Ord
 class Session(Protocol):
     def send(self, msg_type: str, fields) -> None: ...
     def receive(self, predicate, timeout: float | None = None): ...
+    def drain(self) -> None: ...
 
 
 _KEEP = object()
@@ -95,19 +96,24 @@ class TradingService:
         self._track(order, report)
         return report
 
-    def refresh(self, order: Order, wait: float = 0.3) -> None:
+    def refresh(self, order: Order) -> None:
         """Apply execution reports that already arrived for the order (e.g. fills nobody waited for)."""
         while True:
             try:
-                self.next_report(order, timeout=wait)
+                self.next_report(order, timeout=0)        # inbox only, the socket was drained before
             except TimeoutError:
                 return
 
     def active_orders(self) -> list[Order]:
-        for order in self.orders:
-            if order.ord_status not in TERMINAL_ORD_STATUSES:
-                self.refresh(order)
-        return [o for o in self.orders if o.ord_status not in TERMINAL_ORD_STATUSES]
+        """Orders still active after the reports the venue has already sent. A report that comes later
+        is not missed silently: the teardown cancel of that order then gets OrderCancelReject and fails."""
+        active = [o for o in self.orders if o.ord_status not in TERMINAL_ORD_STATUSES]
+        if not active:
+            return []
+        self._session.drain()
+        for order in active:
+            self.refresh(order)
+        return [o for o in active if o.ord_status not in TERMINAL_ORD_STATUSES]
 
     # --- internals -------------------------------------------------------------------------------
     def _wait_report(self, cl_ord_id: str) -> ExecutionReport | OrderCancelReject:
