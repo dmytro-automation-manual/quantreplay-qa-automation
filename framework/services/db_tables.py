@@ -68,13 +68,21 @@ class SettingTable:
 
 
 class DatabaseState:
-    """Whole-content fingerprint of the configuration tables, used to prove that tests leave no trace."""
+    """Content fingerprint of the configuration tables, used to prove that tests leave no trace.
+    Tables with a venue_id column: only the rows of one venue (the other venue may be changing its own rows
+    in parallel). Tables without it are shared by all venues and are taken whole."""
 
     TABLES = ("venue", "listing", "price_seed", "setting", "data_source", "column_mapping",
               "data_source_listing", "listing_random_price_source", "market_phase")
+    VENUE_TABLES = ("venue", "listing", "data_source", "market_phase")
 
     def __init__(self, db: Db):
         self._db = db
 
-    def capture(self) -> dict[str, list[dict]]:
-        return {t: sorted(self._db.query(f"select * from sim.{t}"), key=repr) for t in self.TABLES}
+    def capture(self, venue_id: str) -> dict[str, list[dict]]:
+        return {t: sorted(self._rows(t, venue_id), key=repr) for t in self.TABLES}
+
+    def _rows(self, table: str, venue_id: str) -> list[dict]:
+        if table in self.VENUE_TABLES:
+            return self._db.query(f"select * from sim.{table} where venue_id = %s", (venue_id,))
+        return self._db.query(f"select * from sim.{table}")

@@ -1,7 +1,10 @@
 """Test isolation helpers: every change a test makes is undone in its teardown, in reverse order."""
+import fcntl
 import logging
 import time
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
+from contextlib import contextmanager
+from pathlib import Path
 
 import allure
 
@@ -41,3 +44,14 @@ def wait_until(condition: Callable[[], bool], timeout: float, what: str, interva
             pass
         time.sleep(interval)
     raise TimeoutError(f"{what} not ready within {timeout}s")
+
+
+@contextmanager
+def exclusive_lock(path: Path) -> Iterator[None]:
+    """Lock shared by the pytest-xdist workers (one per venue): the holder is the only one using the guarded data."""
+    with open(path, "w") as handle:
+        fcntl.flock(handle, fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(handle, fcntl.LOCK_UN)
