@@ -1,0 +1,15 @@
+20:21:25.697 db     SQL select price_seed_id, symbol, security_type, price_currency, security_id, bid_price::numeric as bid_price, mid_price::numeric as mid_price, offer_price::numeric as offer_price from sim.price_seed order by price_seed_id 
+20:21:25.697 db     rows: 10
+20:21:25.697 rest   >> GET /priceseeds/8 
+20:21:25.707 httpx  HTTP Request: GET http://localhost:9052/api/priceseeds/8 "HTTP/1.1 200 OK"
+20:21:25.707 rest   << 200 {"id":8,"symbol":"USD/JPY","securityType":"FXSPOT","priceCurrency":"JPY","instrumentSymbol":"USD/JPY","midPrice":156.803,"bidPrice":156.802,"offerPrice":156.804,"lastUpdate":"2026-10-23 14:15:00"}
+20:21:25.707 check  REST price seed USD/JPY vs sim.price_seed
+field           expected  actual   result
+price_seed_id   8         8        ok    
+symbol          USD/JPY   USD/JPY  ok    
+security_type   FXSPOT    FXSPOT   ok    
+price_currency  JPY       JPY      ok    
+security_id     <none>    <none>   ok    
+bid_price       156.802   156.802  ok    
+mid_price       156.803   156.803  ok    
+offer_price     156.804   156.804  ok

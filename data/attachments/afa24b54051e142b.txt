@@ -1,0 +1,6 @@
+20:21:20.893 fix    >> 8=FIXT.1.1|9=147|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=16|52=20261027-20:21:20.893|262=c360e75cdf3142af|263=0|264=0|267=3|269=0|269=1|269=2|146=1|55=EUR/USD|10=188|
+20:21:20.894 fix    << 8=FIXT.1.1|9=137|35=W|34=15|49=SIM_FASTMATCH|52=20261027-20:21:20.893|56=CLIENT_FASTMATCH|55=EUR/USD|262=c360e75cdf3142af|268=0|779=20261027-20:21:20.893|10=127|
+20:21:20.894 check  MarketDataSnapshotFullRefresh
+field     expected                 actual                   result
+msg_type  MARKET_DATA_SNAPSHOT(W)  MARKET_DATA_SNAPSHOT(W)  ok    
+symbol    EUR/USD                  EUR/USD                  ok

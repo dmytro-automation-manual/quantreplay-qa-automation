@@ -1,0 +1,21 @@
+20:21:21.410 rest   >> GET /listings/USD%2FCHF 
+20:21:21.421 httpx  HTTP Request: GET http://localhost:9052/api/listings/USD%2FCHF "HTTP/1.1 200 OK"
+20:21:21.422 rest   << 200 {"id":9,"venueId":"FASTMATCH","symbol":"USD/CHF","securityType":"FXSPOT","priceCurrency":"CHF","fxBaseCurrency":"USD","instrSymbol":"USD/CHF","qtyMinimum":10000.0,"qtyMaximum":50000000.0,"qtyMultiple":1000.0,"priceTickSize":0.00001,"enabled":true,"randomQtyMaximum":5000000.0,"randomDepthLevels":5,"randomOrdersSpread":0.00001,"randomOrdersRate":2,"randomTickRange":10,"securityExchange":"FASTMATCH","randomQtyMinimum":100000.0,"randomOrdersEnabled":true,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+20:21:21.422 db     SQL select listing_id, symbol, venue_id, security_type, price_currency, fx_base_currency, security_exchange, isin_id, qty_minimum::numeric as qty_minimum, qty_maximum::numeric as qty_maximum, qty_multiple::numeric as qty_multiple, price_tick_size::numeric as price_tick_size, enabled, random_orders_enabled from sim.listing where venue_id = %s and symbol = %s ('FASTMATCH', 'USD/CHF')
+20:21:21.422 db     rows: 1
+20:21:21.423 check  REST listing USD/CHF vs sim.listing
+field                  expected   actual      result
+listing_id             9          9           ok    
+symbol                 USD/CHF    USD/CHF     ok    
+venue_id               FASTMATCH  FASTMATCH   ok    
+security_type          FXSPOT     FXSPOT      ok    
+price_currency         CHF        CHF         ok    
+fx_base_currency       USD        USD         ok    
+security_exchange      FASTMATCH  FASTMATCH   ok    
+isin_id                <none>     <none>      ok    
+qty_minimum            10000      10000.0     ok    
+qty_maximum            50000000   50000000.0  ok    
+qty_multiple           1000       1000.0      ok    
+price_tick_size        0.00001    0.00001     ok    
+enabled                True       True        ok    
+random_orders_enabled  True       True        ok

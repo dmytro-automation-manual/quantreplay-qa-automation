@@ -1,0 +1,23 @@
+20:21:24.899 fix    >> 8=FIXT.1.1|9=168|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=192|52=20261027-20:21:24.899|11=3edc76e5237945fc|55=GBP/USD|54=1|60=20261027-20:21:24.899|40=2|44=1.20313|38=50000000|59=0|10=182|
+20:21:24.899 fix    << 8=FIXT.1.1|9=222|35=8|34=209|49=SIM_FASTMATCH|52=20261027-20:21:24.899|56=CLIENT_FASTMATCH|6=0|11=3edc76e5237945fc|14=0|17=261027202124000005-1|37=261027202124000005|38=50000000|39=0|40=2|44=1.20313|54=1|55=GBP/USD|59=0|150=0|151=50000000|10=035|
+20:21:24.900 check  ExecutionReport for OrderQty = qtyMaximum
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261027202124000005   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      GBP/USD              GBP/USD              ok    
+order_qty   50000000             50000000             ok    
+price       1.20313              1.20313              ok    
+leaves_qty  50000000             50000000             ok
+20:21:24.951 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=193|52=20261027-20:21:24.951|41=3edc76e5237945fc|11=670ba9fe84ab4681|37=261027202124000005|55=GBP/USD|54=1|60=20261027-20:21:24.951|10=250|
+20:21:24.952 fix    << 8=FIXT.1.1|9=235|35=8|34=210|49=SIM_FASTMATCH|52=20261027-20:21:24.952|56=CLIENT_FASTMATCH|6=0|11=670ba9fe84ab4681|14=0|17=261027202124000005-2|37=261027202124000005|38=50000000|39=4|40=2|41=3edc76e5237945fc|44=1.20313|54=1|55=GBP/USD|59=0|150=4|151=0|10=210|
+20:21:24.952 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027202124000005   261027202124000005   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      GBP/USD              GBP/USD              ok    
+order_qty   50000000             50000000             ok    
+price       1.20313              1.20313              ok

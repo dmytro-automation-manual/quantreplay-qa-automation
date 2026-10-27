@@ -1,0 +1,54 @@
+20:21:26.120 fix    >> 8=FIXT.1.1|9=152|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=245|52=20261027-20:21:26.120|11=ef287416822e473e|55=VODI|54=2|60=20261027-20:21:26.120|40=2|44=1.553|38=10000|59=0|10=067|
+20:21:26.121 fix    << 8=FIXT.1.1|9=203|35=8|34=268|49=SIM_XETRA|52=20261027-20:21:26.120|56=CLIENT_XETRA|6=0|11=ef287416822e473e|14=0|17=261027202126000009-1|37=261027202126000009|38=10000|39=0|40=2|44=1.553|54=2|55=VODI|59=0|150=0|151=10000|10=073|
+20:21:26.121 fix    >> 8=FIXT.1.1|9=142|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=246|52=20261027-20:21:26.121|11=8c93c262f0864940|55=VODI|54=1|60=20261027-20:21:26.121|40=1|38=5000|59=3|10=070|
+20:21:26.122 fix    << 8=FIXT.1.1|9=192|35=8|34=269|49=SIM_XETRA|52=20261027-20:21:26.121|56=CLIENT_XETRA|6=0|11=8c93c262f0864940|14=0|17=261027202126000010-1|37=261027202126000010|38=5000|39=0|40=1|54=1|55=VODI|59=3|150=0|151=5000|10=023|
+20:21:26.122 check  ExecutionReport New for market order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261027202126000010   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      VODI                 VODI                 ok    
+order_qty   5000                 5000                 ok    
+price       <not sent>           <none>               ok    
+ord_type    MARKET(1)            MARKET(1)            ok    
+20:21:26.122 fix    << 8=FIXT.1.1|9=213|35=8|34=270|49=SIM_XETRA|52=20261027-20:21:26.121|56=CLIENT_XETRA|6=1.553|11=8c93c262f0864940|14=5000|17=261027202126000010-2|31=1.553|32=5000|37=261027202126000010|38=5000|39=2|40=1|54=1|55=VODI|59=3|150=F|151=0|10=244|
+20:21:26.123 fix    << 8=FIXT.1.1|9=226|35=8|34=271|49=SIM_XETRA|52=20261027-20:21:26.122|56=CLIENT_XETRA|6=1.553|11=ef287416822e473e|14=5000|17=261027202126000009-2|31=1.553|32=5000|37=261027202126000009|38=10000|39=1|40=2|44=1.553|54=2|55=VODI|59=0|150=F|151=5000|10=157|
+20:21:26.123 check  ExecutionReport Trade for market order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027202126000010   261027202126000010   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  FILLED(2)            FILLED(2)            ok    
+symbol      VODI                 VODI                 ok    
+order_qty   5000                 5000                 ok    
+price       <not sent>           <none>               ok    
+last_px     1.553                1.553                ok    
+last_qty    5000                 5000                 ok    
+cum_qty     5000                 5000                 ok    
+leaves_qty  0                    0                    ok    
+avg_px      1.553                1.553                ok    
+20:21:26.123 check  ExecutionReport Trade for resting order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027202126000009   261027202126000009   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  PARTIALLY_FILLED(1)  PARTIALLY_FILLED(1)  ok    
+symbol      VODI                 VODI                 ok    
+order_qty   10000                10000                ok    
+price       1.553                1.553                ok    
+last_px     1.553                1.553                ok    
+last_qty    5000                 5000                 ok    
+cum_qty     5000                 5000                 ok    
+leaves_qty  5000                 5000                 ok
+20:21:26.174 fix    >> 8=FIXT.1.1|9=166|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=247|52=20261027-20:21:26.174|41=ef287416822e473e|11=a17a5ccdbf794235|37=261027202126000009|55=VODI|54=2|60=20261027-20:21:26.174|10=212|
+20:21:26.175 fix    << 8=FIXT.1.1|9=226|35=8|34=272|49=SIM_XETRA|52=20261027-20:21:26.175|56=CLIENT_XETRA|6=1.553|11=a17a5ccdbf794235|14=5000|17=261027202126000009-3|37=261027202126000009|38=10000|39=4|40=2|41=ef287416822e473e|44=1.553|54=2|55=VODI|59=0|150=4|151=0|10=047|
+20:21:26.175 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027202126000009   261027202126000009   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      VODI                 VODI                 ok    
+order_qty   10000                10000                ok    
+price       1.553                1.553                ok

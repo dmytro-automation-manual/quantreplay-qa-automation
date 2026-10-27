@@ -1,0 +1,17 @@
+ExecutionReport for NewOrderSingle
+field          expected             actual                result
+msg_type       EXECUTION_REPORT(8)  EXECUTION_REPORT(8)   ok    
+order_id       <non-empty>          261027202125000015    ok    
+exec_type      NEW(0)               NEW(0)                ok    
+ord_status     NEW(0)               NEW(0)                ok    
+symbol         GBP/USD              GBP/USD               ok    
+order_qty      1000000              1000000               ok    
+price          1.20313              1.20313               ok    
+cl_ord_id      ece405dbd3fe44da     ece405dbd3fe44da      ok    
+side           BUY(1)               BUY(1)                ok    
+ord_type       LIMIT(2)             LIMIT(2)              ok    
+time_in_force  DAY(0)               DAY(0)                ok    
+leaves_qty     1000000              1000000               ok    
+cum_qty        0                    0                     ok    
+avg_px         0                    0                     ok    
+exec_id        <non-empty>          261027202125000015-1  ok    

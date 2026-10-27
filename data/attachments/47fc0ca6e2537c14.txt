@@ -1,7 +1,0 @@
-20:11:52.719 rest   >> GET /genstatus/FASTMATCH 
-20:11:52.720 httpx  HTTP Request: GET http://localhost:9052/api/genstatus/FASTMATCH "HTTP/1.1 200 OK"
-20:11:52.720 rest   << 200 {"result":"Stopped"}
-20:11:52.720 check  GET genstatus
-field        expected  actual   result
-status_code  200       200      ok    
-result       Stopped   Stopped  ok

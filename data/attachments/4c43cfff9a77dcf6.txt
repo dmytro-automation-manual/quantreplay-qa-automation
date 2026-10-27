@@ -1,0 +1,12 @@
+20:21:25.757 fix    >> 8=FIXT.1.1|9=152|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=229|52=20261027-20:21:25.757|11=3b2dcdbe322d4ef2|55=VODI|54=1|60=20261027-20:21:25.757|40=2|44=1.2685|38=5000|59=0|10=072|
+20:21:25.758 fix    << 8=FIXT.1.1|9=242|35=8|34=252|49=SIM_XETRA|52=20261027-20:21:25.757|56=CLIENT_XETRA|6=0|11=3b2dcdbe322d4ef2|14=0|17=261027202125000001-1|37=261027202125000001|38=5000|39=8|40=2|44=1.2685|54=1|55=VODI|58=order price tick constraint violated|59=0|150=8|151=5000|10=173|
+20:21:25.758 check  ExecutionReport for price off tick
+field       expected                              actual                                result
+msg_type    EXECUTION_REPORT(8)                   EXECUTION_REPORT(8)                   ok    
+order_id    <non-empty>                           261027202125000001                    ok    
+exec_type   REJECTED(8)                           REJECTED(8)                           ok    
+ord_status  REJECTED(8)                           REJECTED(8)                           ok    
+symbol      VODI                                  VODI                                  ok    
+order_qty   5000                                  5000                                  ok    
+price       1.2685                                1.2685                                ok    
+text        order price tick constraint violated  order price tick constraint violated  ok

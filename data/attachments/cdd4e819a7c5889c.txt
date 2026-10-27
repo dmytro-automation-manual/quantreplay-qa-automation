@@ -1,0 +1,31 @@
+20:21:28.828 rest   >> POST /halt/XETRA {"allowCancels": true}
+20:21:28.829 httpx  HTTP Request: POST http://localhost:9050/api/halt/XETRA "HTTP/1.1 200 OK"
+20:21:28.830 rest   << 200 {"result":"The market was successfully halted."}
+20:21:28.830 check  POST halt
+field        expected                             actual                               result
+status_code  200                                  200                                  ok    
+result       The market was successfully halted.  The market was successfully halted.  ok    
+20:21:28.830 rest   >> POST /halt/XETRA {"allowCancels": true}
+20:21:28.831 httpx  HTTP Request: POST http://localhost:9050/api/halt/XETRA "HTTP/1.1 409 Conflict"
+20:21:28.831 rest   << 409 {"result":"The market is already halted."}
+20:21:28.831 check  Second halt
+field        expected                       actual                         result
+status_code  409                            409                            ok    
+result       The market is already halted.  The market is already halted.  ok    
+20:21:28.832 rest   >> POST /resume/XETRA 
+20:21:28.833 httpx  HTTP Request: POST http://localhost:9050/api/resume/XETRA "HTTP/1.1 200 OK"
+20:21:28.833 rest   << 200 {"result":"The market was successfully resumed."}
+20:21:28.833 check  Resume
+field        expected                              actual                                result
+status_code  200                                   200                                   ok    
+result       The market was successfully resumed.  The market was successfully resumed.  ok    
+20:21:28.833 rest   >> POST /resume/XETRA 
+20:21:28.834 httpx  HTTP Request: POST http://localhost:9050/api/resume/XETRA "HTTP/1.1 409 Conflict"
+20:21:28.834 rest   << 409 {"result":"There is no halt request to terminate."}
+20:21:28.834 check  Resume without halt
+field        expected                                actual                                  result
+status_code  409                                     409                                     ok    
+result       There is no halt request to terminate.  There is no halt request to terminate.  ok
+20:21:28.836 rest   >> POST /resume/XETRA 
+20:21:28.837 httpx  HTTP Request: POST http://localhost:9050/api/resume/XETRA "HTTP/1.1 409 Conflict"
+20:21:28.838 rest   << 409 {"result":"There is no halt request to terminate."}

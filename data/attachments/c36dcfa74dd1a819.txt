@@ -1,0 +1,13 @@
+ExecutionReport for FOK without enough liquidity
+field          expected                                actual                                  result
+msg_type       EXECUTION_REPORT(8)                     EXECUTION_REPORT(8)                     ok    
+order_id       <non-empty>                             261027202126000038                      ok    
+exec_type      CANCELED(4)                             CANCELED(4)                             ok    
+ord_status     CANCELED(4)                             CANCELED(4)                             ok    
+symbol         AMZ                                     AMZ                                     ok    
+order_qty      150                                     150                                     ok    
+price          244.90                                  244.9                                   ok    
+time_in_force  FILL_OR_KILL(4)                         FILL_OR_KILL(4)                         ok    
+cum_qty        0                                       0                                       ok    
+leaves_qty     0                                       0                                       ok    
+text           not enough liquidity to fill FoK order  not enough liquidity to fill FoK order  ok    

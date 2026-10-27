@@ -1,0 +1,12 @@
+20:21:21.141 fix    >> 8=FIXT.1.1|9=155|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=22|52=20261027-20:21:21.141|11=afff2b488b014c1b|55=AMZ|15=USD|54=1|60=20261027-20:21:21.140|40=2|44=200.25|38=50|59=0|10=155|
+20:21:21.141 fix    << 8=FIXT.1.1|9=214|35=8|34=22|49=SIM_XETRA|52=20261027-20:21:21.141|56=CLIENT_XETRA|6=0|11=afff2b488b014c1b|14=0|15=USD|17=261027202121000000-1|37=261027202121000000|38=50|39=8|44=200.25|54=1|55=AMZ|58=listing not found|150=8|151=50|10=168|
+20:21:21.141 check  ExecutionReport for wrong Currency
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261027202121000000   ok    
+exec_type   REJECTED(8)          REJECTED(8)          ok    
+ord_status  REJECTED(8)          REJECTED(8)          ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       200.25               200.25               ok    
+text        listing not found    listing not found    ok

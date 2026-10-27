@@ -1,0 +1,41 @@
+20:21:24.392 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=171|52=20261027-20:21:24.392|11=6a945920ac254511|55=VOW|54=1|60=20261027-20:21:24.392|40=2|44=61.80|38=150|59=0|10=135|
+20:21:24.392 fix    << 8=FIXT.1.1|9=197|35=8|34=184|49=SIM_XETRA|52=20261027-20:21:24.392|56=CLIENT_XETRA|6=0|11=6a945920ac254511|14=0|17=261027202124000002-1|37=261027202124000002|38=150|39=0|40=2|44=61.8|54=1|55=VOW|59=0|150=0|151=150|10=236|
+20:21:24.393 check  ExecutionReport for NewOrderSingle
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261027202124000002   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      VOW                  VOW                  ok    
+order_qty   150                  150                  ok    
+price       61.80                61.8                 ok    
+20:21:24.393 fix    >> 8=FIXT.1.1|9=191|35=G|49=CLIENT_XETRA|56=SIM_XETRA|34=172|52=20261027-20:21:24.393|41=6a945920ac254511|11=85c36b116589478a|37=261027202124000002|55=VOW|54=1|60=20261027-20:21:24.393|40=2|44=61.81|38=150|59=0|10=050|
+20:21:24.394 fix    << 8=FIXT.1.1|9=179|35=9|34=185|49=SIM_XETRA|52=20261027-20:21:24.393|56=CLIENT_XETRA|11=85c36b116589478a|37=261027202124000002|39=8|41=6a945920ac254511|58=order price tick constraint violated|434=2|10=221|
+20:21:24.394 check  OrderCancelReject for replace off tick
+field                expected                              actual                                result
+msg_type             ORDER_CANCEL_REJECT(9)                ORDER_CANCEL_REJECT(9)                ok    
+order_id             261027202124000002                    261027202124000002                    ok    
+ord_status           REJECTED(8)                           REJECTED(8)                           ok    
+cxl_rej_response_to  ORDER_CANCEL_REPLACE_REQUEST(2)       ORDER_CANCEL_REPLACE_REQUEST(2)       ok    
+text                 order price tick constraint violated  order price tick constraint violated  ok    
+20:21:24.394 fix    >> 8=FIXT.1.1|9=130|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=173|52=20261027-20:21:24.394|262=0cdfd2bb9bce4ca5|263=0|264=0|267=2|269=0|269=1|146=1|55=VOW|10=089|
+20:21:24.395 fix    << 8=FIXT.1.1|9=166|35=W|34=186|49=SIM_XETRA|52=20261027-20:21:24.395|56=CLIENT_XETRA|55=VOW|262=0cdfd2bb9bce4ca5|268=1|269=0|278=1793132472:2|270=61.8|271=150|779=20261027-20:21:24.395|10=179|
+20:21:24.395 check  Book after rejected replace: one BID at 61.80
+field      expected  actual        result
+condition  true      True found 1  ok    
+20:21:24.396 check  Book after rejected replace
+field       expected  actual  result
+entry_type  BID(0)    BID(0)  ok    
+price       61.80     61.8    ok    
+size        150       150     ok
+20:21:24.447 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=174|52=20261027-20:21:24.447|41=6a945920ac254511|11=0a3c6b3bde8445b8|37=261027202124000002|55=VOW|54=1|60=20261027-20:21:24.447|10=080|
+20:21:24.448 fix    << 8=FIXT.1.1|9=215|35=8|34=187|49=SIM_XETRA|52=20261027-20:21:24.447|56=CLIENT_XETRA|6=0|11=0a3c6b3bde8445b8|14=0|17=261027202124000002-2|37=261027202124000002|38=150|39=4|40=2|41=6a945920ac254511|44=61.8|54=1|55=VOW|59=0|150=4|151=0|10=185|
+20:21:24.448 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027202124000002   261027202124000002   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      VOW                  VOW                  ok    
+order_qty   150                  150                  ok    
+price       61.80                61.8                 ok

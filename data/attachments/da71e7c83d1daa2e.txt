@@ -1,0 +1,20 @@
+20:21:24.037 rest   >> GET /listings/NFC 
+20:21:24.047 httpx  HTTP Request: GET http://localhost:9050/api/listings/NFC "HTTP/1.1 200 OK"
+20:21:24.047 rest   << 200 {"id":3,"venueId":"XETRA","symbol":"NFC","securityType":"CS","priceCurrency":"EUR","instrSymbol":"NFC","qtyMinimum":1.0,"qtyMaximum":50000.0,"qtyMultiple":1.0,"priceTickSize":0.01,"enabled":true,"randomQtyMaximum":1000.0,"randomDepthLevels":5,"randomOrdersSpread":0.01,"randomOrdersRate":2,"randomTickRange":10,"securityExchange":"XETR","isinId":"US64110L1061","randomQtyMinimum":20.0,"randomOrdersEnabled":true,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+20:21:24.047 check  GET /api/listings/NFC
+field        expected  actual  result
+status_code  200       200     ok    
+20:21:24.048 check  Listing NFC
+field              expected      actual        result
+symbol             NFC           NFC           ok    
+venue_id           XETRA         XETRA         ok    
+security_type      CS            CS            ok    
+price_currency     EUR           EUR           ok    
+fx_base_currency   <none>        <none>        ok    
+security_exchange  XETR          XETR          ok    
+isin_id            US64110L1061  US64110L1061  ok    
+price_tick_size    0.01          0.01          ok    
+qty_minimum        1             1.0           ok    
+qty_maximum        50000         50000.0       ok    
+qty_multiple       1             1.0           ok    
+enabled            True          True          ok

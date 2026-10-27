@@ -1,0 +1,12 @@
+20:21:21.529 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=49|52=20261027-20:21:21.529|11=b7d86768f6a940eb|55=USD/CHF|54=1|60=20261027-20:21:21.529|40=2|44=0.741905|38=1000000|59=0|10=116|
+20:21:21.529 fix    << 8=FIXT.1.1|9=260|35=8|34=48|49=SIM_FASTMATCH|52=20261027-20:21:21.529|56=CLIENT_FASTMATCH|6=0|11=b7d86768f6a940eb|14=0|17=261027202121000001-1|37=261027202121000001|38=1000000|39=8|40=2|44=0.741905|54=1|55=USD/CHF|58=order price tick constraint violated|59=0|150=8|151=1000000|10=097|
+20:21:21.530 check  ExecutionReport for price off tick
+field       expected                              actual                                result
+msg_type    EXECUTION_REPORT(8)                   EXECUTION_REPORT(8)                   ok    
+order_id    <non-empty>                           261027202121000001                    ok    
+exec_type   REJECTED(8)                           REJECTED(8)                           ok    
+ord_status  REJECTED(8)                           REJECTED(8)                           ok    
+symbol      USD/CHF                               USD/CHF                               ok    
+order_qty   1000000                               1000000                               ok    
+price       0.741905                              0.741905                              ok    
+text        order price tick constraint violated  order price tick constraint violated  ok

@@ -1,4 +1,0 @@
-Incremental refresh after NewOrderSingle
-field      expected                    actual                      result
-msg_type   MARKET_DATA_INCREMENTAL(X)  MARKET_DATA_INCREMENTAL(X)  ok    
-md_req_id  0c74246610b34b0f            0c74246610b34b0f            ok    

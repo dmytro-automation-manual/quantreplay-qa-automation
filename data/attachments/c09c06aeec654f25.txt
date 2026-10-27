@@ -1,9 +1,0 @@
-ExecutionReport for order with instrument attributes
-field       expected             actual               result
-msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
-order_id    <non-empty>          261027201148000008   ok    
-exec_type   NEW(0)               NEW(0)               ok    
-ord_status  NEW(0)               NEW(0)               ok    
-symbol      VOW                  VOW                  ok    
-order_qty   150                  150                  ok    
-price       61.80                61.8                 ok    

@@ -1,0 +1,26 @@
+20:21:25.175 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=205|52=20261027-20:21:25.175|11=370a364d86d041a5|55=VOW|54=2|60=20261027-20:21:25.175|40=2|44=75.60|38=150|59=0|10=184|
+20:21:25.176 fix    << 8=FIXT.1.1|9=197|35=8|34=222|49=SIM_XETRA|52=20261027-20:21:25.175|56=CLIENT_XETRA|6=0|11=370a364d86d041a5|14=0|17=261027202125000018-1|37=261027202125000018|38=150|39=0|40=2|44=75.6|54=2|55=VOW|59=0|150=0|151=150|10=040|
+20:21:25.176 check  ExecutionReport for NewOrderSingle
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261027202125000018   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      VOW                  VOW                  ok    
+order_qty   150                  150                  ok    
+price       75.60                75.6                 ok    
+20:21:25.176 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=206|52=20261027-20:21:25.176|41=370a364d86d041a5|11=2a4aa3a58c574322|37=261027202125000018|55=VOW|54=2|60=20261027-20:21:25.176|10=028|
+20:21:25.177 fix    << 8=FIXT.1.1|9=215|35=8|34=223|49=SIM_XETRA|52=20261027-20:21:25.177|56=CLIENT_XETRA|6=0|11=2a4aa3a58c574322|14=0|17=261027202125000018-2|37=261027202125000018|38=150|39=4|40=2|41=370a364d86d041a5|44=75.6|54=2|55=VOW|59=0|150=4|151=0|10=140|
+20:21:25.177 check  ExecutionReport for OrderCancelRequest
+field           expected             actual               result
+msg_type        EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id        261027202125000018   261027202125000018   ok    
+exec_type       CANCELED(4)          CANCELED(4)          ok    
+ord_status      CANCELED(4)          CANCELED(4)          ok    
+symbol          VOW                  VOW                  ok    
+order_qty       150                  150                  ok    
+price           75.60                75.6                 ok    
+side            SELL(2)              SELL(2)              ok    
+orig_cl_ord_id  370a364d86d041a5     370a364d86d041a5     ok    
+leaves_qty      0                    0                    ok    
+cum_qty         0                    0                    ok

@@ -1,0 +1,15 @@
+20:21:22.461 db     SQL select price_seed_id, symbol, security_type, price_currency, security_id, bid_price::numeric as bid_price, mid_price::numeric as mid_price, offer_price::numeric as offer_price from sim.price_seed order by price_seed_id 
+20:21:22.461 db     rows: 10
+20:21:22.461 rest   >> GET /priceseeds/2 
+20:21:22.473 httpx  HTTP Request: GET http://localhost:9050/api/priceseeds/2 "HTTP/1.1 200 OK"
+20:21:22.474 rest   << 200 {"id":2,"symbol":"MSF","securityType":"CS","priceCurrency":"EUR","securityId":"US5949181045","securityIdSource":"ISI","instrumentSymbol":"MSF","midPrice":468.9,"bidPrice":468.85,"offerPrice":468.95,"lastUpdate":"2026-10-23 17:30:00"}
+20:21:22.474 check  REST price seed MSF vs sim.price_seed
+field           expected      actual        result
+price_seed_id   2             2             ok    
+symbol          MSF           MSF           ok    
+security_type   CS            CS            ok    
+price_currency  EUR           EUR           ok    
+security_id     US5949181045  US5949181045  ok    
+bid_price       468.85        468.85        ok    
+mid_price       468.9         468.9         ok    
+offer_price     468.95        468.95        ok

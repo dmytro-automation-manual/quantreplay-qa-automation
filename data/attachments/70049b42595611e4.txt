@@ -1,0 +1,24 @@
+20:21:28.489 rest   >> GET /listings/AMZ 
+20:21:28.501 httpx  HTTP Request: GET http://localhost:9050/api/listings/AMZ "HTTP/1.1 200 OK"
+20:21:28.502 rest   << 200 {"id":1,"venueId":"XETRA","symbol":"AMZ","securityType":"CS","priceCurrency":"EUR","instrSymbol":"AMZ","qtyMinimum":1.0,"qtyMaximum":20000.0,"qtyMultiple":1.0,"priceTickSize":0.05,"enabled":true,"randomQtyMaximum":500.0,"randomDepthLevels":5,"randomOrdersSpread":0.05,"randomOrdersRate":2,"randomTickRange":10,"securityExchange":"XETR","isinId":"US0231351067","randomQtyMinimum":10.0,"randomOrdersEnabled":true,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+20:21:28.502 rest   >> PUT /listings/AMZ {"qtyMaximum": 40000.0}
+20:21:28.513 httpx  HTTP Request: PUT http://localhost:9050/api/listings/AMZ "HTTP/1.1 200 OK"
+20:21:28.514 rest   << 200 {"result":"Successfully updated the AMZ listing"}
+20:21:28.514 check  PUT listing by symbol
+field        expected                              actual                                result
+status_code  200                                   200                                   ok    
+result       Successfully updated the AMZ listing  Successfully updated the AMZ listing  ok    
+20:21:28.515 rest   >> GET /listings/AMZ 
+20:21:28.527 httpx  HTTP Request: GET http://localhost:9050/api/listings/AMZ "HTTP/1.1 200 OK"
+20:21:28.528 rest   << 200 {"id":1,"venueId":"XETRA","symbol":"AMZ","securityType":"CS","priceCurrency":"EUR","instrSymbol":"AMZ","qtyMinimum":1.0,"qtyMaximum":40000.0,"qtyMultiple":1.0,"priceTickSize":0.05,"enabled":true,"randomQtyMaximum":500.0,"randomDepthLevels":5,"randomOrdersSpread":0.05,"randomOrdersRate":2,"randomTickRange":10,"securityExchange":"XETR","isinId":"US0231351067","randomQtyMinimum":10.0,"randomOrdersEnabled":true,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+20:21:28.528 check  Listing in REST
+field        expected  actual   result
+qty_maximum  40000     40000.0  ok    
+20:21:28.529 db     SQL select listing_id, symbol, venue_id, security_type, price_currency, fx_base_currency, security_exchange, isin_id, qty_minimum::numeric as qty_minimum, qty_maximum::numeric as qty_maximum, qty_multiple::numeric as qty_multiple, price_tick_size::numeric as price_tick_size, enabled, random_orders_enabled from sim.listing where venue_id = %s and symbol = %s ('XETRA', 'AMZ')
+20:21:28.529 db     rows: 1
+20:21:28.529 check  Listing in DB
+field        expected  actual  result
+qty_maximum  40000     40000   ok
+20:21:28.531 rest   >> PUT /listings/AMZ {"qtyMaximum": 20000.0}
+20:21:28.546 httpx  HTTP Request: PUT http://localhost:9050/api/listings/AMZ "HTTP/1.1 200 OK"
+20:21:28.547 rest   << 200 {"result":"Successfully updated the AMZ listing"}

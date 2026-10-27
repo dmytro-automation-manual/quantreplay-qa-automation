@@ -1,0 +1,4 @@
+Current venue = XETRA
+field      expected                    actual                      result
+id         XETRA                       XETRA                       ok    
+startTime  2026-10-27 20:21:12.859358  2026-10-27 20:21:12.859358  ok    

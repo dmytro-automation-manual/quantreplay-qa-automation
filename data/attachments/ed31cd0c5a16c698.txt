@@ -1,0 +1,22 @@
+20:21:25.031 fix    >> 8=FIXT.1.1|9=199|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=198|52=20261027-20:21:25.031|11=479b94f6bc50454b|55=GBP/USD|167=FXSPOT|207=FASTMATCH|15=GBP|54=1|60=20261027-20:21:25.031|40=2|44=1.20313|38=1000000|59=0|10=220|
+20:21:25.032 fix    << 8=FIXT.1.1|9=252|35=8|34=215|49=SIM_FASTMATCH|52=20261027-20:21:25.031|56=CLIENT_FASTMATCH|6=0|11=479b94f6bc50454b|14=0|15=GBP|17=261027202125000008-1|37=261027202125000008|38=1000000|39=0|40=2|44=1.20313|54=1|55=GBP/USD|59=0|150=0|151=1000000|167=FXSPOT|207=FASTMATCH|10=040|
+20:21:25.032 check  ExecutionReport for order with instrument attributes
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261027202125000008   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      GBP/USD              GBP/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.20313              1.20313              ok
+20:21:25.083 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=199|52=20261027-20:21:25.083|41=479b94f6bc50454b|11=e9159d5be1b74e53|37=261027202125000008|55=GBP/USD|54=1|60=20261027-20:21:25.083|10=203|
+20:21:25.084 fix    << 8=FIXT.1.1|9=266|35=8|34=216|49=SIM_FASTMATCH|52=20261027-20:21:25.084|56=CLIENT_FASTMATCH|6=0|11=e9159d5be1b74e53|14=0|15=GBP|17=261027202125000008-2|37=261027202125000008|38=1000000|39=4|40=2|41=479b94f6bc50454b|44=1.20313|54=1|55=GBP/USD|59=0|150=4|151=0|167=FXSPOT|207=FASTMATCH|10=041|
+20:21:25.085 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027202125000008   261027202125000008   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      GBP/USD              GBP/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.20313              1.20313              ok

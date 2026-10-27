@@ -1,0 +1,42 @@
+20:21:21.002 fix    >> 8=FIXT.1.1|9=166|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=24|52=20261027-20:21:21.002|11=b111b0c503574f27|55=EUR/USD|54=1|60=20261027-20:21:21.002|40=2|44=1.00736|38=1000000|59=0|10=178|
+20:21:21.003 fix    << 8=FIXT.1.1|9=219|35=8|34=21|49=SIM_FASTMATCH|52=20261027-20:21:21.003|56=CLIENT_FASTMATCH|6=0|11=b111b0c503574f27|14=0|17=261027202121000001-1|37=261027202121000001|38=1000000|39=0|40=2|44=1.00736|54=1|55=EUR/USD|59=0|150=0|151=1000000|10=255|
+20:21:21.003 check  ExecutionReport for NewOrderSingle
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261027202121000001   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.00736              1.00736              ok    
+20:21:21.004 fix    >> 8=FIXT.1.1|9=176|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=25|52=20261027-20:21:21.004|41=ffffffffffffffff|11=a7f1b049d6b14cda|37=999999999999999999|55=EUR/USD|54=1|60=20261027-20:21:21.004|10=126|
+20:21:21.005 fix    << 8=FIXT.1.1|9=165|35=9|34=22|49=SIM_FASTMATCH|52=20261027-20:21:21.004|56=CLIENT_FASTMATCH|11=a7f1b049d6b14cda|37=999999999999999999|39=8|41=ffffffffffffffff|58=order not found|434=1|10=130|
+20:21:21.005 check  OrderCancelReject for unknown order
+field                expected                 actual                   result
+msg_type             ORDER_CANCEL_REJECT(9)   ORDER_CANCEL_REJECT(9)   ok    
+order_id             <non-empty>              999999999999999999       ok    
+ord_status           REJECTED(8)              REJECTED(8)              ok    
+cxl_rej_response_to  ORDER_CANCEL_REQUEST(1)  ORDER_CANCEL_REQUEST(1)  ok    
+text                 order not found          order not found          ok    
+orig_cl_ord_id       ffffffffffffffff         ffffffffffffffff         ok    
+20:21:21.005 fix    >> 8=FIXT.1.1|9=141|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=26|52=20261027-20:21:21.005|262=513a9cc7a3604b1c|263=0|264=0|267=2|269=0|269=1|146=1|55=EUR/USD|10=096|
+20:21:21.006 fix    << 8=FIXT.1.1|9=184|35=W|34=23|49=SIM_FASTMATCH|52=20261027-20:21:21.006|56=CLIENT_FASTMATCH|55=EUR/USD|262=513a9cc7a3604b1c|268=1|269=0|278=1793132472:2|270=1.00736|271=1000000|779=20261027-20:21:21.006|10=240|
+20:21:21.006 check  Book after rejected cancel: one BID at 1.00736
+field      expected  actual        result
+condition  true      True found 1  ok    
+20:21:21.007 check  Book after rejected cancel
+field       expected  actual   result
+entry_type  BID(0)    BID(0)   ok    
+price       1.00736   1.00736  ok    
+size        1000000   1000000  ok
+20:21:21.059 fix    >> 8=FIXT.1.1|9=176|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=27|52=20261027-20:21:21.059|41=b111b0c503574f27|11=7a4eb53c77ee4cf2|37=261027202121000001|55=EUR/USD|54=1|60=20261027-20:21:21.059|10=172|
+20:21:21.060 fix    << 8=FIXT.1.1|9=233|35=8|34=24|49=SIM_FASTMATCH|52=20261027-20:21:21.059|56=CLIENT_FASTMATCH|6=0|11=7a4eb53c77ee4cf2|14=0|17=261027202121000001-2|37=261027202121000001|38=1000000|39=4|40=2|41=b111b0c503574f27|44=1.00736|54=1|55=EUR/USD|59=0|150=4|151=0|10=089|
+20:21:21.060 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261027202121000001   261027202121000001   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.00736              1.00736              ok

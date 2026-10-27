@@ -1,8 +1,0 @@
-20:11:44.655 fix    >> 8=FIXT.1.1|9=141|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=11|52=20261027-20:11:44.655|262=43efe19a9bbf4dc6|263=2|264=0|267=2|269=0|269=1|146=1|55=EUR/USD|10=013|
-20:11:44.692 fix    << 8=FIXT.1.1|9=138|35=Y|34=10|49=SIM_FASTMATCH|52=20261027-20:11:44.692|56=CLIENT_FASTMATCH|58=no subscription found for the request id|262=43efe19a9bbf4dc6|10=001|
-20:11:44.693 check  MarketDataRequestReject for unknown subscription
-field      expected                                  actual                                    result
-msg_type   MARKET_DATA_REQUEST_REJECT(Y)             MARKET_DATA_REQUEST_REJECT(Y)             ok    
-md_req_id  43efe19a9bbf4dc6                          43efe19a9bbf4dc6                          ok    
-reason     <not sent>                                <none>                                    ok    
-text       no subscription found for the request id  no subscription found for the request id  ok

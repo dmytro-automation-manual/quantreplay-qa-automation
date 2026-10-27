@@ -1,0 +1,23 @@
+20:21:40.057 rest   >> GET /venues/XETRA 
+20:21:40.075 httpx  HTTP Request: GET http://localhost:9050/api/venues/XETRA "HTTP/1.1 200 OK"
+20:21:40.075 rest   << 200 {"id":"XETRA","name":"XETRA","engineType":"Matching","supportTifIoc":true,"supportTifFok":true,"supportTifDay":true,"includeOwnOrders":true,"restPort":9050,"orderOnStartup":false,"randomPartyCount":2,"timeAndSalesEnabled":true,"timeAndSalesQuantityEnabled":true,"timeAndSalesSideEnabled":true,"timeAndSalesPartiesEnabled":true,"timezone":"UTC","cancelOnDisconnect":false,"persistenceEnabled":false,"phases":[]}
+20:21:40.076 rest   >> PUT /venues/XETRA {"name": "XETRA QA"}
+20:21:40.091 httpx  HTTP Request: PUT http://localhost:9050/api/venues/XETRA "HTTP/1.1 200 OK"
+20:21:40.091 rest   << 200 {"result":"Successfully updated the XETRA venue"}
+20:21:40.091 check  PUT venue
+field        expected  actual  result
+status_code  200       200     ok    
+20:21:40.092 rest   >> GET /venues/XETRA 
+20:21:40.104 httpx  HTTP Request: GET http://localhost:9050/api/venues/XETRA "HTTP/1.1 200 OK"
+20:21:40.105 rest   << 200 {"id":"XETRA","name":"XETRA QA","engineType":"Matching","supportTifIoc":true,"supportTifFok":true,"supportTifDay":true,"includeOwnOrders":true,"restPort":9050,"orderOnStartup":false,"randomPartyCount":2,"timeAndSalesEnabled":true,"timeAndSalesQuantityEnabled":true,"timeAndSalesSideEnabled":true,"timeAndSalesPartiesEnabled":true,"timezone":"UTC","cancelOnDisconnect":false,"persistenceEnabled":false,"phases":[]}
+20:21:40.105 check  Venue in REST
+field  expected  actual    result
+name   XETRA QA  XETRA QA  ok    
+20:21:40.105 db     SQL select venue_id, name, engine_type, support_tif_ioc, support_tif_fok, support_tif_day, include_own_orders, rest_port, order_on_startup, cancel_on_disconnect, persistence_enabled, timezone from sim.venue where venue_id = %s ('XETRA',)
+20:21:40.106 db     rows: 1
+20:21:40.106 check  Venue in DB
+field  expected  actual    result
+name   XETRA QA  XETRA QA  ok
+20:21:40.107 rest   >> PUT /venues/XETRA {"name": "XETRA"}
+20:21:40.121 httpx  HTTP Request: PUT http://localhost:9050/api/venues/XETRA "HTTP/1.1 200 OK"
+20:21:40.121 rest   << 200 {"result":"Successfully updated the XETRA venue"}

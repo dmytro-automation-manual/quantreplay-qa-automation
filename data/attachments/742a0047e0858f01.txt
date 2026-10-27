@@ -1,0 +1,22 @@
+20:21:28.651 rest   >> POST /halt/XETRA {"allowCancels": true}
+20:21:28.652 httpx  HTTP Request: POST http://localhost:9050/api/halt/XETRA "HTTP/1.1 200 OK"
+20:21:28.653 rest   << 200 {"result":"The market was successfully halted."}
+20:21:28.653 check  POST halt
+field        expected                             actual                               result
+status_code  200                                  200                                  ok    
+result       The market was successfully halted.  The market was successfully halted.  ok    
+20:21:28.653 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=311|52=20261027-20:21:28.653|11=9a3628faab43487d|55=AMZ|54=1|60=20261027-20:21:28.653|40=2|44=200.25|38=50|59=0|10=011|
+20:21:28.654 fix    << 8=FIXT.1.1|9=257|35=8|34=345|49=SIM_XETRA|52=20261027-20:21:28.653|56=CLIENT_XETRA|6=0|11=9a3628faab43487d|14=0|17=261027202128000051-1|37=261027202128000051|38=50|39=8|40=2|44=200.25|54=1|55=AMZ|58=request cannot be processed during halted trading status|59=0|150=8|151=50|10=185|
+20:21:28.654 check  ExecutionReport during halt
+field       expected                                                  actual                                                    result
+msg_type    EXECUTION_REPORT(8)                                       EXECUTION_REPORT(8)                                       ok    
+order_id    <non-empty>                                               261027202128000051                                        ok    
+exec_type   REJECTED(8)                                               REJECTED(8)                                               ok    
+ord_status  REJECTED(8)                                               REJECTED(8)                                               ok    
+symbol      AMZ                                                       AMZ                                                       ok    
+order_qty   50                                                        50                                                        ok    
+price       200.25                                                    200.25                                                    ok    
+text        request cannot be processed during halted trading status  request cannot be processed during halted trading status  ok
+20:21:28.655 rest   >> POST /resume/XETRA 
+20:21:28.657 httpx  HTTP Request: POST http://localhost:9050/api/resume/XETRA "HTTP/1.1 200 OK"
+20:21:28.657 rest   << 200 {"result":"The market was successfully resumed."}
