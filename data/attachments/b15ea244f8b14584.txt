@@ -1,0 +1,24 @@
+14:15:36.409 rest   >> GET /settings 
+14:15:36.419 httpx  HTTP Request: GET http://localhost:9050/api/settings "HTTP/1.1 200 OK"
+14:15:36.419 rest   << 200 {"settings":[{"key":"DisplayName","value":"MKTSIMULATOR"},{"key":"SeedPricesLastUpdated","value":"2024-03-14 14:35:06"},{"key":"SeedPriceDatabaseConnection","value":"postgresql://user:password@127.0.0.1:5432/database_name"}]}
+14:15:36.419 rest   >> PUT /settings {"settings": [{"key": "DisplayName", "value": "MKTSIMULATOR-QA"}]}
+14:15:36.428 httpx  HTTP Request: PUT http://localhost:9050/api/settings "HTTP/1.1 200 OK"
+14:15:36.429 rest   << 200 {"result":"General settings updated successfully"}
+14:15:36.429 check  PUT /api/settings
+field        expected                               actual                                 result
+status_code  200                                    200                                    ok    
+result       General settings updated successfully  General settings updated successfully  ok    
+14:15:36.429 rest   >> GET /settings 
+14:15:36.438 httpx  HTTP Request: GET http://localhost:9050/api/settings "HTTP/1.1 200 OK"
+14:15:36.439 rest   << 200 {"settings":[{"key":"SeedPricesLastUpdated","value":"2024-03-14 14:35:06"},{"key":"SeedPriceDatabaseConnection","value":"postgresql://user:password@127.0.0.1:5432/database_name"},{"key":"DisplayName","value":"MKTSIMULATOR-QA"}]}
+14:15:36.439 check  Settings in REST
+field        expected         actual           result
+DisplayName  MKTSIMULATOR-QA  MKTSIMULATOR-QA  ok    
+14:15:36.439 db     SQL select key, value from sim.setting order by key 
+14:15:36.440 db     rows: 3
+14:15:36.440 check  Settings in DB
+field        expected         actual           result
+DisplayName  MKTSIMULATOR-QA  MKTSIMULATOR-QA  ok
+14:15:36.441 rest   >> PUT /settings {"settings": [{"key": "DisplayName", "value": "MKTSIMULATOR"}]}
+14:15:36.450 httpx  HTTP Request: PUT http://localhost:9050/api/settings "HTTP/1.1 200 OK"
+14:15:36.450 rest   << 200 {"result":"General settings updated successfully"}

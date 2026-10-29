@@ -1,0 +1,48 @@
+14:15:20.053 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=137|52=20261029-14:15:20.053|11=9de2d3a4347a423f|55=USD/JPY|54=1|60=20261029-14:15:20.053|40=2|44=141.121|38=1000000|59=0|10=111|
+14:15:20.053 fix    << 8=FIXT.1.1|9=220|35=8|34=155|49=SIM_FASTMATCH|52=20261029-14:15:20.053|56=CLIENT_FASTMATCH|6=0|11=9de2d3a4347a423f|14=0|17=261029141520000020-1|37=261029141520000020|38=1000000|39=0|40=2|44=141.121|54=1|55=USD/JPY|59=0|150=0|151=1000000|10=184|
+14:15:20.054 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=138|52=20261029-14:15:20.054|11=1440fd0ab57b4174|55=USD/JPY|54=2|60=20261029-14:15:20.054|40=2|44=172.485|38=2000000|59=0|10=075|
+14:15:20.054 fix    << 8=FIXT.1.1|9=220|35=8|34=156|49=SIM_FASTMATCH|52=20261029-14:15:20.054|56=CLIENT_FASTMATCH|6=0|11=1440fd0ab57b4174|14=0|17=261029141520000021-1|37=261029141520000021|38=2000000|39=0|40=2|44=172.485|54=2|55=USD/JPY|59=0|150=0|151=2000000|10=150|
+14:15:20.055 fix    >> 8=FIXT.1.1|9=142|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=139|52=20261029-14:15:20.054|262=84bb129c631f4eae|263=0|264=0|267=2|269=0|269=1|146=1|55=USD/JPY|10=226|
+14:15:20.055 fix    << 8=FIXT.1.1|9=234|35=W|34=157|49=SIM_FASTMATCH|52=20261029-14:15:20.055|56=CLIENT_FASTMATCH|55=USD/JPY|262=84bb129c631f4eae|268=2|269=0|278=1793283309:15|270=141.121|271=1000000|269=1|278=1793283309:16|270=172.485|271=2000000|779=20261029-14:15:20.055|10=182|
+14:15:20.055 check  Book size
+field   expected  actual  result
+bids    1         1       ok    
+offers  1         1       ok    
+14:15:20.056 check  Bid in the snapshot: one BID at 141.121
+field      expected  actual        result
+condition  true      True found 1  ok    
+14:15:20.056 check  Bid in the snapshot
+field       expected  actual   result
+entry_type  BID(0)    BID(0)   ok    
+price       141.121   141.121  ok    
+size        1000000   1000000  ok    
+14:15:20.056 check  Offer in the snapshot: one OFFER at 172.485
+field      expected  actual        result
+condition  true      True found 1  ok    
+14:15:20.057 check  Offer in the snapshot
+field       expected  actual    result
+entry_type  OFFER(1)  OFFER(1)  ok    
+price       172.485   172.485   ok    
+size        2000000   2000000   ok
+14:15:20.109 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=140|52=20261029-14:15:20.109|41=9de2d3a4347a423f|11=7eebc5c10cd64372|37=261029141520000020|55=USD/JPY|54=1|60=20261029-14:15:20.109|10=034|
+14:15:20.110 fix    << 8=FIXT.1.1|9=234|35=8|34=158|49=SIM_FASTMATCH|52=20261029-14:15:20.110|56=CLIENT_FASTMATCH|6=0|11=7eebc5c10cd64372|14=0|17=261029141520000020-2|37=261029141520000020|38=1000000|39=4|40=2|41=9de2d3a4347a423f|44=141.121|54=1|55=USD/JPY|59=0|150=4|151=0|10=209|
+14:15:20.111 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029141520000020   261029141520000020   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      USD/JPY              USD/JPY              ok    
+order_qty   1000000              1000000              ok    
+price       141.121              141.121              ok    
+14:15:20.112 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=141|52=20261029-14:15:20.112|41=1440fd0ab57b4174|11=29be356e7481413c|37=261029141520000021|55=USD/JPY|54=2|60=20261029-14:15:20.112|10=087|
+14:15:20.113 fix    << 8=FIXT.1.1|9=234|35=8|34=159|49=SIM_FASTMATCH|52=20261029-14:15:20.113|56=CLIENT_FASTMATCH|6=0|11=29be356e7481413c|14=0|17=261029141520000021-2|37=261029141520000021|38=2000000|39=4|40=2|41=1440fd0ab57b4174|44=172.485|54=2|55=USD/JPY|59=0|150=4|151=0|10=040|
+14:15:20.114 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029141520000021   261029141520000021   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      USD/JPY              USD/JPY              ok    
+order_qty   2000000              2000000              ok    
+price       172.485              172.485              ok

@@ -1,0 +1,12 @@
+14:15:21.453 fix    >> 8=FIXT.1.1|9=147|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=197|52=20261029-14:15:21.453|11=05f1295e54104358|55=VOW|54=1|60=20261029-14:15:21.453|40=2|44=61.80|38=0|59=0|10=002|
+14:15:21.453 fix    << 8=FIXT.1.1|9=239|35=8|34=221|49=SIM_XETRA|52=20261029-14:15:21.453|56=CLIENT_XETRA|6=0|11=05f1295e54104358|14=0|17=261029141521000004-1|37=261029141521000004|38=0|39=8|40=2|44=61.8|54=1|55=VOW|58=minimal order quantity constraint violated|59=0|150=8|151=0|10=085|
+14:15:21.454 check  ExecutionReport for OrderQty below qtyMinimum
+field       expected                                    actual                                      result
+msg_type    EXECUTION_REPORT(8)                         EXECUTION_REPORT(8)                         ok    
+order_id    <non-empty>                                 261029141521000004                          ok    
+exec_type   REJECTED(8)                                 REJECTED(8)                                 ok    
+ord_status  REJECTED(8)                                 REJECTED(8)                                 ok    
+symbol      VOW                                         VOW                                         ok    
+order_qty   0                                           0                                           ok    
+price       61.80                                       61.8                                        ok    
+text        minimal order quantity constraint violated  minimal order quantity constraint violated  ok

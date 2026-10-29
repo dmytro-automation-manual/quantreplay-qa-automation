@@ -1,0 +1,20 @@
+14:15:21.121 rest   >> GET /listings/VODI 
+14:15:21.133 httpx  HTTP Request: GET http://localhost:9050/api/listings/VODI "HTTP/1.1 200 OK"
+14:15:21.133 rest   << 200 {"id":4,"venueId":"XETRA","symbol":"VODI","securityType":"CS","priceCurrency":"EUR","instrSymbol":"VODI","qtyMinimum":1.0,"qtyMaximum":2000000.0,"qtyMultiple":1.0,"priceTickSize":0.001,"enabled":true,"randomQtyMaximum":50000.0,"randomDepthLevels":5,"randomOrdersSpread":0.001,"randomOrdersRate":2,"randomTickRange":10,"securityExchange":"XETR","isinId":"GB00BH4HKS39","randomQtyMinimum":1000.0,"randomOrdersEnabled":true,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+14:15:21.133 check  GET /api/listings/VODI
+field        expected  actual  result
+status_code  200       200     ok    
+14:15:21.134 check  Listing VODI
+field              expected      actual        result
+symbol             VODI          VODI          ok    
+venue_id           XETRA         XETRA         ok    
+security_type      CS            CS            ok    
+price_currency     EUR           EUR           ok    
+fx_base_currency   <none>        <none>        ok    
+security_exchange  XETR          XETR          ok    
+isin_id            GB00BH4HKS39  GB00BH4HKS39  ok    
+price_tick_size    0.001         0.001         ok    
+qty_minimum        1             1.0           ok    
+qty_maximum        2000000       2000000.0     ok    
+qty_multiple       1             1.0           ok    
+enabled            True          True          ok

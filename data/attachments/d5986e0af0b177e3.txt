@@ -1,0 +1,10 @@
+ExecutionReport for order without quantity
+field       expected                actual                  result
+msg_type    EXECUTION_REPORT(8)     EXECUTION_REPORT(8)     ok    
+order_id    <non-empty>             261029141522000027      ok    
+exec_type   REJECTED(8)             REJECTED(8)             ok    
+ord_status  REJECTED(8)             REJECTED(8)             ok    
+symbol      EUR/USD                 EUR/USD                 ok    
+order_qty   <not sent>              <none>                  ok    
+price       1.00736                 1.00736                 ok    
+text        order quantity missing  order quantity missing  ok    

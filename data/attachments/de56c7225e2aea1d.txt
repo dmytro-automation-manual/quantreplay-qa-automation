@@ -1,0 +1,12 @@
+14:15:17.357 fix    >> 8=FIXT.1.1|9=159|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=23|52=20261029-14:15:17.357|11=eadd226f78d84932|55=AMZ|167=FXSPOT|54=1|60=20261029-14:15:17.357|40=2|44=200.25|38=50|59=0|10=176|
+14:15:17.358 fix    << 8=FIXT.1.1|9=218|35=8|34=23|49=SIM_XETRA|52=20261029-14:15:17.358|56=CLIENT_XETRA|6=0|11=eadd226f78d84932|14=0|17=261029141517000001-1|37=261029141517000001|38=50|39=8|44=200.25|54=1|55=AMZ|58=listing not found|150=8|151=50|167=FXSPOT|10=195|
+14:15:17.358 check  ExecutionReport for wrong SecurityType
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029141517000001   ok    
+exec_type   REJECTED(8)          REJECTED(8)          ok    
+ord_status  REJECTED(8)          REJECTED(8)          ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       200.25               200.25               ok    
+text        listing not found    listing not found    ok

@@ -1,7 +1,0 @@
-20:21:28.476 rest   >> GET /datasources/999999 
-20:21:28.488 httpx  HTTP Request: GET http://localhost:9052/api/datasources/999999 "HTTP/1.1 404 Not Found"
-20:21:28.489 rest   << 404 {"result":"Can not resolve a single datasource by a given key"}
-20:21:28.489 check  GET unknown datasource
-field        expected                                            actual                                              result
-status_code  404                                                 404                                                 ok    
-result       Can not resolve a single datasource by a given key  Can not resolve a single datasource by a given key  ok

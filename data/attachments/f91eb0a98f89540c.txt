@@ -1,0 +1,23 @@
+14:15:19.273 fix    >> 8=FIXT.1.1|9=147|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=105|52=20261029-14:15:19.273|11=dbb92a98376443c4|55=NFC|54=1|60=20261029-14:15:19.273|40=2|44=53.61|38=1|59=0|10=121|
+14:15:19.274 fix    << 8=FIXT.1.1|9=194|35=8|34=117|49=SIM_XETRA|52=20261029-14:15:19.274|56=CLIENT_XETRA|6=0|11=dbb92a98376443c4|14=0|17=261029141519000003-1|37=261029141519000003|38=1|39=0|40=2|44=53.61|54=1|55=NFC|59=0|150=0|151=1|10=184|
+14:15:19.274 check  ExecutionReport for OrderQty = qtyMinimum
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029141519000003   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      NFC                  NFC                  ok    
+order_qty   1                    1                    ok    
+price       53.61                53.61                ok    
+leaves_qty  1                    1                    ok
+14:15:19.325 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=106|52=20261029-14:15:19.325|41=dbb92a98376443c4|11=3a0e64e01af348d5|37=261029141519000003|55=NFC|54=1|60=20261029-14:15:19.325|10=122|
+14:15:19.326 fix    << 8=FIXT.1.1|9=214|35=8|34=118|49=SIM_XETRA|52=20261029-14:15:19.325|56=CLIENT_XETRA|6=0|11=3a0e64e01af348d5|14=0|17=261029141519000003-2|37=261029141519000003|38=1|39=4|40=2|41=dbb92a98376443c4|44=53.61|54=1|55=NFC|59=0|150=4|151=0|10=178|
+14:15:19.326 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029141519000003   261029141519000003   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      NFC                  NFC                  ok    
+order_qty   1                    1                    ok    
+price       53.61                53.61                ok

@@ -1,0 +1,31 @@
+14:15:22.675 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=264|52=20261029-14:15:22.675|11=746701b372644761|55=AMZ|54=1|60=20261029-14:15:22.675|40=2|44=200.25|38=50|59=0|10=044|
+14:15:22.676 fix    << 8=FIXT.1.1|9=197|35=8|34=291|49=SIM_XETRA|52=20261029-14:15:22.675|56=CLIENT_XETRA|6=0|11=746701b372644761|14=0|17=261029141522000029-1|37=261029141522000029|38=50|39=0|40=2|44=200.25|54=1|55=AMZ|59=0|150=0|151=50|10=160|
+14:15:22.676 check  ExecutionReport for NewOrderSingle
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029141522000029   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       200.25               200.25               ok    
+14:15:22.676 fix    >> 8=FIXT.1.1|9=191|35=G|49=CLIENT_XETRA|56=SIM_XETRA|34=265|52=20261029-14:15:22.676|41=746701b372644761|11=e5d3ab6b7faa4476|37=261029141522000029|55=AMZ|54=1|60=20261029-14:15:22.676|40=2|44=200.25|38=50|59=1|10=201|
+14:15:22.677 fix    << 8=FIXT.1.1|9=175|35=9|34=292|49=SIM_XETRA|52=20261029-14:15:22.676|56=CLIENT_XETRA|11=e5d3ab6b7faa4476|37=261029141522000029|39=0|41=746701b372644761|58=time in force can not be changed|434=2|10=231|
+14:15:22.677 check  OrderCancelReject for TimeInForce change
+field                expected                          actual                            result
+msg_type             ORDER_CANCEL_REJECT(9)            ORDER_CANCEL_REJECT(9)            ok    
+order_id             261029141522000029                261029141522000029                ok    
+ord_status           REJECTED(8)                       NEW(0)                            FAILED
+cxl_rej_response_to  ORDER_CANCEL_REPLACE_REQUEST(2)   ORDER_CANCEL_REPLACE_REQUEST(2)   ok    
+text                 time in force can not be changed  time in force can not be changed  ok
+14:15:22.772 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=266|52=20261029-14:15:22.772|41=746701b372644761|11=10bf945cba814740|37=261029141522000029|55=AMZ|54=1|60=20261029-14:15:22.772|10=161|
+14:15:22.773 fix    << 8=FIXT.1.1|9=216|35=8|34=293|49=SIM_XETRA|52=20261029-14:15:22.773|56=CLIENT_XETRA|6=0|11=10bf945cba814740|14=0|17=261029141522000029-2|37=261029141522000029|38=50|39=4|40=2|41=746701b372644761|44=200.25|54=1|55=AMZ|59=0|150=4|151=0|10=057|
+14:15:22.774 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029141522000029   261029141522000029   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       200.25               200.25               ok

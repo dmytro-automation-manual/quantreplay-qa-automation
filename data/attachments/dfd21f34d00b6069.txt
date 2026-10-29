@@ -1,0 +1,52 @@
+14:15:22.986 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=276|52=20261029-14:15:22.986|11=757b1b03e9104e74|55=EUR/USD|54=2|60=20261029-14:15:22.986|40=2|44=1.23125|38=1000000|59=0|10=051|
+14:15:22.986 fix    << 8=FIXT.1.1|9=220|35=8|34=305|49=SIM_FASTMATCH|52=20261029-14:15:22.986|56=CLIENT_FASTMATCH|6=0|11=757b1b03e9104e74|14=0|17=261029141522000035-1|37=261029141522000035|38=1000000|39=0|40=2|44=1.23125|54=2|55=EUR/USD|59=0|150=0|151=1000000|10=116|
+14:15:22.986 check  ExecutionReport for resting sell
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029141522000035   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.23125              1.23125              ok    
+14:15:22.987 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=277|52=20261029-14:15:22.987|11=609f1f86514f492a|55=EUR/USD|54=1|60=20261029-14:15:22.987|40=2|44=1.23125|38=3000000|59=3|10=070|
+14:15:22.987 fix    << 8=FIXT.1.1|9=220|35=8|34=306|49=SIM_FASTMATCH|52=20261029-14:15:22.987|56=CLIENT_FASTMATCH|6=0|11=609f1f86514f492a|14=0|17=261029141522000036-1|37=261029141522000036|38=3000000|39=0|40=2|44=1.23125|54=1|55=EUR/USD|59=3|150=0|151=3000000|10=138|
+14:15:22.988 fix    << 8=FIXT.1.1|9=254|35=8|34=307|49=SIM_FASTMATCH|52=20261029-14:15:22.987|56=CLIENT_FASTMATCH|6=1.23125|11=609f1f86514f492a|14=1000000|17=261029141522000036-2|31=1.23125|32=1000000|37=261029141522000036|38=3000000|39=1|40=2|44=1.23125|54=1|55=EUR/USD|59=3|150=F|151=2000000|10=232|
+14:15:22.988 fix    << 8=FIXT.1.1|9=248|35=8|34=308|49=SIM_FASTMATCH|52=20261029-14:15:22.987|56=CLIENT_FASTMATCH|6=1.23125|11=757b1b03e9104e74|14=1000000|17=261029141522000035-2|31=1.23125|32=1000000|37=261029141522000035|38=1000000|39=2|40=2|44=1.23125|54=2|55=EUR/USD|59=0|150=F|151=0|10=185|
+14:15:22.988 fix    << 8=FIXT.1.1|9=274|35=8|34=309|49=SIM_FASTMATCH|52=20261029-14:15:22.987|56=CLIENT_FASTMATCH|6=1.23125|11=609f1f86514f492a|14=1000000|17=261029141522000036-3|37=261029141522000036|38=3000000|39=4|40=2|44=1.23125|54=1|55=EUR/USD|58=not enough liquidity to fully fill IoC order|59=3|150=4|151=0|10=215|
+14:15:22.988 check  ExecutionReport Trade for IOC
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029141522000036   261029141522000036   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  PARTIALLY_FILLED(1)  PARTIALLY_FILLED(1)  ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   3000000              3000000              ok    
+price       1.23125              1.23125              ok    
+last_px     1.23125              1.23125              ok    
+last_qty    1000000              1000000              ok    
+cum_qty     1000000              1000000              ok    
+leaves_qty  2000000              2000000              ok    
+14:15:22.989 check  ExecutionReport Canceled for IOC remainder
+field       expected                                      actual                                        result
+msg_type    EXECUTION_REPORT(8)                           EXECUTION_REPORT(8)                           ok    
+order_id    261029141522000036                            261029141522000036                            ok    
+exec_type   CANCELED(4)                                   CANCELED(4)                                   ok    
+ord_status  CANCELED(4)                                   CANCELED(4)                                   ok    
+symbol      EUR/USD                                       EUR/USD                                       ok    
+order_qty   3000000                                       3000000                                       ok    
+price       1.23125                                       1.23125                                       ok    
+cum_qty     1000000                                       1000000                                       ok    
+leaves_qty  0                                             0                                             ok    
+text        not enough liquidity to fully fill IoC order  not enough liquidity to fully fill IoC order  ok    
+14:15:22.989 check  ExecutionReport Trade for resting sell
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029141522000035   261029141522000035   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  FILLED(2)            FILLED(2)            ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.23125              1.23125              ok    
+cum_qty     1000000              1000000              ok    
+leaves_qty  0                    0                    ok

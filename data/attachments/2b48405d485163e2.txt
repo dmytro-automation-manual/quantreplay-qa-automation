@@ -1,0 +1,23 @@
+14:15:20.486 fix    >> 8=FIXT.1.1|9=168|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=153|52=20261029-14:15:20.486|11=3025848339ec4098|55=USD/CHF|54=1|60=20261029-14:15:20.486|40=2|44=0.74190|38=50000000|59=0|10=235|
+14:15:20.487 fix    << 8=FIXT.1.1|9=221|35=8|34=171|49=SIM_FASTMATCH|52=20261029-14:15:20.486|56=CLIENT_FASTMATCH|6=0|11=3025848339ec4098|14=0|17=261029141520000005-1|37=261029141520000005|38=50000000|39=0|40=2|44=0.7419|54=1|55=USD/CHF|59=0|150=0|151=50000000|10=052|
+14:15:20.487 check  ExecutionReport for OrderQty = qtyMaximum
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029141520000005   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      USD/CHF              USD/CHF              ok    
+order_qty   50000000             50000000             ok    
+price       0.74190              0.7419               ok    
+leaves_qty  50000000             50000000             ok
+14:15:20.538 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=154|52=20261029-14:15:20.538|41=3025848339ec4098|11=7f5daa0cb4224a83|37=261029141520000005|55=USD/CHF|54=1|60=20261029-14:15:20.538|10=089|
+14:15:20.539 fix    << 8=FIXT.1.1|9=234|35=8|34=172|49=SIM_FASTMATCH|52=20261029-14:15:20.538|56=CLIENT_FASTMATCH|6=0|11=7f5daa0cb4224a83|14=0|17=261029141520000005-2|37=261029141520000005|38=50000000|39=4|40=2|41=3025848339ec4098|44=0.7419|54=1|55=USD/CHF|59=0|150=4|151=0|10=019|
+14:15:20.539 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029141520000005   261029141520000005   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      USD/CHF              USD/CHF              ok    
+order_qty   50000000             50000000             ok    
+price       0.74190              0.7419               ok

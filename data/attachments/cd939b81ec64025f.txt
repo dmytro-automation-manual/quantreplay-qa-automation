@@ -1,0 +1,13 @@
+14:15:22.329 db     SQL select venue_id, name, engine_type, support_tif_ioc, support_tif_fok, support_tif_day, include_own_orders, rest_port, order_on_startup, cancel_on_disconnect, persistence_enabled, timezone from sim.venue where venue_id = %s ('FASTMATCH',)
+14:15:22.329 db     rows: 1
+14:15:22.329 check  sim.venue FASTMATCH
+field                 expected          actual            result
+engine_type           Matching          Matching          ok    
+support_tif_ioc       True              True              ok    
+support_tif_fok       True              True              ok    
+support_tif_day       True              True              ok    
+include_own_orders    True              True              ok    
+order_on_startup      False             False             ok    
+persistence_enabled   False             False             ok    
+cancel_on_disconnect  False             False             ok    
+timezone              America/New_York  America/New_York  ok

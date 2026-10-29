@@ -1,0 +1,26 @@
+14:15:17.388 fix    >> 8=FIXT.1.1|9=148|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=26|52=20261029-14:15:17.388|11=12f77f07da16428b|55=AMZ|54=2|60=20261029-14:15:17.388|40=2|44=244.90|38=50|59=0|10=201|
+14:15:17.389 fix    << 8=FIXT.1.1|9=195|35=8|34=26|49=SIM_XETRA|52=20261029-14:15:17.389|56=CLIENT_XETRA|6=0|11=12f77f07da16428b|14=0|17=261029141517000009-1|37=261029141517000009|38=50|39=0|40=2|44=244.9|54=2|55=AMZ|59=0|150=0|151=50|10=012|
+14:15:17.389 check  ExecutionReport for NewOrderSingle
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029141517000009   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       244.90               244.9                ok    
+14:15:17.390 fix    >> 8=FIXT.1.1|9=164|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=27|52=20261029-14:15:17.390|41=12f77f07da16428b|11=5bf16a9d99424dd1|37=261029141517000009|55=AMZ|54=2|60=20261029-14:15:17.389|10=113|
+14:15:17.390 fix    << 8=FIXT.1.1|9=214|35=8|34=27|49=SIM_XETRA|52=20261029-14:15:17.390|56=CLIENT_XETRA|6=0|11=5bf16a9d99424dd1|14=0|17=261029141517000009-2|37=261029141517000009|38=50|39=4|40=2|41=12f77f07da16428b|44=244.9|54=2|55=AMZ|59=0|150=4|151=0|10=219|
+14:15:17.390 check  ExecutionReport for OrderCancelRequest
+field           expected             actual               result
+msg_type        EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id        261029141517000009   261029141517000009   ok    
+exec_type       CANCELED(4)          CANCELED(4)          ok    
+ord_status      CANCELED(4)          CANCELED(4)          ok    
+symbol          AMZ                  AMZ                  ok    
+order_qty       50                   50                   ok    
+price           244.90               244.9                ok    
+side            SELL(2)              SELL(2)              ok    
+orig_cl_ord_id  12f77f07da16428b     12f77f07da16428b     ok    
+leaves_qty      0                    0                    ok    
+cum_qty         0                    0                    ok

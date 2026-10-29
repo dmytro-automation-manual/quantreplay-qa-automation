@@ -1,0 +1,26 @@
+14:15:17.425 fix    >> 8=FIXT.1.1|9=166|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=26|52=20261029-14:15:17.425|11=4642753b850b4d66|55=EUR/USD|54=2|60=20261029-14:15:17.425|40=2|44=1.23125|38=1000000|59=0|10=193|
+14:15:17.426 fix    << 8=FIXT.1.1|9=219|35=8|34=26|49=SIM_FASTMATCH|52=20261029-14:15:17.425|56=CLIENT_FASTMATCH|6=0|11=4642753b850b4d66|14=0|17=261029141517000009-1|37=261029141517000009|38=1000000|39=0|40=2|44=1.23125|54=2|55=EUR/USD|59=0|150=0|151=1000000|10=036|
+14:15:17.426 check  ExecutionReport for NewOrderSingle
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029141517000009   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.23125              1.23125              ok    
+14:15:17.426 fix    >> 8=FIXT.1.1|9=176|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=27|52=20261029-14:15:17.426|41=4642753b850b4d66|11=e73ee5b099524a50|37=261029141517000009|55=EUR/USD|54=2|60=20261029-14:15:17.426|10=041|
+14:15:17.427 fix    << 8=FIXT.1.1|9=233|35=8|34=27|49=SIM_FASTMATCH|52=20261029-14:15:17.426|56=CLIENT_FASTMATCH|6=0|11=e73ee5b099524a50|14=0|17=261029141517000009-2|37=261029141517000009|38=1000000|39=4|40=2|41=4642753b850b4d66|44=1.23125|54=2|55=EUR/USD|59=0|150=4|151=0|10=224|
+14:15:17.427 check  ExecutionReport for OrderCancelRequest
+field           expected             actual               result
+msg_type        EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id        261029141517000009   261029141517000009   ok    
+exec_type       CANCELED(4)          CANCELED(4)          ok    
+ord_status      CANCELED(4)          CANCELED(4)          ok    
+symbol          EUR/USD              EUR/USD              ok    
+order_qty       1000000              1000000              ok    
+price           1.23125              1.23125              ok    
+side            SELL(2)              SELL(2)              ok    
+orig_cl_ord_id  4642753b850b4d66     4642753b850b4d66     ok    
+leaves_qty      0                    0                    ok    
+cum_qty         0                    0                    ok

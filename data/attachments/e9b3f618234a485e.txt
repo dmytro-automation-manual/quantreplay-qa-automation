@@ -1,0 +1,23 @@
+14:15:19.329 fix    >> 8=FIXT.1.1|9=165|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=105|52=20261029-14:15:19.329|11=2476e6c595984f1a|55=USD/JPY|54=1|60=20261029-14:15:19.329|40=2|44=141.121|38=10000|59=0|10=215|
+14:15:19.329 fix    << 8=FIXT.1.1|9=216|35=8|34=117|49=SIM_FASTMATCH|52=20261029-14:15:19.329|56=CLIENT_FASTMATCH|6=0|11=2476e6c595984f1a|14=0|17=261029141519000003-1|37=261029141519000003|38=10000|39=0|40=2|44=141.121|54=1|55=USD/JPY|59=0|150=0|151=10000|10=206|
+14:15:19.330 check  ExecutionReport for OrderQty = qtyMinimum
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029141519000003   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      USD/JPY              USD/JPY              ok    
+order_qty   10000                10000                ok    
+price       141.121              141.121              ok    
+leaves_qty  10000                10000                ok
+14:15:19.381 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=106|52=20261029-14:15:19.381|41=2476e6c595984f1a|11=a2baabf350274d09|37=261029141519000003|55=USD/JPY|54=1|60=20261029-14:15:19.381|10=233|
+14:15:19.382 fix    << 8=FIXT.1.1|9=232|35=8|34=118|49=SIM_FASTMATCH|52=20261029-14:15:19.381|56=CLIENT_FASTMATCH|6=0|11=a2baabf350274d09|14=0|17=261029141519000003-2|37=261029141519000003|38=10000|39=4|40=2|41=2476e6c595984f1a|44=141.121|54=1|55=USD/JPY|59=0|150=4|151=0|10=055|
+14:15:19.382 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029141519000003   261029141519000003   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      USD/JPY              USD/JPY              ok    
+order_qty   10000                10000                ok    
+price       141.121              141.121              ok

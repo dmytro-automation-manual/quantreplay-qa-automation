@@ -1,0 +1,47 @@
+14:15:31.544 rest   >> POST /genstart/FASTMATCH 
+14:15:31.546 httpx  HTTP Request: POST http://localhost:9052/api/genstart/FASTMATCH "HTTP/1.1 200 OK"
+14:15:31.547 rest   << 200 {"result":"Generator was started"}
+14:15:31.547 check  POST genstart
+field        expected               actual                 result
+status_code  200                    200                    ok    
+result       Generator was started  Generator was started  ok    
+14:15:31.547 rest   >> GET /genstatus/FASTMATCH 
+14:15:31.548 httpx  HTTP Request: GET http://localhost:9052/api/genstatus/FASTMATCH "HTTP/1.1 200 OK"
+14:15:31.548 rest   << 200 {"result":"Running"}
+14:15:31.548 check  GET genstatus after start
+field        expected  actual   result
+status_code  200       200      ok    
+result       Running   Running  ok    
+14:15:31.549 fix    >> 8=FIXT.1.1|9=142|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=319|52=20261029-14:15:31.549|262=6363de6b73124bba|263=0|264=0|267=2|269=0|269=1|146=1|55=EUR/USD|10=177|
+14:15:31.549 fix    << 8=FIXT.1.1|9=186|35=W|34=353|49=SIM_FASTMATCH|52=20261029-14:15:31.549|56=CLIENT_FASTMATCH|55=EUR/USD|262=6363de6b73124bba|268=1|269=0|278=1793283309:38|270=1.11929|271=4353000|779=20261029-14:15:31.549|10=170|
+14:15:31.549 fix    >> 8=FIXT.1.1|9=142|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=320|52=20261029-14:15:31.549|262=3d7f6e7327ef4c18|263=0|264=0|267=2|269=0|269=1|146=1|55=EUR/USD|10=189|
+14:15:31.550 fix    << 8=FIXT.1.1|9=186|35=W|34=354|49=SIM_FASTMATCH|52=20261029-14:15:31.550|56=CLIENT_FASTMATCH|55=EUR/USD|262=3d7f6e7327ef4c18|268=1|269=0|278=1793283309:38|270=1.11929|271=4353000|779=20261029-14:15:31.550|10=175|
+14:15:31.550 check  EUR/USD book is not empty
+field      expected  actual  result
+condition  true      True    ok    
+14:15:31.550 rest   >> POST /genstop/FASTMATCH 
+14:15:31.551 httpx  HTTP Request: POST http://localhost:9052/api/genstop/FASTMATCH "HTTP/1.1 200 OK"
+14:15:31.551 rest   << 200 {"result":"Generator was stopped"}
+14:15:31.552 check  POST genstop
+field        expected               actual                 result
+status_code  200                    200                    ok    
+result       Generator was stopped  Generator was stopped  ok    
+14:15:31.552 rest   >> GET /genstatus/FASTMATCH 
+14:15:31.553 httpx  HTTP Request: GET http://localhost:9052/api/genstatus/FASTMATCH "HTTP/1.1 200 OK"
+14:15:31.553 rest   << 200 {"result":"Stopped"}
+14:15:31.553 check  GET genstatus after stop
+field        expected  actual   result
+status_code  200       200      ok    
+result       Stopped   Stopped  ok
+14:15:31.554 rest   >> POST /genstop/FASTMATCH 
+14:15:31.555 httpx  HTTP Request: POST http://localhost:9052/api/genstop/FASTMATCH "HTTP/1.1 200 OK"
+14:15:31.556 rest   << 200 {"result":"Generator was stopped"}
+14:15:31.556 rest   >> POST /reset/FASTMATCH 
+14:15:31.565 httpx  HTTP Request: POST http://localhost:9052/api/reset/FASTMATCH "HTTP/1.1 200 OK"
+14:15:31.566 rest   << 200 {"result":"Resetting the venue state starts."}
+14:15:33.552 fix    << 8=FIXT.1.1|9=74|35=5|34=355|49=SIM_FASTMATCH|52=20261029-14:15:33.552|56=CLIENT_FASTMATCH|10=053|
+14:15:35.555 fix    >> 8=FIXT.1.1|9=97|35=A|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=1|52=20261029-14:15:35.555|98=0|108=30|141=Y|1137=9|10=104|
+14:15:36.056 fix    >> 8=FIXT.1.1|9=97|35=A|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=1|52=20261029-14:15:36.056|98=0|108=30|141=Y|1137=9|10=101|
+14:15:36.057 fix    << 8=FIXT.1.1|9=97|35=A|34=1|49=SIM_FASTMATCH|52=20261029-14:15:36.057|56=CLIENT_FASTMATCH|98=0|108=30|141=Y|1137=9|10=102|
+14:15:36.057 fix    >> 8=FIXT.1.1|9=140|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=2|52=20261029-14:15:36.057|262=217e18bb17d84726|263=0|264=0|267=2|269=0|269=1|146=1|55=EUR/USD|10=237|
+14:15:36.066 fix    << 8=FIXT.1.1|9=136|35=W|34=2|49=SIM_FASTMATCH|52=20261029-14:15:36.066|56=CLIENT_FASTMATCH|55=EUR/USD|262=217e18bb17d84726|268=0|779=20261029-14:15:36.066|10=208|

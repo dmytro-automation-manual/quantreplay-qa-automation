@@ -1,0 +1,22 @@
+14:15:17.441 fix    >> 8=FIXT.1.1|9=198|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=28|52=20261029-14:15:17.441|11=7aaecf1989114e8c|55=EUR/USD|167=FXSPOT|207=FASTMATCH|15=EUR|54=1|60=20261029-14:15:17.441|40=2|44=1.00736|38=1000000|59=0|10=076|
+14:15:17.442 fix    << 8=FIXT.1.1|9=251|35=8|34=28|49=SIM_FASTMATCH|52=20261029-14:15:17.441|56=CLIENT_FASTMATCH|6=0|11=7aaecf1989114e8c|14=0|15=EUR|17=261029141517000010-1|37=261029141517000010|38=1000000|39=0|40=2|44=1.00736|54=1|55=EUR/USD|59=0|150=0|151=1000000|167=FXSPOT|207=FASTMATCH|10=152|
+14:15:17.442 check  ExecutionReport for order with instrument attributes
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029141517000010   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.00736              1.00736              ok
+14:15:17.493 fix    >> 8=FIXT.1.1|9=176|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=29|52=20261029-14:15:17.493|41=7aaecf1989114e8c|11=c0ba8fe6d7434b89|37=261029141517000010|55=EUR/USD|54=1|60=20261029-14:15:17.493|10=083|
+14:15:17.494 fix    << 8=FIXT.1.1|9=265|35=8|34=29|49=SIM_FASTMATCH|52=20261029-14:15:17.493|56=CLIENT_FASTMATCH|6=0|11=c0ba8fe6d7434b89|14=0|15=EUR|17=261029141517000010-2|37=261029141517000010|38=1000000|39=4|40=2|41=7aaecf1989114e8c|44=1.00736|54=1|55=EUR/USD|59=0|150=4|151=0|167=FXSPOT|207=FASTMATCH|10=200|
+14:15:17.494 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029141517000010   261029141517000010   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.00736              1.00736              ok

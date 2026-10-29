@@ -1,0 +1,12 @@
+14:15:18.139 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=55|52=20261029-14:15:18.139|11=1e9aacf309524a0d|55=MSF|54=1|60=20261029-14:15:18.139|40=2|44=421.975|38=20|59=0|10=075|
+14:15:18.140 fix    << 8=FIXT.1.1|9=237|35=8|34=61|49=SIM_XETRA|52=20261029-14:15:18.139|56=CLIENT_XETRA|6=0|11=1e9aacf309524a0d|14=0|17=261029141518000001-1|37=261029141518000001|38=20|39=8|40=2|44=421.975|54=1|55=MSF|58=order price tick constraint violated|59=0|150=8|151=20|10=092|
+14:15:18.140 check  ExecutionReport for price off tick
+field       expected                              actual                                result
+msg_type    EXECUTION_REPORT(8)                   EXECUTION_REPORT(8)                   ok    
+order_id    <non-empty>                           261029141518000001                    ok    
+exec_type   REJECTED(8)                           REJECTED(8)                           ok    
+ord_status  REJECTED(8)                           REJECTED(8)                           ok    
+symbol      MSF                                   MSF                                   ok    
+order_qty   20                                    20                                    ok    
+price       421.975                               421.975                               ok    
+text        order price tick constraint violated  order price tick constraint violated  ok

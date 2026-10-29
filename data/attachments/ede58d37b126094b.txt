@@ -1,0 +1,7 @@
+OrderCancelReject for quantity not above CumQty
+field                expected                         actual                           result
+msg_type             ORDER_CANCEL_REJECT(9)           ORDER_CANCEL_REJECT(9)           ok    
+order_id             261029141522000030               261029141522000030               ok    
+ord_status           REJECTED(8)                      PARTIALLY_FILLED(1)              FAILED
+cxl_rej_response_to  ORDER_CANCEL_REPLACE_REQUEST(2)  ORDER_CANCEL_REPLACE_REQUEST(2)  ok    
+text                 invalid quantity                 invalid quantity                 ok    

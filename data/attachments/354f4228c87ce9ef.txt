@@ -1,0 +1,13 @@
+14:15:22.232 rest   >> GET /settings 
+14:15:22.244 httpx  HTTP Request: GET http://localhost:9050/api/settings "HTTP/1.1 200 OK"
+14:15:22.245 rest   << 200 {"settings":[{"key":"DisplayName","value":"MKTSIMULATOR"},{"key":"SeedPricesLastUpdated","value":"2024-03-14 14:35:06"},{"key":"SeedPriceDatabaseConnection","value":"postgresql://user:password@127.0.0.1:5432/database_name"}]}
+14:15:22.245 db     SQL select key, value from sim.setting order by key 
+14:15:22.246 db     rows: 3
+14:15:22.246 check  REST settings vs sim.setting
+field                        expected                                                 actual                                                   result
+DisplayName                  MKTSIMULATOR                                             MKTSIMULATOR                                             ok    
+SeedPriceDatabaseConnection  postgresql://user:password@127.0.0.1:5432/database_name  postgresql://user:password@127.0.0.1:5432/database_name  ok    
+SeedPricesLastUpdated        2024-03-14 14:35:06                                      2024-03-14 14:35:06                                      ok    
+14:15:22.247 check  Same keys
+field  expected                                                      actual                                                        result
+keys   ['DisplayName', 'SeedPriceDatabaseConnection', 'SeedPrice...  ['DisplayName', 'SeedPriceDatabaseConnection', 'SeedPrice...  ok

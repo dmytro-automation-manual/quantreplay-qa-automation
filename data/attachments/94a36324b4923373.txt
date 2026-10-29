@@ -1,0 +1,9 @@
+14:15:36.658 rest   >> GET /venues 
+14:15:36.673 httpx  HTTP Request: GET http://localhost:9052/api/venues "HTTP/1.1 200 OK"
+14:15:36.673 rest   << 200 {"venues":[{"id":"XETRA","name":"XETRA","engineType":"Matching","supportTifIoc":true,"supportTifFok":true,"supportTifDay":true,"includeOwnOrders":true,"restPort":9050,"orderOnStartup":false,"randomPartyCount":2,"timeAndSalesEnabled":true,"timeAndSalesQuantityEnabled":true,"timeAndSalesSideEnabled":true,"timeAndSalesPartiesEnabled":true,"timezone":"UTC","cancelOnDisconnect":false,"persistenceEnabled":false,"phases":[]},{"id":"FASTMATCH","name":"FASTMATCH","engineType":"Matching","supportTifIoc":true,"supportTifFok":true,"supportTifDay":true,"includeOwnOrders":true,"restPort":9052,"orderOnStartup":false,"randomPartyCount":10,"timeAndSalesEnabled":true,"timeAndSalesQuantityEnabled":true,"timeAndSalesSideEnabled":true,"timeAndSalesPartiesEnabled":true,"timezone":"America/New_York","cancelOnDisconnect":false,"persistenceEnabled":false,"phases":[]}]}
+14:15:36.673 check  GET /api/venues
+field        expected  actual  result
+status_code  200       200     ok    
+14:15:36.674 check  Venue ids
+field  expected                actual                  result
+ids    ['FASTMATCH', 'XETRA']  ['FASTMATCH', 'XETRA']  ok

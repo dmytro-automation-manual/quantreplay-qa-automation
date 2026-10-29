@@ -1,0 +1,12 @@
+14:15:21.365 fix    >> 8=FIXT.1.1|9=168|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=190|52=20261029-14:15:21.365|11=0de22c4bda914942|55=EUR/GBP|54=1|60=20261029-14:15:21.365|40=2|44=0.753545|38=1000000|59=0|10=160|
+14:15:21.365 fix    << 8=FIXT.1.1|9=261|35=8|34=214|49=SIM_FASTMATCH|52=20261029-14:15:21.365|56=CLIENT_FASTMATCH|6=0|11=0de22c4bda914942|14=0|17=261029141521000001-1|37=261029141521000001|38=1000000|39=8|40=2|44=0.753545|54=1|55=EUR/GBP|58=order price tick constraint violated|59=0|150=8|151=1000000|10=149|
+14:15:21.366 check  ExecutionReport for price off tick
+field       expected                              actual                                result
+msg_type    EXECUTION_REPORT(8)                   EXECUTION_REPORT(8)                   ok    
+order_id    <non-empty>                           261029141521000001                    ok    
+exec_type   REJECTED(8)                           REJECTED(8)                           ok    
+ord_status  REJECTED(8)                           REJECTED(8)                           ok    
+symbol      EUR/GBP                               EUR/GBP                               ok    
+order_qty   1000000                               1000000                               ok    
+price       0.753545                              0.753545                              ok    
+text        order price tick constraint violated  order price tick constraint violated  ok

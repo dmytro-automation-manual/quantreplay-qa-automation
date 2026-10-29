@@ -1,0 +1,22 @@
+14:15:17.405 fix    >> 8=FIXT.1.1|9=171|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=28|52=20261029-14:15:17.405|11=e7f4ed4bf63e4c50|55=AMZ|167=CS|207=XETR|15=EUR|54=1|60=20261029-14:15:17.405|40=2|44=200.25|38=50|59=0|10=089|
+14:15:17.405 fix    << 8=FIXT.1.1|9=219|35=8|34=28|49=SIM_XETRA|52=20261029-14:15:17.405|56=CLIENT_XETRA|6=0|11=e7f4ed4bf63e4c50|14=0|15=EUR|17=261029141517000010-1|37=261029141517000010|38=50|39=0|40=2|44=200.25|54=1|55=AMZ|59=0|150=0|151=50|167=CS|207=XETR|10=198|
+14:15:17.405 check  ExecutionReport for order with instrument attributes
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029141517000010   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       200.25               200.25               ok
+14:15:17.457 fix    >> 8=FIXT.1.1|9=164|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=29|52=20261029-14:15:17.456|41=e7f4ed4bf63e4c50|11=cf400ece274149c8|37=261029141517000010|55=AMZ|54=1|60=20261029-14:15:17.456|10=246|
+14:15:17.457 fix    << 8=FIXT.1.1|9=238|35=8|34=29|49=SIM_XETRA|52=20261029-14:15:17.457|56=CLIENT_XETRA|6=0|11=cf400ece274149c8|14=0|15=EUR|17=261029141517000010-2|37=261029141517000010|38=50|39=4|40=2|41=e7f4ed4bf63e4c50|44=200.25|54=1|55=AMZ|59=0|150=4|151=0|167=CS|207=XETR|10=166|
+14:15:17.457 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029141517000010   261029141517000010   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       200.25               200.25               ok

@@ -1,0 +1,23 @@
+14:15:24.833 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=312|52=20261029-14:15:24.833|11=314eba04e0a242ae|55=AMZ|54=1|60=20261029-14:15:24.833|40=2|44=200.25|38=50|59=0|10=039|
+14:15:24.834 fix    << 8=FIXT.1.1|9=197|35=8|34=346|49=SIM_XETRA|52=20261029-14:15:24.834|56=CLIENT_XETRA|6=0|11=314eba04e0a242ae|14=0|17=261029141524000052-1|37=261029141524000052|38=50|39=0|40=2|44=200.25|54=1|55=AMZ|59=0|150=0|151=50|10=161|
+14:15:24.835 rest   >> POST /halt/XETRA {"allowCancels": true}
+14:15:24.836 httpx  HTTP Request: POST http://localhost:9050/api/halt/XETRA "HTTP/1.1 200 OK"
+14:15:24.837 rest   << 200 {"result":"The market was successfully halted."}
+14:15:24.837 check  POST halt
+field        expected                             actual                               result
+status_code  200                                  200                                  ok    
+result       The market was successfully halted.  The market was successfully halted.  ok    
+14:15:24.837 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=313|52=20261029-14:15:24.837|41=314eba04e0a242ae|11=7ff1e0d425464bcc|37=261029141524000052|55=AMZ|54=1|60=20261029-14:15:24.837|10=010|
+14:15:24.838 fix    << 8=FIXT.1.1|9=216|35=8|34=347|49=SIM_XETRA|52=20261029-14:15:24.837|56=CLIENT_XETRA|6=0|11=7ff1e0d425464bcc|14=0|17=261029141524000052-2|37=261029141524000052|38=50|39=4|40=2|41=314eba04e0a242ae|44=200.25|54=1|55=AMZ|59=0|150=4|151=0|10=162|
+14:15:24.838 check  ExecutionReport for cancel during halt
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029141524000052   261029141524000052   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       200.25               200.25               ok
+14:15:24.840 rest   >> POST /resume/XETRA 
+14:15:24.841 httpx  HTTP Request: POST http://localhost:9050/api/resume/XETRA "HTTP/1.1 200 OK"
+14:15:24.841 rest   << 200 {"result":"The market was successfully resumed."}

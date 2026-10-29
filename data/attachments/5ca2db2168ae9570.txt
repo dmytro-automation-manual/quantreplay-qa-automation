@@ -1,9 +1,0 @@
-20:21:24.293 fix    >> 8=FIXT.1.1|9=130|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=167|52=20261027-20:21:24.293|262=317ccfca9ab64e1f|263=0|264=0|267=2|269=0|269=1|146=1|55=VOW|10=000|
-20:21:24.294 fix    << 8=FIXT.1.1|9=126|35=W|34=180|49=SIM_XETRA|52=20261027-20:21:24.294|56=CLIENT_XETRA|55=VOW|262=317ccfca9ab64e1f|268=0|779=20261027-20:21:24.294|10=215|
-20:21:24.294 check  MarketDataSnapshotFullRefresh
-field     expected                 actual                   result
-msg_type  MARKET_DATA_SNAPSHOT(W)  MARKET_DATA_SNAPSHOT(W)  ok    
-symbol    VOW                      VOW                      ok    
-20:21:24.295 check  No bids / offers in an empty book
-field      expected  actual            result
-condition  true      True entries: []  ok

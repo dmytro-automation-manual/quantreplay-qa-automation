@@ -1,0 +1,39 @@
+14:15:25.008 rest   >> POST /halt/FASTMATCH {"allowCancels": true}
+14:15:25.009 httpx  HTTP Request: POST http://localhost:9052/api/halt/FASTMATCH "HTTP/1.1 200 OK"
+14:15:25.010 rest   << 200 {"result":"The market was successfully halted."}
+14:15:25.010 check  POST halt
+field        expected                             actual                               result
+status_code  200                                  200                                  ok    
+result       The market was successfully halted.  The market was successfully halted.  ok    
+14:15:25.010 rest   >> POST /resume/FASTMATCH 
+14:15:25.012 httpx  HTTP Request: POST http://localhost:9052/api/resume/FASTMATCH "HTTP/1.1 200 OK"
+14:15:25.012 rest   << 200 {"result":"The market was successfully resumed."}
+14:15:25.012 check  POST resume
+field        expected                              actual                                result
+status_code  200                                   200                                   ok    
+result       The market was successfully resumed.  The market was successfully resumed.  ok    
+14:15:25.013 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=317|52=20261029-14:15:25.013|11=d72e806db1324559|55=EUR/USD|54=1|60=20261029-14:15:25.012|40=2|44=1.00736|38=1000000|59=0|10=021|
+14:15:25.013 fix    << 8=FIXT.1.1|9=220|35=8|34=351|49=SIM_FASTMATCH|52=20261029-14:15:25.013|56=CLIENT_FASTMATCH|6=0|11=d72e806db1324559|14=0|17=261029141525000054-1|37=261029141525000054|38=1000000|39=0|40=2|44=1.00736|54=1|55=EUR/USD|59=0|150=0|151=1000000|10=116|
+14:15:25.014 check  ExecutionReport after resume
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029141525000054   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.00736              1.00736              ok
+14:15:25.015 rest   >> POST /resume/FASTMATCH 
+14:15:25.016 httpx  HTTP Request: POST http://localhost:9052/api/resume/FASTMATCH "HTTP/1.1 409 Conflict"
+14:15:25.017 rest   << 409 {"result":"There is no halt request to terminate."}
+14:15:25.068 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=318|52=20261029-14:15:25.068|41=d72e806db1324559|11=1ccb3574af6e419f|37=261029141525000054|55=EUR/USD|54=1|60=20261029-14:15:25.068|10=235|
+14:15:25.069 fix    << 8=FIXT.1.1|9=234|35=8|34=352|49=SIM_FASTMATCH|52=20261029-14:15:25.068|56=CLIENT_FASTMATCH|6=0|11=1ccb3574af6e419f|14=0|17=261029141525000054-2|37=261029141525000054|38=1000000|39=4|40=2|41=d72e806db1324559|44=1.00736|54=1|55=EUR/USD|59=0|150=4|151=0|10=161|
+14:15:25.069 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029141525000054   261029141525000054   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.00736              1.00736              ok

@@ -1,0 +1,13 @@
+ExecutionReport for OrderCancelRequest
+field           expected             actual               result
+msg_type        EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id        261029141518000009   261029141518000009   ok    
+exec_type       CANCELED(4)          CANCELED(4)          ok    
+ord_status      CANCELED(4)          CANCELED(4)          ok    
+symbol          MSF                  MSF                  ok    
+order_qty       20                   20                   ok    
+price           515.85               515.85               ok    
+side            SELL(2)              SELL(2)              ok    
+orig_cl_ord_id  ff4f0e1bb26640a9     ff4f0e1bb26640a9     ok    
+leaves_qty      0                    0                    ok    
+cum_qty         0                    0                    ok    

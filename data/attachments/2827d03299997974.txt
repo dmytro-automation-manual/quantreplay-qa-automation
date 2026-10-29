@@ -1,0 +1,14 @@
+14:15:21.249 db     SQL select listing_id, symbol, venue_id, security_type, price_currency, fx_base_currency, security_exchange, isin_id, qty_minimum::numeric as qty_minimum, qty_maximum::numeric as qty_maximum, qty_multiple::numeric as qty_multiple, price_tick_size::numeric as price_tick_size, enabled, random_orders_enabled from sim.listing where venue_id = %s and symbol = %s ('FASTMATCH', 'EUR/GBP')
+14:15:21.250 db     rows: 1
+14:15:21.250 check  sim.listing EUR/GBP
+field              expected   actual     result
+security_type      FXSPOT     FXSPOT     ok    
+price_currency     GBP        GBP        ok    
+fx_base_currency   EUR        EUR        ok    
+security_exchange  FASTMATCH  FASTMATCH  ok    
+isin_id            <none>     <none>     ok    
+price_tick_size    0.00001    0.00001    ok    
+qty_minimum        10000      10000      ok    
+qty_maximum        50000000   50000000   ok    
+qty_multiple       1000       1000       ok    
+enabled            True       True       ok

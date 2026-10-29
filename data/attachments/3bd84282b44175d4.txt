@@ -1,0 +1,32 @@
+14:15:36.167 rest   >> POST /priceseeds {"symbol": "QATEST", "securityType": "CS", "priceCurrency": "EUR", "bidPrice": 9.99, "midPrice": 10.0, "offerPrice": 10.01}
+14:15:36.178 httpx  HTTP Request: POST http://localhost:9052/api/priceseeds "HTTP/1.1 201 Created"
+14:15:36.178 rest   << 201 {"result":"Successfully inserted new price seed"}
+14:15:36.178 check  POST price seed
+field        expected                              actual                                result
+status_code  201                                   201                                   ok    
+result       Successfully inserted new price seed  Successfully inserted new price seed  ok    
+14:15:36.178 rest   >> GET /priceseeds 
+14:15:36.187 httpx  HTTP Request: GET http://localhost:9052/api/priceseeds "HTTP/1.1 200 OK"
+14:15:36.188 rest   << 200 {"priceSeeds":[{"id":1,"symbol":"AMZ","securityType":"CS","priceCurrency":"EUR","securityId":"US0231351067","securityIdSource":"ISI","instrumentSymbol":"AMZ","midPrice":222.55,"bidPrice":222.5,"offerPrice":222.6,"lastUpdate":"2026-10-23 17:30:00"},{"id":2,"symbol":"MSF","securityType":"CS","priceCurrency":"EUR","securityId":"US5949181045","securityIdSource":"ISI","instrumentSymbol":"MSF","midPrice":468.9,"bidPrice":468.85,"offerPrice":468.95,"lastUpdate":"2026-10-23 17:30:00"},{"id":3,"symbol":"NFC","securityType":"CS","priceCurrency":"EUR","securityId":"US64110L1061","securityIdSource":"ISI","instrumentSymbol":"NFC","midPrice":59.58,"bidPrice":59.57,"offerPrice":59.59,"lastUpdate":"2026-10-23 17:30:00"},{"id":4,"symbol":"VODI","securityType":"CS","priceCurrency":"EUR","securityId":"GB00BH4HKS39","securityIdSource":"ISI","instrumentSymbol":"VODI","midPrice":1.41,"bidPrice":1.409,"offerPrice":1.411,"lastUpdate":"2026-10-23 17:30:00"},{"id":5,"symbol":"VOW","securityType":"CS","priceCurrency":"EUR","securityId":"DE0007664005","securityIdSource":"ISI","instrumentSymbol":"VOW","midPrice":68.7,"bidPrice":68.68,"offerPrice":68.72,"lastUpdate":"2026-10-23 17:30:00"},{"id":6,"symbol":"EUR/USD","securityType":"FXSPOT","priceCurrency":"USD","instrumentSymbol":"EUR/USD","midPrice":1.1193,"bidPrice":1.11929,"offerPrice":1.11931,"lastUpdate":"2026-10-23 14:15:00"},{"id":7,"symbol":"GBP/USD","securityType":"FXSPOT","priceCurrency":"USD","instrumentSymbol":"GBP/USD","midPrice":1.33683,"bidPrice":1.33682,"offerPrice":1.33684,"lastUpdate":"2026-10-23 14:15:00"},{"id":8,"symbol":"USD/JPY","securityType":"FXSPOT","priceCurrency":"JPY","instrumentSymbol":"USD/JPY","midPrice":156.803,"bidPrice":156.802,"offerPrice":156.804,"lastUpdate":"2026-10-23 14:15:00"},{"id":9,"symbol":"USD/CHF","securityType":"FXSPOT","priceCurrency":"CHF","instrumentSymbol":"USD/CHF","midPrice":0.82435,"bidPrice":0.82434,"offerPrice":0.82436,"lastUpdate":"2026-10-23 14:15:00"},{"id":10,"symbol":"EUR/GBP","securi
+14:15:36.188 check  Created seed
+field        expected  actual  result
+symbol       QATEST    QATEST  ok    
+bid_price    9.99      9.99    ok    
+mid_price    10.00     10.0    ok    
+offer_price  10.01     10.01   ok    
+14:15:36.188 rest   >> DELETE /priceseeds/12 
+14:15:36.198 httpx  HTTP Request: DELETE http://localhost:9052/api/priceseeds/12 "HTTP/1.1 204 No Content"
+14:15:36.198 rest   << 204 
+14:15:36.198 check  DELETE price seed
+field        expected  actual  result
+status_code  204       204     ok    
+14:15:36.198 rest   >> GET /priceseeds/12 
+14:15:36.208 httpx  HTTP Request: GET http://localhost:9052/api/priceseeds/12 "HTTP/1.1 404 Not Found"
+14:15:36.208 rest   << 404 {"result":"Can not resolve a single PriceSeed by a given key"}
+14:15:36.208 check  GET deleted seed
+field        expected                                           actual                                             result
+status_code  404                                                404                                                ok    
+result       Can not resolve a single PriceSeed by a given key  Can not resolve a single PriceSeed by a given key  ok
+14:15:36.209 rest   >> DELETE /priceseeds/12 
+14:15:36.218 httpx  HTTP Request: DELETE http://localhost:9052/api/priceseeds/12 "HTTP/1.1 400 Bad Request"
+14:15:36.219 rest   << 400 {"result":"Can not resolve a single PriceSeed by a given key"}

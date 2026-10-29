@@ -1,0 +1,10 @@
+14:15:19.081 db     SQL select price_seed_id, symbol, security_type, price_currency, security_id, bid_price::numeric as bid_price, mid_price::numeric as mid_price, offer_price::numeric as offer_price from sim.price_seed order by price_seed_id 
+14:15:19.081 db     rows: 10
+14:15:19.081 check  sim.price_seed NFC
+field           expected      actual        result
+security_type   CS            CS            ok    
+price_currency  EUR           EUR           ok    
+security_id     US64110L1061  US64110L1061  ok    
+bid_price       59.57         59.57         ok    
+mid_price       59.58         59.58         ok    
+offer_price     59.59         59.59         ok

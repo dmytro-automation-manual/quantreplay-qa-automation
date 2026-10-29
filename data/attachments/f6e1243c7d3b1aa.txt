@@ -1,0 +1,10 @@
+14:15:20.219 db     SQL select price_seed_id, symbol, security_type, price_currency, security_id, bid_price::numeric as bid_price, mid_price::numeric as mid_price, offer_price::numeric as offer_price from sim.price_seed order by price_seed_id 
+14:15:20.219 db     rows: 10
+14:15:20.220 check  sim.price_seed USD/CHF
+field           expected  actual   result
+security_type   FXSPOT    FXSPOT   ok    
+price_currency  CHF       CHF      ok    
+security_id     <none>    <none>   ok    
+bid_price       0.82434   0.82434  ok    
+mid_price       0.82435   0.82435  ok    
+offer_price     0.82436   0.82436  ok

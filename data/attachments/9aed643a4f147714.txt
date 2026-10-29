@@ -1,0 +1,12 @@
+14:15:21.563 fix    >> 8=FIXT.1.1|9=156|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=202|52=20261029-14:15:21.563|11=894fdb9fbcb54a95|55=VOW|15=USD|54=1|60=20261029-14:15:21.563|40=2|44=61.80|38=150|59=0|10=031|
+14:15:21.564 fix    << 8=FIXT.1.1|9=215|35=8|34=226|49=SIM_XETRA|52=20261029-14:15:21.564|56=CLIENT_XETRA|6=0|11=894fdb9fbcb54a95|14=0|15=USD|17=261029141521000008-1|37=261029141521000008|38=150|39=8|44=61.8|54=1|55=VOW|58=listing not found|150=8|151=150|10=067|
+14:15:21.564 check  ExecutionReport for wrong Currency
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029141521000008   ok    
+exec_type   REJECTED(8)          REJECTED(8)          ok    
+ord_status  REJECTED(8)          REJECTED(8)          ok    
+symbol      VOW                  VOW                  ok    
+order_qty   150                  150                  ok    
+price       61.80                61.8                 ok    
+text        listing not found    listing not found    ok

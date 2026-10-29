@@ -1,0 +1,19 @@
+14:15:36.221 rest   >> GET /priceseeds 
+14:15:36.230 httpx  HTTP Request: GET http://localhost:9050/api/priceseeds "HTTP/1.1 200 OK"
+14:15:36.230 rest   << 200 {"priceSeeds":[{"id":1,"symbol":"AMZ","securityType":"CS","priceCurrency":"EUR","securityId":"US0231351067","securityIdSource":"ISI","instrumentSymbol":"AMZ","midPrice":222.55,"bidPrice":222.5,"offerPrice":222.6,"lastUpdate":"2026-10-23 17:30:00"},{"id":2,"symbol":"MSF","securityType":"CS","priceCurrency":"EUR","securityId":"US5949181045","securityIdSource":"ISI","instrumentSymbol":"MSF","midPrice":468.9,"bidPrice":468.85,"offerPrice":468.95,"lastUpdate":"2026-10-23 17:30:00"},{"id":3,"symbol":"NFC","securityType":"CS","priceCurrency":"EUR","securityId":"US64110L1061","securityIdSource":"ISI","instrumentSymbol":"NFC","midPrice":59.58,"bidPrice":59.57,"offerPrice":59.59,"lastUpdate":"2026-10-23 17:30:00"},{"id":4,"symbol":"VODI","securityType":"CS","priceCurrency":"EUR","securityId":"GB00BH4HKS39","securityIdSource":"ISI","instrumentSymbol":"VODI","midPrice":1.41,"bidPrice":1.409,"offerPrice":1.411,"lastUpdate":"2026-10-23 17:30:00"},{"id":5,"symbol":"VOW","securityType":"CS","priceCurrency":"EUR","securityId":"DE0007664005","securityIdSource":"ISI","instrumentSymbol":"VOW","midPrice":68.7,"bidPrice":68.68,"offerPrice":68.72,"lastUpdate":"2026-10-23 17:30:00"},{"id":6,"symbol":"EUR/USD","securityType":"FXSPOT","priceCurrency":"USD","instrumentSymbol":"EUR/USD","midPrice":1.1193,"bidPrice":1.11929,"offerPrice":1.11931,"lastUpdate":"2026-10-23 14:15:00"},{"id":7,"symbol":"GBP/USD","securityType":"FXSPOT","priceCurrency":"USD","instrumentSymbol":"GBP/USD","midPrice":1.33683,"bidPrice":1.33682,"offerPrice":1.33684,"lastUpdate":"2026-10-23 14:15:00"},{"id":8,"symbol":"USD/JPY","securityType":"FXSPOT","priceCurrency":"JPY","instrumentSymbol":"USD/JPY","midPrice":156.803,"bidPrice":156.802,"offerPrice":156.804,"lastUpdate":"2026-10-23 14:15:00"},{"id":9,"symbol":"USD/CHF","securityType":"FXSPOT","priceCurrency":"CHF","instrumentSymbol":"USD/CHF","midPrice":0.82435,"bidPrice":0.82434,"offerPrice":0.82436,"lastUpdate":"2026-10-23 14:15:00"},{"id":10,"symbol":"EUR/GBP","securi
+14:15:36.231 rest   >> PUT /priceseeds/1 {"midPrice": 222.6}
+14:15:36.240 httpx  HTTP Request: PUT http://localhost:9050/api/priceseeds/1 "HTTP/1.1 200 OK"
+14:15:36.240 rest   << 200 {"result":"Successfully updated the price seed with 1 identifier"}
+14:15:36.240 check  PUT price seed
+field        expected                                               actual                                                 result
+status_code  200                                                    200                                                    ok    
+result       Successfully updated the price seed with 1 identifier  Successfully updated the price seed with 1 identifier  ok    
+14:15:36.241 rest   >> GET /priceseeds/1 
+14:15:36.249 httpx  HTTP Request: GET http://localhost:9050/api/priceseeds/1 "HTTP/1.1 200 OK"
+14:15:36.250 rest   << 200 {"id":1,"symbol":"AMZ","securityType":"CS","priceCurrency":"EUR","securityId":"US0231351067","securityIdSource":"ISI","instrumentSymbol":"AMZ","midPrice":222.6,"bidPrice":222.5,"offerPrice":222.6,"lastUpdate":"2026-10-23 17:30:00"}
+14:15:36.250 check  Seed after update
+field      expected  actual  result
+mid_price  222.60    222.6   ok
+14:15:36.251 rest   >> PUT /priceseeds/1 {"midPrice": 222.55}
+14:15:36.260 httpx  HTTP Request: PUT http://localhost:9050/api/priceseeds/1 "HTTP/1.1 200 OK"
+14:15:36.260 rest   << 200 {"result":"Successfully updated the price seed with 1 identifier"}
