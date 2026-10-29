@@ -188,3 +188,8 @@ Every push and pull request runs `.github/workflows/autotests.yml`:
 | `CLIENT_FASTMATCH` | `SIM_FASTMATCH` (port 9053) | FIXT.1.1 / FIX 5.0 SP2 | autotests |
 | `FIXYL` | `SIM_XETRA` / `SIM_FASTMATCH` | FIXT.1.1 / FIX 5.0 SP2 | manual testing (FIXYL) |
 | `MINIFIX` | `SIM_XETRA` | FIX 4.4 | manual testing (MiniFIX) |
+
+## License
+
+Apache License 2.0, see [LICENSE](LICENSE) and [NOTICE](NOTICE). Test automation for a market simulator,
+not for production trading.
