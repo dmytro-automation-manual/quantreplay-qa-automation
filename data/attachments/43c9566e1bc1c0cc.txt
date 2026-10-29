@@ -1,0 +1,7 @@
+15:44:53.229 rest   >> DELETE /priceseeds/999999 
+15:44:53.240 httpx  HTTP Request: DELETE http://localhost:9052/api/priceseeds/999999 "HTTP/1.1 400 Bad Request"
+15:44:53.240 rest   << 400 {"result":"Can not resolve a single PriceSeed by a given key"}
+15:44:53.240 check  DELETE unknown seed
+field        expected                                           actual                                             result
+status_code  404                                                400                                                FAILED
+result       Can not resolve a single PriceSeed by a given key  Can not resolve a single PriceSeed by a given key  ok

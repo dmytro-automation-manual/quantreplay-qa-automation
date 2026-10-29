@@ -1,0 +1,54 @@
+15:44:36.046 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=120|52=20261029-15:44:36.046|11=5420c79270f3453a|55=NFC|54=2|60=20261029-15:44:36.046|40=2|44=65.55|38=400|59=0|10=120|
+15:44:36.047 fix    << 8=FIXT.1.1|9=198|35=8|34=132|49=SIM_XETRA|52=20261029-15:44:36.047|56=CLIENT_XETRA|6=0|11=5420c79270f3453a|14=0|17=261029154436000011-1|37=261029154436000011|38=400|39=0|40=2|44=65.55|54=2|55=NFC|59=0|150=0|151=400|10=030|
+15:44:36.047 fix    >> 8=FIXT.1.1|9=140|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=121|52=20261029-15:44:36.047|11=9ff56c2419c34e1e|55=NFC|54=1|60=20261029-15:44:36.047|40=1|38=200|59=3|10=099|
+15:44:36.048 fix    << 8=FIXT.1.1|9=189|35=8|34=133|49=SIM_XETRA|52=20261029-15:44:36.047|56=CLIENT_XETRA|6=0|11=9ff56c2419c34e1e|14=0|17=261029154436000012-1|37=261029154436000012|38=200|39=0|40=1|54=1|55=NFC|59=3|150=0|151=200|10=016|
+15:44:36.048 check  ExecutionReport New for market order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029154436000012   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      NFC                  NFC                  ok    
+order_qty   200                  200                  ok    
+price       <not sent>           <none>               ok    
+ord_type    MARKET(1)            MARKET(1)            ok    
+15:44:36.048 fix    << 8=FIXT.1.1|9=209|35=8|34=134|49=SIM_XETRA|52=20261029-15:44:36.047|56=CLIENT_XETRA|6=65.55|11=9ff56c2419c34e1e|14=200|17=261029154436000012-2|31=65.55|32=200|37=261029154436000012|38=200|39=2|40=1|54=1|55=NFC|59=3|150=F|151=0|10=208|
+15:44:36.048 fix    << 8=FIXT.1.1|9=220|35=8|34=135|49=SIM_XETRA|52=20261029-15:44:36.047|56=CLIENT_XETRA|6=65.55|11=5420c79270f3453a|14=200|17=261029154436000011-2|31=65.55|32=200|37=261029154436000011|38=400|39=1|40=2|44=65.55|54=2|55=NFC|59=0|150=F|151=200|10=056|
+15:44:36.049 check  ExecutionReport Trade for market order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029154436000012   261029154436000012   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  FILLED(2)            FILLED(2)            ok    
+symbol      NFC                  NFC                  ok    
+order_qty   200                  200                  ok    
+price       <not sent>           <none>               ok    
+last_px     65.55                65.55                ok    
+last_qty    200                  200                  ok    
+cum_qty     200                  200                  ok    
+leaves_qty  0                    0                    ok    
+avg_px      65.55                65.55                ok    
+15:44:36.049 check  ExecutionReport Trade for resting order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029154436000011   261029154436000011   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  PARTIALLY_FILLED(1)  PARTIALLY_FILLED(1)  ok    
+symbol      NFC                  NFC                  ok    
+order_qty   400                  400                  ok    
+price       65.55                65.55                ok    
+last_px     65.55                65.55                ok    
+last_qty    200                  200                  ok    
+cum_qty     200                  200                  ok    
+leaves_qty  200                  200                  ok
+15:44:36.100 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=122|52=20261029-15:44:36.100|41=5420c79270f3453a|11=8b5d2ddcc967478e|37=261029154436000011|55=NFC|54=2|60=20261029-15:44:36.100|10=075|
+15:44:36.101 fix    << 8=FIXT.1.1|9=222|35=8|34=136|49=SIM_XETRA|52=20261029-15:44:36.100|56=CLIENT_XETRA|6=65.55|11=8b5d2ddcc967478e|14=200|17=261029154436000011-3|37=261029154436000011|38=400|39=4|40=2|41=5420c79270f3453a|44=65.55|54=2|55=NFC|59=0|150=4|151=0|10=043|
+15:44:36.101 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029154436000011   261029154436000011   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      NFC                  NFC                  ok    
+order_qty   400                  400                  ok    
+price       65.55                65.55                ok

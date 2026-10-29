@@ -1,0 +1,17 @@
+ExecutionReport for NewOrderSingle
+field          expected             actual                result
+msg_type       EXECUTION_REPORT(8)  EXECUTION_REPORT(8)   ok    
+order_id       <non-empty>          261029154437000014    ok    
+exec_type      NEW(0)               NEW(0)                ok    
+ord_status     NEW(0)               NEW(0)                ok    
+symbol         USD/CHF              USD/CHF               ok    
+order_qty      1000000              1000000               ok    
+price          0.90680              0.9068                ok    
+cl_ord_id      0a5f10cbc43c45e6     0a5f10cbc43c45e6      ok    
+side           SELL(2)              SELL(2)               ok    
+ord_type       LIMIT(2)             LIMIT(2)              ok    
+time_in_force  DAY(0)               DAY(0)                ok    
+leaves_qty     1000000              1000000               ok    
+cum_qty        0                    0                     ok    
+avg_px         0                    0                     ok    
+exec_id        <non-empty>          261029154437000014-1  ok    

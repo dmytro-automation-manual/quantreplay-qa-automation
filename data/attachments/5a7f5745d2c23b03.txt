@@ -1,0 +1,21 @@
+15:44:35.546 rest   >> GET /listings/NFC 
+15:44:35.557 httpx  HTTP Request: GET http://localhost:9050/api/listings/NFC "HTTP/1.1 200 OK"
+15:44:35.557 rest   << 200 {"id":3,"venueId":"XETRA","symbol":"NFC","securityType":"CS","priceCurrency":"EUR","instrSymbol":"NFC","qtyMinimum":1.0,"qtyMaximum":50000.0,"qtyMultiple":1.0,"priceTickSize":0.01,"enabled":true,"randomQtyMaximum":1000.0,"randomDepthLevels":5,"randomOrdersSpread":0.01,"randomOrdersRate":2,"randomTickRange":10,"securityExchange":"XETR","isinId":"US64110L1061","randomQtyMinimum":20.0,"randomOrdersEnabled":true,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+15:44:35.557 db     SQL select listing_id, symbol, venue_id, security_type, price_currency, fx_base_currency, security_exchange, isin_id, qty_minimum::numeric as qty_minimum, qty_maximum::numeric as qty_maximum, qty_multiple::numeric as qty_multiple, price_tick_size::numeric as price_tick_size, enabled, random_orders_enabled from sim.listing where venue_id = %s and symbol = %s ('XETRA', 'NFC')
+15:44:35.558 db     rows: 1
+15:44:35.558 check  REST listing NFC vs sim.listing
+field                  expected      actual        result
+listing_id             3             3             ok    
+symbol                 NFC           NFC           ok    
+venue_id               XETRA         XETRA         ok    
+security_type          CS            CS            ok    
+price_currency         EUR           EUR           ok    
+fx_base_currency       <none>        <none>        ok    
+security_exchange      XETR          XETR          ok    
+isin_id                US64110L1061  US64110L1061  ok    
+qty_minimum            1             1.0           ok    
+qty_maximum            50000         50000.0       ok    
+qty_multiple           1             1.0           ok    
+price_tick_size        0.01          0.01          ok    
+enabled                True          True          ok    
+random_orders_enabled  True          True          ok

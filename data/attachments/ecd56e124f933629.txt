@@ -1,4 +1,0 @@
-Initial snapshot
-field      expected                 actual                   result
-msg_type   MARKET_DATA_SNAPSHOT(W)  MARKET_DATA_SNAPSHOT(W)  ok    
-md_req_id  fecff7dd705d4741         fecff7dd705d4741         ok    

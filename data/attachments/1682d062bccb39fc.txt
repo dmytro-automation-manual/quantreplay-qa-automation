@@ -1,9 +1,0 @@
-14:15:20.237 fix    >> 8=FIXT.1.1|9=142|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=142|52=20261029-14:15:20.237|262=133eedde3d224478|263=0|264=0|267=2|269=0|269=1|146=1|55=USD/CHF|10=143|
-14:15:20.238 fix    << 8=FIXT.1.1|9=138|35=W|34=160|49=SIM_FASTMATCH|52=20261029-14:15:20.238|56=CLIENT_FASTMATCH|55=USD/CHF|262=133eedde3d224478|268=0|779=20261029-14:15:20.238|10=109|
-14:15:20.238 check  MarketDataSnapshotFullRefresh
-field     expected                 actual                   result
-msg_type  MARKET_DATA_SNAPSHOT(W)  MARKET_DATA_SNAPSHOT(W)  ok    
-symbol    USD/CHF                  USD/CHF                  ok    
-14:15:20.238 check  No bids / offers in an empty book
-field      expected  actual            result
-condition  true      True entries: []  ok

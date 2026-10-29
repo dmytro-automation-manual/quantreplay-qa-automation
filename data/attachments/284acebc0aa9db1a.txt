@@ -1,0 +1,12 @@
+15:44:34.859 fix    >> 8=FIXT.1.1|9=173|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=68|52=20261029-15:44:34.859|11=a15e876571da4b88|55=GBP/USD|167=CS|54=1|60=20261029-15:44:34.859|40=2|44=1.20313|38=1000000|59=0|10=158|
+15:44:34.860 fix    << 8=FIXT.1.1|9=237|35=8|34=74|49=SIM_FASTMATCH|52=20261029-15:44:34.859|56=CLIENT_FASTMATCH|6=0|11=a15e876571da4b88|14=0|17=261029154434000003-1|37=261029154434000003|38=1000000|39=8|44=1.20313|54=1|55=GBP/USD|58=listing not found|150=8|151=1000000|167=CS|10=157|
+15:44:34.860 check  ExecutionReport for wrong SecurityType
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029154434000003   ok    
+exec_type   REJECTED(8)          REJECTED(8)          ok    
+ord_status  REJECTED(8)          REJECTED(8)          ok    
+symbol      GBP/USD              GBP/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.20313              1.20313              ok    
+text        listing not found    listing not found    ok

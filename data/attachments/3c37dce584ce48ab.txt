@@ -1,0 +1,32 @@
+15:44:41.234 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=314|52=20261029-15:44:41.234|11=d88b2b1718d54869|55=AMZ|54=1|60=20261029-15:44:41.234|40=2|44=200.25|38=50|59=0|10=186|
+15:44:41.235 fix    << 8=FIXT.1.1|9=197|35=8|34=348|49=SIM_XETRA|52=20261029-15:44:41.234|56=CLIENT_XETRA|6=0|11=d88b2b1718d54869|14=0|17=261029154441000053-1|37=261029154441000053|38=50|39=0|40=2|44=200.25|54=1|55=AMZ|59=0|150=0|151=50|10=060|
+15:44:41.235 rest   >> POST /halt/XETRA {"allowCancels": false}
+15:44:41.236 httpx  HTTP Request: POST http://localhost:9050/api/halt/XETRA "HTTP/1.1 200 OK"
+15:44:41.236 rest   << 200 {"result":"The market was successfully halted."}
+15:44:41.236 check  POST halt
+field        expected                             actual                               result
+status_code  200                                  200                                  ok    
+result       The market was successfully halted.  The market was successfully halted.  ok    
+15:44:41.236 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=315|52=20261029-15:44:41.236|41=d88b2b1718d54869|11=f670b846297746e5|37=261029154441000053|55=AMZ|54=1|60=20261029-15:44:41.236|10=242|
+15:44:41.237 fix    << 8=FIXT.1.1|9=199|35=9|34=349|49=SIM_XETRA|52=20261029-15:44:41.237|56=CLIENT_XETRA|11=f670b846297746e5|37=261029154441000053|39=8|41=d88b2b1718d54869|58=request cannot be processed during halted trading status|434=1|10=207|
+15:44:41.237 check  OrderCancelReject during halt
+field                expected                                                  actual                                                    result
+msg_type             ORDER_CANCEL_REJECT(9)                                    ORDER_CANCEL_REJECT(9)                                    ok    
+order_id             261029154441000053                                        261029154441000053                                        ok    
+ord_status           REJECTED(8)                                               REJECTED(8)                                               ok    
+cxl_rej_response_to  ORDER_CANCEL_REQUEST(1)                                   ORDER_CANCEL_REQUEST(1)                                   ok    
+text                 request cannot be processed during halted trading status  request cannot be processed during halted trading status  ok
+15:44:41.238 rest   >> POST /resume/XETRA 
+15:44:41.239 httpx  HTTP Request: POST http://localhost:9050/api/resume/XETRA "HTTP/1.1 200 OK"
+15:44:41.239 rest   << 200 {"result":"The market was successfully resumed."}
+15:44:41.290 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=316|52=20261029-15:44:41.290|41=d88b2b1718d54869|11=9db694c6593041bf|37=261029154441000053|55=AMZ|54=1|60=20261029-15:44:41.290|10=072|
+15:44:41.291 fix    << 8=FIXT.1.1|9=216|35=8|34=350|49=SIM_XETRA|52=20261029-15:44:41.291|56=CLIENT_XETRA|6=0|11=9db694c6593041bf|14=0|17=261029154441000053-2|37=261029154441000053|38=50|39=4|40=2|41=d88b2b1718d54869|44=200.25|54=1|55=AMZ|59=0|150=4|151=0|10=224|
+15:44:41.291 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029154441000053   261029154441000053   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       200.25               200.25               ok

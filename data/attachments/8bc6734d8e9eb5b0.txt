@@ -1,0 +1,4 @@
+Current venue = FASTMATCH
+field      expected                    actual                      result
+id         FASTMATCH                   FASTMATCH                   ok    
+startTime  2026-10-29 15:44:25.487426  2026-10-29 15:44:25.487426  ok    

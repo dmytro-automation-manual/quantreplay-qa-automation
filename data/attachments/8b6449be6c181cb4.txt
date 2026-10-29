@@ -1,0 +1,15 @@
+15:44:35.564 db     SQL select price_seed_id, symbol, security_type, price_currency, security_id, bid_price::numeric as bid_price, mid_price::numeric as mid_price, offer_price::numeric as offer_price from sim.price_seed order by price_seed_id 
+15:44:35.565 db     rows: 10
+15:44:35.565 rest   >> GET /priceseeds/3 
+15:44:35.575 httpx  HTTP Request: GET http://localhost:9050/api/priceseeds/3 "HTTP/1.1 200 OK"
+15:44:35.575 rest   << 200 {"id":3,"symbol":"NFC","securityType":"CS","priceCurrency":"EUR","securityId":"US64110L1061","securityIdSource":"ISI","instrumentSymbol":"NFC","midPrice":59.58,"bidPrice":59.57,"offerPrice":59.59,"lastUpdate":"2026-10-23 17:30:00"}
+15:44:35.576 check  REST price seed NFC vs sim.price_seed
+field           expected      actual        result
+price_seed_id   3             3             ok    
+symbol          NFC           NFC           ok    
+security_type   CS            CS            ok    
+price_currency  EUR           EUR           ok    
+security_id     US64110L1061  US64110L1061  ok    
+bid_price       59.57         59.57         ok    
+mid_price       59.58         59.58         ok    
+offer_price     59.59         59.59         ok

@@ -1,0 +1,43 @@
+15:44:53.628 rest   >> GET /venues/NOSUCHVENUE 
+15:44:53.639 httpx  HTTP Request: GET http://localhost:9052/api/venues/NOSUCHVENUE "HTTP/1.1 404 Not Found"
+15:44:53.639 rest   << 404 {"result":"Can not resolve a single Venue by a given key"}
+15:44:53.639 check  GET unknown venue
+field        expected                                       actual                                         result
+status_code  404                                            404                                            ok    
+result       Can not resolve a single Venue by a given key  Can not resolve a single Venue by a given key  ok    
+15:44:53.640 rest   >> PUT /venues/NOSUCHVENUE {"name": "x"}
+15:44:53.654 httpx  HTTP Request: PUT http://localhost:9052/api/venues/NOSUCHVENUE "HTTP/1.1 404 Not Found"
+15:44:53.654 rest   << 404 {"result":"Can not resolve a single Venue by a given key"}
+15:44:53.654 check  PUT unknown venue
+field        expected  actual  result
+status_code  404       404     ok
+15:44:53.658 fix    >> 8=FIXT.1.1|9=140|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=3|52=20261029-15:44:53.658|262=80cc5ea62d4046f7|263=0|264=0|267=2|269=0|269=1|146=1|55=EUR/USD|10=084|
+15:44:53.660 fix    << 8=FIXT.1.1|9=136|35=W|34=3|49=SIM_FASTMATCH|52=20261029-15:44:53.658|56=CLIENT_FASTMATCH|55=EUR/USD|262=80cc5ea62d4046f7|268=0|779=20261029-15:44:53.658|10=064|
+15:44:53.660 fix    >> 8=FIXT.1.1|9=140|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=4|52=20261029-15:44:53.660|262=8bbb89e23b7449cc|263=0|264=0|267=2|269=0|269=1|146=1|55=GBP/USD|10=116|
+15:44:53.661 fix    << 8=FIXT.1.1|9=136|35=W|34=4|49=SIM_FASTMATCH|52=20261029-15:44:53.661|56=CLIENT_FASTMATCH|55=GBP/USD|262=8bbb89e23b7449cc|268=0|779=20261029-15:44:53.661|10=091|
+15:44:53.661 fix    >> 8=FIXT.1.1|9=140|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=5|52=20261029-15:44:53.661|262=c62175281f9643e6|263=0|264=0|267=2|269=0|269=1|146=1|55=USD/JPY|10=209|
+15:44:53.662 fix    << 8=FIXT.1.1|9=136|35=W|34=5|49=SIM_FASTMATCH|52=20261029-15:44:53.662|56=CLIENT_FASTMATCH|55=USD/JPY|262=c62175281f9643e6|268=0|779=20261029-15:44:53.662|10=185|
+15:44:53.662 fix    >> 8=FIXT.1.1|9=140|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=6|52=20261029-15:44:53.662|262=25d11b63d53e4264|263=0|264=0|267=2|269=0|269=1|146=1|55=USD/CHF|10=208|
+15:44:53.663 fix    << 8=FIXT.1.1|9=136|35=W|34=6|49=SIM_FASTMATCH|52=20261029-15:44:53.662|56=CLIENT_FASTMATCH|55=USD/CHF|262=25d11b63d53e4264|268=0|779=20261029-15:44:53.662|10=183|
+15:44:53.663 fix    >> 8=FIXT.1.1|9=140|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=7|52=20261029-15:44:53.663|262=f237c4dfdc9e4079|263=0|264=0|267=2|269=0|269=1|146=1|55=EUR/GBP|10=125|
+15:44:53.663 fix    << 8=FIXT.1.1|9=136|35=W|34=7|49=SIM_FASTMATCH|52=20261029-15:44:53.663|56=CLIENT_FASTMATCH|55=EUR/GBP|262=f237c4dfdc9e4079|268=0|779=20261029-15:44:53.663|10=101|
+15:44:53.663 db     SQL select * from sim.venue where venue_id = %s ('FASTMATCH',)
+15:44:53.664 db     rows: 1
+15:44:53.664 db     SQL select * from sim.listing where venue_id = %s ('FASTMATCH',)
+15:44:53.665 db     rows: 5
+15:44:53.665 db     SQL select * from sim.price_seed 
+15:44:53.665 db     rows: 10
+15:44:53.665 db     SQL select * from sim.setting 
+15:44:53.666 db     rows: 3
+15:44:53.666 db     SQL select * from sim.data_source where venue_id = %s ('FASTMATCH',)
+15:44:53.666 db     rows: 0
+15:44:53.666 db     SQL select * from sim.column_mapping 
+15:44:53.666 db     rows: 9
+15:44:53.667 db     SQL select * from sim.data_source_listing 
+15:44:53.667 db     rows: 0
+15:44:53.667 db     SQL select * from sim.listing_random_price_source 
+15:44:53.667 db     rows: 0
+15:44:53.667 db     SQL select * from sim.market_phase where venue_id = %s ('FASTMATCH',)
+15:44:53.668 db     rows: 0
+15:44:53.670 fix    >> 8=FIXT.1.1|9=72|35=5|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=8|52=20261029-15:44:53.670|10=212|
+15:44:53.671 fix    << 8=FIXT.1.1|9=72|35=5|34=8|49=SIM_FASTMATCH|52=20261029-15:44:53.670|56=CLIENT_FASTMATCH|10=212|

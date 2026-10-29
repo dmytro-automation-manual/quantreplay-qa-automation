@@ -1,0 +1,12 @@
+15:44:39.017 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=259|52=20261029-15:44:39.017|11=0c00de6fd27e462c|55=EUR/USD|54=1|60=20261029-15:44:39.017|40=1|44=1.00736|38=1000000|59=3|10=187|
+15:44:39.018 fix    << 8=FIXT.1.1|9=250|35=8|34=286|49=SIM_FASTMATCH|52=20261029-15:44:39.018|56=CLIENT_FASTMATCH|6=0|11=0c00de6fd27e462c|14=0|17=261029154439000026-1|37=261029154439000026|38=1000000|39=8|40=1|44=1.00736|54=1|55=EUR/USD|58=order price is not allowed|59=3|150=8|151=1000000|10=160|
+15:44:39.018 check  ExecutionReport for market order with price
+field       expected                    actual                      result
+msg_type    EXECUTION_REPORT(8)         EXECUTION_REPORT(8)         ok    
+order_id    <non-empty>                 261029154439000026          ok    
+exec_type   REJECTED(8)                 REJECTED(8)                 ok    
+ord_status  REJECTED(8)                 REJECTED(8)                 ok    
+symbol      EUR/USD                     EUR/USD                     ok    
+order_qty   1000000                     1000000                     ok    
+price       1.00736                     1.00736                     ok    
+text        order price is not allowed  order price is not allowed  ok

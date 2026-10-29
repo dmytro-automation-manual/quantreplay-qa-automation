@@ -1,0 +1,12 @@
+ExecutionReport Trade for resting sell
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029154437000016   261029154437000016   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  PARTIALLY_FILLED(1)  PARTIALLY_FILLED(1)  ok    
+symbol      VODI                 VODI                 ok    
+order_qty   10000                10000                ok    
+price       1.553                1.553                ok    
+last_qty    5000                 5000                 ok    
+cum_qty     5000                 5000                 ok    
+leaves_qty  5000                 5000                 ok    

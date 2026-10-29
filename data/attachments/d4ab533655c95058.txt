@@ -1,0 +1,13 @@
+ExecutionReport for OrderCancelRequest
+field           expected             actual               result
+msg_type        EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id        261029154438000009   261029154438000009   ok    
+exec_type       CANCELED(4)          CANCELED(4)          ok    
+ord_status      CANCELED(4)          CANCELED(4)          ok    
+symbol          VOW                  VOW                  ok    
+order_qty       150                  150                  ok    
+price           75.60                75.6                 ok    
+side            SELL(2)              SELL(2)              ok    
+orig_cl_ord_id  ddd5b7c810684c04     ddd5b7c810684c04     ok    
+leaves_qty      0                    0                    ok    
+cum_qty         0                    0                    ok    

@@ -1,0 +1,12 @@
+15:44:36.904 fix    >> 8=FIXT.1.1|9=168|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=155|52=20261029-15:44:36.904|11=8fee53acd78e42f7|55=USD/CHF|54=1|60=20261029-15:44:36.903|40=2|44=0.74190|38=50001000|59=0|10=028|
+15:44:36.904 fix    << 8=FIXT.1.1|9=267|35=8|34=173|49=SIM_FASTMATCH|52=20261029-15:44:36.904|56=CLIENT_FASTMATCH|6=0|11=8fee53acd78e42f7|14=0|17=261029154436000006-1|37=261029154436000006|38=50001000|39=8|40=2|44=0.7419|54=1|55=USD/CHF|58=maximal order quantity constraint violated|59=0|150=8|151=50001000|10=222|
+15:44:36.904 check  ExecutionReport for OrderQty above qtyMaximum
+field       expected                                    actual                                      result
+msg_type    EXECUTION_REPORT(8)                         EXECUTION_REPORT(8)                         ok    
+order_id    <non-empty>                                 261029154436000006                          ok    
+exec_type   REJECTED(8)                                 REJECTED(8)                                 ok    
+ord_status  REJECTED(8)                                 REJECTED(8)                                 ok    
+symbol      USD/CHF                                     USD/CHF                                     ok    
+order_qty   50001000                                    50001000                                    ok    
+price       0.74190                                     0.7419                                      ok    
+text        maximal order quantity constraint violated  maximal order quantity constraint violated  ok

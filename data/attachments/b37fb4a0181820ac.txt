@@ -1,0 +1,7 @@
+15:44:38.759 fix    >> 8=FIXT.1.1|9=137|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=237|52=20261029-15:44:38.759|262=65665855080f4c93|263=0|264=0|267=2|269=0|269=1|146=2|55=AMZ|55=MSF|10=089|
+15:44:38.759 fix    << 8=FIXT.1.1|9=150|35=Y|34=266|49=SIM_XETRA|52=20261029-15:44:38.759|56=CLIENT_XETRA|58=market data requests on multiple securities are not allowed|262=65665855080f4c93|10=046|
+15:44:38.759 check  MarketDataRequestReject for several symbols
+field     expected                                                     actual                                                       result
+msg_type  MARKET_DATA_REQUEST_REJECT(Y)                                MARKET_DATA_REQUEST_REJECT(Y)                                ok    
+reason    <not sent>                                                   <none>                                                       ok    
+text      market data requests on multiple securities are not allowed  market data requests on multiple securities are not allowed  ok

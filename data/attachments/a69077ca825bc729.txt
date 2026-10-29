@@ -1,0 +1,12 @@
+15:44:34.879 fix    >> 8=FIXT.1.1|9=155|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=67|52=20261029-15:44:34.879|11=8b4e20b4c21641fb|55=MSF|15=USD|54=1|60=20261029-15:44:34.879|40=2|44=421.95|38=20|59=0|10=138|
+15:44:34.880 fix    << 8=FIXT.1.1|9=214|35=8|34=73|49=SIM_XETRA|52=20261029-15:44:34.880|56=CLIENT_XETRA|6=0|11=8b4e20b4c21641fb|14=0|15=USD|17=261029154434000002-1|37=261029154434000002|38=20|39=8|44=421.95|54=1|55=MSF|58=listing not found|150=8|151=20|10=137|
+15:44:34.880 check  ExecutionReport for wrong Currency
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029154434000002   ok    
+exec_type   REJECTED(8)          REJECTED(8)          ok    
+ord_status  REJECTED(8)          REJECTED(8)          ok    
+symbol      MSF                  MSF                  ok    
+order_qty   20                   20                   ok    
+price       421.95               421.95               ok    
+text        listing not found    listing not found    ok

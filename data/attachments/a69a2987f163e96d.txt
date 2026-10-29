@@ -1,9 +1,0 @@
-ExecutionReport for price on tick
-field       expected             actual               result
-msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
-order_id    <non-empty>          261029141519000000   ok    
-exec_type   NEW(0)               NEW(0)               ok    
-ord_status  NEW(0)               NEW(0)               ok    
-symbol      USD/JPY              USD/JPY              ok    
-order_qty   1000000              1000000              ok    
-price       141.122              141.122              ok    

@@ -1,7 +1,0 @@
-14:15:22.276 fix    >> 8=FIXT.1.1|9=136|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=232|52=20261029-14:15:22.275|262=6491024689f74695|263=0|264=0|267=2|269=0|269=1|146=1|55=NOSUCHSYM|10=107|
-14:15:22.277 fix    << 8=FIXT.1.1|9=114|35=Y|34=262|49=SIM_XETRA|52=20261029-14:15:22.276|56=CLIENT_XETRA|58=listing not found|262=6491024689f74695|281=0|10=013|
-14:15:22.277 check  MarketDataRequestReject for unknown symbol
-field     expected                       actual                         result
-msg_type  MARKET_DATA_REQUEST_REJECT(Y)  MARKET_DATA_REQUEST_REJECT(Y)  ok    
-reason    UNKNOWN_SYMBOL(0)              UNKNOWN_SYMBOL(0)              ok    
-text      listing not found              listing not found              ok

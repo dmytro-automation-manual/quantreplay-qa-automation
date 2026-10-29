@@ -1,0 +1,23 @@
+15:44:37.801 fix    >> 8=FIXT.1.1|9=165|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=195|52=20261029-15:44:37.801|11=2f2dcb2a2717441a|55=EUR/GBP|54=1|60=20261029-15:44:37.801|40=2|44=0.75354|38=10000|59=0|10=016|
+15:44:37.802 fix    << 8=FIXT.1.1|9=216|35=8|34=219|49=SIM_FASTMATCH|52=20261029-15:44:37.802|56=CLIENT_FASTMATCH|6=0|11=2f2dcb2a2717441a|14=0|17=261029154437000003-1|37=261029154437000003|38=10000|39=0|40=2|44=0.75354|54=1|55=EUR/GBP|59=0|150=0|151=10000|10=010|
+15:44:37.803 check  ExecutionReport for OrderQty = qtyMinimum
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029154437000003   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      EUR/GBP              EUR/GBP              ok    
+order_qty   10000                10000                ok    
+price       0.75354              0.75354              ok    
+leaves_qty  10000                10000                ok
+15:44:37.854 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=196|52=20261029-15:44:37.854|41=2f2dcb2a2717441a|11=463e599800b8466c|37=261029154437000003|55=EUR/GBP|54=1|60=20261029-15:44:37.854|10=136|
+15:44:37.855 fix    << 8=FIXT.1.1|9=232|35=8|34=220|49=SIM_FASTMATCH|52=20261029-15:44:37.855|56=CLIENT_FASTMATCH|6=0|11=463e599800b8466c|14=0|17=261029154437000003-2|37=261029154437000003|38=10000|39=4|40=2|41=2f2dcb2a2717441a|44=0.75354|54=1|55=EUR/GBP|59=0|150=4|151=0|10=209|
+15:44:37.855 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029154437000003   261029154437000003   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      EUR/GBP              EUR/GBP              ok    
+order_qty   10000                10000                ok    
+price       0.75354              0.75354              ok

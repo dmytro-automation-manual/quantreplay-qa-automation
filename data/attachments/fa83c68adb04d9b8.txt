@@ -1,0 +1,20 @@
+15:44:35.474 rest   >> GET /listings/MSF 
+15:44:35.486 httpx  HTTP Request: GET http://localhost:9050/api/listings/MSF "HTTP/1.1 200 OK"
+15:44:35.486 rest   << 200 {"id":2,"venueId":"XETRA","symbol":"MSF","securityType":"CS","priceCurrency":"EUR","instrSymbol":"MSF","qtyMinimum":1.0,"qtyMaximum":10000.0,"qtyMultiple":1.0,"priceTickSize":0.05,"enabled":true,"randomQtyMaximum":250.0,"randomDepthLevels":5,"randomOrdersSpread":0.05,"randomOrdersRate":2,"randomTickRange":10,"securityExchange":"XETR","isinId":"US5949181045","randomQtyMinimum":5.0,"randomOrdersEnabled":true,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+15:44:35.486 check  GET /api/listings/MSF
+field        expected  actual  result
+status_code  200       200     ok    
+15:44:35.487 check  Listing MSF
+field              expected      actual        result
+symbol             MSF           MSF           ok    
+venue_id           XETRA         XETRA         ok    
+security_type      CS            CS            ok    
+price_currency     EUR           EUR           ok    
+fx_base_currency   <none>        <none>        ok    
+security_exchange  XETR          XETR          ok    
+isin_id            US5949181045  US5949181045  ok    
+price_tick_size    0.05          0.05          ok    
+qty_minimum        1             1.0           ok    
+qty_maximum        10000         10000.0       ok    
+qty_multiple       1             1.0           ok    
+enabled            True          True          ok

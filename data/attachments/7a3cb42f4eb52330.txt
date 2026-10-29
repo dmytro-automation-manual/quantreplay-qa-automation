@@ -1,0 +1,22 @@
+15:44:34.520 fix    >> 8=FIXT.1.1|9=166|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=53|52=20261029-15:44:34.519|11=11827e647e5b4db8|55=GBP/USD|54=1|60=20261029-15:44:34.519|40=2|44=1.20314|38=1000000|59=0|10=025|
+15:44:34.520 fix    << 8=FIXT.1.1|9=219|35=8|34=59|49=SIM_FASTMATCH|52=20261029-15:44:34.520|56=CLIENT_FASTMATCH|6=0|11=11827e647e5b4db8|14=0|17=261029154434000000-1|37=261029154434000000|38=1000000|39=0|40=2|44=1.20314|54=1|55=GBP/USD|59=0|150=0|151=1000000|10=102|
+15:44:34.520 check  ExecutionReport for price on tick
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029154434000000   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      GBP/USD              GBP/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.20314              1.20314              ok
+15:44:34.572 fix    >> 8=FIXT.1.1|9=176|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=54|52=20261029-15:44:34.572|41=11827e647e5b4db8|11=339e091c55ab4fa4|37=261029154434000000|55=GBP/USD|54=1|60=20261029-15:44:34.571|10=162|
+15:44:34.572 fix    << 8=FIXT.1.1|9=233|35=8|34=60|49=SIM_FASTMATCH|52=20261029-15:44:34.572|56=CLIENT_FASTMATCH|6=0|11=339e091c55ab4fa4|14=0|17=261029154434000000-2|37=261029154434000000|38=1000000|39=4|40=2|41=11827e647e5b4db8|44=1.20314|54=1|55=GBP/USD|59=0|150=4|151=0|10=073|
+15:44:34.572 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029154434000000   261029154434000000   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      GBP/USD              GBP/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.20314              1.20314              ok

@@ -1,0 +1,26 @@
+15:44:36.993 fix    >> 8=FIXT.1.1|9=151|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=159|52=20261029-15:44:36.993|11=eced0bf750854a81|55=VODI|54=1|60=20261029-15:44:36.993|40=2|44=1.268|38=5000|59=0|10=221|
+15:44:36.993 fix    << 8=FIXT.1.1|9=201|35=8|34=177|49=SIM_XETRA|52=20261029-15:44:36.993|56=CLIENT_XETRA|6=0|11=eced0bf750854a81|14=0|17=261029154436000008-1|37=261029154436000008|38=5000|39=0|40=2|44=1.268|54=1|55=VODI|59=0|150=0|151=5000|10=169|
+15:44:36.993 check  ExecutionReport for NewOrderSingle
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029154436000008   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      VODI                 VODI                 ok    
+order_qty   5000                 5000                 ok    
+price       1.268                1.268                ok    
+15:44:36.994 fix    >> 8=FIXT.1.1|9=166|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=160|52=20261029-15:44:36.994|41=eced0bf750854a81|11=8f3ed1ad90ca4f2f|37=261029154436000008|55=VODI|54=1|60=20261029-15:44:36.994|10=233|
+15:44:36.994 fix    << 8=FIXT.1.1|9=218|35=8|34=178|49=SIM_XETRA|52=20261029-15:44:36.994|56=CLIENT_XETRA|6=0|11=8f3ed1ad90ca4f2f|14=0|17=261029154436000008-2|37=261029154436000008|38=5000|39=4|40=2|41=eced0bf750854a81|44=1.268|54=1|55=VODI|59=0|150=4|151=0|10=185|
+15:44:36.995 check  ExecutionReport for OrderCancelRequest
+field           expected             actual               result
+msg_type        EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id        261029154436000008   261029154436000008   ok    
+exec_type       CANCELED(4)          CANCELED(4)          ok    
+ord_status      CANCELED(4)          CANCELED(4)          ok    
+symbol          VODI                 VODI                 ok    
+order_qty       5000                 5000                 ok    
+price           1.268                1.268                ok    
+side            BUY(1)               BUY(1)               ok    
+orig_cl_ord_id  eced0bf750854a81     eced0bf750854a81     ok    
+leaves_qty      0                    0                    ok    
+cum_qty         0                    0                    ok

@@ -1,0 +1,10 @@
+15:44:38.779 fix    >> 8=FIXT.1.1|9=136|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=242|52=20261029-15:44:38.779|262=2a799c5fdc884abb|263=1|264=0|265=1|267=2|269=0|269=1|146=1|55=AMZ|10=239|
+15:44:38.779 fix    << 8=FIXT.1.1|9=126|35=W|34=271|49=SIM_XETRA|52=20261029-15:44:38.779|56=CLIENT_XETRA|55=AMZ|262=2a799c5fdc884abb|268=0|779=20261029-15:44:38.779|10=209|
+15:44:38.779 check  Initial snapshot of the subscription
+field     expected                 actual                   result
+msg_type  MARKET_DATA_SNAPSHOT(W)  MARKET_DATA_SNAPSHOT(W)  ok    
+symbol    AMZ                      AMZ                      ok    
+15:44:38.780 check  Initial snapshot of an empty book
+field      expected  actual            result
+condition  true      True entries: []  ok
+15:44:38.781 fix    >> 8=FIXT.1.1|9=130|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=243|52=20261029-15:44:38.781|262=2a799c5fdc884abb|263=2|264=0|267=2|269=0|269=1|146=1|55=AMZ|10=216|

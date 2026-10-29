@@ -1,0 +1,8 @@
+15:44:38.717 fix    >> 8=FIXT.1.1|9=130|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=236|52=20261029-15:44:38.717|262=5be23479fdaa4610|263=2|264=0|267=2|269=0|269=1|146=1|55=AMZ|10=107|
+15:44:38.755 fix    << 8=FIXT.1.1|9=131|35=Y|34=265|49=SIM_XETRA|52=20261029-15:44:38.755|56=CLIENT_XETRA|58=no subscription found for the request id|262=5be23479fdaa4610|10=125|
+15:44:38.755 check  MarketDataRequestReject for unknown subscription
+field      expected                                  actual                                    result
+msg_type   MARKET_DATA_REQUEST_REJECT(Y)             MARKET_DATA_REQUEST_REJECT(Y)             ok    
+md_req_id  5be23479fdaa4610                          5be23479fdaa4610                          ok    
+reason     <not sent>                                <none>                                    ok    
+text       no subscription found for the request id  no subscription found for the request id  ok

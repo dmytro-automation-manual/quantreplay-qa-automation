@@ -1,0 +1,7 @@
+OrderCancelReject for replace off tick
+field                expected                              actual                                result
+msg_type             ORDER_CANCEL_REJECT(9)                ORDER_CANCEL_REJECT(9)                ok    
+order_id             261029154433000002                    261029154433000002                    ok    
+ord_status           REJECTED(8)                           REJECTED(8)                           ok    
+cxl_rej_response_to  ORDER_CANCEL_REPLACE_REQUEST(2)       ORDER_CANCEL_REPLACE_REQUEST(2)       ok    
+text                 order price tick constraint violated  order price tick constraint violated  ok    

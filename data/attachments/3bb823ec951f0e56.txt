@@ -1,0 +1,22 @@
+15:44:33.484 fix    >> 8=FIXT.1.1|9=165|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=8|52=20261029-15:44:33.484|11=1b305b5fe55c4a5b|55=EUR/USD|54=1|60=20261029-15:44:33.484|40=2|44=1.00737|38=1000000|59=0|10=081|
+15:44:33.485 fix    << 8=FIXT.1.1|9=218|35=8|34=8|49=SIM_FASTMATCH|52=20261029-15:44:33.485|56=CLIENT_FASTMATCH|6=0|11=1b305b5fe55c4a5b|14=0|17=261029154433000000-1|37=261029154433000000|38=1000000|39=0|40=2|44=1.00737|54=1|55=EUR/USD|59=0|150=0|151=1000000|10=159|
+15:44:33.485 check  ExecutionReport for price on tick
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029154433000000   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.00737              1.00737              ok
+15:44:33.537 fix    >> 8=FIXT.1.1|9=175|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=9|52=20261029-15:44:33.537|41=1b305b5fe55c4a5b|11=de292694f4444290|37=261029154433000000|55=EUR/USD|54=1|60=20261029-15:44:33.536|10=079|
+15:44:33.537 fix    << 8=FIXT.1.1|9=232|35=8|34=9|49=SIM_FASTMATCH|52=20261029-15:44:33.537|56=CLIENT_FASTMATCH|6=0|11=de292694f4444290|14=0|17=261029154433000000-2|37=261029154433000000|38=1000000|39=4|40=2|41=1b305b5fe55c4a5b|44=1.00737|54=1|55=EUR/USD|59=0|150=4|151=0|10=255|
+15:44:33.537 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029154433000000   261029154433000000   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.00737              1.00737              ok

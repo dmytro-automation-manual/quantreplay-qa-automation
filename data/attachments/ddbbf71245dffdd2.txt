@@ -1,0 +1,54 @@
+15:44:36.012 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=120|52=20261029-15:44:36.012|11=70395c6a96294c85|55=USD/JPY|54=2|60=20261029-15:44:36.012|40=2|44=172.485|38=2000000|59=0|10=006|
+15:44:36.013 fix    << 8=FIXT.1.1|9=220|35=8|34=132|49=SIM_FASTMATCH|52=20261029-15:44:36.013|56=CLIENT_FASTMATCH|6=0|11=70395c6a96294c85|14=0|17=261029154436000011-1|37=261029154436000011|38=2000000|39=0|40=2|44=172.485|54=2|55=USD/JPY|59=0|150=0|151=2000000|10=099|
+15:44:36.013 fix    >> 8=FIXT.1.1|9=156|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=121|52=20261029-15:44:36.013|11=f6f8cfbf9057416a|55=USD/JPY|54=1|60=20261029-15:44:36.013|40=1|38=1000000|59=3|10=180|
+15:44:36.014 fix    << 8=FIXT.1.1|9=209|35=8|34=133|49=SIM_FASTMATCH|52=20261029-15:44:36.013|56=CLIENT_FASTMATCH|6=0|11=f6f8cfbf9057416a|14=0|17=261029154436000012-1|37=261029154436000012|38=1000000|39=0|40=1|54=1|55=USD/JPY|59=3|150=0|151=1000000|10=025|
+15:44:36.014 check  ExecutionReport New for market order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029154436000012   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      USD/JPY              USD/JPY              ok    
+order_qty   1000000              1000000              ok    
+price       <not sent>           <none>               ok    
+ord_type    MARKET(1)            MARKET(1)            ok    
+15:44:36.014 fix    << 8=FIXT.1.1|9=237|35=8|34=134|49=SIM_FASTMATCH|52=20261029-15:44:36.013|56=CLIENT_FASTMATCH|6=172.485|11=f6f8cfbf9057416a|14=1000000|17=261029154436000012-2|31=172.485|32=1000000|37=261029154436000012|38=1000000|39=2|40=1|54=1|55=USD/JPY|59=3|150=F|151=0|10=108|
+15:44:36.014 fix    << 8=FIXT.1.1|9=254|35=8|34=135|49=SIM_FASTMATCH|52=20261029-15:44:36.014|56=CLIENT_FASTMATCH|6=172.485|11=70395c6a96294c85|14=1000000|17=261029154436000011-2|31=172.485|32=1000000|37=261029154436000011|38=2000000|39=1|40=2|44=172.485|54=2|55=USD/JPY|59=0|150=F|151=1000000|10=222|
+15:44:36.015 check  ExecutionReport Trade for market order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029154436000012   261029154436000012   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  FILLED(2)            FILLED(2)            ok    
+symbol      USD/JPY              USD/JPY              ok    
+order_qty   1000000              1000000              ok    
+price       <not sent>           <none>               ok    
+last_px     172.485              172.485              ok    
+last_qty    1000000              1000000              ok    
+cum_qty     1000000              1000000              ok    
+leaves_qty  0                    0                    ok    
+avg_px      172.485              172.485              ok    
+15:44:36.015 check  ExecutionReport Trade for resting order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029154436000011   261029154436000011   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  PARTIALLY_FILLED(1)  PARTIALLY_FILLED(1)  ok    
+symbol      USD/JPY              USD/JPY              ok    
+order_qty   2000000              2000000              ok    
+price       172.485              172.485              ok    
+last_px     172.485              172.485              ok    
+last_qty    1000000              1000000              ok    
+cum_qty     1000000              1000000              ok    
+leaves_qty  1000000              1000000              ok
+15:44:36.066 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=122|52=20261029-15:44:36.066|41=70395c6a96294c85|11=f0bf6b4800694487|37=261029154436000011|55=USD/JPY|54=2|60=20261029-15:44:36.066|10=067|
+15:44:36.067 fix    << 8=FIXT.1.1|9=246|35=8|34=136|49=SIM_FASTMATCH|52=20261029-15:44:36.066|56=CLIENT_FASTMATCH|6=172.485|11=f0bf6b4800694487|14=1000000|17=261029154436000011-3|37=261029154436000011|38=2000000|39=4|40=2|41=70395c6a96294c85|44=172.485|54=2|55=USD/JPY|59=0|150=4|151=0|10=100|
+15:44:36.067 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029154436000011   261029154436000011   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      USD/JPY              USD/JPY              ok    
+order_qty   2000000              2000000              ok    
+price       172.485              172.485              ok

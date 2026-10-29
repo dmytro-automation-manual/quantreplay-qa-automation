@@ -1,0 +1,7 @@
+Venue status
+field            expected     actual                                                        result
+id               FASTMATCH    FASTMATCH                                                     ok    
+name             FASTMATCH    FASTMATCH                                                     ok    
+startTime        <non-empty>  2026-10-29 15:44:25.487426                                    ok    
+version          <non-empty>  12.1792505299_39111b63(2026-10-20 17:08:19 +0300)             ok    
+sessionSettings  <non-empty>  [{'section': 'DEFAULT', 'settings': {'ALLOWUNKNOWNMSGFIEL...  ok    

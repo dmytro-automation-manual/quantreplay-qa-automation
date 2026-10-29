@@ -1,0 +1,32 @@
+15:44:38.806 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=246|52=20261029-15:44:38.806|11=8abd2cc828b14ec0|55=EUR/USD|54=1|60=20261029-15:44:38.806|40=2|44=1.00736|38=1000000|59=0|10=238|
+15:44:38.834 fix    << 8=FIXT.1.1|9=220|35=8|34=273|49=SIM_FASTMATCH|52=20261029-15:44:38.834|56=CLIENT_FASTMATCH|6=0|11=8abd2cc828b14ec0|14=0|17=261029154438000022-1|37=261029154438000022|38=1000000|39=0|40=2|44=1.00736|54=1|55=EUR/USD|59=0|150=0|151=1000000|10=066|
+15:44:38.835 check  ExecutionReport for NewOrderSingle
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029154438000022   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.00736              1.00736              ok    
+15:44:38.835 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=247|52=20261029-15:44:38.835|41=8abd2cc828b14ec0|11=9659bb072f024f1e|37=261029154438000022|55=EUR/USD|54=1|60=20261029-15:44:38.835|10=085|
+15:44:38.835 fix    << 8=FIXT.1.1|9=234|35=8|34=274|49=SIM_FASTMATCH|52=20261029-15:44:38.835|56=CLIENT_FASTMATCH|6=0|11=9659bb072f024f1e|14=0|17=261029154438000022-2|37=261029154438000022|38=1000000|39=4|40=2|41=8abd2cc828b14ec0|44=1.00736|54=1|55=EUR/USD|59=0|150=4|151=0|10=006|
+15:44:38.836 check  ExecutionReport for first cancel
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029154438000022   261029154438000022   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.00736              1.00736              ok    
+15:44:38.836 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=248|52=20261029-15:44:38.836|41=9659bb072f024f1e|11=bb17d3fd423d4a9b|37=261029154438000022|55=EUR/USD|54=1|60=20261029-15:44:38.836|10=090|
+15:44:38.837 fix    << 8=FIXT.1.1|9=166|35=9|34=275|49=SIM_FASTMATCH|52=20261029-15:44:38.836|56=CLIENT_FASTMATCH|11=bb17d3fd423d4a9b|37=261029154438000022|39=8|41=9659bb072f024f1e|58=order not found|434=1|10=065|
+15:44:38.837 check  OrderCancelReject for second cancel
+field                expected                 actual                   result
+msg_type             ORDER_CANCEL_REJECT(9)   ORDER_CANCEL_REJECT(9)   ok    
+order_id             261029154438000022       261029154438000022       ok    
+ord_status           REJECTED(8)              REJECTED(8)              ok    
+cxl_rej_response_to  ORDER_CANCEL_REQUEST(1)  ORDER_CANCEL_REQUEST(1)  ok    
+text                 order not found          order not found          ok    
+orig_cl_ord_id       9659bb072f024f1e         9659bb072f024f1e         ok

@@ -1,0 +1,23 @@
+15:44:36.788 fix    >> 8=FIXT.1.1|9=148|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=150|52=20261029-15:44:36.788|11=b6e4acf2c79446f0|55=VODI|54=1|60=20261029-15:44:36.788|40=2|44=1.268|38=1|59=0|10=078|
+15:44:36.788 fix    << 8=FIXT.1.1|9=195|35=8|34=168|49=SIM_XETRA|52=20261029-15:44:36.788|56=CLIENT_XETRA|6=0|11=b6e4acf2c79446f0|14=0|17=261029154436000003-1|37=261029154436000003|38=1|39=0|40=2|44=1.268|54=1|55=VODI|59=0|150=0|151=1|10=137|
+15:44:36.789 check  ExecutionReport for OrderQty = qtyMinimum
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029154436000003   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      VODI                 VODI                 ok    
+order_qty   1                    1                    ok    
+price       1.268                1.268                ok    
+leaves_qty  1                    1                    ok
+15:44:36.840 fix    >> 8=FIXT.1.1|9=166|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=151|52=20261029-15:44:36.840|41=b6e4acf2c79446f0|11=4766ed7c0a544cc8|37=261029154436000003|55=VODI|54=1|60=20261029-15:44:36.840|10=075|
+15:44:36.840 fix    << 8=FIXT.1.1|9=215|35=8|34=169|49=SIM_XETRA|52=20261029-15:44:36.840|56=CLIENT_XETRA|6=0|11=4766ed7c0a544cc8|14=0|17=261029154436000003-2|37=261029154436000003|38=1|39=4|40=2|41=b6e4acf2c79446f0|44=1.268|54=1|55=VODI|59=0|150=4|151=0|10=137|
+15:44:36.841 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029154436000003   261029154436000003   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      VODI                 VODI                 ok    
+order_qty   1                    1                    ok    
+price       1.268                1.268                ok

@@ -1,0 +1,41 @@
+15:44:33.417 rest   >> GET /venues/XETRA 
+15:44:33.433 httpx  HTTP Request: GET http://localhost:9050/api/venues/XETRA "HTTP/1.1 200 OK"
+15:44:33.434 rest   << 200 {"id":"XETRA","name":"XETRA","engineType":"Matching","supportTifIoc":true,"supportTifFok":true,"supportTifDay":true,"includeOwnOrders":true,"restPort":9050,"orderOnStartup":false,"randomPartyCount":2,"timeAndSalesEnabled":true,"timeAndSalesQuantityEnabled":true,"timeAndSalesSideEnabled":true,"timeAndSalesPartiesEnabled":true,"timezone":"UTC","cancelOnDisconnect":false,"persistenceEnabled":false,"phases":[]}
+15:44:33.434 rest   >> GET /genstatus/XETRA 
+15:44:33.435 httpx  HTTP Request: GET http://localhost:9050/api/genstatus/XETRA "HTTP/1.1 200 OK"
+15:44:33.435 rest   << 200 {"result":"Stopped"}
+15:44:33.436 fix    >> 8=FIXT.1.1|9=89|35=A|49=CLIENT_XETRA|56=SIM_XETRA|34=1|52=20261029-15:44:33.436|98=0|108=30|141=Y|1137=9|10=058|
+15:44:33.437 fix    << 8=FIXT.1.1|9=89|35=A|34=1|49=SIM_XETRA|52=20261029-15:44:33.436|56=CLIENT_XETRA|98=0|108=30|141=Y|1137=9|10=058|
+15:44:33.437 fix    >> 8=FIXT.1.1|9=128|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=2|52=20261029-15:44:33.437|262=39b0518fed594ef1|263=0|264=0|267=2|269=0|269=1|146=1|55=AMZ|10=014|
+15:44:33.449 fix    << 8=FIXT.1.1|9=124|35=W|34=2|49=SIM_XETRA|52=20261029-15:44:33.448|56=CLIENT_XETRA|55=AMZ|262=39b0518fed594ef1|268=0|779=20261029-15:44:33.448|10=238|
+15:44:33.449 fix    >> 8=FIXT.1.1|9=128|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=3|52=20261029-15:44:33.449|262=8a82a2af41bc464e|263=0|264=0|267=2|269=0|269=1|146=1|55=MSF|10=049|
+15:44:33.450 fix    << 8=FIXT.1.1|9=124|35=W|34=3|49=SIM_XETRA|52=20261029-15:44:33.449|56=CLIENT_XETRA|55=MSF|262=8a82a2af41bc464e|268=0|779=20261029-15:44:33.449|10=016|
+15:44:33.450 fix    >> 8=FIXT.1.1|9=128|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=4|52=20261029-15:44:33.450|262=b237a9acefce44da|263=0|264=0|267=2|269=0|269=1|146=1|55=NFC|10=173|
+15:44:33.451 fix    << 8=FIXT.1.1|9=124|35=W|34=4|49=SIM_XETRA|52=20261029-15:44:33.450|56=CLIENT_XETRA|55=NFC|262=b237a9acefce44da|268=0|779=20261029-15:44:33.450|10=132|
+15:44:33.451 fix    >> 8=FIXT.1.1|9=129|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=5|52=20261029-15:44:33.451|262=9055b12c8d8d49db|263=0|264=0|267=2|269=0|269=1|146=1|55=VODI|10=085|
+15:44:33.451 fix    << 8=FIXT.1.1|9=125|35=W|34=5|49=SIM_XETRA|52=20261029-15:44:33.451|56=CLIENT_XETRA|55=VODI|262=9055b12c8d8d49db|268=0|779=20261029-15:44:33.451|10=045|
+15:44:33.452 fix    >> 8=FIXT.1.1|9=128|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=6|52=20261029-15:44:33.452|262=cc08d01daaf645dd|263=0|264=0|267=2|269=0|269=1|146=1|55=VOW|10=160|
+15:44:33.452 fix    << 8=FIXT.1.1|9=124|35=W|34=6|49=SIM_XETRA|52=20261029-15:44:33.452|56=CLIENT_XETRA|55=VOW|262=cc08d01daaf645dd|268=0|779=20261029-15:44:33.452|10=121|
+15:44:33.452 db     SQL select * from sim.venue where venue_id = %s ('XETRA',)
+15:44:33.454 db     rows: 1
+15:44:33.454 db     SQL select * from sim.listing where venue_id = %s ('XETRA',)
+15:44:33.455 db     rows: 5
+15:44:33.455 db     SQL select * from sim.price_seed 
+15:44:33.455 db     rows: 10
+15:44:33.456 db     SQL select * from sim.setting 
+15:44:33.457 db     rows: 3
+15:44:33.457 db     SQL select * from sim.data_source where venue_id = %s ('XETRA',)
+15:44:33.458 db     rows: 1
+15:44:33.458 db     SQL select * from sim.column_mapping 
+15:44:33.459 db     rows: 9
+15:44:33.459 db     SQL select * from sim.data_source_listing 
+15:44:33.459 db     rows: 0
+15:44:33.459 db     SQL select * from sim.listing_random_price_source 
+15:44:33.460 db     rows: 0
+15:44:33.460 db     SQL select * from sim.market_phase where venue_id = %s ('XETRA',)
+15:44:33.460 db     rows: 0
+15:44:33.461 db     SQL select listing_id, symbol, venue_id, security_type, price_currency, fx_base_currency, security_exchange, isin_id, qty_minimum::numeric as qty_minimum, qty_maximum::numeric as qty_maximum, qty_multiple::numeric as qty_multiple, price_tick_size::numeric as price_tick_size, enabled, random_orders_enabled from sim.listing where venue_id = %s order by listing_id ('XETRA',)
+15:44:33.462 db     rows: 5
+15:44:33.462 check  Symbols in sim.listing
+field    expected                              actual                                result
+symbols  ['AMZ', 'MSF', 'NFC', 'VODI', 'VOW']  ['AMZ', 'MSF', 'NFC', 'VODI', 'VOW']  ok

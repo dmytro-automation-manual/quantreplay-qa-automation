@@ -1,0 +1,43 @@
+15:44:53.662 rest   >> GET /venues/NOSUCHVENUE 
+15:44:53.675 httpx  HTTP Request: GET http://localhost:9050/api/venues/NOSUCHVENUE "HTTP/1.1 404 Not Found"
+15:44:53.675 rest   << 404 {"result":"Can not resolve a single Venue by a given key"}
+15:44:53.676 check  GET unknown venue
+field        expected                                       actual                                         result
+status_code  404                                            404                                            ok    
+result       Can not resolve a single Venue by a given key  Can not resolve a single Venue by a given key  ok    
+15:44:53.676 rest   >> PUT /venues/NOSUCHVENUE {"name": "x"}
+15:44:53.687 httpx  HTTP Request: PUT http://localhost:9050/api/venues/NOSUCHVENUE "HTTP/1.1 404 Not Found"
+15:44:53.688 rest   << 404 {"result":"Can not resolve a single Venue by a given key"}
+15:44:53.688 check  PUT unknown venue
+field        expected  actual  result
+status_code  404       404     ok
+15:44:53.691 fix    >> 8=FIXT.1.1|9=128|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=3|52=20261029-15:44:53.691|262=c8ded4aadff34cd8|263=0|264=0|267=2|269=0|269=1|146=1|55=AMZ|10=254|
+15:44:53.692 fix    << 8=FIXT.1.1|9=124|35=W|34=3|49=SIM_XETRA|52=20261029-15:44:53.692|56=CLIENT_XETRA|55=AMZ|262=c8ded4aadff34cd8|268=0|779=20261029-15:44:53.692|10=224|
+15:44:53.692 fix    >> 8=FIXT.1.1|9=128|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=4|52=20261029-15:44:53.692|262=cdb91c44ca054546|263=0|264=0|267=2|269=0|269=1|146=1|55=MSF|10=004|
+15:44:53.693 fix    << 8=FIXT.1.1|9=124|35=W|34=4|49=SIM_XETRA|52=20261029-15:44:53.692|56=CLIENT_XETRA|55=MSF|262=cdb91c44ca054546|268=0|779=20261029-15:44:53.692|10=229|
+15:44:53.693 fix    >> 8=FIXT.1.1|9=128|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=5|52=20261029-15:44:53.693|262=7f94d201d4b54ce2|263=0|264=0|267=2|269=0|269=1|146=1|55=NFC|10=251|
+15:44:53.693 fix    << 8=FIXT.1.1|9=124|35=W|34=5|49=SIM_XETRA|52=20261029-15:44:53.693|56=CLIENT_XETRA|55=NFC|262=7f94d201d4b54ce2|268=0|779=20261029-15:44:53.693|10=221|
+15:44:53.693 fix    >> 8=FIXT.1.1|9=129|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=6|52=20261029-15:44:53.693|262=4158fd0b34de4957|263=0|264=0|267=2|269=0|269=1|146=1|55=VODI|10=049|
+15:44:53.694 fix    << 8=FIXT.1.1|9=125|35=W|34=6|49=SIM_XETRA|52=20261029-15:44:53.694|56=CLIENT_XETRA|55=VODI|262=4158fd0b34de4957|268=0|779=20261029-15:44:53.694|10=021|
+15:44:53.694 fix    >> 8=FIXT.1.1|9=128|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=7|52=20261029-15:44:53.694|262=53b26e1b05144ed5|263=0|264=0|267=2|269=0|269=1|146=1|55=VOW|10=235|
+15:44:53.694 fix    << 8=FIXT.1.1|9=124|35=W|34=7|49=SIM_XETRA|52=20261029-15:44:53.694|56=CLIENT_XETRA|55=VOW|262=53b26e1b05144ed5|268=0|779=20261029-15:44:53.694|10=206|
+15:44:53.695 db     SQL select * from sim.venue where venue_id = %s ('XETRA',)
+15:44:53.695 db     rows: 1
+15:44:53.695 db     SQL select * from sim.listing where venue_id = %s ('XETRA',)
+15:44:53.696 db     rows: 5
+15:44:53.696 db     SQL select * from sim.price_seed 
+15:44:53.696 db     rows: 10
+15:44:53.696 db     SQL select * from sim.setting 
+15:44:53.697 db     rows: 3
+15:44:53.697 db     SQL select * from sim.data_source where venue_id = %s ('XETRA',)
+15:44:53.697 db     rows: 1
+15:44:53.697 db     SQL select * from sim.column_mapping 
+15:44:53.698 db     rows: 9
+15:44:53.698 db     SQL select * from sim.data_source_listing 
+15:44:53.698 db     rows: 0
+15:44:53.698 db     SQL select * from sim.listing_random_price_source 
+15:44:53.698 db     rows: 0
+15:44:53.698 db     SQL select * from sim.market_phase where venue_id = %s ('XETRA',)
+15:44:53.699 db     rows: 0
+15:44:53.702 fix    >> 8=FIXT.1.1|9=64|35=5|49=CLIENT_XETRA|56=SIM_XETRA|34=8|52=20261029-15:44:53.702|10=163|
+15:44:53.703 fix    << 8=FIXT.1.1|9=64|35=5|34=8|49=SIM_XETRA|52=20261029-15:44:53.702|56=CLIENT_XETRA|10=163|

@@ -1,0 +1,12 @@
+15:44:38.018 fix    >> 8=FIXT.1.1|9=160|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=203|52=20261029-15:44:38.018|11=e9fc07d0c69b4c5b|55=VOW|167=FXSPOT|54=1|60=20261029-15:44:38.018|40=2|44=61.80|38=150|59=0|10=076|
+15:44:38.019 fix    << 8=FIXT.1.1|9=219|35=8|34=227|49=SIM_XETRA|52=20261029-15:44:38.019|56=CLIENT_XETRA|6=0|11=e9fc07d0c69b4c5b|14=0|17=261029154438000009-1|37=261029154438000009|38=150|39=8|44=61.8|54=1|55=VOW|58=listing not found|150=8|151=150|167=FXSPOT|10=139|
+15:44:38.019 check  ExecutionReport for wrong SecurityType
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029154438000009   ok    
+exec_type   REJECTED(8)          REJECTED(8)          ok    
+ord_status  REJECTED(8)          REJECTED(8)          ok    
+symbol      VOW                  VOW                  ok    
+order_qty   150                  150                  ok    
+price       61.80                61.8                 ok    
+text        listing not found    listing not found    ok

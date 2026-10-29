@@ -1,0 +1,15 @@
+15:44:38.680 fix    >> 8=FIXT.1.1|9=148|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=233|52=20261029-15:44:38.680|262=f3b77f605e2941a5|263=1|264=0|265=1|267=2|269=0|269=1|146=1|55=EUR/USD|10=161|
+15:44:38.681 fix    << 8=FIXT.1.1|9=138|35=W|34=263|49=SIM_FASTMATCH|52=20261029-15:44:38.680|56=CLIENT_FASTMATCH|55=EUR/USD|262=f3b77f605e2941a5|268=0|779=20261029-15:44:38.680|10=123|
+15:44:38.681 check  Initial snapshot
+field      expected                 actual                   result
+msg_type   MARKET_DATA_SNAPSHOT(W)  MARKET_DATA_SNAPSHOT(W)  ok    
+md_req_id  f3b77f605e2941a5         f3b77f605e2941a5         ok    
+15:44:38.681 fix    >> 8=FIXT.1.1|9=148|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=234|52=20261029-15:44:38.681|262=f3b77f605e2941a5|263=1|264=0|265=1|267=2|269=0|269=1|146=1|55=EUR/USD|10=163|
+15:44:38.682 fix    << 8=FIXT.1.1|9=139|35=Y|34=264|49=SIM_FASTMATCH|52=20261029-15:44:38.681|56=CLIENT_FASTMATCH|58=request identifier is used already|262=f3b77f605e2941a5|281=1|10=114|
+15:44:38.682 check  MarketDataRequestReject for duplicate MDReqID
+field      expected                            actual                              result
+msg_type   MARKET_DATA_REQUEST_REJECT(Y)       MARKET_DATA_REQUEST_REJECT(Y)       ok    
+md_req_id  f3b77f605e2941a5                    f3b77f605e2941a5                    ok    
+reason     DUPLICATE_MD_REQ_ID(1)              DUPLICATE_MD_REQ_ID(1)              ok    
+text       request identifier is used already  request identifier is used already  ok
+15:44:38.683 fix    >> 8=FIXT.1.1|9=142|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=235|52=20261029-15:44:38.683|262=f3b77f605e2941a5|263=2|264=0|267=2|269=0|269=1|146=1|55=EUR/USD|10=149|

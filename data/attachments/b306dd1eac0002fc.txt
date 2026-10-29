@@ -1,0 +1,54 @@
+15:44:33.972 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=30|52=20261029-15:44:33.972|11=d9459c0342e74799|55=AMZ|54=2|60=20261029-15:44:33.972|40=2|44=244.90|38=100|59=0|10=165|
+15:44:33.973 fix    << 8=FIXT.1.1|9=197|35=8|34=30|49=SIM_XETRA|52=20261029-15:44:33.973|56=CLIENT_XETRA|6=0|11=d9459c0342e74799|14=0|17=261029154433000011-1|37=261029154433000011|38=100|39=0|40=2|44=244.9|54=2|55=AMZ|59=0|150=0|151=100|10=009|
+15:44:33.973 fix    >> 8=FIXT.1.1|9=138|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=31|52=20261029-15:44:33.973|11=4fb8987fc6024799|55=AMZ|54=1|60=20261029-15:44:33.973|40=1|38=50|59=3|10=218|
+15:44:33.974 fix    << 8=FIXT.1.1|9=186|35=8|34=31|49=SIM_XETRA|52=20261029-15:44:33.974|56=CLIENT_XETRA|6=0|11=4fb8987fc6024799|14=0|17=261029154433000012-1|37=261029154433000012|38=50|39=0|40=1|54=1|55=AMZ|59=3|150=0|151=50|10=067|
+15:44:33.974 check  ExecutionReport New for market order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261029154433000012   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       <not sent>           <none>               ok    
+ord_type    MARKET(1)            MARKET(1)            ok    
+15:44:33.974 fix    << 8=FIXT.1.1|9=205|35=8|34=32|49=SIM_XETRA|52=20261029-15:44:33.974|56=CLIENT_XETRA|6=244.9|11=4fb8987fc6024799|14=50|17=261029154433000012-2|31=244.9|32=50|37=261029154433000012|38=50|39=2|40=1|54=1|55=AMZ|59=3|150=F|151=0|10=209|
+15:44:33.975 fix    << 8=FIXT.1.1|9=216|35=8|34=33|49=SIM_XETRA|52=20261029-15:44:33.974|56=CLIENT_XETRA|6=244.9|11=d9459c0342e74799|14=50|17=261029154433000011-2|31=244.9|32=50|37=261029154433000011|38=100|39=1|40=2|44=244.9|54=2|55=AMZ|59=0|150=F|151=50|10=162|
+15:44:33.975 check  ExecutionReport Trade for market order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029154433000012   261029154433000012   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  FILLED(2)            FILLED(2)            ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       <not sent>           <none>               ok    
+last_px     244.90               244.9                ok    
+last_qty    50                   50                   ok    
+cum_qty     50                   50                   ok    
+leaves_qty  0                    0                    ok    
+avg_px      244.90               244.9                ok    
+15:44:33.975 check  ExecutionReport Trade for resting order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029154433000011   261029154433000011   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  PARTIALLY_FILLED(1)  PARTIALLY_FILLED(1)  ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   100                  100                  ok    
+price       244.90               244.9                ok    
+last_px     244.90               244.9                ok    
+last_qty    50                   50                   ok    
+cum_qty     50                   50                   ok    
+leaves_qty  50                   50                   ok
+15:44:34.026 fix    >> 8=FIXT.1.1|9=164|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=32|52=20261029-15:44:34.026|41=d9459c0342e74799|11=a524004313b94751|37=261029154433000011|55=AMZ|54=2|60=20261029-15:44:34.026|10=059|
+15:44:34.027 fix    << 8=FIXT.1.1|9=220|35=8|34=34|49=SIM_XETRA|52=20261029-15:44:34.026|56=CLIENT_XETRA|6=244.9|11=a524004313b94751|14=50|17=261029154433000011-3|37=261029154433000011|38=100|39=4|40=2|41=d9459c0342e74799|44=244.9|54=2|55=AMZ|59=0|150=4|151=0|10=219|
+15:44:34.027 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261029154433000011   261029154433000011   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   100                  100                  ok    
+price       244.90               244.9                ok

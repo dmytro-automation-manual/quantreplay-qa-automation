@@ -1,0 +1,23 @@
+15:44:53.568 rest   >> GET /venues/FASTMATCH 
+15:44:53.580 httpx  HTTP Request: GET http://localhost:9052/api/venues/FASTMATCH "HTTP/1.1 200 OK"
+15:44:53.580 rest   << 200 {"id":"FASTMATCH","name":"FASTMATCH","engineType":"Matching","supportTifIoc":true,"supportTifFok":true,"supportTifDay":true,"includeOwnOrders":true,"restPort":9052,"orderOnStartup":false,"randomPartyCount":10,"timeAndSalesEnabled":true,"timeAndSalesQuantityEnabled":true,"timeAndSalesSideEnabled":true,"timeAndSalesPartiesEnabled":true,"timezone":"America/New_York","cancelOnDisconnect":false,"persistenceEnabled":false,"phases":[]}
+15:44:53.580 rest   >> PUT /venues/FASTMATCH {"name": "FASTMATCH QA"}
+15:44:53.594 httpx  HTTP Request: PUT http://localhost:9052/api/venues/FASTMATCH "HTTP/1.1 200 OK"
+15:44:53.595 rest   << 200 {"result":"Successfully updated the FASTMATCH venue"}
+15:44:53.595 check  PUT venue
+field        expected  actual  result
+status_code  200       200     ok    
+15:44:53.595 rest   >> GET /venues/FASTMATCH 
+15:44:53.607 httpx  HTTP Request: GET http://localhost:9052/api/venues/FASTMATCH "HTTP/1.1 200 OK"
+15:44:53.608 rest   << 200 {"id":"FASTMATCH","name":"FASTMATCH QA","engineType":"Matching","supportTifIoc":true,"supportTifFok":true,"supportTifDay":true,"includeOwnOrders":true,"restPort":9052,"orderOnStartup":false,"randomPartyCount":10,"timeAndSalesEnabled":true,"timeAndSalesQuantityEnabled":true,"timeAndSalesSideEnabled":true,"timeAndSalesPartiesEnabled":true,"timezone":"America/New_York","cancelOnDisconnect":false,"persistenceEnabled":false,"phases":[]}
+15:44:53.608 check  Venue in REST
+field  expected      actual        result
+name   FASTMATCH QA  FASTMATCH QA  ok    
+15:44:53.608 db     SQL select venue_id, name, engine_type, support_tif_ioc, support_tif_fok, support_tif_day, include_own_orders, rest_port, order_on_startup, cancel_on_disconnect, persistence_enabled, timezone from sim.venue where venue_id = %s ('FASTMATCH',)
+15:44:53.609 db     rows: 1
+15:44:53.609 check  Venue in DB
+field  expected      actual        result
+name   FASTMATCH QA  FASTMATCH QA  ok
+15:44:53.610 rest   >> PUT /venues/FASTMATCH {"name": "FASTMATCH"}
+15:44:53.623 httpx  HTTP Request: PUT http://localhost:9052/api/venues/FASTMATCH "HTTP/1.1 200 OK"
+15:44:53.624 rest   << 200 {"result":"Successfully updated the FASTMATCH venue"}

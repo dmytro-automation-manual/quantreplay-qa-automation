@@ -1,0 +1,3 @@
+One bid level at depth 1
+field      expected  actual                                                                                                                                    result
+condition  true      True found [MDEntry(entry_type=BID(0), price=Decimal('1.00741'), size=Decimal('1000000'), entry_id='1793288665:31', update_action=None)]  ok    

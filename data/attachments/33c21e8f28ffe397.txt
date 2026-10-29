@@ -1,0 +1,26 @@
+15:44:41.070 rest   >> GET /listings/EUR%2FUSD 
+15:44:41.082 httpx  HTTP Request: GET http://localhost:9052/api/listings/EUR%2FUSD "HTTP/1.1 200 OK"
+15:44:41.083 rest   << 200 {"id":6,"venueId":"FASTMATCH","symbol":"EUR/USD","securityType":"FXSPOT","priceCurrency":"USD","fxBaseCurrency":"EUR","instrSymbol":"EUR/USD","qtyMinimum":10000.0,"qtyMaximum":50000000.0,"qtyMultiple":1000.0,"priceTickSize":0.00001,"enabled":true,"randomQtyMaximum":5000000.0,"randomDepthLevels":5,"randomOrdersSpread":0.00001,"randomOrdersRate":2,"randomTickRange":10,"securityExchange":"FASTMATCH","randomQtyMinimum":100000.0,"randomOrdersEnabled":true,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+15:44:41.083 rest   >> GET /listings/EUR%2FUSD 
+15:44:41.095 httpx  HTTP Request: GET http://localhost:9052/api/listings/EUR%2FUSD "HTTP/1.1 200 OK"
+15:44:41.095 rest   << 200 {"id":6,"venueId":"FASTMATCH","symbol":"EUR/USD","securityType":"FXSPOT","priceCurrency":"USD","fxBaseCurrency":"EUR","instrSymbol":"EUR/USD","qtyMinimum":10000.0,"qtyMaximum":50000000.0,"qtyMultiple":1000.0,"priceTickSize":0.00001,"enabled":true,"randomQtyMaximum":5000000.0,"randomDepthLevels":5,"randomOrdersSpread":0.00001,"randomOrdersRate":2,"randomTickRange":10,"securityExchange":"FASTMATCH","randomQtyMinimum":100000.0,"randomOrdersEnabled":true,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+15:44:41.096 rest   >> PUT /listings/6 {"priceTickSize": 0.0001}
+15:44:41.111 httpx  HTTP Request: PUT http://localhost:9052/api/listings/6 "HTTP/1.1 200 OK"
+15:44:41.112 rest   << 200 {"result":"Successfully updated the 6 listing"}
+15:44:41.112 check  PUT listing by id
+field        expected  actual  result
+status_code  200       200     ok    
+15:44:41.112 rest   >> GET /listings/6 
+15:44:41.127 httpx  HTTP Request: GET http://localhost:9052/api/listings/6 "HTTP/1.1 200 OK"
+15:44:41.128 rest   << 200 {"id":6,"venueId":"FASTMATCH","symbol":"EUR/USD","securityType":"FXSPOT","priceCurrency":"USD","fxBaseCurrency":"EUR","instrSymbol":"EUR/USD","qtyMinimum":10000.0,"qtyMaximum":50000000.0,"qtyMultiple":1000.0,"priceTickSize":0.0001,"enabled":true,"randomQtyMaximum":5000000.0,"randomDepthLevels":5,"randomOrdersSpread":0.00001,"randomOrdersRate":2,"randomTickRange":10,"securityExchange":"FASTMATCH","randomQtyMinimum":100000.0,"randomOrdersEnabled":true,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+15:44:41.128 check  Listing in REST
+field            expected  actual  result
+price_tick_size  0.00010   0.0001  ok    
+15:44:41.128 db     SQL select listing_id, symbol, venue_id, security_type, price_currency, fx_base_currency, security_exchange, isin_id, qty_minimum::numeric as qty_minimum, qty_maximum::numeric as qty_maximum, qty_multiple::numeric as qty_multiple, price_tick_size::numeric as price_tick_size, enabled, random_orders_enabled from sim.listing where venue_id = %s and symbol = %s ('FASTMATCH', 'EUR/USD')
+15:44:41.129 db     rows: 1
+15:44:41.129 check  Listing in DB
+field            expected  actual  result
+price_tick_size  0.00010   0.0001  ok
+15:44:41.130 rest   >> PUT /listings/EUR%2FUSD {"priceTickSize": 1e-05}
+15:44:41.142 httpx  HTTP Request: PUT http://localhost:9052/api/listings/EUR%2FUSD "HTTP/1.1 200 OK"
+15:44:41.142 rest   << 200 {"result":"Successfully updated the EUR/USD listing"}
