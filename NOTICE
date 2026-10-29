@@ -1,0 +1,8 @@
+QuantReplay QA Automation
+Copyright 2026 dmytro-automation-manual
+
+This repository includes files from QuantReplay
+(https://github.com/Quod-Financial/quantreplay), licensed under the Apache License 2.0:
+- sim-run/cfg/default/*.xml, fixyl-workspace/dictionaries/*.xml: FIX dictionaries
+- sim-run/cfg/*, sim-run/fastmatch/cfg/*: simulator configuration (modified)
+- sim-run/db/simdb_test_data.sql: demo data (modified by sim-run/db/real_market_overrides.sql)
