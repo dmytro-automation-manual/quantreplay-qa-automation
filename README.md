@@ -87,7 +87,7 @@ does not accept a call without them.
 | ID | Whose defect | Summary | Tests (xfail) |
 |---|---|---|---|
 | [BUG-001](bug_reports/BUG-001-delete-unknown-price-seed-returns-400.md) | simulator | `DELETE /api/priceseeds/{id}` for an unknown id answers 400, the REST API document says 404 (GET / PUT answer 404) | 1 per venue |
-| [BUG-002](bug_reports/BUG-002-cancel-reject-ordstatus-inconsistent.md) | simulator + documentation | OrdStatus in OrderCancelReject for a rejected replace of an active order: Rejected for an off-tick price, the current status for a TimeInForce change or OrderQty <= CumQty; the RoE gives both rules | 2 per venue |
+| [BUG-002](bug_reports/BUG-002-cancel-reject-ordstatus-inconsistent.md) | simulator + documentation | A rejected replace leaves the order active, but OrderCancelReject has OrdStatus `8` Rejected for an off-tick price and the current status (`0` / `1`) for a TimeInForce change or OrderQty <= CumQty. The RoE contradicts itself: MessageFlows says always Rejected, TradeMessages (tag 39) says the current status | 2 per venue |
 
 Tests of an open bug are marked `known_issue(BUG_xxx)` (`tests/support/bugs.py`) and reported as `xfail`.
 The xfail is strict: when the bug is fixed the test passes, the run reports XPASS as a failure, and the marker
