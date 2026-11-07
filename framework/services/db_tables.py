@@ -59,6 +59,35 @@ class PriceSeedTable:
         return [PriceSeed(**r) for r in rows]
 
 
+class ExternalPriceSeedTable:
+    """Table price_seed of the EXTERNAL price seed database - not a simulator table.
+    It is the test input of POST /api/syncpriceseeds, so unlike the classes above it can also be written."""
+
+    _COLUMNS = """symbol, security_type, price_currency, security_id, security_id_source, instrument_symbol,
+                  bid_price::numeric as bid_price, mid_price::numeric as mid_price,
+                  offer_price::numeric as offer_price, last_update"""
+
+    def __init__(self, db: Db):
+        self._db = db
+
+    def get(self, symbol: str) -> dict | None:
+        rows = self._db.query(f"select {self._COLUMNS} from price_seed where symbol = %s", (symbol,))
+        return rows[0] if rows else None
+
+    def set_prices(self, symbol: str, bid, mid, offer, last_update: str) -> None:
+        self._db.query("""update price_seed set bid_price = %s, mid_price = %s, offer_price = %s, last_update = %s
+                          where symbol = %s returning symbol""", (bid, mid, offer, last_update, symbol))
+
+    def add(self, symbol: str, security_type: str, price_currency: str, bid, mid, offer, last_update: str) -> None:
+        self._db.query("""insert into price_seed (symbol, security_type, price_currency, instrument_symbol,
+                                                  bid_price, mid_price, offer_price, last_update)
+                          values (%s, %s, %s, %s, %s, %s, %s, %s) returning symbol""",
+                       (symbol, security_type, price_currency, symbol, bid, mid, offer, last_update))
+
+    def delete(self, symbol: str) -> None:
+        self._db.query("delete from price_seed where symbol = %s returning symbol", (symbol,))
+
+
 class SettingTable:
     def __init__(self, db: Db):
         self._db = db
@@ -82,7 +111,13 @@ class DatabaseState:
     def capture(self, venue_id: str) -> dict[str, list[dict]]:
         return {t: sorted(self._rows(t, venue_id), key=repr) for t in self.TABLES}
 
+    # Status, not configuration: the simulator itself writes the time of the last POST /api/syncpriceseeds,
+    # and the setting is read-only through REST, so a sync test cannot put the old value back.
+    EXCLUDED_SETTINGS = ("SeedPricesLastUpdated",)
+
     def _rows(self, table: str, venue_id: str) -> list[dict]:
         if table in self.VENUE_TABLES:
             return self._db.query(f"select * from sim.{table} where venue_id = %s", (venue_id,))
+        if table == "setting":
+            return self._db.query("select * from sim.setting where key <> all(%s)", (list(self.EXCLUDED_SETTINGS),))
         return self._db.query(f"select * from sim.{table}")

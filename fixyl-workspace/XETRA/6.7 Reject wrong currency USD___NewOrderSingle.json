@@ -1,0 +1,22 @@
+{
+  "msg": "NewOrderSingle",
+  "data": {
+    "ClOrdID": "{auto-gen}",
+    "Instrument": {
+      "Symbol": "VOW",
+      "SecurityID": "DE0007664005",
+      "SecurityIDSource": "4",
+      "SecurityType": "CS",
+      "SecurityExchange": "XETR"
+    },
+    "Side": "1",
+    "TransactTime": "{auto-gen}",
+    "OrderQtyData": {
+      "OrderQty": "100"
+    },
+    "OrdType": "2",
+    "Price": "68.60",
+    "TimeInForce": "0",
+    "Currency": "USD"
+  }
+}

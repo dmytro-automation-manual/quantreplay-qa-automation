@@ -1,0 +1,24 @@
+{
+  "msg": "NewOrderSingle",
+  "data": {
+    "ClOrdID": "{auto-gen}",
+    "Instrument": {
+      "Symbol": "NFC",
+      "SecurityID": "US64110L1061",
+      "SecurityIDSource": "4",
+      "SecurityType": "CS",
+      "SecurityExchange": "XETR"
+    },
+    "Side": "2",
+    "TransactTime": "{auto-gen}",
+    "OrderQtyData": {
+      "OrderQty": "200"
+    },
+    "OrdType": "2",
+    "Price": "59.59",
+    "TimeInForce": "6",
+    "Currency": "EUR",
+    "HandlInst": "1",
+    "ExpireTime": "2027-12-31T16:30:00.000Z"
+  }
+}

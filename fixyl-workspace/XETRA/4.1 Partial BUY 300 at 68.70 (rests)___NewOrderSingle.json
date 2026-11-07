@@ -1,0 +1,23 @@
+{
+  "msg": "NewOrderSingle",
+  "data": {
+    "ClOrdID": "DEMO-VOW-PART",
+    "Instrument": {
+      "Symbol": "VOW",
+      "SecurityID": "DE0007664005",
+      "SecurityIDSource": "4",
+      "SecurityType": "CS",
+      "SecurityExchange": "XETR"
+    },
+    "Side": "1",
+    "TransactTime": "{auto-gen}",
+    "OrderQtyData": {
+      "OrderQty": "300"
+    },
+    "OrdType": "2",
+    "Price": "68.70",
+    "TimeInForce": "0",
+    "Currency": "EUR",
+    "HandlInst": "1"
+  }
+}

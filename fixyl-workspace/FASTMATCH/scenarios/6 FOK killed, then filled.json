@@ -1,0 +1,68 @@
+{
+  "stages": [
+    {
+      "name": "SELL 2M at 1.11931",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "ExecutionReport",
+          "data": "{\"ExecType\": \"0\", \"OrdStatus\": \"0\", \"OrderID\": \"{get:orderId}\", \"ClOrdID\": \"{get:clOrdId}\"}"
+        }
+      ],
+      "inputMsg": {
+        "name": "NewOrderSingle",
+        "data": "{\"ClOrdID\": \"{auto-gen}\", \"Instrument\": {\"Symbol\": \"EUR/USD\", \"SecurityType\": \"FXSPOT\", \"SecurityExchange\": \"FASTMATCH\"}, \"Side\": \"2\", \"TransactTime\": \"{auto-gen}\", \"OrderQtyData\": {\"OrderQty\": \"2000000\"}, \"OrdType\": \"2\", \"Price\": \"1.11931\", \"TimeInForce\": \"0\", \"Currency\": \"EUR\"}"
+      }
+    },
+    {
+      "name": "FOK BUY 3M: not enough, killed",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "ExecutionReport",
+          "data": "{\"ExecType\": \"4\", \"OrdStatus\": \"4\"}"
+        }
+      ],
+      "inputMsg": {
+        "name": "NewOrderSingle",
+        "data": "{\"ClOrdID\": \"{auto-gen}\", \"Instrument\": {\"Symbol\": \"EUR/USD\", \"SecurityType\": \"FXSPOT\", \"SecurityExchange\": \"FASTMATCH\"}, \"Side\": \"1\", \"TransactTime\": \"{auto-gen}\", \"OrderQtyData\": {\"OrderQty\": \"3000000\"}, \"OrdType\": \"2\", \"Price\": \"1.11931\", \"TimeInForce\": \"4\", \"Currency\": \"EUR\"}"
+      }
+    },
+    {
+      "name": "FOK BUY 2M: filled",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "ExecutionReport",
+          "data": "{\"Instrument\": {\"Symbol\": \"EUR/USD\"}}"
+        }
+      ],
+      "inputMsg": {
+        "name": "NewOrderSingle",
+        "data": "{\"ClOrdID\": \"{auto-gen}\", \"Instrument\": {\"Symbol\": \"EUR/USD\", \"SecurityType\": \"FXSPOT\", \"SecurityExchange\": \"FASTMATCH\"}, \"Side\": \"1\", \"TransactTime\": \"{auto-gen}\", \"OrderQtyData\": {\"OrderQty\": \"2000000\"}, \"OrdType\": \"2\", \"Price\": \"1.11931\", \"TimeInForce\": \"4\", \"Currency\": \"EUR\"}"
+      }
+    },
+    {
+      "name": "Snapshot: book empty",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "MarketDataSnapshotFullRefresh",
+          "data": "{\"Instrument\": {\"Symbol\": \"EUR/USD\"}}"
+        }
+      ],
+      "inputMsg": {
+        "name": "MarketDataRequest",
+        "data": "{\"MDReqID\": \"{auto-gen}\", \"SubscriptionRequestType\": \"0\", \"MarketDepth\": \"0\", \"AggregatedBook\": \"Y\", \"MDReqGrp\": {\"NoMDEntryTypes\": [{\"MDEntryType\": \"0\"}, {\"MDEntryType\": \"1\"}, {\"MDEntryType\": \"2\"}, {\"MDEntryType\": \"7\"}, {\"MDEntryType\": \"8\"}, {\"MDEntryType\": \"H\"}, {\"MDEntryType\": \"B\"}]}, \"InstrmtMDReqGrp\": {\"NoRelatedSym\": [{\"Instrument\": {\"Symbol\": \"EUR/USD\"}}]}}"
+      }
+    }
+  ]
+}

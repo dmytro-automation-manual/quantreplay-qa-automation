@@ -23,7 +23,8 @@ from xdist.scheduler import LoadScopeScheduling
 from framework.assertions.trading import check_execution_report
 from framework.config import Settings
 from framework.fix.tags import ExecType, OrdStatus
-from framework.services.db_tables import DatabaseState, ListingTable, PriceSeedTable, SettingTable, VenueTable
+from framework.services.db_tables import (DatabaseState, ExternalPriceSeedTable, ListingTable, PriceSeedTable,
+                                          SettingTable, VenueTable)
 from framework.services.market_data import MarketDataService
 from framework.services.rest_api import SimulatorApi
 from framework.services.trading import TradingService
@@ -271,3 +272,12 @@ def price_seed_table(db):
 @pytest.fixture(scope="session")
 def setting_table(db):
     return SettingTable(db)
+
+
+@pytest.fixture(scope="session")
+def external_price_seed_table(settings):
+    """price_seed of the external price seed database: what POST /api/syncpriceseeds copies from."""
+    s = settings.price_seed_db
+    client = DbClient(s.host, s.port, s.name, s.user, s.password)
+    yield ExternalPriceSeedTable(client)
+    client.close()

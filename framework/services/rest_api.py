@@ -76,6 +76,10 @@ class SimulatorApi:
     def delete_price_seed(self, seed_id: int) -> ApiResponse:
         return self._call("DELETE", f"/priceseeds/{seed_id}")
 
+    def sync_price_seeds(self) -> ApiResponse:
+        """Copy prices from the external price seed database (setting SeedPriceDatabaseConnection)."""
+        return self._call("POST", "/syncpriceseeds")
+
     # --- datasources -----------------------------------------------------------------------------
     def get_datasources(self) -> ApiResponse:
         return self._call("GET", "/datasources")

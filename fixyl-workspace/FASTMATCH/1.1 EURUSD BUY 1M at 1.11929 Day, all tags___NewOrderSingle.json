@@ -1,0 +1,35 @@
+{
+  "msg": "NewOrderSingle",
+  "data": {
+    "ClOrdID": "{auto-gen}",
+    "Instrument": {
+      "Symbol": "EUR/USD",
+      "SecurityType": "FXSPOT",
+      "SecurityExchange": "FASTMATCH"
+    },
+    "Side": "1",
+    "TransactTime": "{auto-gen}",
+    "OrderQtyData": {
+      "OrderQty": "1000000"
+    },
+    "OrdType": "2",
+    "Price": "1.11929",
+    "TimeInForce": "0",
+    "Currency": "EUR",
+    "HandlInst": "1",
+    "Parties": {
+      "NoPartyIDs": [
+        {
+          "PartyID": "ACME-DESK-1",
+          "PartyIDSource": "D",
+          "PartyRole": "1"
+        },
+        {
+          "PartyID": "CONTRA-BANK",
+          "PartyIDSource": "D",
+          "PartyRole": "17"
+        }
+      ]
+    }
+  }
+}

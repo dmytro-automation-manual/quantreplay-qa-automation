@@ -2,7 +2,7 @@
 import fcntl
 import logging
 import time
-from collections.abc import Callable, Iterator
+from collections.abc import Callable, Generator
 from contextlib import contextmanager
 from pathlib import Path
 
@@ -47,7 +47,7 @@ def wait_until(condition: Callable[[], bool], timeout: float, what: str, interva
 
 
 @contextmanager
-def exclusive_lock(path: Path) -> Iterator[None]:
+def exclusive_lock(path: Path) -> Generator[None]:
     """Lock shared by the pytest-xdist workers (one per venue): the holder is the only one using the guarded data."""
     with open(path, "w") as handle:
         fcntl.flock(handle, fcntl.LOCK_EX)

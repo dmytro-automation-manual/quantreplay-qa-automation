@@ -10,10 +10,11 @@ services:
     networks:
       - market-simulator-net
     ports:
-      - "9050:9050" # Port to send REST API requests
-      - "9051:9051" # Port to send FIX messages
+      - "9050:9050"
+      - "9051:9051"
     volumes:
-      - ./:/market-simulator/quod/data/
+      - ./xetra/:/market-simulator/quod/data/
+      - ./dictionaries/:/market-simulator/quod/data/cfg/default/:ro
     environment:
       - INSTANCE_ID=XETRA
       - PREFIX=QUOD
@@ -22,19 +23,17 @@ services:
         condition: service_completed_successfully
 
   FASTMATCH:
-    # Second venue (FX spot), same image and database; its own FIX config in fastmatch/cfg,
-    # the FIX dictionaries are shared with XETRA.
     image: ghcr.io/quod-financial/deploy_marketsim:latest
     platform: linux/amd64
     container_name: FASTMATCH
     networks:
       - market-simulator-net
     ports:
-      - "9052:9052" # REST API (sim.venue.rest_port)
-      - "9053:9053" # FIX
+      - "9052:9052"
+      - "9053:9053"
     volumes:
       - ./fastmatch/:/market-simulator/quod/data/
-      - ./cfg/default/:/market-simulator/quod/data/cfg/default/:ro
+      - ./dictionaries/:/market-simulator/quod/data/cfg/default/:ro
     environment:
       - INSTANCE_ID=FASTMATCH
       - PREFIX=QUOD
@@ -50,11 +49,7 @@ services:
     ports:
       - 15432:5432
     volumes:
-      # Test database kept on the host (in git): loaded on every start, after the image's init.sql
-      # that creates the `sim` user and schema. Rebuild it with scripts/build_test_db.sh.
       - ./db/simdb_test_data.sql:/docker-entrypoint-initdb.d/zz_simdb_test_data.sql:ro
-    # Data lives in memory: every (re)start of the container begins from the test database above,
-    # so a test run can never leave anything behind for the next one.
     tmpfs:
       - /var/lib/postgresql/data
     environment:
@@ -62,9 +57,28 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     healthcheck:
-      # Over TCP and as the application user: true only after the init scripts have loaded the test data
-      # (during init Postgres listens on the unix socket only).
       test: [ "CMD-SHELL", "PGPASSWORD=sim psql -h 127.0.0.1 -U sim -d simdb -tAc 'select count(*) from sim.listing' | grep -q '^[1-9]'" ]
+      retries: 30
+      interval: 2s
+      timeout: 5s
+
+  external_price-seed-db:
+    image: postgres:18.6
+    container_name: external_price-seed-db
+    networks:
+      - market-simulator-net
+    ports:
+      - 15433:5432
+    volumes:
+      - ./db/external_price_seed.sql:/docker-entrypoint-initdb.d/external_price_seed.sql:ro
+    tmpfs:
+      - /var/lib/postgresql
+    environment:
+      - POSTGRES_DB=priceseed
+      - POSTGRES_USER=priceseed
+      - POSTGRES_PASSWORD=priceseed
+    healthcheck:
+      test: [ "CMD-SHELL", "PGPASSWORD=priceseed psql -h 127.0.0.1 -U priceseed -d priceseed -tAc 'select count(*) from price_seed' | grep -q '^[1-9]'" ]
       retries: 30
       interval: 2s
       timeout: 5s

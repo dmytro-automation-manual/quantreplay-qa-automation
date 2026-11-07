@@ -1,0 +1,100 @@
+{
+  "stages": [
+    {
+      "name": "BUY 1M at 1.11900: New",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "ExecutionReport",
+          "data": "{\"ExecType\": \"0\", \"OrdStatus\": \"0\", \"OrderID\": \"{get:orderId}\", \"ClOrdID\": \"{get:clOrdId}\"}"
+        }
+      ],
+      "inputMsg": {
+        "name": "NewOrderSingle",
+        "data": "{\"ClOrdID\": \"{auto-gen}\", \"Instrument\": {\"Symbol\": \"EUR/USD\", \"SecurityType\": \"FXSPOT\", \"SecurityExchange\": \"FASTMATCH\"}, \"Side\": \"1\", \"TransactTime\": \"{auto-gen}\", \"OrderQtyData\": {\"OrderQty\": \"1000000\"}, \"OrdType\": \"2\", \"Price\": \"1.11900\", \"TimeInForce\": \"0\", \"Currency\": \"EUR\", \"HandlInst\": \"1\", \"Parties\": {\"NoPartyIDs\": [{\"PartyID\": \"ACME-DESK-1\", \"PartyIDSource\": \"D\", \"PartyRole\": \"1\"}, {\"PartyID\": \"CONTRA-BANK\", \"PartyIDSource\": \"D\", \"PartyRole\": \"17\"}]}}"
+      }
+    },
+    {
+      "name": "Replace price to 1.11910",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "ExecutionReport",
+          "data": "{\"ExecType\": \"5\", \"OrdStatus\": \"5\", \"OrderID\": \"{get:orderId}\", \"ClOrdID\": \"{get:clOrdId}\"}"
+        }
+      ],
+      "inputMsg": {
+        "name": "OrderCancelReplaceRequest",
+        "data": "{\"OrigClOrdID\": \"{get:clOrdId}\", \"ClOrdID\": \"{auto-gen}\", \"Instrument\": {\"Symbol\": \"EUR/USD\", \"SecurityType\": \"FXSPOT\", \"SecurityExchange\": \"FASTMATCH\"}, \"Side\": \"1\", \"TransactTime\": \"{auto-gen}\", \"OrderQtyData\": {\"OrderQty\": \"1000000\"}, \"OrdType\": \"2\", \"Price\": \"1.11910\", \"Currency\": \"EUR\", \"OrderID\": \"{get:orderId}\"}"
+      }
+    },
+    {
+      "name": "Replace qty to 2M",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "ExecutionReport",
+          "data": "{\"ExecType\": \"5\", \"OrdStatus\": \"5\", \"OrderID\": \"{get:orderId}\", \"ClOrdID\": \"{get:clOrdId}\"}"
+        }
+      ],
+      "inputMsg": {
+        "name": "OrderCancelReplaceRequest",
+        "data": "{\"OrigClOrdID\": \"{get:clOrdId}\", \"ClOrdID\": \"{auto-gen}\", \"Instrument\": {\"Symbol\": \"EUR/USD\", \"SecurityType\": \"FXSPOT\", \"SecurityExchange\": \"FASTMATCH\"}, \"Side\": \"1\", \"TransactTime\": \"{auto-gen}\", \"OrderQtyData\": {\"OrderQty\": \"2000000\"}, \"OrdType\": \"2\", \"Price\": \"1.11910\", \"Currency\": \"EUR\", \"OrderID\": \"{get:orderId}\"}"
+      }
+    },
+    {
+      "name": "Snapshot: order in the book",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "MarketDataSnapshotFullRefresh",
+          "data": "{\"Instrument\": {\"Symbol\": \"EUR/USD\"}}"
+        }
+      ],
+      "inputMsg": {
+        "name": "MarketDataRequest",
+        "data": "{\"MDReqID\": \"{auto-gen}\", \"SubscriptionRequestType\": \"0\", \"MarketDepth\": \"0\", \"AggregatedBook\": \"Y\", \"MDReqGrp\": {\"NoMDEntryTypes\": [{\"MDEntryType\": \"0\"}, {\"MDEntryType\": \"1\"}, {\"MDEntryType\": \"2\"}, {\"MDEntryType\": \"7\"}, {\"MDEntryType\": \"8\"}, {\"MDEntryType\": \"H\"}, {\"MDEntryType\": \"B\"}]}, \"InstrmtMDReqGrp\": {\"NoRelatedSym\": [{\"Instrument\": {\"Symbol\": \"EUR/USD\"}}]}}"
+      }
+    },
+    {
+      "name": "Cancel",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "ExecutionReport",
+          "data": "{\"ExecType\": \"4\", \"OrdStatus\": \"4\"}"
+        }
+      ],
+      "inputMsg": {
+        "name": "OrderCancelRequest",
+        "data": "{\"OrigClOrdID\": \"{get:clOrdId}\", \"ClOrdID\": \"{auto-gen}\", \"Instrument\": {\"Symbol\": \"EUR/USD\", \"SecurityType\": \"FXSPOT\", \"SecurityExchange\": \"FASTMATCH\"}, \"Side\": \"1\", \"TransactTime\": \"{auto-gen}\", \"Currency\": \"EUR\", \"OrderID\": \"{get:orderId}\"}"
+      }
+    },
+    {
+      "name": "Snapshot: book empty",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "MarketDataSnapshotFullRefresh",
+          "data": "{\"Instrument\": {\"Symbol\": \"EUR/USD\"}}"
+        }
+      ],
+      "inputMsg": {
+        "name": "MarketDataRequest",
+        "data": "{\"MDReqID\": \"{auto-gen}\", \"SubscriptionRequestType\": \"0\", \"MarketDepth\": \"0\", \"AggregatedBook\": \"Y\", \"MDReqGrp\": {\"NoMDEntryTypes\": [{\"MDEntryType\": \"0\"}, {\"MDEntryType\": \"1\"}, {\"MDEntryType\": \"2\"}, {\"MDEntryType\": \"7\"}, {\"MDEntryType\": \"8\"}, {\"MDEntryType\": \"H\"}, {\"MDEntryType\": \"B\"}]}, \"InstrmtMDReqGrp\": {\"NoRelatedSym\": [{\"Instrument\": {\"Symbol\": \"EUR/USD\"}}]}}"
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "msg": "NewOrderSingle",
+  "data": {
+    "ClOrdID": "{auto-gen}",
+    "Instrument": {
+      "Symbol": "XXX/YYY"
+    },
+    "Side": "1",
+    "TransactTime": "{auto-gen}",
+    "OrderQtyData": {
+      "OrderQty": "1000000"
+    },
+    "OrdType": "2",
+    "Price": "1.11900",
+    "TimeInForce": "0"
+  }
+}

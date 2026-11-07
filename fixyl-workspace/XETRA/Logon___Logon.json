@@ -1,0 +1,9 @@
+{
+  "msg": "Logon",
+  "data": {
+    "EncryptMethod": "0",
+    "HeartBtInt": "30",
+    "ResetSeqNumFlag": "Y",
+    "DefaultApplVerID": "9"
+  }
+}

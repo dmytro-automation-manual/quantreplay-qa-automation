@@ -8,8 +8,8 @@
     "targetCompId": "SIM_XETRA",
     "fixVersion": "5",
     "hbInterval": 30,
-    "dictionaryLocation": "/home/dmytro/Fintech project/fixyl-workspace/dictionaries/FIX50SP2_marketsimulator.xml",
-    "transportDictionaryLocation": "/home/dmytro/Fintech project/fixyl-workspace/dictionaries/FIXT11_marketsimulator.xml",
+    "dictionaryLocation": "/home/dmytro/fintech-project/fixyl-workspace/dictionaries/XETRA.xml",
+    "transportDictionaryLocation": "/home/dmytro/fintech-project/fixyl-workspace/dictionaries/FIXT11_marketsimulator.xml",
     "autoLoginEnabled": true,
     "autoLoginMsg": "Logon"
   },
@@ -22,8 +22,8 @@
     "targetCompId": "SIM_FASTMATCH",
     "fixVersion": "5",
     "hbInterval": 30,
-    "dictionaryLocation": "/home/dmytro/Fintech project/fixyl-workspace/dictionaries/FIX50SP2_marketsimulator.xml",
-    "transportDictionaryLocation": "/home/dmytro/Fintech project/fixyl-workspace/dictionaries/FIXT11_marketsimulator.xml",
+    "dictionaryLocation": "/home/dmytro/fintech-project/fixyl-workspace/dictionaries/FASTMATCH.xml",
+    "transportDictionaryLocation": "/home/dmytro/fintech-project/fixyl-workspace/dictionaries/FIXT11_marketsimulator.xml",
     "autoLoginEnabled": true,
     "autoLoginMsg": "Logon"
   }

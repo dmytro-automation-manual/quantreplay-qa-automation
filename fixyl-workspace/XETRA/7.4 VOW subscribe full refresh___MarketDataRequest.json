@@ -1,0 +1,29 @@
+{
+  "msg": "MarketDataRequest",
+  "data": {
+    "MDReqID": "MD-VOW-FULL",
+    "SubscriptionRequestType": "1",
+    "MarketDepth": "0",
+    "MDUpdateType": "0",
+    "AggregatedBook": "Y",
+    "MDReqGrp": {
+      "NoMDEntryTypes": [
+        {
+          "MDEntryType": "0"
+        },
+        {
+          "MDEntryType": "1"
+        }
+      ]
+    },
+    "InstrmtMDReqGrp": {
+      "NoRelatedSym": [
+        {
+          "Instrument": {
+            "Symbol": "VOW"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "msg": "MarketDataRequest",
+  "data": {
+    "MDReqID": "{auto-gen}",
+    "SubscriptionRequestType": "0",
+    "MarketDepth": "0",
+    "AggregatedBook": "Y",
+    "MDReqGrp": {
+      "NoMDEntryTypes": [
+        {
+          "MDEntryType": "0"
+        },
+        {
+          "MDEntryType": "1"
+        },
+        {
+          "MDEntryType": "2"
+        },
+        {
+          "MDEntryType": "7"
+        },
+        {
+          "MDEntryType": "8"
+        },
+        {
+          "MDEntryType": "H"
+        },
+        {
+          "MDEntryType": "B"
+        }
+      ]
+    },
+    "InstrmtMDReqGrp": {
+      "NoRelatedSym": [
+        {
+          "Instrument": {
+            "Symbol": "VOW"
+          }
+        }
+      ]
+    }
+  }
+}

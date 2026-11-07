@@ -1,0 +1,37 @@
+{
+  "msg": "NewOrderSingle",
+  "data": {
+    "ClOrdID": "{auto-gen}",
+    "Instrument": {
+      "Symbol": "AMZ",
+      "SecurityID": "US0231351067",
+      "SecurityIDSource": "4",
+      "SecurityType": "CS",
+      "SecurityExchange": "XETR"
+    },
+    "Side": "1",
+    "TransactTime": "{auto-gen}",
+    "OrderQtyData": {
+      "OrderQty": "50"
+    },
+    "OrdType": "2",
+    "Price": "222.50",
+    "TimeInForce": "1",
+    "Currency": "EUR",
+    "HandlInst": "1",
+    "Parties": {
+      "NoPartyIDs": [
+        {
+          "PartyID": "ACME-DESK-1",
+          "PartyIDSource": "D",
+          "PartyRole": "1"
+        },
+        {
+          "PartyID": "CONTRA-BANK",
+          "PartyIDSource": "D",
+          "PartyRole": "17"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "msg": "NewOrderSingle",
+  "data": {
+    "ClOrdID": "{auto-gen}",
+    "Instrument": {
+      "Symbol": "VOW",
+      "SecurityID": "DE0007664005",
+      "SecurityIDSource": "4",
+      "SecurityType": "CS",
+      "SecurityExchange": "XETR"
+    },
+    "Side": "1",
+    "TransactTime": "{auto-gen}",
+    "OrderQtyData": {
+      "OrderQty": "100"
+    },
+    "OrdType": "2",
+    "Price": "68.68",
+    "TimeInForce": "0",
+    "Currency": "EUR",
+    "HandlInst": "1",
+    "Parties": {
+      "NoPartyIDs": [
+        {
+          "PartyID": "ACME-DESK-1",
+          "PartyIDSource": "D",
+          "PartyRole": "1"
+        },
+        {
+          "PartyID": "CONTRA-BANK",
+          "PartyIDSource": "D",
+          "PartyRole": "17"
+        }
+      ]
+    }
+  }
+}

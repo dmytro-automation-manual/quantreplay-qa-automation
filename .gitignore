@@ -13,14 +13,13 @@ simulator/
 # Simulator runtime data
 sim-run/database_files/
 sim-run/db/snapshots/
-sim-run/state/
-sim-run/log/
-sim-run/files_store_path_common/
-sim-run/fastmatch/log/
-sim-run/fastmatch/state/
-sim-run/fastmatch/files_store_path_common/
-sim-run/cfg/*.bak*
+# written by the simulator at run time, per venue (sim-run/xetra/, sim-run/fastmatch/)
+sim-run/*/log/
+sim-run/*/state/
+sim-run/*/files_store_path_common/
+sim-run/*/cfg/*.bak*
 
 # Local secrets
 reportportal/.env
 *.env
+.idea/

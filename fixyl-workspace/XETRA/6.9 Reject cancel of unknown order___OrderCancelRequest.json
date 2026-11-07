@@ -1,0 +1,17 @@
+{
+  "msg": "OrderCancelRequest",
+  "data": {
+    "OrigClOrdID": "NO-SUCH-ORDER",
+    "ClOrdID": "{auto-gen}",
+    "Instrument": {
+      "Symbol": "VOW",
+      "SecurityID": "DE0007664005",
+      "SecurityIDSource": "4",
+      "SecurityType": "CS",
+      "SecurityExchange": "XETR"
+    },
+    "Side": "1",
+    "TransactTime": "{auto-gen}",
+    "Currency": "EUR"
+  }
+}

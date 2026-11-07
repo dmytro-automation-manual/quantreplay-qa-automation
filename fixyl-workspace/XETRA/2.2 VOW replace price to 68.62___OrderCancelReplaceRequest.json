@@ -1,0 +1,22 @@
+{
+  "msg": "OrderCancelReplaceRequest",
+  "data": {
+    "OrigClOrdID": "DEMO-VOW-NEW",
+    "ClOrdID": "DEMO-VOW-PX",
+    "Instrument": {
+      "Symbol": "VOW",
+      "SecurityID": "DE0007664005",
+      "SecurityIDSource": "4",
+      "SecurityType": "CS",
+      "SecurityExchange": "XETR"
+    },
+    "Side": "1",
+    "TransactTime": "{auto-gen}",
+    "OrderQtyData": {
+      "OrderQty": "100"
+    },
+    "OrdType": "2",
+    "Price": "68.62",
+    "Currency": "EUR"
+  }
+}

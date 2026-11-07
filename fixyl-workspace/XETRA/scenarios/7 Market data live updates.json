@@ -1,0 +1,79 @@
+{
+  "stages": [
+    {
+      "name": "Subscribe incremental",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "MarketDataSnapshotFullRefresh",
+          "data": "{\"MDReqID\": \"{get:mdReqId}\", \"Instrument\": {\"Symbol\": \"VOW\"}}"
+        }
+      ],
+      "inputMsg": {
+        "name": "MarketDataRequest",
+        "data": "{\"MDReqID\": \"{auto-gen}\", \"SubscriptionRequestType\": \"1\", \"MarketDepth\": \"0\", \"MDUpdateType\": \"1\", \"AggregatedBook\": \"Y\", \"MDReqGrp\": {\"NoMDEntryTypes\": [{\"MDEntryType\": \"0\"}, {\"MDEntryType\": \"1\"}, {\"MDEntryType\": \"2\"}]}, \"InstrmtMDReqGrp\": {\"NoRelatedSym\": [{\"Instrument\": {\"Symbol\": \"VOW\"}}]}}"
+      }
+    },
+    {
+      "name": "BUY 100 at 68.70",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "ExecutionReport",
+          "data": "{\"ExecType\": \"0\", \"OrdStatus\": \"0\", \"OrderID\": \"{get:orderId}\", \"ClOrdID\": \"{get:clOrdId}\"}"
+        }
+      ],
+      "inputMsg": {
+        "name": "NewOrderSingle",
+        "data": "{\"ClOrdID\": \"{auto-gen}\", \"Instrument\": {\"Symbol\": \"VOW\", \"SecurityID\": \"DE0007664005\", \"SecurityIDSource\": \"4\", \"SecurityType\": \"CS\", \"SecurityExchange\": \"XETR\"}, \"Side\": \"1\", \"TransactTime\": \"{auto-gen}\", \"OrderQtyData\": {\"OrderQty\": \"100\"}, \"OrdType\": \"2\", \"Price\": \"68.70\", \"TimeInForce\": \"0\", \"Currency\": \"EUR\"}"
+      }
+    },
+    {
+      "name": "SELL 100 at 68.70",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "ExecutionReport",
+          "data": "{\"Instrument\": {\"Symbol\": \"VOW\"}}"
+        }
+      ],
+      "inputMsg": {
+        "name": "NewOrderSingle",
+        "data": "{\"ClOrdID\": \"{auto-gen}\", \"Instrument\": {\"Symbol\": \"VOW\", \"SecurityID\": \"DE0007664005\", \"SecurityIDSource\": \"4\", \"SecurityType\": \"CS\", \"SecurityExchange\": \"XETR\"}, \"Side\": \"2\", \"TransactTime\": \"{auto-gen}\", \"OrderQtyData\": {\"OrderQty\": \"100\"}, \"OrdType\": \"2\", \"Price\": \"68.70\", \"TimeInForce\": \"0\", \"Currency\": \"EUR\"}"
+      }
+    },
+    {
+      "name": "Unsubscribe",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [],
+      "inputMsg": {
+        "name": "MarketDataRequest",
+        "data": "{\"MDReqID\": \"{get:mdReqId}\", \"SubscriptionRequestType\": \"2\", \"MarketDepth\": \"0\", \"MDUpdateType\": \"1\", \"AggregatedBook\": \"Y\", \"MDReqGrp\": {\"NoMDEntryTypes\": [{\"MDEntryType\": \"0\"}, {\"MDEntryType\": \"1\"}, {\"MDEntryType\": \"2\"}]}, \"InstrmtMDReqGrp\": {\"NoRelatedSym\": [{\"Instrument\": {\"Symbol\": \"VOW\"}}]}}"
+      }
+    },
+    {
+      "name": "Snapshot after the trade",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "MarketDataSnapshotFullRefresh",
+          "data": "{\"Instrument\": {\"Symbol\": \"VOW\"}}"
+        }
+      ],
+      "inputMsg": {
+        "name": "MarketDataRequest",
+        "data": "{\"MDReqID\": \"{auto-gen}\", \"SubscriptionRequestType\": \"0\", \"MarketDepth\": \"0\", \"AggregatedBook\": \"Y\", \"MDReqGrp\": {\"NoMDEntryTypes\": [{\"MDEntryType\": \"0\"}, {\"MDEntryType\": \"1\"}, {\"MDEntryType\": \"2\"}, {\"MDEntryType\": \"7\"}, {\"MDEntryType\": \"8\"}, {\"MDEntryType\": \"H\"}, {\"MDEntryType\": \"B\"}]}, \"InstrmtMDReqGrp\": {\"NoRelatedSym\": [{\"Instrument\": {\"Symbol\": \"VOW\"}}]}}"
+      }
+    }
+  ]
+}
