@@ -1,0 +1,4 @@
+Sync with a wrong connection
+field        expected                                                     actual                                                       result
+status_code  500                                                          500                                                          ok    
+result       Failed to synchronize price seeds because of unknown reason  Failed to synchronize price seeds because of unknown reason  ok    

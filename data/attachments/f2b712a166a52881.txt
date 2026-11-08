@@ -1,0 +1,16 @@
+15:48:44.839 rest   >> GET /settings 
+15:48:44.845 httpx  HTTP Request: GET http://localhost:9052/api/settings "HTTP/1.1 200 OK"
+15:48:44.846 rest   << 200 {"settings":[{"key":"SeedPriceDatabaseConnection","value":"postgresql://priceseed:priceseed@external_price-seed-db:5432/priceseed"},{"key":"DisplayName","value":"MKTSIMULATOR"},{"key":"SeedPricesLastUpdated","value":"2026-11-08 15:48:44"}]}
+15:48:45.946 rest   >> POST /syncpriceseeds 
+15:48:45.981 httpx  HTTP Request: POST http://localhost:9052/api/syncpriceseeds "HTTP/1.1 200 OK"
+15:48:45.982 rest   << 200 {"result":"Price seeds successfully synchronized"}
+15:48:45.982 check  Sync price seeds
+field        expected                               actual                                 result
+status_code  200                                    200                                    ok    
+result       Price seeds successfully synchronized  Price seeds successfully synchronized  ok    
+15:48:45.982 rest   >> GET /settings 
+15:48:45.989 httpx  HTTP Request: GET http://localhost:9052/api/settings "HTTP/1.1 200 OK"
+15:48:45.990 rest   << 200 {"settings":[{"key":"SeedPriceDatabaseConnection","value":"postgresql://priceseed:priceseed@external_price-seed-db:5432/priceseed"},{"key":"DisplayName","value":"MKTSIMULATOR"},{"key":"SeedPricesLastUpdated","value":"2026-11-08 15:48:45"}]}
+15:48:45.990 check  SeedPricesLastUpdated moved forward
+field      expected  actual                                                      result
+condition  true      True before 2026-11-08 15:48:44, after 2026-11-08 15:48:45  ok

@@ -1,0 +1,22 @@
+15:48:31.425 rest   >> POST /halt/FASTMATCH {"allowCancels": true}
+15:48:31.426 httpx  HTTP Request: POST http://localhost:9052/api/halt/FASTMATCH "HTTP/1.1 200 OK"
+15:48:31.426 rest   << 200 {"result":"The market was successfully halted."}
+15:48:31.427 check  POST halt
+field        expected                             actual                               result
+status_code  200                                  200                                  ok    
+result       The market was successfully halted.  The market was successfully halted.  ok    
+15:48:31.427 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=311|52=20261108-15:48:31.427|11=a3574947288b4df9|55=EUR/USD|54=1|60=20261108-15:48:31.427|40=2|44=1.00736|38=1000000|59=0|10=054|
+15:48:31.427 fix    << 8=FIXT.1.1|9=280|35=8|34=345|49=SIM_FASTMATCH|52=20261108-15:48:31.427|56=CLIENT_FASTMATCH|6=0|11=a3574947288b4df9|14=0|17=261108154831000051-1|37=261108154831000051|38=1000000|39=8|40=2|44=1.00736|54=1|55=EUR/USD|58=request cannot be processed during halted trading status|59=0|150=8|151=1000000|10=212|
+15:48:31.428 check  ExecutionReport during halt
+field       expected                                                  actual                                                    result
+msg_type    EXECUTION_REPORT(8)                                       EXECUTION_REPORT(8)                                       ok    
+order_id    <non-empty>                                               261108154831000051                                        ok    
+exec_type   REJECTED(8)                                               REJECTED(8)                                               ok    
+ord_status  REJECTED(8)                                               REJECTED(8)                                               ok    
+symbol      EUR/USD                                                   EUR/USD                                                   ok    
+order_qty   1000000                                                   1000000                                                   ok    
+price       1.00736                                                   1.00736                                                   ok    
+text        request cannot be processed during halted trading status  request cannot be processed during halted trading status  ok
+15:48:31.428 rest   >> POST /resume/FASTMATCH 
+15:48:31.430 httpx  HTTP Request: POST http://localhost:9052/api/resume/FASTMATCH "HTTP/1.1 200 OK"
+15:48:31.430 rest   << 200 {"result":"The market was successfully resumed."}

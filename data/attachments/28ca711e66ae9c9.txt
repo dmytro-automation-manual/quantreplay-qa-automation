@@ -1,0 +1,3 @@
+Saved schedule
+field   expected                                                      actual                                                        result
+phases  [{'phase': 'Closed', 'startTime': '23:00', 'endTime': '23...  [{'phase': 'Closed', 'startTime': '23:00', 'endTime': '23...  ok    

@@ -1,0 +1,5 @@
+Simulator seed EUR/USD after sync
+field        expected  actual   result
+bid_price    1.11939   1.11939  ok    
+mid_price    1.11940   1.1194   ok    
+offer_price  1.11941   1.11941  ok    

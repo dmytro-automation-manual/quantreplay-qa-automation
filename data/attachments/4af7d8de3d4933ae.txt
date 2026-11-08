@@ -1,0 +1,12 @@
+15:48:25.561 fix    >> 8=FIXT.1.1|9=173|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=67|52=20261108-15:48:25.561|11=dda9394ad94a40d8|55=GBP/USD|15=USD|54=1|60=20261108-15:48:25.561|40=2|44=1.20313|38=1000000|59=0|10=007|
+15:48:25.562 fix    << 8=FIXT.1.1|9=237|35=8|34=73|49=SIM_FASTMATCH|52=20261108-15:48:25.562|56=CLIENT_FASTMATCH|6=0|11=dda9394ad94a40d8|14=0|15=USD|17=261108154825000002-1|37=261108154825000002|38=1000000|39=8|44=1.20313|54=1|55=GBP/USD|58=listing not found|150=8|151=1000000|10=017|
+15:48:25.562 check  ExecutionReport for wrong Currency
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261108154825000002   ok    
+exec_type   REJECTED(8)          REJECTED(8)          ok    
+ord_status  REJECTED(8)          REJECTED(8)          ok    
+symbol      GBP/USD              GBP/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.20313              1.20313              ok    
+text        listing not found    listing not found    ok

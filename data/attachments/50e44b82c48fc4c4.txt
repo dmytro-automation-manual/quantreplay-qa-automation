@@ -1,0 +1,36 @@
+15:48:29.875 fix    >> 8=FIXT.1.1|9=180|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=288|52=20261108-15:48:29.875|11=db4a5f5abbb64ee7|55=EUR/USD|54=1|60=20261108-15:48:29.875|40=2|44=1.00736|38=1000000|59=6|432=20261110|10=206|
+15:48:29.876 fix    << 8=FIXT.1.1|9=233|35=8|34=320|49=SIM_FASTMATCH|52=20261108-15:48:29.875|56=CLIENT_FASTMATCH|6=0|11=db4a5f5abbb64ee7|14=0|17=261108154829000041-1|37=261108154829000041|38=1000000|39=0|40=2|44=1.00736|54=1|55=EUR/USD|59=6|150=0|151=1000000|432=20261110|10=027|
+15:48:29.876 check  ExecutionReport for GOOD_TILL_DATE order
+field          expected             actual               result
+msg_type       EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id       <non-empty>          261108154829000041   ok    
+exec_type      NEW(0)               NEW(0)               ok    
+ord_status     NEW(0)               NEW(0)               ok    
+symbol         EUR/USD              EUR/USD              ok    
+order_qty      1000000              1000000              ok    
+price          1.00736              1.00736              ok    
+time_in_force  GOOD_TILL_DATE(6)    GOOD_TILL_DATE(6)    ok    
+leaves_qty     1000000              1000000              ok    
+cum_qty        0                    0                    ok    
+expire_date    20261110             20261110             ok    
+15:48:29.876 fix    >> 8=FIXT.1.1|9=142|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=289|52=20261108-15:48:29.876|262=d0c9a853eb384519|263=0|264=0|267=2|269=0|269=1|146=1|55=EUR/USD|10=163|
+15:48:29.876 fix    << 8=FIXT.1.1|9=186|35=W|34=321|49=SIM_FASTMATCH|52=20261108-15:48:29.876|56=CLIENT_FASTMATCH|55=EUR/USD|262=d0c9a853eb384519|268=1|269=0|278=1794152897:29|270=1.00736|271=1000000|779=20261108-15:48:29.876|10=148|
+15:48:29.876 check  Book with GOOD_TILL_DATE order: one BID at 1.00736
+field      expected  actual        result
+condition  true      True found 1  ok    
+15:48:29.877 check  Book with GOOD_TILL_DATE order
+field       expected  actual   result
+entry_type  BID(0)    BID(0)   ok    
+price       1.00736   1.00736  ok    
+size        1000000   1000000  ok
+15:48:29.928 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=290|52=20261108-15:48:29.928|41=db4a5f5abbb64ee7|11=314238b353d34cba|37=261108154829000041|55=EUR/USD|54=1|60=20261108-15:48:29.928|10=182|
+15:48:29.928 fix    << 8=FIXT.1.1|9=247|35=8|34=322|49=SIM_FASTMATCH|52=20261108-15:48:29.928|56=CLIENT_FASTMATCH|6=0|11=314238b353d34cba|14=0|17=261108154829000041-2|37=261108154829000041|38=1000000|39=4|40=2|41=db4a5f5abbb64ee7|44=1.00736|54=1|55=EUR/USD|59=6|150=4|151=0|432=20261110|10=207|
+15:48:29.928 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108154829000041   261108154829000041   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.00736              1.00736              ok

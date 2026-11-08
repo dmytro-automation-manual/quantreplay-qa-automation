@@ -1,0 +1,31 @@
+15:48:31.585 rest   >> POST /halt/FASTMATCH {"allowCancels": true}
+15:48:31.586 httpx  HTTP Request: POST http://localhost:9052/api/halt/FASTMATCH "HTTP/1.1 200 OK"
+15:48:31.587 rest   << 200 {"result":"The market was successfully halted."}
+15:48:31.587 check  POST halt
+field        expected                             actual                               result
+status_code  200                                  200                                  ok    
+result       The market was successfully halted.  The market was successfully halted.  ok    
+15:48:31.587 rest   >> POST /halt/FASTMATCH {"allowCancels": true}
+15:48:31.588 httpx  HTTP Request: POST http://localhost:9052/api/halt/FASTMATCH "HTTP/1.1 409 Conflict"
+15:48:31.588 rest   << 409 {"result":"The market is already halted."}
+15:48:31.589 check  Second halt
+field        expected                       actual                         result
+status_code  409                            409                            ok    
+result       The market is already halted.  The market is already halted.  ok    
+15:48:31.589 rest   >> POST /resume/FASTMATCH 
+15:48:31.590 httpx  HTTP Request: POST http://localhost:9052/api/resume/FASTMATCH "HTTP/1.1 200 OK"
+15:48:31.590 rest   << 200 {"result":"The market was successfully resumed."}
+15:48:31.590 check  Resume
+field        expected                              actual                                result
+status_code  200                                   200                                   ok    
+result       The market was successfully resumed.  The market was successfully resumed.  ok    
+15:48:31.590 rest   >> POST /resume/FASTMATCH 
+15:48:31.591 httpx  HTTP Request: POST http://localhost:9052/api/resume/FASTMATCH "HTTP/1.1 409 Conflict"
+15:48:31.591 rest   << 409 {"result":"There is no halt request to terminate."}
+15:48:31.591 check  Resume without halt
+field        expected                                actual                                  result
+status_code  409                                     409                                     ok    
+result       There is no halt request to terminate.  There is no halt request to terminate.  ok
+15:48:31.592 rest   >> POST /resume/FASTMATCH 
+15:48:31.593 httpx  HTTP Request: POST http://localhost:9052/api/resume/FASTMATCH "HTTP/1.1 409 Conflict"
+15:48:31.593 rest   << 409 {"result":"There is no halt request to terminate."}

@@ -1,0 +1,3 @@
+Simulator seed VOW unchanged
+field      expected  actual                                                                                                                                                                                                                                                                                             result
+condition  true      True {'id': 5, 'symbol': 'VOW', 'securityType': 'CS', 'priceCurrency': 'EUR', 'securityId': 'DE0007664005', 'securityIdSource': 'ISI', 'instrumentSymbol': 'VOW', 'midPrice': Decimal('68.7'), 'bidPrice': Decimal('68.68'), 'offerPrice': Decimal('68.72'), 'lastUpdate': '2026-10-23 17:30:00'}  ok    

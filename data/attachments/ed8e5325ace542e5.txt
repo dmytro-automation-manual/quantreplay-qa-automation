@@ -1,0 +1,54 @@
+15:48:27.609 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=165|52=20261108-15:48:27.609|11=480b1efa09884c68|55=USD/CHF|54=2|60=20261108-15:48:27.609|40=2|44=0.90680|38=2000000|59=0|10=094|
+15:48:27.610 fix    << 8=FIXT.1.1|9=219|35=8|34=183|49=SIM_FASTMATCH|52=20261108-15:48:27.609|56=CLIENT_FASTMATCH|6=0|11=480b1efa09884c68|14=0|17=261108154827000011-1|37=261108154827000011|38=2000000|39=0|40=2|44=0.9068|54=2|55=USD/CHF|59=0|150=0|151=2000000|10=133|
+15:48:27.610 fix    >> 8=FIXT.1.1|9=156|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=166|52=20261108-15:48:27.610|11=c1f48d15a7e24510|55=USD/CHF|54=1|60=20261108-15:48:27.610|40=1|38=1000000|59=3|10=050|
+15:48:27.610 fix    << 8=FIXT.1.1|9=209|35=8|34=184|49=SIM_FASTMATCH|52=20261108-15:48:27.610|56=CLIENT_FASTMATCH|6=0|11=c1f48d15a7e24510|14=0|17=261108154827000012-1|37=261108154827000012|38=1000000|39=0|40=1|54=1|55=USD/CHF|59=3|150=0|151=1000000|10=147|
+15:48:27.610 check  ExecutionReport New for market order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261108154827000012   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      USD/CHF              USD/CHF              ok    
+order_qty   1000000              1000000              ok    
+price       <not sent>           <none>               ok    
+ord_type    MARKET(1)            MARKET(1)            ok    
+15:48:27.611 fix    << 8=FIXT.1.1|9=235|35=8|34=185|49=SIM_FASTMATCH|52=20261108-15:48:27.610|56=CLIENT_FASTMATCH|6=0.9068|11=c1f48d15a7e24510|14=1000000|17=261108154827000012-2|31=0.9068|32=1000000|37=261108154827000012|38=1000000|39=2|40=1|54=1|55=USD/CHF|59=3|150=F|151=0|10=124|
+15:48:27.611 fix    << 8=FIXT.1.1|9=251|35=8|34=186|49=SIM_FASTMATCH|52=20261108-15:48:27.610|56=CLIENT_FASTMATCH|6=0.9068|11=480b1efa09884c68|14=1000000|17=261108154827000011-2|31=0.9068|32=1000000|37=261108154827000011|38=2000000|39=1|40=2|44=0.9068|54=2|55=USD/CHF|59=0|150=F|151=1000000|10=132|
+15:48:27.611 check  ExecutionReport Trade for market order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108154827000012   261108154827000012   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  FILLED(2)            FILLED(2)            ok    
+symbol      USD/CHF              USD/CHF              ok    
+order_qty   1000000              1000000              ok    
+price       <not sent>           <none>               ok    
+last_px     0.90680              0.9068               ok    
+last_qty    1000000              1000000              ok    
+cum_qty     1000000              1000000              ok    
+leaves_qty  0                    0                    ok    
+avg_px      0.90680              0.9068               ok    
+15:48:27.611 check  ExecutionReport Trade for resting order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108154827000011   261108154827000011   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  PARTIALLY_FILLED(1)  PARTIALLY_FILLED(1)  ok    
+symbol      USD/CHF              USD/CHF              ok    
+order_qty   2000000              2000000              ok    
+price       0.90680              0.9068               ok    
+last_px     0.90680              0.9068               ok    
+last_qty    1000000              1000000              ok    
+cum_qty     1000000              1000000              ok    
+leaves_qty  1000000              1000000              ok
+15:48:27.662 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=167|52=20261108-15:48:27.662|41=480b1efa09884c68|11=bd10664600ca48c5|37=261108154827000011|55=USD/CHF|54=2|60=20261108-15:48:27.662|10=170|
+15:48:27.662 fix    << 8=FIXT.1.1|9=244|35=8|34=187|49=SIM_FASTMATCH|52=20261108-15:48:27.662|56=CLIENT_FASTMATCH|6=0.9068|11=bd10664600ca48c5|14=1000000|17=261108154827000011-3|37=261108154827000011|38=2000000|39=4|40=2|41=480b1efa09884c68|44=0.9068|54=2|55=USD/CHF|59=0|150=4|151=0|10=092|
+15:48:27.662 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108154827000011   261108154827000011   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      USD/CHF              USD/CHF              ok    
+order_qty   2000000              2000000              ok    
+price       0.90680              0.9068               ok

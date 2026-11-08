@@ -1,0 +1,5 @@
+Simulator seed VOW after sync
+field        expected  actual  result
+bid_price    68.88     68.88   ok    
+mid_price    68.90     68.9    ok    
+offer_price  68.92     68.92   ok    

@@ -1,0 +1,8 @@
+Simulator seed QASYNC after sync
+field           expected  actual  result
+symbol          QASYNC    QASYNC  ok    
+security_type   CS        CS      ok    
+price_currency  EUR       EUR     ok    
+bid_price       9.98      9.98    ok    
+mid_price       10.00     10.0    ok    
+offer_price     10.02     10.02   ok    

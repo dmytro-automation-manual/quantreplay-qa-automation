@@ -1,0 +1,31 @@
+15:48:44.765 db     SQL select symbol, security_type, price_currency, security_id, security_id_source, instrument_symbol, bid_price::numeric as bid_price, mid_price::numeric as mid_price, offer_price::numeric as offer_price, last_update from price_seed where symbol = %s ('EUR/USD',)
+15:48:44.766 db     rows: 1
+15:48:44.766 db     SQL update price_seed set bid_price = %s, mid_price = %s, offer_price = %s, last_update = %s where symbol = %s returning symbol (Decimal('1.11939'), Decimal('1.11940'), Decimal('1.11941'), '2026-11-04 17:30:00', 'EUR/USD')
+15:48:44.767 db     rows: 1
+15:48:44.767 rest   >> POST /syncpriceseeds 
+15:48:44.798 httpx  HTTP Request: POST http://localhost:9052/api/syncpriceseeds "HTTP/1.1 200 OK"
+15:48:44.798 rest   << 200 {"result":"Price seeds successfully synchronized"}
+15:48:44.798 check  Sync price seeds
+field        expected                               actual                                 result
+status_code  200                                    200                                    ok    
+result       Price seeds successfully synchronized  Price seeds successfully synchronized  ok    
+15:48:44.798 rest   >> GET /priceseeds 
+15:48:44.805 httpx  HTTP Request: GET http://localhost:9052/api/priceseeds "HTTP/1.1 200 OK"
+15:48:44.805 rest   << 200 {"priceSeeds":[{"id":2,"symbol":"MSF","securityType":"CS","priceCurrency":"EUR","securityId":"US5949181045","securityIdSource":"ISI","instrumentSymbol":"MSF","midPrice":468.9,"bidPrice":468.85,"offerPrice":468.95,"lastUpdate":"2026-10-23 17:30:00"},{"id":3,"symbol":"NFC","securityType":"CS","priceCurrency":"EUR","securityId":"US64110L1061","securityIdSource":"ISI","instrumentSymbol":"NFC","midPrice":59.58,"bidPrice":59.57,"offerPrice":59.59,"lastUpdate":"2026-10-23 17:30:00"},{"id":4,"symbol":"VODI","securityType":"CS","priceCurrency":"EUR","securityId":"GB00BH4HKS39","securityIdSource":"ISI","instrumentSymbol":"VODI","midPrice":1.41,"bidPrice":1.409,"offerPrice":1.411,"lastUpdate":"2026-10-23 17:30:00"},{"id":7,"symbol":"GBP/USD","securityType":"FXSPOT","priceCurrency":"USD","instrumentSymbol":"GBP/USD","midPrice":1.33683,"bidPrice":1.33682,"offerPrice":1.33684,"lastUpdate":"2026-10-23 14:15:00"},{"id":8,"symbol":"USD/JPY","securityType":"FXSPOT","priceCurrency":"JPY","instrumentSymbol":"USD/JPY","midPrice":156.803,"bidPrice":156.802,"offerPrice":156.804,"lastUpdate":"2026-10-23 14:15:00"},{"id":9,"symbol":"USD/CHF","securityType":"FXSPOT","priceCurrency":"CHF","instrumentSymbol":"USD/CHF","midPrice":0.82435,"bidPrice":0.82434,"offerPrice":0.82436,"lastUpdate":"2026-10-23 14:15:00"},{"id":10,"symbol":"EUR/GBP","securityType":"FXSPOT","priceCurrency":"GBP","instrumentSymbol":"EUR/GBP","midPrice":0.83728,"bidPrice":0.83727,"offerPrice":0.83729,"lastUpdate":"2026-10-23 14:15:00"},{"id":1,"symbol":"AMZ","securityType":"CS","priceCurrency":"EUR","securityId":"US0231351067","securityIdSource":"ISI","instrumentSymbol":"AMZ","midPrice":222.55,"bidPrice":222.5,"offerPrice":222.6,"lastUpdate":"2026-10-23 17:30:00"},{"id":5,"symbol":"VOW","securityType":"CS","priceCurrency":"EUR","securityId":"DE0007664005","securityIdSource":"ISI","instrumentSymbol":"VOW","midPrice":68.7,"bidPrice":68.68,"offerPrice":68.72,"lastUpdate":"2026-10-23 17:30:00"},{"id":6,"symbol":"EUR/USD","secur
+15:48:44.805 check  Simulator seed EUR/USD after sync
+field        expected  actual   result
+bid_price    1.11939   1.11939  ok    
+mid_price    1.11940   1.1194   ok    
+offer_price  1.11941   1.11941  ok    
+15:48:44.805 check  Simulator seed EUR/USD: last update
+field       expected             actual               result
+lastUpdate  2026-11-04 17:30:00  2026-11-04 17:30:00  ok
+15:48:44.806 db     SQL update price_seed set bid_price = %s, mid_price = %s, offer_price = %s, last_update = %s where symbol = %s returning symbol (Decimal('1.11929'), Decimal('1.1193'), Decimal('1.11931'), '2026-10-23 14:15:00', 'EUR/USD')
+15:48:44.807 db     rows: 1
+15:48:44.807 rest   >> POST /syncpriceseeds 
+15:48:44.836 httpx  HTTP Request: POST http://localhost:9052/api/syncpriceseeds "HTTP/1.1 200 OK"
+15:48:44.836 rest   << 200 {"result":"Price seeds successfully synchronized"}
+15:48:44.837 check  Re-sync after restore
+field        expected                               actual                                 result
+status_code  200                                    200                                    ok    
+result       Price seeds successfully synchronized  Price seeds successfully synchronized  ok

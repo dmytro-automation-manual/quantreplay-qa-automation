@@ -1,0 +1,3 @@
+Simulator seed EUR/USD: last update
+field       expected             actual               result
+lastUpdate  2026-11-04 17:30:00  2026-11-04 17:30:00  ok    

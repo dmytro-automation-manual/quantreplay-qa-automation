@@ -1,0 +1,16 @@
+15:48:31.255 rest   >> GET /datasources 
+15:48:31.264 httpx  HTTP Request: GET http://localhost:9052/api/datasources "HTTP/1.1 200 OK"
+15:48:31.264 rest   << 200 {"dataSources":[{"id":1,"name":"XETRA-VOW-HISTORY","venueId":"XETRA","connection":"/market-simulator/quod/data/datasources/xetra_vow_history.csv","format":"CSV","type":"OrderBook","enabled":true,"repeat":true,"textDelimiter":",","textHeaderRow":1,"textDataRow":2,"maxDepthLevels":3,"randomPriceOnly":false,"incrementalSubscriptions":false,"columnMapping":[{"datasourceId":1,"columnFrom":"ReceivedTimeStamp","columnTo":"ReceivedTimeStamp"},{"datasourceId":1,"columnFrom":"MessageTimeStamp","columnTo":"MessageTimeStamp"},{"datasourceId":1,"columnFrom":"Instrument","columnTo":"Symbol"},{"datasourceId":1,"columnFrom":"BidParty#","columnTo":"BidParty_#"},{"datasourceId":1,"columnFrom":"BidQuantity#","columnTo":"BidQuantity_#"},{"datasourceId":1,"columnFrom":"BidPrice#","columnTo":"BidPrice_#"},{"datasourceId":1,"columnFrom":"AskPrice#","columnTo":"AskPrice_#"},{"datasourceId":1,"columnFrom":"AskQuantity#","columnTo":"AskQuantity_#"},{"datasourceId":1,"columnFrom":"AskParty#","columnTo":"AskParty_#"}],"listings":[]}]}
+15:48:31.265 check  GET /api/datasources
+field        expected  actual  result
+status_code  200       200     ok    
+15:48:31.265 check  XETRA-VOW-HISTORY
+field          expected                                                      actual                                                        result
+venueId        XETRA                                                         XETRA                                                         ok    
+format         CSV                                                           CSV                                                           ok    
+type           OrderBook                                                     OrderBook                                                     ok    
+enabled        True                                                          True                                                          ok    
+connection     /market-simulator/quod/data/datasources/xetra_vow_history...  /market-simulator/quod/data/datasources/xetra_vow_history...  ok    
+textDelimiter  ,                                                             ,                                                             ok    
+textHeaderRow  1                                                             1                                                             ok    
+textDataRow    2                                                             2                                                             ok
