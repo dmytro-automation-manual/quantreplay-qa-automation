@@ -1,0 +1,66 @@
+15:57:09.755 rest   >> PUT /listings/AMZ {"randomOrdersEnabled": true}
+15:57:09.771 httpx  HTTP Request: PUT http://localhost:9050/api/listings/AMZ "HTTP/1.1 200 OK"
+15:57:09.771 rest   << 200 {"result":"Successfully updated the AMZ listing"}
+15:57:09.772 check  PUT listing AMZ
+field        expected  actual  result
+status_code  200       200     ok    
+15:57:09.772 rest   >> POST /reset/XETRA 
+15:57:09.786 httpx  HTTP Request: POST http://localhost:9050/api/reset/XETRA "HTTP/1.1 200 OK"
+15:57:09.786 rest   << 200 {"result":"Resetting the venue state starts."}
+15:57:11.599 fix    << 8=FIXT.1.1|9=66|35=5|34=353|49=SIM_XETRA|52=20261108-15:57:11.599|56=CLIENT_XETRA|10=018|
+15:57:13.602 fix    >> 8=FIXT.1.1|9=89|35=A|49=CLIENT_XETRA|56=SIM_XETRA|34=1|52=20261108-15:57:13.602|98=0|108=30|141=Y|1137=9|10=053|
+15:57:14.103 fix    >> 8=FIXT.1.1|9=89|35=A|49=CLIENT_XETRA|56=SIM_XETRA|34=1|52=20261108-15:57:14.103|98=0|108=30|141=Y|1137=9|10=050|
+15:57:14.104 fix    << 8=FIXT.1.1|9=89|35=A|34=1|49=SIM_XETRA|52=20261108-15:57:14.104|56=CLIENT_XETRA|98=0|108=30|141=Y|1137=9|10=051|
+15:57:14.104 fix    >> 8=FIXT.1.1|9=128|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=2|52=20261108-15:57:14.104|262=73894e2259554db6|263=0|264=0|267=2|269=0|269=1|146=1|55=AMZ|10=125|
+15:57:14.113 fix    << 8=FIXT.1.1|9=124|35=W|34=2|49=SIM_XETRA|52=20261108-15:57:14.112|56=CLIENT_XETRA|55=AMZ|262=73894e2259554db6|268=0|779=20261108-15:57:14.112|10=079|
+15:57:14.113 rest   >> POST /genstart/XETRA 
+15:57:14.114 httpx  HTTP Request: POST http://localhost:9050/api/genstart/XETRA "HTTP/1.1 200 OK"
+15:57:14.114 rest   << 200 {"result":"Generator was started"}
+15:57:14.114 check  POST genstart
+field        expected               actual                 result
+status_code  200                    200                    ok    
+result       Generator was started  Generator was started  ok    
+15:57:14.115 rest   >> GET /genstatus/XETRA 
+15:57:14.116 httpx  HTTP Request: GET http://localhost:9050/api/genstatus/XETRA "HTTP/1.1 200 OK"
+15:57:14.116 rest   << 200 {"result":"Running"}
+15:57:14.116 check  GET genstatus after start
+field        expected  actual   result
+status_code  200       200      ok    
+result       Running   Running  ok    
+15:57:14.116 fix    >> 8=FIXT.1.1|9=128|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=3|52=20261108-15:57:14.116|262=0c47337f4ab045f7|263=0|264=0|267=2|269=0|269=1|146=1|55=AMZ|10=207|
+15:57:14.117 fix    << 8=FIXT.1.1|9=165|35=W|34=3|49=SIM_XETRA|52=20261108-15:57:14.117|56=CLIENT_XETRA|55=AMZ|262=0c47337f4ab045f7|268=1|269=0|278=1794153433:1|270=222.5|271=303|779=20261108-15:57:14.117|10=077|
+15:57:14.117 fix    >> 8=FIXT.1.1|9=128|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=4|52=20261108-15:57:14.117|262=9f9fa19a62794685|263=0|264=0|267=2|269=0|269=1|146=1|55=AMZ|10=188|
+15:57:14.117 fix    << 8=FIXT.1.1|9=165|35=W|34=4|49=SIM_XETRA|52=20261108-15:57:14.117|56=CLIENT_XETRA|55=AMZ|262=9f9fa19a62794685|268=1|269=0|278=1794153433:1|270=222.5|271=303|779=20261108-15:57:14.117|10=057|
+15:57:14.117 check  AMZ book is not empty
+field      expected  actual  result
+condition  true      True    ok    
+15:57:14.118 rest   >> POST /genstop/XETRA 
+15:57:14.119 httpx  HTTP Request: POST http://localhost:9050/api/genstop/XETRA "HTTP/1.1 200 OK"
+15:57:14.119 rest   << 200 {"result":"Generator was stopped"}
+15:57:14.119 check  POST genstop
+field        expected               actual                 result
+status_code  200                    200                    ok    
+result       Generator was stopped  Generator was stopped  ok    
+15:57:14.119 rest   >> GET /genstatus/XETRA 
+15:57:14.120 httpx  HTTP Request: GET http://localhost:9050/api/genstatus/XETRA "HTTP/1.1 200 OK"
+15:57:14.120 rest   << 200 {"result":"Stopped"}
+15:57:14.120 check  GET genstatus after stop
+field        expected  actual   result
+status_code  200       200      ok    
+result       Stopped   Stopped  ok
+15:57:14.122 rest   >> PUT /listings/AMZ {"randomOrdersEnabled": false}
+15:57:14.133 httpx  HTTP Request: PUT http://localhost:9050/api/listings/AMZ "HTTP/1.1 200 OK"
+15:57:14.134 rest   << 200 {"result":"Successfully updated the AMZ listing"}
+15:57:14.134 rest   >> POST /genstop/XETRA 
+15:57:14.135 httpx  HTTP Request: POST http://localhost:9050/api/genstop/XETRA "HTTP/1.1 200 OK"
+15:57:14.135 rest   << 200 {"result":"Generator was stopped"}
+15:57:14.135 rest   >> POST /reset/XETRA 
+15:57:14.146 httpx  HTTP Request: POST http://localhost:9050/api/reset/XETRA "HTTP/1.1 200 OK"
+15:57:14.146 rest   << 200 {"result":"Resetting the venue state starts."}
+15:57:18.121 fix    << 8=FIXT.1.1|9=64|35=5|34=5|49=SIM_XETRA|52=20261108-15:57:18.121|56=CLIENT_XETRA|10=158|
+15:57:20.124 fix    >> 8=FIXT.1.1|9=89|35=A|49=CLIENT_XETRA|56=SIM_XETRA|34=1|52=20261108-15:57:20.124|98=0|108=30|141=Y|1137=9|10=050|
+15:57:20.625 fix    >> 8=FIXT.1.1|9=89|35=A|49=CLIENT_XETRA|56=SIM_XETRA|34=1|52=20261108-15:57:20.625|98=0|108=30|141=Y|1137=9|10=056|
+15:57:21.125 fix    >> 8=FIXT.1.1|9=89|35=A|49=CLIENT_XETRA|56=SIM_XETRA|34=1|52=20261108-15:57:21.125|98=0|108=30|141=Y|1137=9|10=052|
+15:57:21.126 fix    << 8=FIXT.1.1|9=89|35=A|34=1|49=SIM_XETRA|52=20261108-15:57:21.126|56=CLIENT_XETRA|98=0|108=30|141=Y|1137=9|10=053|
+15:57:21.127 fix    >> 8=FIXT.1.1|9=128|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=2|52=20261108-15:57:21.127|262=85eff5b5acc24790|263=0|264=0|267=2|269=0|269=1|146=1|55=AMZ|10=055|
+15:57:21.135 fix    << 8=FIXT.1.1|9=124|35=W|34=2|49=SIM_XETRA|52=20261108-15:57:21.135|56=CLIENT_XETRA|55=AMZ|262=85eff5b5acc24790|268=0|779=20261108-15:57:21.135|10=012|

@@ -1,0 +1,54 @@
+15:57:06.364 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=210|52=20261108-15:57:06.363|11=1d55093962d1406a|55=VOW|54=2|60=20261108-15:57:06.363|40=2|44=75.60|38=300|59=0|10=154|
+15:57:06.364 fix    << 8=FIXT.1.1|9=197|35=8|34=234|49=SIM_XETRA|52=20261108-15:57:06.364|56=CLIENT_XETRA|6=0|11=1d55093962d1406a|14=0|17=261108155706000011-1|37=261108155706000011|38=300|39=0|40=2|44=75.6|54=2|55=VOW|59=0|150=0|151=300|10=014|
+15:57:06.365 fix    >> 8=FIXT.1.1|9=140|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=211|52=20261108-15:57:06.364|11=6d5811d9e3aa4d59|55=VOW|54=1|60=20261108-15:57:06.364|40=1|38=150|59=3|10=140|
+15:57:06.365 fix    << 8=FIXT.1.1|9=189|35=8|34=235|49=SIM_XETRA|52=20261108-15:57:06.365|56=CLIENT_XETRA|6=0|11=6d5811d9e3aa4d59|14=0|17=261108155706000012-1|37=261108155706000012|38=150|39=0|40=1|54=1|55=VOW|59=3|150=0|151=150|10=062|
+15:57:06.365 check  ExecutionReport New for market order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261108155706000012   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      VOW                  VOW                  ok    
+order_qty   150                  150                  ok    
+price       <not sent>           <none>               ok    
+ord_type    MARKET(1)            MARKET(1)            ok    
+15:57:06.366 fix    << 8=FIXT.1.1|9=207|35=8|34=236|49=SIM_XETRA|52=20261108-15:57:06.365|56=CLIENT_XETRA|6=75.6|11=6d5811d9e3aa4d59|14=150|17=261108155706000012-2|31=75.6|32=150|37=261108155706000012|38=150|39=2|40=1|54=1|55=VOW|59=3|150=F|151=0|10=154|
+15:57:06.366 fix    << 8=FIXT.1.1|9=217|35=8|34=237|49=SIM_XETRA|52=20261108-15:57:06.365|56=CLIENT_XETRA|6=75.6|11=1d55093962d1406a|14=150|17=261108155706000011-2|31=75.6|32=150|37=261108155706000011|38=300|39=1|40=2|44=75.6|54=2|55=VOW|59=0|150=F|151=150|10=215|
+15:57:06.366 check  ExecutionReport Trade for market order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108155706000012   261108155706000012   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  FILLED(2)            FILLED(2)            ok    
+symbol      VOW                  VOW                  ok    
+order_qty   150                  150                  ok    
+price       <not sent>           <none>               ok    
+last_px     75.60                75.6                 ok    
+last_qty    150                  150                  ok    
+cum_qty     150                  150                  ok    
+leaves_qty  0                    0                    ok    
+avg_px      75.60                75.6                 ok    
+15:57:06.366 check  ExecutionReport Trade for resting order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108155706000011   261108155706000011   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  PARTIALLY_FILLED(1)  PARTIALLY_FILLED(1)  ok    
+symbol      VOW                  VOW                  ok    
+order_qty   300                  300                  ok    
+price       75.60                75.6                 ok    
+last_px     75.60                75.6                 ok    
+last_qty    150                  150                  ok    
+cum_qty     150                  150                  ok    
+leaves_qty  150                  150                  ok
+15:57:06.418 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=212|52=20261108-15:57:06.418|41=1d55093962d1406a|11=a50bda942df6491c|37=261108155706000011|55=VOW|54=2|60=20261108-15:57:06.418|10=112|
+15:57:06.418 fix    << 8=FIXT.1.1|9=220|35=8|34=238|49=SIM_XETRA|52=20261108-15:57:06.418|56=CLIENT_XETRA|6=75.6|11=a50bda942df6491c|14=150|17=261108155706000011-3|37=261108155706000011|38=300|39=4|40=2|41=1d55093962d1406a|44=75.6|54=2|55=VOW|59=0|150=4|151=0|10=226|
+15:57:06.419 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108155706000011   261108155706000011   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      VOW                  VOW                  ok    
+order_qty   300                  300                  ok    
+price       75.60                75.6                 ok

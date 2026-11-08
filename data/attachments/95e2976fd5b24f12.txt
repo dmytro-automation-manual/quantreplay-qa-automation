@@ -1,9 +1,0 @@
-15:48:24.250 fix    >> 8=FIXT.1.1|9=128|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=7|52=20261108-15:48:24.250|262=085a38e922754c89|263=0|264=0|267=2|269=0|269=1|146=1|55=AMZ|10=132|
-15:48:24.250 fix    << 8=FIXT.1.1|9=124|35=W|34=7|49=SIM_XETRA|52=20261108-15:48:24.250|56=CLIENT_XETRA|55=AMZ|262=085a38e922754c89|268=0|779=20261108-15:48:24.250|10=091|
-15:48:24.251 check  MarketDataSnapshotFullRefresh
-field     expected                 actual                   result
-msg_type  MARKET_DATA_SNAPSHOT(W)  MARKET_DATA_SNAPSHOT(W)  ok    
-symbol    AMZ                      AMZ                      ok    
-15:48:24.251 check  No bids / offers in an empty book
-field      expected  actual            result
-condition  true      True entries: []  ok

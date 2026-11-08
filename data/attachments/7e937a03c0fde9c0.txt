@@ -1,0 +1,22 @@
+15:57:04.896 fix    >> 8=FIXT.1.1|9=151|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=143|52=20261108-15:57:04.896|11=c15686236c274015|55=VODI|54=1|60=20261108-15:57:04.896|40=2|44=1.269|38=5000|59=0|10=227|
+15:57:04.896 fix    << 8=FIXT.1.1|9=201|35=8|34=161|49=SIM_XETRA|52=20261108-15:57:04.896|56=CLIENT_XETRA|6=0|11=c15686236c274015|14=0|17=261108155704000000-1|37=261108155704000000|38=5000|39=0|40=2|44=1.269|54=1|55=VODI|59=0|150=0|151=5000|10=154|
+15:57:04.897 check  ExecutionReport for price on tick
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261108155704000000   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      VODI                 VODI                 ok    
+order_qty   5000                 5000                 ok    
+price       1.269                1.269                ok
+15:57:04.948 fix    >> 8=FIXT.1.1|9=166|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=144|52=20261108-15:57:04.948|41=c15686236c274015|11=eebf4bdccb3f4b46|37=261108155704000000|55=VODI|54=1|60=20261108-15:57:04.948|10=068|
+15:57:04.949 fix    << 8=FIXT.1.1|9=218|35=8|34=162|49=SIM_XETRA|52=20261108-15:57:04.948|56=CLIENT_XETRA|6=0|11=eebf4bdccb3f4b46|14=0|17=261108155704000000-2|37=261108155704000000|38=5000|39=4|40=2|41=c15686236c274015|44=1.269|54=1|55=VODI|59=0|150=4|151=0|10=005|
+15:57:04.949 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108155704000000   261108155704000000   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      VODI                 VODI                 ok    
+order_qty   5000                 5000                 ok    
+price       1.269                1.269                ok

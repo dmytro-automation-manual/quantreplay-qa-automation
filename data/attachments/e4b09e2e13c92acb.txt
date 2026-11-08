@@ -1,9 +1,0 @@
-15:48:28.134 fix    >> 8=FIXT.1.1|9=142|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=187|52=20261108-15:48:28.134|262=8564d89f9135491b|263=0|264=0|267=2|269=0|269=1|146=1|55=EUR/GBP|10=045|
-15:48:28.135 fix    << 8=FIXT.1.1|9=138|35=W|34=211|49=SIM_FASTMATCH|52=20261108-15:48:28.135|56=CLIENT_FASTMATCH|55=EUR/GBP|262=8564d89f9135491b|268=0|779=20261108-15:48:28.135|10=008|
-15:48:28.135 check  MarketDataSnapshotFullRefresh
-field     expected                 actual                   result
-msg_type  MARKET_DATA_SNAPSHOT(W)  MARKET_DATA_SNAPSHOT(W)  ok    
-symbol    EUR/GBP                  EUR/GBP                  ok    
-15:48:28.135 check  No bids / offers in an empty book
-field      expected  actual            result
-condition  true      True entries: []  ok

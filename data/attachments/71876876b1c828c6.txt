@@ -1,0 +1,18 @@
+15:57:09.668 rest   >> GET /venues/FASTMATCH 
+15:57:09.678 httpx  HTTP Request: GET http://localhost:9052/api/venues/FASTMATCH "HTTP/1.1 200 OK"
+15:57:09.679 rest   << 200 {"id":"FASTMATCH","name":"FASTMATCH","engineType":"Matching","supportTifIoc":true,"supportTifFok":true,"supportTifDay":true,"includeOwnOrders":true,"restPort":9052,"orderOnStartup":false,"randomPartyCount":10,"timeAndSalesEnabled":true,"timeAndSalesQuantityEnabled":true,"timeAndSalesSideEnabled":true,"timeAndSalesPartiesEnabled":true,"timezone":"America/New_York","cancelOnDisconnect":false,"persistenceEnabled":false,"phases":[]}
+15:57:09.679 rest   >> PUT /venues/FASTMATCH {"name": "FASTMATCH", "phases": [{"phase": "Closed", "startTime": "23:00", "endTime": "23:30", "endTimeRange": 0}]}
+15:57:09.693 httpx  HTTP Request: PUT http://localhost:9052/api/venues/FASTMATCH "HTTP/1.1 200 OK"
+15:57:09.694 rest   << 200 {"result":"Successfully updated the FASTMATCH venue"}
+15:57:09.694 check  PUT venue with name + phases
+field        expected  actual  result
+status_code  200       200     ok    
+15:57:09.694 rest   >> GET /venues/FASTMATCH 
+15:57:09.706 httpx  HTTP Request: GET http://localhost:9052/api/venues/FASTMATCH "HTTP/1.1 200 OK"
+15:57:09.706 rest   << 200 {"id":"FASTMATCH","name":"FASTMATCH","engineType":"Matching","supportTifIoc":true,"supportTifFok":true,"supportTifDay":true,"includeOwnOrders":true,"restPort":9052,"orderOnStartup":false,"randomPartyCount":10,"timeAndSalesEnabled":true,"timeAndSalesQuantityEnabled":true,"timeAndSalesSideEnabled":true,"timeAndSalesPartiesEnabled":true,"timezone":"America/New_York","cancelOnDisconnect":false,"persistenceEnabled":false,"phases":[{"phase":"Closed","startTime":"23:00","endTime":"23:30","venueId":"FASTMATCH","endTimeRange":0}]}
+15:57:09.706 check  Saved schedule
+field   expected                                                      actual                                                        result
+phases  [{'phase': 'Closed', 'startTime': '23:00', 'endTime': '23...  [{'phase': 'Closed', 'startTime': '23:00', 'endTime': '23...  ok
+15:57:09.708 rest   >> PUT /venues/FASTMATCH {"name": "FASTMATCH", "phases": []}
+15:57:09.721 httpx  HTTP Request: PUT http://localhost:9052/api/venues/FASTMATCH "HTTP/1.1 200 OK"
+15:57:09.721 rest   << 200 {"result":"Successfully updated the FASTMATCH venue"}

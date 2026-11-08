@@ -1,0 +1,22 @@
+15:57:04.234 fix    >> 8=FIXT.1.1|9=172|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=118|52=20261108-15:57:04.234|11=5e5fed616cf1496f|55=NFC|167=CS|207=XETR|15=EUR|54=1|60=20261108-15:57:04.234|40=2|44=53.61|38=200|59=0|10=087|
+15:57:04.235 fix    << 8=FIXT.1.1|9=221|35=8|34=130|49=SIM_XETRA|52=20261108-15:57:04.234|56=CLIENT_XETRA|6=0|11=5e5fed616cf1496f|14=0|15=EUR|17=261108155704000010-1|37=261108155704000010|38=200|39=0|40=2|44=53.61|54=1|55=NFC|59=0|150=0|151=200|167=CS|207=XETR|10=228|
+15:57:04.235 check  ExecutionReport for order with instrument attributes
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261108155704000010   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      NFC                  NFC                  ok    
+order_qty   200                  200                  ok    
+price       53.61                53.61                ok
+15:57:04.286 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=119|52=20261108-15:57:04.286|41=5e5fed616cf1496f|11=9466e95e23114c02|37=261108155704000010|55=NFC|54=1|60=20261108-15:57:04.286|10=101|
+15:57:04.287 fix    << 8=FIXT.1.1|9=239|35=8|34=131|49=SIM_XETRA|52=20261108-15:57:04.286|56=CLIENT_XETRA|6=0|11=9466e95e23114c02|14=0|15=EUR|17=261108155704000010-2|37=261108155704000010|38=200|39=4|40=2|41=5e5fed616cf1496f|44=53.61|54=1|55=NFC|59=0|150=4|151=0|167=CS|207=XETR|10=016|
+15:57:04.287 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108155704000010   261108155704000010   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      NFC                  NFC                  ok    
+order_qty   200                  200                  ok    
+price       53.61                53.61                ok

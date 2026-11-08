@@ -1,0 +1,3 @@
+SeedPricesLastUpdated moved forward
+field      expected  actual                                                      result
+condition  true      True before 2026-11-08 15:57:21, after 2026-11-08 15:57:22  ok    

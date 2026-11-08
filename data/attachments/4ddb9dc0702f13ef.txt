@@ -1,0 +1,23 @@
+15:57:09.505 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=312|52=20261108-15:57:09.504|11=9c571ff84f9649bd|55=EUR/USD|54=1|60=20261108-15:57:09.504|40=2|44=1.00736|38=1000000|59=0|10=159|
+15:57:09.505 fix    << 8=FIXT.1.1|9=220|35=8|34=346|49=SIM_FASTMATCH|52=20261108-15:57:09.505|56=CLIENT_FASTMATCH|6=0|11=9c571ff84f9649bd|14=0|17=261108155709000052-1|37=261108155709000052|38=1000000|39=0|40=2|44=1.00736|54=1|55=EUR/USD|59=0|150=0|151=1000000|10=005|
+15:57:09.505 rest   >> POST /halt/FASTMATCH {"allowCancels": true}
+15:57:09.506 httpx  HTTP Request: POST http://localhost:9052/api/halt/FASTMATCH "HTTP/1.1 200 OK"
+15:57:09.507 rest   << 200 {"result":"The market was successfully halted."}
+15:57:09.507 check  POST halt
+field        expected                             actual                               result
+status_code  200                                  200                                  ok    
+result       The market was successfully halted.  The market was successfully halted.  ok    
+15:57:09.507 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=313|52=20261108-15:57:09.507|41=9c571ff84f9649bd|11=5efd76a35aff41d0|37=261108155709000052|55=EUR/USD|54=1|60=20261108-15:57:09.507|10=153|
+15:57:09.508 fix    << 8=FIXT.1.1|9=234|35=8|34=347|49=SIM_FASTMATCH|52=20261108-15:57:09.507|56=CLIENT_FASTMATCH|6=0|11=5efd76a35aff41d0|14=0|17=261108155709000052-2|37=261108155709000052|38=1000000|39=4|40=2|41=9c571ff84f9649bd|44=1.00736|54=1|55=EUR/USD|59=0|150=4|151=0|10=088|
+15:57:09.508 check  ExecutionReport for cancel during halt
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108155709000052   261108155709000052   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      EUR/USD              EUR/USD              ok    
+order_qty   1000000              1000000              ok    
+price       1.00736              1.00736              ok
+15:57:09.509 rest   >> POST /resume/FASTMATCH 
+15:57:09.510 httpx  HTTP Request: POST http://localhost:9052/api/resume/FASTMATCH "HTTP/1.1 200 OK"
+15:57:09.510 rest   << 200 {"result":"The market was successfully resumed."}

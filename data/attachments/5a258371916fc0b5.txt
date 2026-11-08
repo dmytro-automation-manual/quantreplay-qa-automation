@@ -1,0 +1,47 @@
+15:57:07.581 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=278|52=20261108-15:57:07.581|11=4ae7080aee714a04|55=AMZ|54=2|60=20261108-15:57:07.581|40=2|44=244.90|38=50|59=0|10=038|
+15:57:07.581 fix    << 8=FIXT.1.1|9=196|35=8|34=310|49=SIM_XETRA|52=20261108-15:57:07.581|56=CLIENT_XETRA|6=0|11=4ae7080aee714a04|14=0|17=261108155707000037-1|37=261108155707000037|38=50|39=0|40=2|44=244.9|54=2|55=AMZ|59=0|150=0|151=50|10=102|
+15:57:07.582 check  ExecutionReport for resting sell
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261108155707000037   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       244.90               244.9                ok    
+15:57:07.582 fix    >> 8=FIXT.1.1|9=150|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=279|52=20261108-15:57:07.582|11=b1f99cbafde7423f|55=AMZ|54=1|60=20261108-15:57:07.582|40=2|44=244.90|38=150|59=4|10=246|
+15:57:07.582 fix    << 8=FIXT.1.1|9=238|35=8|34=311|49=SIM_XETRA|52=20261108-15:57:07.582|56=CLIENT_XETRA|6=0|11=b1f99cbafde7423f|14=0|17=261108155707000038-1|37=261108155707000038|38=150|39=4|40=2|44=244.9|54=1|55=AMZ|58=not enough liquidity to fill FoK order|59=4|150=4|151=0|10=213|
+15:57:07.583 check  ExecutionReport for FOK without enough liquidity
+field          expected                                actual                                  result
+msg_type       EXECUTION_REPORT(8)                     EXECUTION_REPORT(8)                     ok    
+order_id       <non-empty>                             261108155707000038                      ok    
+exec_type      CANCELED(4)                             CANCELED(4)                             ok    
+ord_status     CANCELED(4)                             CANCELED(4)                             ok    
+symbol         AMZ                                     AMZ                                     ok    
+order_qty      150                                     150                                     ok    
+price          244.90                                  244.9                                   ok    
+time_in_force  FILL_OR_KILL(4)                         FILL_OR_KILL(4)                         ok    
+cum_qty        0                                       0                                       ok    
+leaves_qty     0                                       0                                       ok    
+text           not enough liquidity to fill FoK order  not enough liquidity to fill FoK order  ok    
+15:57:07.583 fix    >> 8=FIXT.1.1|9=130|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=280|52=20261108-15:57:07.583|262=abe9e0f3c9694624|263=0|264=0|267=2|269=0|269=1|146=1|55=AMZ|10=117|
+15:57:07.583 fix    << 8=FIXT.1.1|9=167|35=W|34=312|49=SIM_XETRA|52=20261108-15:57:07.583|56=CLIENT_XETRA|55=AMZ|262=abe9e0f3c9694624|268=1|269=1|278=1794153414:26|270=244.9|271=50|779=20261108-15:57:07.583|10=014|
+15:57:07.583 check  Book after killed FOK: one OFFER at 244.90
+field      expected  actual        result
+condition  true      True found 1  ok    
+15:57:07.584 check  Book after killed FOK
+field       expected  actual    result
+entry_type  OFFER(1)  OFFER(1)  ok    
+price       244.90    244.9     ok    
+size        50        50        ok
+15:57:07.635 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=281|52=20261108-15:57:07.635|41=4ae7080aee714a04|11=6afe9cd144a14a8b|37=261108155707000037|55=AMZ|54=2|60=20261108-15:57:07.635|10=039|
+15:57:07.636 fix    << 8=FIXT.1.1|9=215|35=8|34=313|49=SIM_XETRA|52=20261108-15:57:07.635|56=CLIENT_XETRA|6=0|11=6afe9cd144a14a8b|14=0|17=261108155707000037-2|37=261108155707000037|38=50|39=4|40=2|41=4ae7080aee714a04|44=244.9|54=2|55=AMZ|59=0|150=4|151=0|10=148|
+15:57:07.636 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108155707000037   261108155707000037   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       244.90               244.9                ok

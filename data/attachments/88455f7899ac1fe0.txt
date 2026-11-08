@@ -1,0 +1,12 @@
+15:57:07.358 fix    >> 8=FIXT.1.1|9=156|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=260|52=20261108-15:57:07.358|11=d0c87126c0a34837|55=EUR/USD|54=1|60=20261108-15:57:07.358|40=2|44=1.00736|59=0|10=050|
+15:57:07.358 fix    << 8=FIXT.1.1|9=223|35=8|34=287|49=SIM_FASTMATCH|52=20261108-15:57:07.358|56=CLIENT_FASTMATCH|6=0|11=d0c87126c0a34837|14=0|17=261108155707000027-1|37=261108155707000027|39=8|40=2|44=1.00736|54=1|55=EUR/USD|58=order quantity missing|59=0|150=8|10=003|
+15:57:07.358 check  ExecutionReport for order without quantity
+field       expected                actual                  result
+msg_type    EXECUTION_REPORT(8)     EXECUTION_REPORT(8)     ok    
+order_id    <non-empty>             261108155707000027      ok    
+exec_type   REJECTED(8)             REJECTED(8)             ok    
+ord_status  REJECTED(8)             REJECTED(8)             ok    
+symbol      EUR/USD                 EUR/USD                 ok    
+order_qty   <not sent>              <none>                  ok    
+price       1.00736                 1.00736                 ok    
+text        order quantity missing  order quantity missing  ok

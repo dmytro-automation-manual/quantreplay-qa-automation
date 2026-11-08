@@ -1,0 +1,22 @@
+15:57:05.966 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=188|52=20261108-15:57:05.966|11=4f40e98f13f44ac4|55=EUR/GBP|54=1|60=20261108-15:57:05.966|40=2|44=0.75355|38=1000000|59=0|10=154|
+15:57:05.966 fix    << 8=FIXT.1.1|9=220|35=8|34=212|49=SIM_FASTMATCH|52=20261108-15:57:05.966|56=CLIENT_FASTMATCH|6=0|11=4f40e98f13f44ac4|14=0|17=261108155705000000-1|37=261108155705000000|38=1000000|39=0|40=2|44=0.75355|54=1|55=EUR/GBP|59=0|150=0|151=1000000|10=206|
+15:57:05.967 check  ExecutionReport for price on tick
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261108155705000000   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      EUR/GBP              EUR/GBP              ok    
+order_qty   1000000              1000000              ok    
+price       0.75355              0.75355              ok
+15:57:06.018 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=189|52=20261108-15:57:06.018|41=4f40e98f13f44ac4|11=3b2ed699ef8a4ef8|37=261108155705000000|55=EUR/GBP|54=1|60=20261108-15:57:06.018|10=120|
+15:57:06.018 fix    << 8=FIXT.1.1|9=234|35=8|34=213|49=SIM_FASTMATCH|52=20261108-15:57:06.018|56=CLIENT_FASTMATCH|6=0|11=3b2ed699ef8a4ef8|14=0|17=261108155705000000-2|37=261108155705000000|38=1000000|39=4|40=2|41=4f40e98f13f44ac4|44=0.75355|54=1|55=EUR/GBP|59=0|150=4|151=0|10=039|
+15:57:06.018 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108155705000000   261108155705000000   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      EUR/GBP              EUR/GBP              ok    
+order_qty   1000000              1000000              ok    
+price       0.75355              0.75355              ok

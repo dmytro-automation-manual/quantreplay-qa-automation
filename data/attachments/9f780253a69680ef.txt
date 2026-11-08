@@ -1,0 +1,23 @@
+15:57:04.112 fix    >> 8=FIXT.1.1|9=168|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=108|52=20261108-15:57:04.112|11=ce26b7a24d5f4b7b|55=USD/JPY|54=1|60=20261108-15:57:04.111|40=2|44=141.121|38=50000000|59=0|10=007|
+15:57:04.112 fix    << 8=FIXT.1.1|9=222|35=8|34=120|49=SIM_FASTMATCH|52=20261108-15:57:04.112|56=CLIENT_FASTMATCH|6=0|11=ce26b7a24d5f4b7b|14=0|17=261108155704000005-1|37=261108155704000005|38=50000000|39=0|40=2|44=141.121|54=1|55=USD/JPY|59=0|150=0|151=50000000|10=145|
+15:57:04.112 check  ExecutionReport for OrderQty = qtyMaximum
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261108155704000005   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      USD/JPY              USD/JPY              ok    
+order_qty   50000000             50000000             ok    
+price       141.121              141.121              ok    
+leaves_qty  50000000             50000000             ok
+15:57:04.163 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=109|52=20261108-15:57:04.163|41=ce26b7a24d5f4b7b|11=6ed33c19089b4e86|37=261108155704000005|55=USD/JPY|54=1|60=20261108-15:57:04.163|10=079|
+15:57:04.164 fix    << 8=FIXT.1.1|9=235|35=8|34=121|49=SIM_FASTMATCH|52=20261108-15:57:04.164|56=CLIENT_FASTMATCH|6=0|11=6ed33c19089b4e86|14=0|17=261108155704000005-2|37=261108155704000005|38=50000000|39=4|40=2|41=ce26b7a24d5f4b7b|44=141.121|54=1|55=USD/JPY|59=0|150=4|151=0|10=048|
+15:57:04.164 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108155704000005   261108155704000005   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      USD/JPY              USD/JPY              ok    
+order_qty   50000000             50000000             ok    
+price       141.121              141.121              ok

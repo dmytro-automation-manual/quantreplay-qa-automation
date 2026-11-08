@@ -1,0 +1,48 @@
+15:57:06.772 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=227|52=20261108-15:57:06.771|11=d4bd0681c52e41a7|55=VOW|54=1|60=20261108-15:57:06.771|40=2|44=61.80|38=150|59=0|10=052|
+15:57:06.772 fix    << 8=FIXT.1.1|9=197|35=8|34=257|49=SIM_XETRA|52=20261108-15:57:06.772|56=CLIENT_XETRA|6=0|11=d4bd0681c52e41a7|14=0|17=261108155706000020-1|37=261108155706000020|38=150|39=0|40=2|44=61.8|54=1|55=VOW|59=0|150=0|151=150|10=165|
+15:57:06.772 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=228|52=20261108-15:57:06.772|11=c20bf71fff3647c3|55=VOW|54=2|60=20261108-15:57:06.772|40=2|44=75.60|38=300|59=0|10=112|
+15:57:06.773 fix    << 8=FIXT.1.1|9=197|35=8|34=258|49=SIM_XETRA|52=20261108-15:57:06.772|56=CLIENT_XETRA|6=0|11=c20bf71fff3647c3|14=0|17=261108155706000021-1|37=261108155706000021|38=300|39=0|40=2|44=75.6|54=2|55=VOW|59=0|150=0|151=300|10=222|
+15:57:06.773 fix    >> 8=FIXT.1.1|9=130|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=229|52=20261108-15:57:06.773|262=cc3eb81cfe07462f|263=0|264=0|267=2|269=0|269=1|146=1|55=VOW|10=226|
+15:57:06.773 fix    << 8=FIXT.1.1|9=208|35=W|34=259|49=SIM_XETRA|52=20261108-15:57:06.773|56=CLIENT_XETRA|55=VOW|262=cc3eb81cfe07462f|268=2|269=0|278=1794153414:15|270=61.8|271=150|269=1|278=1794153414:16|270=75.6|271=300|779=20261108-15:57:06.773|10=034|
+15:57:06.774 check  Book size
+field   expected  actual  result
+bids    1         1       ok    
+offers  1         1       ok    
+15:57:06.774 check  Bid in the snapshot: one BID at 61.80
+field      expected  actual        result
+condition  true      True found 1  ok    
+15:57:06.774 check  Bid in the snapshot
+field       expected  actual  result
+entry_type  BID(0)    BID(0)  ok    
+price       61.80     61.8    ok    
+size        150       150     ok    
+15:57:06.774 check  Offer in the snapshot: one OFFER at 75.60
+field      expected  actual        result
+condition  true      True found 1  ok    
+15:57:06.774 check  Offer in the snapshot
+field       expected  actual    result
+entry_type  OFFER(1)  OFFER(1)  ok    
+price       75.60     75.6      ok    
+size        300       300       ok
+15:57:06.826 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=230|52=20261108-15:57:06.826|41=d4bd0681c52e41a7|11=dbc89e12e4224dee|37=261108155706000020|55=VOW|54=1|60=20261108-15:57:06.826|10=054|
+15:57:06.827 fix    << 8=FIXT.1.1|9=215|35=8|34=260|49=SIM_XETRA|52=20261108-15:57:06.826|56=CLIENT_XETRA|6=0|11=dbc89e12e4224dee|14=0|17=261108155706000020-2|37=261108155706000020|38=150|39=4|40=2|41=d4bd0681c52e41a7|44=61.8|54=1|55=VOW|59=0|150=4|151=0|10=157|
+15:57:06.827 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108155706000020   261108155706000020   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      VOW                  VOW                  ok    
+order_qty   150                  150                  ok    
+price       61.80                61.8                 ok    
+15:57:06.827 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=231|52=20261108-15:57:06.827|41=c20bf71fff3647c3|11=96e6b6fe4f884834|37=261108155706000021|55=VOW|54=2|60=20261108-15:57:06.827|10=252|
+15:57:06.828 fix    << 8=FIXT.1.1|9=215|35=8|34=261|49=SIM_XETRA|52=20261108-15:57:06.827|56=CLIENT_XETRA|6=0|11=96e6b6fe4f884834|14=0|17=261108155706000021-2|37=261108155706000021|38=300|39=4|40=2|41=c20bf71fff3647c3|44=75.6|54=2|55=VOW|59=0|150=4|151=0|10=099|
+15:57:06.828 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108155706000021   261108155706000021   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      VOW                  VOW                  ok    
+order_qty   300                  300                  ok    
+price       75.60                75.6                 ok

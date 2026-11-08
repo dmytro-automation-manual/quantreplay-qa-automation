@@ -1,0 +1,48 @@
+15:57:05.748 fix    >> 8=FIXT.1.1|9=151|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=182|52=20261108-15:57:05.748|11=440427e091694c22|55=VODI|54=1|60=20261108-15:57:05.748|40=2|44=1.268|38=5000|59=0|10=223|
+15:57:05.748 fix    << 8=FIXT.1.1|9=201|35=8|34=206|49=SIM_XETRA|52=20261108-15:57:05.748|56=CLIENT_XETRA|6=0|11=440427e091694c22|14=0|17=261108155705000020-1|37=261108155705000020|38=5000|39=0|40=2|44=1.268|54=1|55=VODI|59=0|150=0|151=5000|10=156|
+15:57:05.749 fix    >> 8=FIXT.1.1|9=152|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=183|52=20261108-15:57:05.749|11=8aed0548eb8b485f|55=VODI|54=2|60=20261108-15:57:05.749|40=2|44=1.553|38=10000|59=0|10=010|
+15:57:05.749 fix    << 8=FIXT.1.1|9=203|35=8|34=207|49=SIM_XETRA|52=20261108-15:57:05.749|56=CLIENT_XETRA|6=0|11=8aed0548eb8b485f|14=0|17=261108155705000021-1|37=261108155705000021|38=10000|39=0|40=2|44=1.553|54=2|55=VODI|59=0|150=0|151=10000|10=245|
+15:57:05.749 fix    >> 8=FIXT.1.1|9=131|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=184|52=20261108-15:57:05.749|262=0ca037b30e4f4e26|263=0|264=0|267=2|269=0|269=1|146=1|55=VODI|10=174|
+15:57:05.750 fix    << 8=FIXT.1.1|9=214|35=W|34=208|49=SIM_XETRA|52=20261108-15:57:05.750|56=CLIENT_XETRA|55=VODI|262=0ca037b30e4f4e26|268=2|269=0|278=1794153414:15|270=1.268|271=5000|269=1|278=1794153414:16|270=1.553|271=10000|779=20261108-15:57:05.750|10=193|
+15:57:05.750 check  Book size
+field   expected  actual  result
+bids    1         1       ok    
+offers  1         1       ok    
+15:57:05.750 check  Bid in the snapshot: one BID at 1.268
+field      expected  actual        result
+condition  true      True found 1  ok    
+15:57:05.750 check  Bid in the snapshot
+field       expected  actual  result
+entry_type  BID(0)    BID(0)  ok    
+price       1.268     1.268   ok    
+size        5000      5000    ok    
+15:57:05.751 check  Offer in the snapshot: one OFFER at 1.553
+field      expected  actual        result
+condition  true      True found 1  ok    
+15:57:05.751 check  Offer in the snapshot
+field       expected  actual    result
+entry_type  OFFER(1)  OFFER(1)  ok    
+price       1.553     1.553     ok    
+size        10000     10000     ok
+15:57:05.802 fix    >> 8=FIXT.1.1|9=166|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=185|52=20261108-15:57:05.802|41=440427e091694c22|11=5617ce388100405f|37=261108155705000020|55=VODI|54=1|60=20261108-15:57:05.802|10=185|
+15:57:05.803 fix    << 8=FIXT.1.1|9=218|35=8|34=209|49=SIM_XETRA|52=20261108-15:57:05.802|56=CLIENT_XETRA|6=0|11=5617ce388100405f|14=0|17=261108155705000020-2|37=261108155705000020|38=5000|39=4|40=2|41=440427e091694c22|44=1.268|54=1|55=VODI|59=0|150=4|151=0|10=131|
+15:57:05.803 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108155705000020   261108155705000020   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      VODI                 VODI                 ok    
+order_qty   5000                 5000                 ok    
+price       1.268                1.268                ok    
+15:57:05.803 fix    >> 8=FIXT.1.1|9=166|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=186|52=20261108-15:57:05.803|41=8aed0548eb8b485f|11=7174a9614e704cfa|37=261108155705000021|55=VODI|54=2|60=20261108-15:57:05.803|10=031|
+15:57:05.804 fix    << 8=FIXT.1.1|9=219|35=8|34=210|49=SIM_XETRA|52=20261108-15:57:05.803|56=CLIENT_XETRA|6=0|11=7174a9614e704cfa|14=0|17=261108155705000021-2|37=261108155705000021|38=10000|39=4|40=2|41=8aed0548eb8b485f|44=1.553|54=2|55=VODI|59=0|150=4|151=0|10=010|
+15:57:05.804 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108155705000021   261108155705000021   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      VODI                 VODI                 ok    
+order_qty   10000                10000                ok    
+price       1.553                1.553                ok

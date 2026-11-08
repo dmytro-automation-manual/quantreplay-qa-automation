@@ -1,0 +1,24 @@
+15:57:24.881 rest   >> GET /settings 
+15:57:24.890 httpx  HTTP Request: GET http://localhost:9052/api/settings "HTTP/1.1 200 OK"
+15:57:24.890 rest   << 200 {"settings":[{"key":"DisplayName","value":"MKTSIMULATOR"},{"key":"SeedPriceDatabaseConnection","value":"postgresql://priceseed:priceseed@external_price-seed-db:5432/priceseed"},{"key":"SeedPricesLastUpdated","value":"2026-11-08 15:57:24"}]}
+15:57:24.890 rest   >> PUT /settings {"settings": [{"key": "DisplayName", "value": "MKTSIMULATOR-QA"}]}
+15:57:24.900 httpx  HTTP Request: PUT http://localhost:9052/api/settings "HTTP/1.1 200 OK"
+15:57:24.900 rest   << 200 {"result":"General settings updated successfully"}
+15:57:24.900 check  PUT /api/settings
+field        expected                               actual                                 result
+status_code  200                                    200                                    ok    
+result       General settings updated successfully  General settings updated successfully  ok    
+15:57:24.900 rest   >> GET /settings 
+15:57:24.909 httpx  HTTP Request: GET http://localhost:9052/api/settings "HTTP/1.1 200 OK"
+15:57:24.910 rest   << 200 {"settings":[{"key":"SeedPriceDatabaseConnection","value":"postgresql://priceseed:priceseed@external_price-seed-db:5432/priceseed"},{"key":"SeedPricesLastUpdated","value":"2026-11-08 15:57:24"},{"key":"DisplayName","value":"MKTSIMULATOR-QA"}]}
+15:57:24.910 check  Settings in REST
+field        expected         actual           result
+DisplayName  MKTSIMULATOR-QA  MKTSIMULATOR-QA  ok    
+15:57:24.910 db     SQL select key, value from sim.setting order by key 
+15:57:24.910 db     rows: 3
+15:57:24.911 check  Settings in DB
+field        expected         actual           result
+DisplayName  MKTSIMULATOR-QA  MKTSIMULATOR-QA  ok
+15:57:24.911 rest   >> PUT /settings {"settings": [{"key": "DisplayName", "value": "MKTSIMULATOR"}]}
+15:57:24.920 httpx  HTTP Request: PUT http://localhost:9052/api/settings "HTTP/1.1 200 OK"
+15:57:24.921 rest   << 200 {"result":"General settings updated successfully"}

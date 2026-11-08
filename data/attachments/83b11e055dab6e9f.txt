@@ -1,4 +1,0 @@
-Current venue = FASTMATCH
-field      expected                    actual                      result
-id         FASTMATCH                   FASTMATCH                   ok    
-startTime  2026-11-08 15:48:17.069781  2026-11-08 15:48:17.069781  ok    

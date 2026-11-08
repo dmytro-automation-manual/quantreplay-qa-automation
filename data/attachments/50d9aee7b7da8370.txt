@@ -1,0 +1,22 @@
+15:57:03.883 fix    >> 8=FIXT.1.1|9=166|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=98|52=20261108-15:57:03.883|11=1b7268d824f54b80|55=USD/JPY|54=1|60=20261108-15:57:03.883|40=2|44=141.122|38=1000000|59=0|10=014|
+15:57:03.884 fix    << 8=FIXT.1.1|9=220|35=8|34=110|49=SIM_FASTMATCH|52=20261108-15:57:03.883|56=CLIENT_FASTMATCH|6=0|11=1b7268d824f54b80|14=0|17=261108155703000000-1|37=261108155703000000|38=1000000|39=0|40=2|44=141.122|54=1|55=USD/JPY|59=0|150=0|151=1000000|10=112|
+15:57:03.884 check  ExecutionReport for price on tick
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261108155703000000   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      USD/JPY              USD/JPY              ok    
+order_qty   1000000              1000000              ok    
+price       141.122              141.122              ok
+15:57:03.935 fix    >> 8=FIXT.1.1|9=176|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=99|52=20261108-15:57:03.935|41=1b7268d824f54b80|11=dbbb220e3c2444d2|37=261108155703000000|55=USD/JPY|54=1|60=20261108-15:57:03.935|10=180|
+15:57:03.935 fix    << 8=FIXT.1.1|9=234|35=8|34=111|49=SIM_FASTMATCH|52=20261108-15:57:03.935|56=CLIENT_FASTMATCH|6=0|11=dbbb220e3c2444d2|14=0|17=261108155703000000-2|37=261108155703000000|38=1000000|39=4|40=2|41=1b7268d824f54b80|44=141.122|54=1|55=USD/JPY|59=0|150=4|151=0|10=124|
+15:57:03.936 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261108155703000000   261108155703000000   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      USD/JPY              USD/JPY              ok    
+order_qty   1000000              1000000              ok    
+price       141.122              141.122              ok

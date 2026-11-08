@@ -1,0 +1,6 @@
+15:57:09.401 rest   >> PUT /listings/NOSUCHSYM {"enabled": true}
+15:57:09.414 httpx  HTTP Request: PUT http://localhost:9050/api/listings/NOSUCHSYM "HTTP/1.1 404 Not Found"
+15:57:09.414 rest   << 404 {"result":"Can not resolve a single Listing by a given key"}
+15:57:09.415 check  PUT unknown listing
+field        expected  actual  result
+status_code  404       404     ok
