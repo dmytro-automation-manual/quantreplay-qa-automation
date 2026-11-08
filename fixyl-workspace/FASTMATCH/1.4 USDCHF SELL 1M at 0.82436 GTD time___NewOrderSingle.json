@@ -1,0 +1,22 @@
+{
+  "msg": "NewOrderSingle",
+  "data": {
+    "ClOrdID": "{auto-gen}",
+    "Instrument": {
+      "Symbol": "USD/CHF",
+      "SecurityType": "FXSPOT",
+      "SecurityExchange": "FASTMATCH"
+    },
+    "Side": "2",
+    "TransactTime": "{auto-gen}",
+    "OrderQtyData": {
+      "OrderQty": "1000000"
+    },
+    "OrdType": "2",
+    "Price": "0.82436",
+    "TimeInForce": "6",
+    "Currency": "USD",
+    "HandlInst": "1",
+    "ExpireTime": "2027-12-31T16:30:00.000Z"
+  }
+}

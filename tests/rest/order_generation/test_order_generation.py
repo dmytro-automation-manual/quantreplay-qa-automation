@@ -1,6 +1,8 @@
 """POST /api/genstart, /api/genstop and GET /api/genstatus (random order generator).
 
 Precondition (session): the generator is stopped and the books are empty.
+Random orders are off for every test instrument by default (sim.listing.random_orders_enabled = false);
+the test enables them for its instrument through REST and switches them off again in the teardown.
 Teardown: the generator is stopped and the venue is reset - random orders left in the books are removed
 (persistence is disabled on the test venue), so the next test starts with empty books again.
 Texts are the venue's: status 'Stopped' (documented 'NotRunning'), 'Generator was started / stopped'
@@ -26,8 +28,15 @@ def test_generator_is_stopped_before_tests(market, api):
     check_response(api.get_generator_status(market.venue_id), "GET genstatus", status_code=200, result="Stopped")
 
 
-def test_start_and_stop_generator(market, api, market_data, generator_cleanup):
+def test_start_and_stop_generator(market, api, venue, market_data, undo, generator_cleanup):
     symbol = market.main.symbol
+    with step(f"Precondition: enable random orders for {symbol} (off by default) and reload the venue"):
+        undo.push(f"disable random orders for {symbol}",
+                  lambda: api.update_listing(symbol, {"randomOrdersEnabled": False}))
+        check_response(api.update_listing(symbol, {"randomOrdersEnabled": True}), f"PUT listing {symbol}",
+                       status_code=200)
+        venue.reset()
+
     with step(f"POST /api/genstart/{market.venue_id}"):
         response = api.start_generator(market.venue_id)
     check_response(response, "POST genstart", status_code=200, result="Generator was started")

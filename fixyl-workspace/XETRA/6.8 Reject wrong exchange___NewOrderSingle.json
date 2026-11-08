@@ -1,0 +1,20 @@
+{
+  "msg": "NewOrderSingle",
+  "data": {
+    "ClOrdID": "{auto-gen}",
+    "Instrument": {
+      "Symbol": "VOW",
+      "SecurityType": "CS",
+      "SecurityExchange": "XNYS"
+    },
+    "Side": "1",
+    "TransactTime": "{auto-gen}",
+    "OrderQtyData": {
+      "OrderQty": "100"
+    },
+    "OrdType": "2",
+    "Price": "68.60",
+    "TimeInForce": "0",
+    "Currency": "EUR"
+  }
+}

@@ -31,8 +31,19 @@ class DbSettings:
 
 
 @dataclass(frozen=True)
+class ExternalPriceSeedDbSettings:
+    """External price seed database (container external_price-seed-db): the source of POST /api/syncpriceseeds."""
+    host: str = os.getenv("PRICE_SEED_DB_HOST", "localhost")
+    port: int = int(os.getenv("PRICE_SEED_DB_PORT", "15433"))
+    name: str = os.getenv("PRICE_SEED_DB_NAME", "priceseed")
+    user: str = os.getenv("PRICE_SEED_DB_USER", "priceseed")
+    password: str = os.getenv("PRICE_SEED_DB_PASSWORD", "priceseed")
+
+
+@dataclass(frozen=True)
 class Settings:
     startup_timeout: float = float(os.getenv("SIM_STARTUP_TIMEOUT", "60"))
     fix: FixSettings = FixSettings()
     rest: RestSettings = RestSettings()
     db: DbSettings = DbSettings()
+    price_seed_db: ExternalPriceSeedDbSettings = ExternalPriceSeedDbSettings()

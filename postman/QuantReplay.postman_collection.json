@@ -82,6 +82,116 @@
       ]
     },
     {
+      "name": "Price seeds (external DB sync)",
+      "description": "External price seed database: container external_price-seed-db (port 15433, database / user / password priceseed), table price_seed. The setting SeedPriceDatabaseConnection points to it. Flow: change bid / mid / offer in the external table -> 2. Sync -> 1. and 3. show the new prices and the new SeedPricesLastUpdated.",
+      "item": [
+        {
+          "name": "1. Get price seeds",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/priceseeds",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "priceseeds"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "2. Sync price seeds from external DB",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/syncpriceseeds",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "syncpriceseeds"
+              ]
+            },
+            "description": "Reads table price_seed from the database in the setting SeedPriceDatabaseConnection and copies mid / bid / offer prices by symbol into sim.price_seed; sets SeedPricesLastUpdated."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Synchronized\", () => pm.expect(pm.response.json().result).to.eql(\"Price seeds successfully synchronized\"));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "3. Check SeedPricesLastUpdated",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/settings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "settings"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "const s = Object.fromEntries(pm.response.json().settings.map(x => [x.key, x.value]));",
+                  "pm.test(\"Connection points to external_price-seed-db\", () => pm.expect(s.SeedPriceDatabaseConnection).to.include(\"@external_price-seed-db:5432/priceseed\"));",
+                  "console.log(\"SeedPricesLastUpdated:\", s.SeedPricesLastUpdated);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Venues",
       "item": [
         {
@@ -460,7 +570,7 @@
     },
     {
       "name": "Persisted market state",
-      "description": "Store/recover order book + L1 market data of XETRA.\n\nFile format is JSON (per docs, not CSV).\nContainer path: {{persistenceFile}}\nOn host: ~/Fintech project/sim-run/state/XETRA_state.json\n\nRun 1 once (it also resets the venue). Then use 2 / 3 any time.",
+      "description": "Store/recover order book + L1 market data of XETRA.\n\nFile format is JSON (per docs, not CSV).\nContainer path: {{persistenceFile}}\nOn host: ~/fintech-project/sim-run/xetra/state/XETRA_state.json\n\nRun 1 once (it also resets the venue). Then use 2 / 3 any time.",
       "item": [
         {
           "name": "1. Enable persistence (+ reset)",
@@ -589,7 +699,7 @@
     },
     {
       "name": "Market phases",
-      "description": "Real phases supported by QuantReplay: Open, Closed, PreOpen, PreClose, Auction, TradeAtLast, Halted.\nThere is no 'PostAuction' phase: after the closing auction (PreClose) comes TradeAtLast (Post-Trading).\n\nEach request sets a one-phase schedule from now for {{phaseMinutes}} min and resets the venue.\nFIX tag 625 (TradingSessionSubID) per phase: PreOpen=2, Open=3, PreClose=4, TradeAtLast=5, Auction=6, Closed=10.\nDuring an auction call: 326=3; at uncrossing: 326=2.",
+      "description": "Real phases supported by QuantReplay: Open, Closed, PreOpen, PreClose, Auction, TradeAtLast, Halted.\nThere is no 'PostAuction' phase: after the closing auction (PreClose) comes TradeAtLast (Post-Trading).\n\nEach request sets a one-phase schedule from now for {{phaseMinutes}} min and resets the venue.\nFIX tag 625 (TradingSessionSubID) per phase: PreOpen=2, Open=3, PreClose=4, TradeAtLast=5, Auction=6, Closed=10.\nDuring an auction call: 326=3; at uncrossing: 326=2.\n\nEvery request also sends \"name\": \"{{venueId}}\" (the same value, nothing changes): a body with only \"phases\" is rejected with 400 \"Required fields missing for Venue model in request\" - BUG-003 (bug_reports/BUG-003-phase-schedule-only-update-returns-400.md).",
       "item": [
         {
           "name": "PreOpen (opening auction)",
@@ -618,7 +728,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"phases\": [\n    {\n      \"phase\": \"PreOpen\",\n      \"startTime\": \"{{phaseStart}}\",\n      \"endTime\": \"{{phaseEnd}}\",\n      \"endTimeRange\": 0\n    }\n  ]\n}",
+              "raw": "{\n  \"name\": \"{{venueId}}\",\n  \"phases\": [\n    {\n      \"phase\": \"PreOpen\",\n      \"startTime\": \"{{phaseStart}}\",\n      \"endTime\": \"{{phaseEnd}}\",\n      \"endTimeRange\": 0\n    }\n  ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -685,7 +795,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"phases\": [\n    {\n      \"phase\": \"Auction\",\n      \"startTime\": \"{{phaseStart}}\",\n      \"endTime\": \"{{phaseEnd}}\",\n      \"endTimeRange\": 0\n    }\n  ]\n}",
+              "raw": "{\n  \"name\": \"{{venueId}}\",\n  \"phases\": [\n    {\n      \"phase\": \"Auction\",\n      \"startTime\": \"{{phaseStart}}\",\n      \"endTime\": \"{{phaseEnd}}\",\n      \"endTimeRange\": 0\n    }\n  ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -752,7 +862,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"phases\": [\n    {\n      \"phase\": \"PreClose\",\n      \"startTime\": \"{{phaseStart}}\",\n      \"endTime\": \"{{phaseEnd}}\",\n      \"endTimeRange\": 0\n    }\n  ]\n}",
+              "raw": "{\n  \"name\": \"{{venueId}}\",\n  \"phases\": [\n    {\n      \"phase\": \"PreClose\",\n      \"startTime\": \"{{phaseStart}}\",\n      \"endTime\": \"{{phaseEnd}}\",\n      \"endTimeRange\": 0\n    }\n  ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -819,7 +929,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"phases\": [\n    {\n      \"phase\": \"TradeAtLast\",\n      \"startTime\": \"{{phaseStart}}\",\n      \"endTime\": \"{{phaseEnd}}\"\n    }\n  ]\n}",
+              "raw": "{\n  \"name\": \"{{venueId}}\",\n  \"phases\": [\n    {\n      \"phase\": \"TradeAtLast\",\n      \"startTime\": \"{{phaseStart}}\",\n      \"endTime\": \"{{phaseEnd}}\"\n    }\n  ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -886,7 +996,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"phases\": [\n    {\n      \"phase\": \"Closed\",\n      \"startTime\": \"{{phaseStart}}\",\n      \"endTime\": \"{{phaseEnd}}\"\n    }\n  ]\n}",
+              "raw": "{\n  \"name\": \"{{venueId}}\",\n  \"phases\": [\n    {\n      \"phase\": \"Closed\",\n      \"startTime\": \"{{phaseStart}}\",\n      \"endTime\": \"{{phaseEnd}}\"\n    }\n  ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -953,7 +1063,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"phases\": []\n}",
+              "raw": "{\n  \"name\": \"{{venueId}}\",\n  \"phases\": []\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1015,8 +1125,144 @@
       ]
     },
     {
+      "name": "Halt / resume",
+      "item": [
+        {
+          "name": "Halt (cancels allowed)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/halt/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "halt",
+                "{{venueId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"allowCancels\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Halts the venue: new orders are rejected; order cancels are accepted."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Halt (cancels not allowed)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/halt/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "halt",
+                "{{venueId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"allowCancels\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Halts the venue: new orders and order cancels are rejected."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Resume",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/resume/{{venueId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "resume",
+                "{{venueId}}"
+              ]
+            },
+            "description": "Resumes trading after a halt."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Datasources (historical playback)",
-      "description": "Plays back historical bid/ask levels from CSV into the matching engine; they match against random (synthetic) or your manual FIX orders.\n\nCSV on host: ~/Fintech project/sim-run/datasources/xetra_vow_history.csv\nIn container: {{datasourceFile}}\n1 row = timestamp, instrument, bid party/qty/price, ask price/qty/party. 10 rows, VOW, 2 s apart. Timestamp format: YYYY-MM-DD HH:MM:SS.MMM\n\nOrder: 1 -> 2 -> 3 -> 4.",
+      "description": "Plays back historical bid/ask levels from CSV into the matching engine; they match against random (synthetic) or your manual FIX orders.\n\nCSV on host: ~/fintech-project/sim-run/xetra/datasources/xetra_vow_history.csv\nIn container: {{datasourceFile}}\n1 row = full order book snapshot: ReceivedTimeStamp, MessageTimeStamp, Symbol + 3 depth levels per side (BidParty_1/BidQuantity_1/BidPrice_1/AskPrice_1/AskQuantity_1/AskParty_1, then level 2 and 3). 10 rows, VOW, 3 s apart. Parties: every order has its own party, CP1 ... CP60, row by row in column order (row 1: bid 1 = CP1, ask 1 = CP2 ... ask 3 = CP6; row 2: CP7 ...), returned as contra party (448, 452=17) in fills. Timestamp format: YYYY-MM-DD HH:MM:SS.MMM\n\nColumn mapping: columnFrom = simulator field, columnTo = CSV column; '#' = depth level, so 'BidPrice#' -> 'BidPrice_#' maps BidPrice_1, BidPrice_2, BidPrice_3. maxDepthLevels = 3.\n\nDemo: subscribe to VOW market data, run 3 and 4, then send Buy 1000 VOW @ 68.94 limit within 3 s: fills 420 @ 68.90 (CP2) + 580 @ 68.92 (CP4).\n\nOrder: 1 -> 2 -> 3 -> 4.",
       "item": [
         {
           "name": "1. Add CSV datasource",
@@ -1044,7 +1290,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"enabled\": true,\n  \"name\": \"XETRA-VOW-HISTORY\",\n  \"venueId\": \"{{venueId}}\",\n  \"connection\": \"{{datasourceFile}}\",\n  \"format\": \"CSV\",\n  \"type\": \"OrderBook\",\n  \"repeat\": false,\n  \"textDelimiter\": \",\",\n  \"textHeaderRow\": 1,\n  \"textDataRow\": 2,\n  \"columnMapping\": [\n    {\n      \"columnFrom\": \"ReceivedTimeStamp\",\n      \"columnTo\": \"ReceivedTimeStamp\"\n    },\n    {\n      \"columnFrom\": \"MessageTimeStamp\",\n      \"columnTo\": \"MessageTimeStamp\"\n    },\n    {\n      \"columnFrom\": \"Instrument\",\n      \"columnTo\": \"Instrument\"\n    },\n    {\n      \"columnFrom\": \"BidParty\",\n      \"columnTo\": \"BidParty\"\n    },\n    {\n      \"columnFrom\": \"BidQuantity\",\n      \"columnTo\": \"BidQuantity\"\n    },\n    {\n      \"columnFrom\": \"BidPrice\",\n      \"columnTo\": \"BidPrice\"\n    },\n    {\n      \"columnFrom\": \"AskPrice\",\n      \"columnTo\": \"AskPrice\"\n    },\n    {\n      \"columnFrom\": \"AskQuantity\",\n      \"columnTo\": \"AskQuantity\"\n    },\n    {\n      \"columnFrom\": \"AskParty\",\n      \"columnTo\": \"AskParty\"\n    }\n  ]\n}",
+              "raw": "{\n  \"enabled\": true,\n  \"name\": \"XETRA-VOW-HISTORY\",\n  \"venueId\": \"{{venueId}}\",\n  \"connection\": \"{{datasourceFile}}\",\n  \"format\": \"CSV\",\n  \"type\": \"OrderBook\",\n  \"repeat\": true,\n  \"textDelimiter\": \",\",\n  \"textHeaderRow\": 1,\n  \"textDataRow\": 2,\n  \"columnMapping\": [\n    {\n      \"columnFrom\": \"ReceivedTimeStamp\",\n      \"columnTo\": \"ReceivedTimeStamp\"\n    },\n    {\n      \"columnFrom\": \"MessageTimeStamp\",\n      \"columnTo\": \"MessageTimeStamp\"\n    },\n    {\n      \"columnFrom\": \"Instrument\",\n      \"columnTo\": \"Symbol\"\n    },\n    {\n      \"columnFrom\": \"BidParty#\",\n      \"columnTo\": \"BidParty_#\"\n    },\n    {\n      \"columnFrom\": \"BidQuantity#\",\n      \"columnTo\": \"BidQuantity_#\"\n    },\n    {\n      \"columnFrom\": \"BidPrice#\",\n      \"columnTo\": \"BidPrice_#\"\n    },\n    {\n      \"columnFrom\": \"AskPrice#\",\n      \"columnTo\": \"AskPrice_#\"\n    },\n    {\n      \"columnFrom\": \"AskQuantity#\",\n      \"columnTo\": \"AskQuantity_#\"\n    },\n    {\n      \"columnFrom\": \"AskParty#\",\n      \"columnTo\": \"AskParty_#\"\n    }\n  ],\n  \"maxDepthLevels\": 3\n}",
               "options": {
                 "raw": {
                   "language": "json"

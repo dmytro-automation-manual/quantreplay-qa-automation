@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>QuantReplay QA Automation: framework layers</title>
+<style>
+  :root {
+    --bg:#10151c; --panel:#171e27; --line:#2c3644; --text:#e8edf3; --muted:#98a5b5;
+    --tests:#4fc3a1; --data:#7fd6c2; --assert:#9fd36b; --services:#5aa9f0; --fix:#f2b34c;
+    --models:#c9a2ff; --transport:#ef7f6b; --config:#a7b4c4; --sut:#b58cf0;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:14px/1.42 "DejaVu Sans",Arial,sans-serif; }
+  .page { width:1640px; margin:0 auto; padding:30px 34px 30px; }
+  h1 { font-size:27px; margin:0 0 6px; }
+  .sub { color:var(--muted); margin:0 0 22px; font-size:15px; }
+  .sub b { color:var(--text); }
+  .main { display:grid; grid-template-columns:1080px 1fr; gap:28px; align-items:start; }
+
+  .group { position:relative; border:1px dashed var(--line); border-radius:12px; padding:30px 14px 14px; margin-bottom:16px; }
+  .group > .gname { position:absolute; top:7px; left:14px; font-size:12.5px; font-weight:700; letter-spacing:.06em;
+                    text-transform:uppercase; color:var(--muted); }
+  .layer { display:grid; grid-template-columns:190px 1fr 230px; background:var(--panel); border:1px solid var(--line);
+           border-left:6px solid var(--c); border-radius:9px; margin-top:10px; position:relative; }
+  .layer:first-of-type { margin-top:0; }
+  .layer + .layer::before { content:"↓"; position:absolute; top:-15px; left:88px; font-size:15px; line-height:1;
+                            color:var(--muted); font-weight:700; }
+  .name { padding:10px 12px; border-right:1px solid var(--line); }
+  .name .n { display:inline-block; min-width:22px; height:22px; line-height:22px; text-align:center; border-radius:11px;
+             background:var(--c); color:#10151c; font-weight:700; font-size:12.5px; margin-right:7px; }
+  .name b { font-size:18px; }
+  .name .path { display:block; margin-top:6px; font:12px "DejaVu Sans Mono",monospace; color:var(--muted); }
+  .name .role { display:block; margin-top:6px; font-size:13px; color:var(--c); font-weight:700; }
+  .what { padding:9px 13px; font-size:13px; }
+  .row { display:grid; grid-template-columns:148px 1fr; gap:10px; padding:2px 0; }
+  .row .f { font:12.5px "DejaVu Sans Mono",monospace; color:#fff; }
+  .row .d { color:var(--muted); }
+  .row .d code { font:12.5px "DejaVu Sans Mono",monospace; color:var(--text); }
+  .never { padding:9px 12px; border-left:1px solid var(--line); font-size:12.5px; color:var(--muted); }
+  .never .t { display:block; font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+              color:#ff9d8a; margin-bottom:3px; }
+
+  .l1 { --c:var(--tests); } .l2 { --c:var(--data); } .l3 { --c:var(--assert); } .l4 { --c:var(--services); }
+  .l5 { --c:var(--fix); } .l6 { --c:var(--models); } .l7 { --c:var(--transport); } .l8 { --c:var(--config); }
+
+  .sut { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .sys { background:#1e1830; border:1px solid var(--sut); border-radius:9px; padding:10px 12px; font-size:13px; }
+  .sys b { font-size:15px; display:block; margin-bottom:3px; }
+  .sys .d { color:var(--muted); }
+  .sys code { font:12.5px "DejaVu Sans Mono",monospace; color:#fff; }
+  .wire { text-align:center; color:var(--muted); font-size:13px; margin:-6px 0 10px; }
+  .wire b { color:var(--transport); }
+
+  .side { display:flex; flex-direction:column; gap:16px; }
+  .box { background:var(--panel); border:1px solid var(--line); border-top:4px solid var(--c); border-radius:9px; padding:12px 14px; }
+  .box h2 { margin:0 0 4px; font-size:16.5px; }
+  .box .lead { color:var(--muted); font-size:13px; margin:0 0 9px; }
+  .box.root { --c:var(--tests); } .box.why { --c:var(--services); } .box.flow { --c:var(--fix); }
+  .wiring { font:12.5px/1.55 "DejaVu Sans Mono",monospace; color:var(--text); }
+  .wiring .k { color:var(--muted); }
+  .wiring div { padding:3px 0; border-bottom:1px solid var(--line); }
+  .wiring div:last-child { border-bottom:none; }
+  ul { margin:0; padding-left:18px; font-size:13px; }
+  li { margin:3px 0; }
+  li code, .box code { font:12.5px "DejaVu Sans Mono",monospace; color:#fff; }
+  .steps { counter-reset:s; list-style:none; padding:0; }
+  .steps li { display:grid; grid-template-columns:96px 1fr; gap:8px; padding:4px 0; border-bottom:1px solid var(--line); margin:0; }
+  .steps li:last-child { border-bottom:none; }
+  .tag { display:inline-block; font-size:11px; font-weight:700; padding:1px 8px; border-radius:20px; background:var(--c);
+         color:#10151c; height:18px; align-self:start; margin-top:1px; text-align:center; }
+  .note { color:var(--muted); font-size:12.5px; margin-top:9px; }
+  .legend { display:flex; gap:28px; margin-top:6px; padding-top:14px; border-top:1px solid var(--line);
+            color:var(--muted); font-size:13.5px; flex-wrap:wrap; }
+  .legend b { color:var(--text); }
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>QuantReplay QA Automation: framework layers</h1>
+  <p class="sub">Read from top to bottom: <b>each layer uses only the layers below it</b>, never a layer above (one exception: models use the FIX enums from <b>fix/tags.py</b>).
+    For every layer: what it is for, what is inside, and what it must never do.</p>
+
+  <div class="main">
+    <div>
+      <!-- TEST PROJECT -->
+      <div class="group">
+        <span class="gname">Test project — what is checked and with which data</span>
+
+        <div class="layer l1">
+          <div class="name"><span class="n">1</span><b>tests</b><span class="path">tests/</span><span class="role">What is checked</span></div>
+          <div class="what">
+            <div class="row"><span class="f">fix/</span><span class="d">orders: positive, negative, boundary, time in force · market data · orders + order book</span></div>
+            <div class="row"><span class="f">rest/</span><span class="d">venues, listings, price seeds, settings, market phase, order generation, datasources, venue status</span></div>
+            <div class="row"><span class="f">db/</span><span class="d">venue, listing, price_seed, setting tables, compared with REST</span></div>
+            <div class="row"><span class="f">support/</span><span class="d">order book checks · isolation (<code>UndoStack</code>, <code>wait_until</code>) · <code>known_issue</code> → strict xfail</span></div>
+            <div class="row"><span class="f">conftest.py</span><span class="d">composition root: builds and wires all layers, setup / teardown (see right)</span></div>
+          </div>
+          <div class="never"><span class="t">Never</span>sockets, FIX tags, JSON or SQL. A test is steps + expected values.</div>
+        </div>
+
+        <div class="layer l2">
+          <div class="name"><span class="n">2</span><b>test_data</b><span class="path">test_data/</span><span class="role">With which data</span></div>
+          <div class="what">
+            <div class="row"><span class="f">markets.py</span><span class="d">venues <code>XETRA</code>, <code>FASTMATCH</code>: REST / FIX ports, CompIDs, timezone, instruments</span></div>
+            <div class="row"><span class="f">instruments.py</span><span class="d">real market data: AMZ, MSF, NFC, VODI, VOW · EUR/USD, GBP/USD, USD/JPY…: tick, qty limits, prices</span></div>
+            <div class="row"><span class="f">orders.py</span><span class="d">order factories: <code>passive_buy()</code>, <code>passive_sell()</code>, <code>limit_order()</code>, <code>market_order()</code></span></div>
+          </div>
+          <div class="never"><span class="t">Never</span>calls to the system. Only values and factories that build models.</div>
+        </div>
+      </div>
+
+      <!-- FRAMEWORK -->
+      <div class="group">
+        <span class="gname">framework/ — reusable, knows nothing about specific tests</span>
+
+        <div class="layer l3">
+          <div class="name"><span class="n">3</span><b>assertions</b><span class="path">framework/assertions/</span><span class="role">Expected vs actual</span></div>
+          <div class="what">
+            <div class="row"><span class="f">expect.py</span><span class="d"><code>check_fields()</code>, <code>check_equal()</code>, <code>check_true()</code>, matchers <code>PRESENT</code> / <code>ABSENT</code> / <code>OneOf</code></span></div>
+            <div class="row"><span class="f">trading.py</span><span class="d"><code>check_execution_report()</code>, <code>check_cancel_reject()</code></span></div>
+            <div class="row"><span class="f">result</span><span class="d">table of every field (expected / actual / ok-FAILED) → log, ReportPortal, Allure</span></div>
+          </div>
+          <div class="never"><span class="t">Never</span>imports from the framework. Generic checks, usable with any object.</div>
+        </div>
+
+        <div class="layer l4">
+          <div class="name"><span class="n">4</span><b>services</b><span class="path">framework/services/</span><span class="role">Business actions</span></div>
+          <div class="what">
+            <div class="row"><span class="f">trading.py</span><span class="d"><code>TradingService</code>: <code>place()</code>, <code>replace()</code>, <code>cancel()</code> → Order + ExecutionReport</span></div>
+            <div class="row"><span class="f">market_data.py</span><span class="d"><code>MarketDataService</code>: snapshot, subscribe, unsubscribe</span></div>
+            <div class="row"><span class="f">rest_api.py</span><span class="d"><code>SimulatorApi</code> (venues, listings, price seeds, settings…), <code>ApiResponse</code>, JSON → model</span></div>
+            <div class="row"><span class="f">db_tables.py</span><span class="d"><code>VenueTable</code>, <code>ListingTable</code>, <code>PriceSeedTable</code>, <code>SettingTable</code>: SQL → model</span></div>
+          </div>
+          <div class="never"><span class="t">Never</span>assertions. Never imports transport: needs only an interface (<code>Protocol</code>).</div>
+        </div>
+
+        <div class="layer l5">
+          <div class="name"><span class="n">5</span><b>fix</b><span class="path">framework/fix/</span><span class="role">FIX language</span></div>
+          <div class="what">
+            <div class="row"><span class="f">tags.py</span><span class="d">FIX dictionary: <code>Tag</code>, <code>MsgType</code>, <code>Side</code>, <code>OrdType</code>, <code>OrdStatus</code>, <code>ExecType</code>, <code>TimeInForce</code>…</span></div>
+            <div class="row"><span class="f">messages.py</span><span class="d">model → tags: <code>new_order_single()</code>, <code>order_cancel_replace_request()</code>, <code>market_data_request()</code></span></div>
+            <div class="row"><span class="f"></span><span class="d">tags → model: <code>execution_report()</code>, <code>order_cancel_reject()</code>, <code>market_data_snapshot()</code></span></div>
+          </div>
+          <div class="never"><span class="t">Never</span>sends or receives. Only translates between models and tags.</div>
+        </div>
+
+        <div class="layer l6">
+          <div class="name"><span class="n">6</span><b>models</b><span class="path">framework/models/</span><span class="role">Shared data shape</span></div>
+          <div class="what">
+            <div class="row"><span class="f">orders.py</span><span class="d"><code>NewOrderRequest</code>, <code>Order</code>, <code>ExecutionReport</code>, <code>OrderCancelReject</code></span></div>
+            <div class="row"><span class="f">market_data.py</span><span class="d"><code>MarketDataRequest</code>, <code>MarketDataSnapshot</code>, <code>MarketDataIncremental</code>, <code>MDEntry</code></span></div>
+            <div class="row"><span class="f">reference_data.py</span><span class="d"><code>Venue</code>, <code>Listing</code>, <code>PriceSeed</code>, <code>Setting</code>: one shape for REST and DB</span></div>
+          </div>
+          <div class="never"><span class="t">Never</span>logic or I/O. Plain dataclasses, prices as <code>Decimal</code>. Uses only the enums from <code>fix/tags.py</code>.</div>
+        </div>
+
+        <div class="layer l7">
+          <div class="name"><span class="n">7</span><b>transport</b><span class="path">framework/transport/</span><span class="role">Delivery</span></div>
+          <div class="what">
+            <div class="row"><span class="f">fix_session.py</span><span class="d"><code>FixSession</code>: socket, logon / logout, heartbeat, sequence numbers, <code>send()</code> / <code>receive()</code></span></div>
+            <div class="row"><span class="f">http_client.py</span><span class="d"><code>HttpClient</code> (httpx): request / response, logged</span></div>
+            <div class="row"><span class="f">db_client.py</span><span class="d"><code>DbClient</code> (psycopg): parameterised SQL → list of dicts</span></div>
+          </div>
+          <div class="never"><span class="t">Never</span>business meaning. Imports nothing from the framework.</div>
+        </div>
+
+        <div class="layer l8">
+          <div class="name"><span class="n">8</span><b>config</b><span class="path">framework/config.py</span><span class="role">Environment</span></div>
+          <div class="what">
+            <div class="row"><span class="f">config.py</span><span class="d"><code>FixSettings</code>, <code>RestSettings</code>, <code>DbSettings</code>: hosts, ports, timeouts from env variables (<code>FIX_HOST</code>, <code>DB_PORT</code>…)</span></div>
+          </div>
+          <div class="never"><span class="t">Never</span>imported by other layers. Read only by <code>tests/conftest.py</code>.</div>
+        </div>
+      </div>
+
+      <div class="wire">transport talks to the system under test over <b>FIX (TCP)</b> · <b>HTTP</b> · <b>SQL</b></div>
+
+      <!-- SUT -->
+      <div class="group" style="margin-bottom:0">
+        <span class="gname">System under test — not this repository (sim-run/, Docker Compose)</span>
+        <div class="sut">
+          <div class="sys"><b>XETRA</b><span class="d">QuantReplay simulator · equities</span><br><code>REST :9050 · FIX :9051</code></div>
+          <div class="sys"><b>FASTMATCH</b><span class="d">QuantReplay simulator · FX spot</span><br><code>REST :9052 · FIX :9053</code></div>
+          <div class="sys"><b>PostgreSQL</b><span class="d">simulator DB · external price seed DB</span><br><code>:15432 · :15433</code></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="side">
+      <div class="box root">
+        <h2>Composition root: tests/conftest.py</h2>
+        <p class="lead">The only place where layers are connected. Fixtures build the objects and own setup / teardown.</p>
+        <div class="wiring">
+          <div><span class="k">config →</span> settings()</div>
+          <div><span class="k">every test runs per venue →</span> market<br>XETRA, FASTMATCH</div>
+          <div>FixSession(host, fix_port, CompIDs)<br><span class="k">→</span> TradingService, MarketDataService<br><span class="k">→ fixtures</span> trading, market_data</div>
+          <div>HttpClient(http://host:rest_port/api)<br><span class="k">→</span> SimulatorApi <span class="k">→ fixture</span> api</div>
+          <div>DbClient(host, port, db, user)<br><span class="k">→</span> VenueTable, ListingTable,<br>&nbsp;&nbsp;PriceSeedTable, SettingTable</div>
+        </div>
+      </div>
+
+      <div class="box why">
+        <h2>Why layers can be replaced</h2>
+        <ul>
+          <li>Services declare what they need as a <code>Protocol</code> (<code>Session</code>, <code>Http</code>, <code>Db</code>), not a concrete class.</li>
+          <li>conftest plugs in the real <code>FixSession</code>, <code>HttpClient</code>, <code>DbClient</code>.</li>
+          <li>Another FIX engine or DB driver: change transport + conftest. Tests stay the same.</li>
+          <li>One model (<code>Listing</code>) for REST and DB: compared field by field in one call.</li>
+        </ul>
+      </div>
+
+      <div class="box flow">
+        <h2>One test through the layers</h2>
+        <p class="lead">New limit order is accepted (tests/fix/orders/positive)</p>
+        <ol class="steps">
+          <li><span class="tag l2">test_data</span><span><code>passive_buy(VOW)</code> → <code>NewOrderRequest</code></span></li>
+          <li><span class="tag l4">services</span><span><code>trading.place(request)</code></span></li>
+          <li><span class="tag l5">fix</span><span><code>new_order_single()</code> → tags</span></li>
+          <li><span class="tag l7">transport</span><span><code>FixSession.send()</code> → <code>35=D</code></span></li>
+          <li><span class="tag" style="--c:var(--sut)">simulator</span><span>answers <code>35=8</code> ExecutionReport</span></li>
+          <li><span class="tag l5">fix</span><span><code>execution_report()</code> → model</span></li>
+          <li><span class="tag l6">models</span><span><code>Order</code> + <code>ExecutionReport</code></span></li>
+          <li><span class="tag l3">assertions</span><span><code>check_execution_report(…, ord_status=NEW)</code></span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -2,6 +2,7 @@ name: autotests
 
 on:
   push:
+    branches: [main]      # branches are tested through their pull request: no duplicate run
   pull_request:
   workflow_dispatch:
 
@@ -36,7 +37,7 @@ jobs:
         # The simulator container runs as uid 1000; the runner's checkout belongs to another uid,
         # so the mounted directory must be writable for it (logs, FIX store).
         run: |
-          mkdir -p log files_store_path_common fastmatch/log fastmatch/files_store_path_common
+          mkdir -p {xetra,fastmatch}/{log,files_store_path_common}
           chmod -R a+rwX .
           docker compose up -d
 
@@ -74,7 +75,7 @@ jobs:
         with:
           name: simulator-logs
           path: |
-            sim-run/log
+            sim-run/xetra/log
             sim-run/fastmatch/log
 
   report:

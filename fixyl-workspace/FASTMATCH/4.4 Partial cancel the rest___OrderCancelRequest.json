@@ -1,0 +1,15 @@
+{
+  "msg": "OrderCancelRequest",
+  "data": {
+    "OrigClOrdID": "DEMO-EURUSD-PART",
+    "ClOrdID": "DEMO-EURUSD-PARTCXL",
+    "Instrument": {
+      "Symbol": "EUR/USD",
+      "SecurityType": "FXSPOT",
+      "SecurityExchange": "FASTMATCH"
+    },
+    "Side": "1",
+    "TransactTime": "{auto-gen}",
+    "Currency": "EUR"
+  }
+}

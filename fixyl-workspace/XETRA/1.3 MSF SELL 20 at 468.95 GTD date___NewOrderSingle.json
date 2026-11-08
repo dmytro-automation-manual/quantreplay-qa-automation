@@ -1,0 +1,24 @@
+{
+  "msg": "NewOrderSingle",
+  "data": {
+    "ClOrdID": "{auto-gen}",
+    "Instrument": {
+      "Symbol": "MSF",
+      "SecurityID": "US5949181045",
+      "SecurityIDSource": "4",
+      "SecurityType": "CS",
+      "SecurityExchange": "XETR"
+    },
+    "Side": "2",
+    "TransactTime": "{auto-gen}",
+    "OrderQtyData": {
+      "OrderQty": "20"
+    },
+    "OrdType": "2",
+    "Price": "468.95",
+    "TimeInForce": "6",
+    "Currency": "EUR",
+    "HandlInst": "1",
+    "ExpireDate": "20271231"
+  }
+}

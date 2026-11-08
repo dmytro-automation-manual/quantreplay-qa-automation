@@ -1,0 +1,22 @@
+{
+  "msg": "NewOrderSingle",
+  "data": {
+    "ClOrdID": "{auto-gen}",
+    "Instrument": {
+      "SecurityID": "GB00BH4HKS39",
+      "SecurityIDSource": "4",
+      "SecurityType": "CS",
+      "SecurityExchange": "XETR"
+    },
+    "Side": "1",
+    "TransactTime": "{auto-gen}",
+    "OrderQtyData": {
+      "OrderQty": "5000"
+    },
+    "OrdType": "2",
+    "Price": "1.409",
+    "TimeInForce": "0",
+    "Currency": "EUR",
+    "HandlInst": "1"
+  }
+}

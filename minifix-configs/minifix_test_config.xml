@@ -1,0 +1,277 @@
+<Config class_id="0" tracking_level="0" version="0">
+	<baseConf class_id="1" tracking_level="0" version="0">
+		<Software_MiniFIX class_id="2" tracking_level="0" version="0">
+			<count>14</count>
+			<item_version>0</item_version>
+			<item class_id="3" tracking_level="0" version="0">
+				<first>ConnectHistory</first>
+				<second>0 0 1 0 14 localhost:9051</second>
+			</item>
+			<item>
+				<first>FindHistory</first>
+				<second>0 0 0 0</second>
+			</item>
+			<item>
+				<first>FixVersion</first>
+				<second>7 FIX.4.4</second>
+			</item>
+			<item>
+				<first>HbInterval</first>
+				<second>2 30</second>
+			</item>
+			<item>
+				<first>Hotkeys</first>
+				<second>0 0 12 0 0 0 1 0  2 0  3 0  4 0  5 0  6 0  7 0  8 0  9 0  10 0  11 0  12 0 </second>
+			</item>
+			<item>
+				<first>InSeqNo</first>
+				<second>1 1</second>
+			</item>
+			<item>
+				<first>IsConfigured</first>
+				<second>1</second>
+			</item>
+			<item>
+				<first>ListenHistory</first>
+				<second>0 0 1 0 4 1234</second>
+			</item>
+			<item>
+				<first>OutSeqNo</first>
+				<second>1 1</second>
+			</item>
+			<item>
+				<first>Securities</first>
+				<second>0 0 5 0 13 15=EUR|55=VOW 13 15=EUR|55=AMZ 13 15=EUR|55=MSF 13 15=EUR|55=NFC 14 15=EUR|55=VODI</second>
+			</item>
+			<item>
+				<first>SenderCompId</first>
+				<second>7 MINIFIX</second>
+			</item>
+			<item>
+				<first>SenderHistroy</first>
+				<second>0 0 0 0</second>
+			</item>
+			<item>
+				<first>TargetCompId</first>
+				<second>9 SIM_XETRA</second>
+			</item>
+			<item>
+				<first>TargetHistory</first>
+				<second>0 0 0 0</second>
+			</item>
+		</Software_MiniFIX>
+	</baseConf>
+	<batchConf>
+		<Software_MiniFIX_Batch>
+			<count>2</count>
+			<item_version>0</item_version>
+			<item>
+				<first>D1 Filled order</first>
+				<second>273 Send:NewOrderSingle:38=10000
+Expect:35=8|150=0|39=0|20=0|38=10000|14=0|151=10000|32=0
+Expect:35=8|150=1|39=1|20=0|38=10000|14=2000|151=8000|32=2000
+Expect:35=8|150=1|39=1|20=0|38=10000|14=3000|151=7000|32=1000
+Expect:35=8|150=0|39=0|20=0|38=10000|14=10000|151=0|32=7000</second>
+			</item>
+			<item>
+				<first>D3 Cancel no-fill</first>
+				<second>258 Send:NewOrderSingle:38=10000|11=$UNIQUE
+Expect:35=8|150=0|39=0|20=0|38=10000|14=0|151=10000|32=0
+Send:OrderCancelRequest:38=10000|41=$LASTUNIQUE
+Expect:35=8|150=6|39=6|20=0|38=10000|14=0|151=10000|32=0
+Expect:35=8|150=4|39=4|20=0|38=10000|14=0|151=0|32=0</second>
+			</item>
+		</Software_MiniFIX_Batch>
+	</batchConf>
+	<transConf>
+		<Software_MiniFIX_Transaction>
+			<count>46</count>
+			<item_version>0</item_version>
+			<item>
+				<first>Advertisement</first>
+				<second>0 0 6 0 5 +35=7 3 +2= 3 +5= 4 +55= 3 +4= 4 +53=</second>
+			</item>
+			<item>
+				<first>Allocation</first>
+				<second>0 0 8 0 5 +35=J 4 +70= 4 +71= 4 +54= 4 +55= 4 +53= 3 +6= 4 +75=</second>
+			</item>
+			<item>
+				<first>AllocationACK</first>
+				<second>0 0 4 0 5 +35=P 4 +70= 4 +75= 4 +87=</second>
+			</item>
+			<item>
+				<first>BidRequest</first>
+				<second>0 0 7 0 5 +35=k 5 +391= 5 +374= 5 +393= 5 +394= 5 +418= 5 +419=</second>
+			</item>
+			<item>
+				<first>BidResponse</first>
+				<second>0 0 1 0 5 +35=l</second>
+			</item>
+			<item>
+				<first>BusinessMessageReject</first>
+				<second>0 0 3 0 5 +35=j 5 +372= 5 +380=</second>
+			</item>
+			<item>
+				<first>DontKnowTrade</first>
+				<second>0 0 6 0 5 +35=Q 4 +37= 4 +17= 5 +127= 4 +55= 4 +54=</second>
+			</item>
+			<item>
+				<first>Email</first>
+				<second>0 0 4 0 5 +35=C 5 +164= 4 +94= 5 +147=</second>
+			</item>
+			<item>
+				<first>ExecutionReport</first>
+				<second>0 0 11 0 5 +35=8 4 +37= 4 +17= 5 +20=0 6 +150=0 5 +39=0 12 +55=ERICB.ST 5 +54=1 9 +151=1000 5 +14=0 4 +6=0</second>
+			</item>
+			<item>
+				<first>Heartbeat</first>
+				<second>0 0 1 0 5 +35=0</second>
+			</item>
+			<item>
+				<first>IndicationofInterest</first>
+				<second>0 0 6 0 5 +35=6 4 +23= 4 +28= 4 +55= 4 +54= 4 +27=</second>
+			</item>
+			<item>
+				<first>ListCancelRequest</first>
+				<second>0 0 3 0 5 +35=K 4 +66= 4 +60=</second>
+			</item>
+			<item>
+				<first>ListExecute</first>
+				<second>0 0 3 0 5 +35=L 4 +66= 4 +60=</second>
+			</item>
+			<item>
+				<first>ListStatus</first>
+				<second>0 0 7 0 5 +35=N 4 +66= 5 +429= 4 +82= 5 +431= 4 +83= 4 +68=</second>
+			</item>
+			<item>
+				<first>ListStatusRequest</first>
+				<second>0 0 2 0 5 +35=M 4 +66=</second>
+			</item>
+			<item>
+				<first>ListStrike44</first>
+				<second>0 0 3 0 5 +35=m 4 +66= 5 +422=</second>
+			</item>
+			<item>
+				<first>Logon</first>
+				<second>0 0 5 0 5 +35=A 5 +98=0 11 +108=$HBINT 6 +141=Y 7 +1137=9</second>
+			</item>
+			<item>
+				<first>Logout</first>
+				<second>0 0 1 0 5 +35=5</second>
+			</item>
+			<item>
+				<first>MarketDataIncrementalRefresh</first>
+				<second>0 0 1 0 5 +35=X</second>
+			</item>
+			<item>
+				<first>MarketDataRequest</first>
+				<second>0 0 10 0 5 +35=V 12 +262=$UNIQUE 6 +263=1 6 +264=0 6 +267=3 6 +269=0 6 +269=1 6 +269=2 6 +146=1 7 +55=AMZ</second>
+			</item>
+			<item>
+				<first>MarketDataRequestReject</first>
+				<second>0 0 2 0 5 +35=Y 5 +262=</second>
+			</item>
+			<item>
+				<first>MarketDataSnapshotFullRefresh</first>
+				<second>0 0 2 0 5 +35=W 4 +55=</second>
+			</item>
+			<item>
+				<first>MassQuote</first>
+				<second>0 0 2 0 5 +35=i 5 +117=</second>
+			</item>
+			<item>
+				<first>NewOrderList</first>
+				<second>0 0 4 0 5 +35=E 4 +66= 5 +394= 4 +68=</second>
+			</item>
+			<item>
+				<first>NewOrderSingle</first>
+				<second>0 0 9 0 5 +35=D 11 +11=$UNIQUE 7 +55=AMZ 5 +54=1 14 +60=$TIMESTAMP 5 +40=2 10 +44=200.25 6 +38=10 5 +59=0</second>
+			</item>
+			<item>
+				<first>News</first>
+				<second>0 0 2 0 5 +35=B 5 +148=</second>
+			</item>
+			<item>
+				<first>OrderCancelReject</first>
+				<second>0 0 6 0 5 +35=9 4 +37= 4 +11= 4 +41= 4 +39= 5 +434=</second>
+			</item>
+			<item>
+				<first>OrderCancelReplaceRequest</first>
+				<second>0 0 11 0 5 +35=G 14 +41=1638460064 22 +37=261029150714000000 5 +11=5 7 +55=AMZ 5 +54=1 14 +60=$TIMESTAMP 5 +40=2 10 +44=200.25 6 +38=10 5 +59=1</second>
+			</item>
+			<item>
+				<first>OrderCancelRequest</first>
+				<second>0 0 6 0 5 +35=F 4 +41= 11 +11=$UNIQUE 7 +55=VOW 5 +54=1 14 +60=$TIMESTAMP</second>
+			</item>
+			<item>
+				<first>OrderStatusRequest</first>
+				<second>0 0 4 0 5 +35=H 4 +11= 4 +55= 4 +54=</second>
+			</item>
+			<item>
+				<first>Quote</first>
+				<second>0 0 3 0 5 +35=S 5 +117= 4 +55=</second>
+			</item>
+			<item>
+				<first>QuoteAcknowledgement</first>
+				<second>0 0 2 0 5 +35=b 5 +297=</second>
+			</item>
+			<item>
+				<first>QuoteCancel</first>
+				<second>0 0 3 0 5 +35=Z 5 +117= 5 +298=</second>
+			</item>
+			<item>
+				<first>QuoteRequest</first>
+				<second>0 0 2 0 5 +35=R 5 +131=</second>
+			</item>
+			<item>
+				<first>QuoteStatusRequest</first>
+				<second>0 0 2 0 5 +35=a 4 +55=</second>
+			</item>
+			<item>
+				<first>Reject</first>
+				<second>0 0 2 0 5 +35=3 4 +45=</second>
+			</item>
+			<item>
+				<first>ResendRequest</first>
+				<second>0 0 3 0 5 +35=2 3 +7= 4 +16=</second>
+			</item>
+			<item>
+				<first>SecurityDefinition</first>
+				<second>0 0 4 0 5 +35=d 5 +320= 5 +322= 5 +393=</second>
+			</item>
+			<item>
+				<first>SecurityDefinitionRequest</first>
+				<second>0 0 3 0 5 +35=c 5 +320= 5 +321=</second>
+			</item>
+			<item>
+				<first>SecurityStatus</first>
+				<second>0 0 2 0 5 +35=f 4 +55=</second>
+			</item>
+			<item>
+				<first>SecurityStatusRequest</first>
+				<second>0 0 4 0 5 +35=e 5 +324= 4 +55= 5 +263=</second>
+			</item>
+			<item>
+				<first>SequenceReset</first>
+				<second>0 0 2 0 5 +35=4 4 +36=</second>
+			</item>
+			<item>
+				<first>SettlementInstructions</first>
+				<second>0 0 8 0 5 +35=T 5 +162= 5 +163= 5 +214= 5 +160= 5 +165= 4 +79= 4 +60=</second>
+			</item>
+			<item>
+				<first>TestRequest</first>
+				<second>0 0 2 0 5 +35=1 5 +112=</second>
+			</item>
+			<item>
+				<first>TradingSessionStatus</first>
+				<second>0 0 3 0 5 +35=h 5 +336= 5 +340=</second>
+			</item>
+			<item>
+				<first>TradingSessionStatusRequest</first>
+				<second>0 0 3 0 5 +35=g 5 +335= 5 +263=</second>
+			</item>
+		</Software_MiniFIX_Transaction>
+	</transConf>
+</Config>
+

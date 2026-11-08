@@ -45,6 +45,11 @@ framework/
   config         environment variables, read only by the composition root
 ```
 
+What each layer contains and what it must never do, how `tests/conftest.py` wires the layers,
+and one test traced through them ([HTML source](docs/architecture.html)):
+
+![Framework layers](docs/architecture.png)
+
 ## Test layout
 
 ```
@@ -88,6 +93,7 @@ does not accept a call without them.
 |---|---|---|---|
 | [BUG-001](bug_reports/BUG-001-delete-unknown-price-seed-returns-400.md) | simulator | `DELETE /api/priceseeds/{id}` for an unknown id answers 400, the REST API document says 404 (GET / PUT answer 404) | 1 per venue |
 | [BUG-002](bug_reports/BUG-002-cancel-reject-ordstatus-inconsistent.md) | simulator + documentation | A rejected replace leaves the order active, but OrderCancelReject has OrdStatus `8` Rejected for an off-tick price and the current status (`0` / `1`) for a TimeInForce change or OrderQty <= CumQty. The RoE contradicts itself: MessageFlows says always Rejected, TradeMessages (tag 39) says the current status | 2 per venue |
+| [BUG-003](bug_reports/BUG-003-phase-schedule-only-update-returns-400.md) | simulator | `PUT /api/venues/{id}` with only `phases` in the body (set or clear the schedule) answers 400 "Required fields missing for Venue model in request"; the same request with any venue field (e.g. `name`) works | 2 per venue |
 
 Tests of an open bug are marked `known_issue(BUG_xxx)` (`tests/support/bugs.py`) and reported as `xfail`.
 The xfail is strict: when the bug is fixed the test passes, the run reports XPASS as a failure, and the marker
@@ -120,6 +126,11 @@ start and keeps its data in memory (tmpfs), so each start is clean. It is the Qu
 The same values are the reference in `test_data/instruments.py`. Rebuild the dump with
 `scripts/build_test_db.sh` after changing the overrides.
 
+External price seed database: container `external_price-seed-db` (PostgreSQL, port 15433, database / user / password
+`priceseed`), one table `price_seed` loaded from `sim-run/db/external_price_seed.sql`: one instrument per venue,
+VOW and EUR/USD, with the same prices as the simulator (data in memory). The setting `SeedPriceDatabaseConnection` points to it; `POST /api/syncpriceseeds`
+copies bid / mid / offer prices by symbol into `sim.price_seed` and sets `SeedPricesLastUpdated`.
+
 | Symbol | Instrument | Mid, EUR | Tick | Max qty |
 |---|---|---|---|---|
 | AMZ | Amazon.com | 222.55 | 0.05 | 20 000 |
@@ -145,6 +156,28 @@ Per venue:
   REST changes undone (undo stack, last in - first out);
 * session end: the run fails if any order is left in a book or any configuration table differs from the start.
 
+## Simulator setup
+
+`sim-run/` - one Docker Compose stack: two simulator instances, the database, the external price seed database.
+Both venues have the same layout; each venue folder is mounted as its instance's data directory.
+
+```
+sim-run/
+  docker-compose.yml
+  dictionaries/                FIX dictionaries shared by both venues (FIXT.1.1, FIX 5.0 SP2, FIX 4.4)
+  db/                          test database and external price seed database (SQL)
+  xetra/                       XETRA instance
+    cfg/                         market_simulator.xml (venue, DB, logger) + configSim.txt (FIX sessions)
+    datasources/                 historical market data (xetra_vow_history.csv)
+    log/                         simulator log                        - runtime, git-ignored
+    files_store_path_common/     FIX store: seqnums + sent messages   - runtime, git-ignored
+    state/                       order book persistence file          - runtime, git-ignored
+  fastmatch/                   FASTMATCH instance, same layout (cfg/, log/, files_store_path_common/)
+```
+
+The FIX store keeps only the sessions listed in the venue's `configSim.txt`: when a session is renamed
+or removed, delete its old `<BeginString>-<Sender>-<Target>.*` files.
+
 ## Run locally
 
 ```bash
@@ -155,8 +188,7 @@ cd reportportal && docker compose -p reportportal up -d && cd ..   # UI: http://
 ./run_tests.sh -m smoke     # smoke only
 ```
 
-`run_tests.sh`: starts the simulator stack -> saves the DB to `sim-run/db/snapshots/pre_run_<time>.sql` ->
-runs pytest (results and logs to ReportPortal and `allure-results/`) -> restarts the simulator stack
+`run_tests.sh`: starts the simulator stack -> runs pytest (results and logs to ReportPortal and `allure-results/`) -> restarts the simulator stack
 (fresh test database, empty books). `reportportal/.env` (not committed) holds the passwords and the API key.
 
 Without the wrapper: `cd sim-run && docker compose up -d`, then `.venv/bin/pytest`.

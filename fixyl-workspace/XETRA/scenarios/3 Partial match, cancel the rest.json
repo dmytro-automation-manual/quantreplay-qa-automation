@@ -1,0 +1,116 @@
+{
+  "stages": [
+    {
+      "name": "Passive BUY 300 at 68.70: New",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "ExecutionReport",
+          "data": "{\"ExecType\": \"0\", \"OrdStatus\": \"0\", \"OrderID\": \"{get:orderId}\", \"ClOrdID\": \"{get:clOrdId}\"}"
+        }
+      ],
+      "inputMsg": {
+        "name": "NewOrderSingle",
+        "data": "{\"ClOrdID\": \"{auto-gen}\", \"Instrument\": {\"Symbol\": \"VOW\", \"SecurityID\": \"DE0007664005\", \"SecurityIDSource\": \"4\", \"SecurityType\": \"CS\", \"SecurityExchange\": \"XETR\"}, \"Side\": \"1\", \"TransactTime\": \"{auto-gen}\", \"OrderQtyData\": {\"OrderQty\": \"300\"}, \"OrdType\": \"2\", \"Price\": \"68.70\", \"TimeInForce\": \"0\", \"Currency\": \"EUR\", \"HandlInst\": \"1\"}"
+      }
+    },
+    {
+      "name": "SELL 100 at 68.70",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "ExecutionReport",
+          "data": "{\"Instrument\": {\"Symbol\": \"VOW\"}}"
+        }
+      ],
+      "inputMsg": {
+        "name": "NewOrderSingle",
+        "data": "{\"ClOrdID\": \"{auto-gen}\", \"Instrument\": {\"Symbol\": \"VOW\", \"SecurityID\": \"DE0007664005\", \"SecurityIDSource\": \"4\", \"SecurityType\": \"CS\", \"SecurityExchange\": \"XETR\"}, \"Side\": \"2\", \"TransactTime\": \"{auto-gen}\", \"OrderQtyData\": {\"OrderQty\": \"100\"}, \"OrdType\": \"2\", \"Price\": \"68.70\", \"TimeInForce\": \"0\", \"Currency\": \"EUR\", \"HandlInst\": \"1\"}"
+      }
+    },
+    {
+      "name": "Snapshot: 200 left",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "MarketDataSnapshotFullRefresh",
+          "data": "{\"Instrument\": {\"Symbol\": \"VOW\"}}"
+        }
+      ],
+      "inputMsg": {
+        "name": "MarketDataRequest",
+        "data": "{\"MDReqID\": \"{auto-gen}\", \"SubscriptionRequestType\": \"0\", \"MarketDepth\": \"0\", \"AggregatedBook\": \"Y\", \"MDReqGrp\": {\"NoMDEntryTypes\": [{\"MDEntryType\": \"0\"}, {\"MDEntryType\": \"1\"}, {\"MDEntryType\": \"2\"}, {\"MDEntryType\": \"7\"}, {\"MDEntryType\": \"8\"}, {\"MDEntryType\": \"H\"}, {\"MDEntryType\": \"B\"}]}, \"InstrmtMDReqGrp\": {\"NoRelatedSym\": [{\"Instrument\": {\"Symbol\": \"VOW\"}}]}}"
+      }
+    },
+    {
+      "name": "SELL 100 at 68.70 again",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "ExecutionReport",
+          "data": "{\"Instrument\": {\"Symbol\": \"VOW\"}}"
+        }
+      ],
+      "inputMsg": {
+        "name": "NewOrderSingle",
+        "data": "{\"ClOrdID\": \"{auto-gen}\", \"Instrument\": {\"Symbol\": \"VOW\", \"SecurityID\": \"DE0007664005\", \"SecurityIDSource\": \"4\", \"SecurityType\": \"CS\", \"SecurityExchange\": \"XETR\"}, \"Side\": \"2\", \"TransactTime\": \"{auto-gen}\", \"OrderQtyData\": {\"OrderQty\": \"100\"}, \"OrdType\": \"2\", \"Price\": \"68.70\", \"TimeInForce\": \"0\", \"Currency\": \"EUR\", \"HandlInst\": \"1\"}"
+      }
+    },
+    {
+      "name": "Snapshot: 100 left",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "MarketDataSnapshotFullRefresh",
+          "data": "{\"Instrument\": {\"Symbol\": \"VOW\"}}"
+        }
+      ],
+      "inputMsg": {
+        "name": "MarketDataRequest",
+        "data": "{\"MDReqID\": \"{auto-gen}\", \"SubscriptionRequestType\": \"0\", \"MarketDepth\": \"0\", \"AggregatedBook\": \"Y\", \"MDReqGrp\": {\"NoMDEntryTypes\": [{\"MDEntryType\": \"0\"}, {\"MDEntryType\": \"1\"}, {\"MDEntryType\": \"2\"}, {\"MDEntryType\": \"7\"}, {\"MDEntryType\": \"8\"}, {\"MDEntryType\": \"H\"}, {\"MDEntryType\": \"B\"}]}, \"InstrmtMDReqGrp\": {\"NoRelatedSym\": [{\"Instrument\": {\"Symbol\": \"VOW\"}}]}}"
+      }
+    },
+    {
+      "name": "Cancel the rest",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "ExecutionReport",
+          "data": "{\"ExecType\": \"4\", \"OrdStatus\": \"4\"}"
+        }
+      ],
+      "inputMsg": {
+        "name": "OrderCancelRequest",
+        "data": "{\"OrigClOrdID\": \"{get:clOrdId}\", \"ClOrdID\": \"{auto-gen}\", \"Instrument\": {\"Symbol\": \"VOW\", \"SecurityID\": \"DE0007664005\", \"SecurityIDSource\": \"4\", \"SecurityType\": \"CS\", \"SecurityExchange\": \"XETR\"}, \"Side\": \"1\", \"TransactTime\": \"{auto-gen}\", \"Currency\": \"EUR\", \"OrderID\": \"{get:orderId}\"}"
+      }
+    },
+    {
+      "name": "Snapshot: book empty",
+      "waitTime": 5,
+      "stageWaitTime": 1,
+      "skipped": false,
+      "outputMsgs": [
+        {
+          "name": "MarketDataSnapshotFullRefresh",
+          "data": "{\"Instrument\": {\"Symbol\": \"VOW\"}}"
+        }
+      ],
+      "inputMsg": {
+        "name": "MarketDataRequest",
+        "data": "{\"MDReqID\": \"{auto-gen}\", \"SubscriptionRequestType\": \"0\", \"MarketDepth\": \"0\", \"AggregatedBook\": \"Y\", \"MDReqGrp\": {\"NoMDEntryTypes\": [{\"MDEntryType\": \"0\"}, {\"MDEntryType\": \"1\"}, {\"MDEntryType\": \"2\"}, {\"MDEntryType\": \"7\"}, {\"MDEntryType\": \"8\"}, {\"MDEntryType\": \"H\"}, {\"MDEntryType\": \"B\"}]}, \"InstrmtMDReqGrp\": {\"NoRelatedSym\": [{\"Instrument\": {\"Symbol\": \"VOW\"}}]}}"
+      }
+    }
+  ]
+}

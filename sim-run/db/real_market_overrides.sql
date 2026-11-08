@@ -35,7 +35,7 @@ UPDATE sim.listing l SET
     random_depth_levels = 5,
     random_orders_rate = 2,
     random_tick_range = 10,
-    random_orders_enabled = true,
+    random_orders_enabled = false,   -- random generator off by default; tests enable it via REST
     enabled = true
 FROM (VALUES
     ('AMZ',  'US0231351067', 0.05::real,  20000::real,    10::real,   500::real),
@@ -64,15 +64,28 @@ FROM (VALUES
 ) AS v(symbol, isin, bid, mid, offer)
 WHERE p.symbol = v.symbol;
 
--- Historical VOW order book (CSV, Xetra levels around EUR 68.70) for manual playback tests.
+-- Historical VOW order book (CSV, Xetra levels around EUR 68.70) for manual playback tests:
+-- one row every 3 s, 3 depth levels per side, every order has its own party:
+-- CP1, CP2, ... CP60, row by row, in column order (row 1: bid 1 = CP1, ask 1 = CP2, ... ask 3 = CP6; row 2: CP7...).
+-- CSV columns = simulator field name + '_' + depth level (BidPrice_1, BidQuantity_1, BidParty_1, ...); only the
+-- instrument column has its own name (Symbol). Column mapping: column_from = simulator field,
+-- column_to = CSV column; '#' = depth level (1, 2, 3).
 INSERT INTO sim.data_source (data_source_id, enabled, name, venue_id, connection, format, type, repeat,
-                             text_delimiter, text_header_row, text_data_row, random_price_only, incremental_subscriptions)
+                             text_delimiter, text_header_row, text_data_row, max_depth_levels, random_price_only,
+                             incremental_subscriptions)
 VALUES (1, true, 'XETRA-VOW-HISTORY', 'XETRA', '/market-simulator/quod/data/datasources/xetra_vow_history.csv',
-        'CSV', 'OrderBook', false, ',', 1, 2, false, false)
+        'CSV', 'OrderBook', true, ',', 1, 2, 3, false, false)
 ON CONFLICT (data_source_id) DO NOTHING;
 INSERT INTO sim.column_mapping (column_from, column_to, data_source_id)
-SELECT c, c, 1 FROM unnest(ARRAY['ReceivedTimeStamp', 'MessageTimeStamp', 'Instrument', 'BidParty', 'BidQuantity',
-                                 'BidPrice', 'AskPrice', 'AskQuantity', 'AskParty']) AS c
+VALUES ('ReceivedTimeStamp', 'ReceivedTimeStamp', 1),
+       ('MessageTimeStamp',  'MessageTimeStamp',  1),
+       ('Instrument',        'Symbol',  1),
+       ('BidParty#',         'BidParty_#',    1),
+       ('BidQuantity#',      'BidQuantity_#', 1),
+       ('BidPrice#',         'BidPrice_#',    1),
+       ('AskPrice#',         'AskPrice_#',    1),
+       ('AskQuantity#',      'AskQuantity_#', 1),
+       ('AskParty#',         'AskParty_#',    1)
 ON CONFLICT DO NOTHING;
 SELECT setval('sim.data_source_data_source_id_seq', (SELECT max(data_source_id) FROM sim.data_source));
 
@@ -92,7 +105,7 @@ INSERT INTO sim.listing (listing_id, symbol, venue_id, security_type, price_curr
                          random_tick_range, security_exchange, random_orders_enabled,
                          random_price_exclude_current_listing)
 SELECT v.id, v.symbol, 'FASTMATCH', 'FXSPOT', v.quote, v.base, v.symbol, 10000, 50000000, 1000, v.tick, true,
-       100000, 5000000, 5, v.tick, 2, 10, 'FASTMATCH', true, false
+       100000, 5000000, 5, v.tick, 2, 10, 'FASTMATCH', false, false
 FROM (VALUES
     (6,  'EUR/USD', 'EUR', 'USD', 0.00001::real),
     (7,  'GBP/USD', 'GBP', 'USD', 0.00001::real),
@@ -113,5 +126,10 @@ FROM (VALUES
     (10, 'EUR/GBP', 'GBP', 0.83727::real, 0.83728::real, 0.83729::real)
 ) AS v(id, symbol, quote, bid, mid, offer);
 SELECT setval('sim.price_seed_price_seed_id_seq', (SELECT max(price_seed_id) FROM sim.price_seed));
+
+-- External price seed database (sim-run/db/external_price_seed.sql, container external_price-seed-db):
+-- POST /api/syncpriceseeds copies bid / mid / offer prices from its table price_seed into sim.price_seed.
+UPDATE sim.setting SET value = 'postgresql://priceseed:priceseed@external_price-seed-db:5432/priceseed'
+WHERE key = 'SeedPriceDatabaseConnection';
 
 COMMIT;

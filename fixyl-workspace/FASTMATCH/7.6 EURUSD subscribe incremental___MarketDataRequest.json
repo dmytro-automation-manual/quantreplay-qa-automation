@@ -1,0 +1,32 @@
+{
+  "msg": "MarketDataRequest",
+  "data": {
+    "MDReqID": "MD-EURUSD-INCR",
+    "SubscriptionRequestType": "1",
+    "MarketDepth": "0",
+    "MDUpdateType": "1",
+    "AggregatedBook": "Y",
+    "MDReqGrp": {
+      "NoMDEntryTypes": [
+        {
+          "MDEntryType": "0"
+        },
+        {
+          "MDEntryType": "1"
+        },
+        {
+          "MDEntryType": "2"
+        }
+      ]
+    },
+    "InstrmtMDReqGrp": {
+      "NoRelatedSym": [
+        {
+          "Instrument": {
+            "Symbol": "EUR/USD"
+          }
+        }
+      ]
+    }
+  }
+}

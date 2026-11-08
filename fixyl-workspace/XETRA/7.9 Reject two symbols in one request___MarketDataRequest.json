@@ -1,0 +1,34 @@
+{
+  "msg": "MarketDataRequest",
+  "data": {
+    "MDReqID": "{auto-gen}",
+    "SubscriptionRequestType": "1",
+    "MarketDepth": "0",
+    "MDUpdateType": "0",
+    "AggregatedBook": "Y",
+    "MDReqGrp": {
+      "NoMDEntryTypes": [
+        {
+          "MDEntryType": "0"
+        },
+        {
+          "MDEntryType": "1"
+        }
+      ]
+    },
+    "InstrmtMDReqGrp": {
+      "NoRelatedSym": [
+        {
+          "Instrument": {
+            "Symbol": "VOW"
+          }
+        },
+        {
+          "Instrument": {
+            "Symbol": "AMZ"
+          }
+        }
+      ]
+    }
+  }
+}

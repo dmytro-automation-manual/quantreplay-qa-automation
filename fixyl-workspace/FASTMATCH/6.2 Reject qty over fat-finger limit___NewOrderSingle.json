@@ -1,0 +1,20 @@
+{
+  "msg": "NewOrderSingle",
+  "data": {
+    "ClOrdID": "{auto-gen}",
+    "Instrument": {
+      "Symbol": "EUR/USD",
+      "SecurityType": "FXSPOT",
+      "SecurityExchange": "FASTMATCH"
+    },
+    "Side": "1",
+    "TransactTime": "{auto-gen}",
+    "OrderQtyData": {
+      "OrderQty": "50001000"
+    },
+    "OrdType": "2",
+    "Price": "1.11900",
+    "TimeInForce": "0",
+    "Currency": "EUR"
+  }
+}
