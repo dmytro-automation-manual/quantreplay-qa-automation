@@ -40,6 +40,7 @@ def test_replace_of_cancelled_order_is_rejected(market, trading):
 
     with step("Send OrderCancelReplaceRequest (price one tick up)"):
         reject = trading.replace(order, price=ticks_away(request.price, instrument, 1))
+
     with step("Check OrderCancelReject: 'order not found'"):
         check_cancel_reject(reject, "OrderCancelReject for replace of cancelled order",
                             order_id=order.order_id, ord_status=OrdStatus.REJECTED,
@@ -54,11 +55,13 @@ def test_replace_changing_time_in_force_is_rejected(market, trading, market_data
     order, request = _place_resting_buy(trading, instrument)
     with step("Send OrderCancelReplaceRequest Day -> GoodTillCancel"):
         reject = trading.replace(order, time_in_force=TimeInForce.GOOD_TILL_CANCEL)
+
     with step("Check OrderCancelReject: 'time in force can not be changed'"):
         check_cancel_reject(reject, "OrderCancelReject for TimeInForce change",
                             order_id=order.order_id, ord_status=OrdStatus.REJECTED,
                             cxl_rej_response_to=CxlRejResponseTo.ORDER_CANCEL_REPLACE_REQUEST,
                             text="time in force can not be changed")
+
     with step("Check the order is not modified"):
         check_order_rests(market_data.snapshot(instrument.symbol), Side.BUY, request.price, request.order_qty,
                           "Book after rejected replace")
@@ -81,11 +84,13 @@ def test_replace_quantity_not_above_executed_is_rejected(market, trading, market
 
     with step(f"Send OrderCancelReplaceRequest with OrderQty = CumQty = {executed}"):
         reject = trading.replace(order, order_qty=executed)
+
     with step("Check OrderCancelReject: 'invalid quantity'"):
         check_cancel_reject(reject, "OrderCancelReject for quantity not above CumQty",
                             order_id=order.order_id, ord_status=OrdStatus.REJECTED,
                             cxl_rej_response_to=CxlRejResponseTo.ORDER_CANCEL_REPLACE_REQUEST,
                             text="invalid quantity")
+
     with step("Check the open remainder is not modified"):
         check_order_rests(market_data.snapshot(instrument.symbol), Side.BUY, request.price,
                           request.order_qty - executed, "Book after rejected replace")

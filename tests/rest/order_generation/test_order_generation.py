@@ -39,6 +39,7 @@ def test_start_and_stop_generator(market, api, venue, market_data, undo, generat
 
     with step(f"POST /api/genstart/{market.venue_id}"):
         response = api.start_generator(market.venue_id)
+
     check_response(response, "POST genstart", status_code=200, result="Generator was started")
     check_response(api.get_generator_status(market.venue_id), "GET genstatus after start", status_code=200,
                    result="Running")
@@ -49,6 +50,7 @@ def test_start_and_stop_generator(market, api, venue, market_data, undo, generat
 
     with step(f"POST /api/genstop/{market.venue_id}"):
         response = api.stop_generator(market.venue_id)
+
     check_response(response, "POST genstop", status_code=200, result="Generator was stopped")
     check_response(api.get_generator_status(market.venue_id), "GET genstatus after stop", status_code=200,
                    result="Stopped")

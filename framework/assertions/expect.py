@@ -68,11 +68,13 @@ def check_fields(title: str, actual: Any, expected: Mapping[str, Any]) -> None:
     """Compare the given fields of `actual` with `expected`; fail with the full table if any differs."""
     if actual is None:
         raise AssertionError(f"{title}: nothing received")
+
     rows = []
     for field, exp in expected.items():
         act = _read(actual, field)
         ok = exp.matches(act) if isinstance(exp, Matcher) else act == exp
         rows.append((field, _fmt(exp), _fmt(act), "ok" if ok else "FAILED"))
+
     _report(title, rows)
 
 
@@ -90,6 +92,7 @@ def _report(title: str, rows: list[tuple[str, str, str, str]]) -> None:
     widths = [max(len(r[i]) for r in rows + [header]) for i in range(4)]
     lines = [title] + ["  ".join(c.ljust(w) for c, w in zip(row, widths)) for row in [header] + rows]
     table = "\n".join(lines)
+
     failed = any(r[3] == "FAILED" for r in rows)
     log.log(logging.ERROR if failed else logging.INFO, "%s", table)
     allure.attach(table, name=("FAILED: " if failed else "") + title, attachment_type=allure.attachment_type.TEXT)

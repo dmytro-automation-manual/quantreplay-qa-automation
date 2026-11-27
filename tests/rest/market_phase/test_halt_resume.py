@@ -31,6 +31,7 @@ def test_new_order_rejected_while_halted(market, trading, halted_market):
     request = passive_buy(instrument)
     with step(f"Send BUY {request.order_qty} {instrument} @ {request.price}"):
         _, report = trading.place(request)
+
     check_execution_report(report, "ExecutionReport during halt",
                            order_id=PRESENT, exec_type=ExecType.REJECTED, ord_status=OrdStatus.REJECTED,
                            symbol=instrument.symbol, order_qty=request.order_qty, price=request.price, text=HALTED)
@@ -43,6 +44,7 @@ def test_cancel_allowed_while_halted_with_allow_cancels(market, trading, halted_
     halted_market(allow_cancels=True)
     with step("Send OrderCancelRequest during the halt"):
         report = trading.cancel(order)
+
     check_execution_report(report, "ExecutionReport for cancel during halt",
                            order_id=order.order_id, exec_type=ExecType.CANCELED, ord_status=OrdStatus.CANCELED,
                            symbol=instrument.symbol, order_qty=request.order_qty, price=request.price)
@@ -55,6 +57,7 @@ def test_cancel_rejected_while_halted_without_allow_cancels(market, trading, hal
     halted_market(allow_cancels=False)
     with step("Send OrderCancelRequest during the halt"):
         reject = trading.cancel(order)
+
     check_cancel_reject(reject, "OrderCancelReject during halt", order_id=order.order_id,
                         ord_status=OrdStatus.REJECTED, cxl_rej_response_to=CxlRejResponseTo.ORDER_CANCEL_REQUEST,
                         text=HALTED)
@@ -65,10 +68,13 @@ def test_resume_reopens_order_entry(market, trading, api, halted_market):
     halted_market(allow_cancels=True)
     with step(f"POST /api/resume/{market.venue_id}"):
         response = api.resume(market.venue_id)
+
     check_response(response, "POST resume", status_code=200, result="The market was successfully resumed.")
+
     request = passive_buy(instrument)
     with step("Send NewOrderSingle after resume"):
         _, report = trading.place(request)
+
     check_execution_report(report, "ExecutionReport after resume",
                            order_id=PRESENT, exec_type=ExecType.NEW, ord_status=OrdStatus.NEW,
                            symbol=instrument.symbol, order_qty=request.order_qty, price=request.price)
@@ -76,6 +82,7 @@ def test_resume_reopens_order_entry(market, trading, api, halted_market):
 
 def test_halt_twice_and_resume_without_halt_are_conflicts(market, api, halted_market):
     halted_market(allow_cancels=True)
+
     check_response(api.halt(market.venue_id, True), "Second halt", status_code=409,
                    result="The market is already halted.")
     check_response(api.resume(market.venue_id), "Resume", status_code=200,

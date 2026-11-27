@@ -22,11 +22,13 @@ def test_replace_price_then_quantity(trading, instrument):
         check_execution_report(report, "ExecutionReport for NewOrderSingle",
                                order_id=PRESENT, exec_type=ExecType.NEW, ord_status=OrdStatus.NEW,
                                symbol=instrument.symbol, order_qty=request.order_qty, price=request.price)
+
     first_cl_ord_id = order.cl_ord_id
 
     new_price = ticks_away(request.price, instrument, 1)
     with step(f"Step 1: replace price {request.price} -> {new_price} (one tick up)"):
         report = trading.replace(order, price=new_price)
+
     with step("Check ExecutionReport: Replaced, same OrderID, new price, quantity unchanged"):
         check_execution_report(report, "ExecutionReport for price replace",
                                order_id=order.order_id, exec_type=ExecType.REPLACED,
@@ -38,6 +40,7 @@ def test_replace_price_then_quantity(trading, instrument):
     second_cl_ord_id = order.cl_ord_id
     with step(f"Step 2: replace quantity {request.order_qty} -> {new_qty}"):
         report = trading.replace(order, order_qty=new_qty)
+
     with step("Check ExecutionReport: Replaced, same OrderID, new quantity, price kept from step 1"):
         check_execution_report(report, "ExecutionReport for quantity replace",
                                order_id=order.order_id, exec_type=ExecType.REPLACED,

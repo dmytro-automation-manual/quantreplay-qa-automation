@@ -21,6 +21,7 @@ def test_price_one_tick_from_valid_price_is_accepted(trading, instrument):
     request = passive_buy(instrument, price=price)
     with step(f"Send BUY {instrument} @ {price} (on the {instrument.tick_size} grid)"):
         _, report = trading.place(request)
+
     with step("Check ExecutionReport: New"):
         check_execution_report(report, "ExecutionReport for price on tick",
                                order_id=PRESENT, exec_type=ExecType.NEW, ord_status=OrdStatus.NEW,
@@ -34,6 +35,7 @@ def test_new_order_price_off_tick_is_rejected(trading, instrument):
     request = passive_buy(instrument, price=price)
     with step(f"Send BUY {instrument} @ {price} (half a tick of {instrument.tick_size} off the grid)"):
         _, report = trading.place(request)
+
     with step("Check ExecutionReport: Rejected, price tick constraint"):
         check_execution_report(report, "ExecutionReport for price off tick",
                                order_id=PRESENT, exec_type=ExecType.REJECTED, ord_status=OrdStatus.REJECTED,
@@ -49,14 +51,17 @@ def test_replace_to_price_off_tick_is_rejected(trading, market_data, instrument)
         check_execution_report(report, "ExecutionReport for NewOrderSingle",
                                order_id=PRESENT, exec_type=ExecType.NEW, ord_status=OrdStatus.NEW,
                                symbol=instrument.symbol, order_qty=request.order_qty, price=request.price)
+
     bad_price = off_tick_price(instrument)
     with step(f"Send OrderCancelReplaceRequest to {bad_price}"):
         reject = trading.replace(order, price=bad_price)
+
     with step("Check OrderCancelReject: price tick constraint"):
         check_cancel_reject(reject, "OrderCancelReject for replace off tick",
                             order_id=order.order_id, ord_status=OrdStatus.REJECTED,
                             cxl_rej_response_to=CxlRejResponseTo.ORDER_CANCEL_REPLACE_REQUEST,
                             text="order price tick constraint violated")
+
     with step("Check the order keeps its original price in the book"):
         check_order_rests(market_data.snapshot(instrument.symbol), Side.BUY, request.price, request.order_qty,
                           "Book after rejected replace")

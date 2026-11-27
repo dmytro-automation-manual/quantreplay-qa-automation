@@ -15,11 +15,11 @@ from test_data.orders import market_order, passive_sell
 @pytest.mark.smoke
 def test_market_buy_fills_at_best_offer(trading, instrument):
     """A market buy smaller than the resting offer is filled completely at the offer price."""
-    resting_request = passive_sell(instrument, qty=instrument.round_lot * 2)
+    resting_request = passive_sell(instrument, qty=instrument.default_qty * 2)
     with step(f"Precondition: resting SELL {resting_request.order_qty} {instrument} @ {resting_request.price}"):
         resting, _ = trading.place(resting_request)
 
-    request = market_order(instrument, Side.BUY, qty=instrument.round_lot)
+    request = market_order(instrument, Side.BUY, qty=instrument.default_qty)
     with step(f"Send market BUY {request.order_qty} {instrument}"):
         order, ack = trading.place(request)
 

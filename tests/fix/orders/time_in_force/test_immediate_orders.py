@@ -34,11 +34,13 @@ def test_immediate_order_without_liquidity_is_cancelled(market, trading, market_
     request = limit_order(instrument, Side.BUY, tif=tif)
     with step(f"Send {tif.name} BUY {request.order_qty} {instrument} @ {request.price} into an empty book"):
         _, report = trading.place(request)
+
     with step("Check ExecutionReport: Canceled, nothing filled"):
         check_execution_report(report, f"ExecutionReport for {tif.name} without liquidity",
                                order_id=PRESENT, exec_type=ExecType.CANCELED, ord_status=OrdStatus.CANCELED,
                                symbol=instrument.symbol, order_qty=request.order_qty, price=request.price,
                                time_in_force=tif, cum_qty=0, leaves_qty=0, text="no facing orders found")
+
     with step("Check the book stays empty"):
         check_book_empty(market_data.snapshot(instrument.symbol), "Book after immediate order")
 
@@ -48,16 +50,18 @@ def test_immediate_order_without_liquidity_is_cancelled(market, trading, market_
 @pytest.mark.parametrize("tif", [IOC, FOK], ids=["IOC", "FOK"])
 def test_immediate_order_with_enough_liquidity_is_filled(trading, instrument, tif):
     """Enough liquidity at the limit price: New, then one Trade that fills the whole order at the resting price."""
-    resting, resting_request = _resting_sell(trading, instrument, instrument.round_lot * 2)
-    request = limit_order(instrument, Side.BUY, qty=instrument.round_lot, price=resting_request.price, tif=tif)
+    resting, resting_request = _resting_sell(trading, instrument, instrument.default_qty * 2)
+    request = limit_order(instrument, Side.BUY, qty=instrument.default_qty, price=resting_request.price, tif=tif)
 
     with step(f"Send {tif.name} BUY {request.order_qty} @ {request.price}"):
         order, ack = trading.place(request)
+
     with step("Check ExecutionReport: New"):
         check_execution_report(ack, f"ExecutionReport New for {tif.name}",
                                order_id=PRESENT, exec_type=ExecType.NEW, ord_status=OrdStatus.NEW,
                                symbol=instrument.symbol, order_qty=request.order_qty, price=request.price,
                                time_in_force=tif)
+
     with step("Check ExecutionReport: Trade, Filled"):
         fill = trading.next_report(order, ExecType.TRADE)
         check_execution_report(fill, f"ExecutionReport Trade for {tif.name}",
@@ -65,6 +69,7 @@ def test_immediate_order_with_enough_liquidity_is_filled(trading, instrument, ti
                                symbol=instrument.symbol, order_qty=request.order_qty, price=request.price,
                                last_px=resting_request.price, last_qty=request.order_qty,
                                cum_qty=request.order_qty, leaves_qty=0, avg_px=resting_request.price)
+
     with step("Check ExecutionReport of the resting sell: Trade, PartiallyFilled"):
         passive_fill = trading.next_report(resting, ExecType.TRADE)
         check_execution_report(passive_fill, "ExecutionReport Trade for resting sell",
@@ -80,12 +85,13 @@ def test_immediate_order_with_enough_liquidity_is_filled(trading, instrument, ti
 def test_ioc_partially_filled_and_remainder_cancelled(market, trading):
     """IOC larger than the liquidity: trades what is available, the rest is cancelled at once."""
     instrument = market.main
-    available = instrument.round_lot
+    available = instrument.default_qty
     resting, resting_request = _resting_sell(trading, instrument, available)
     request = limit_order(instrument, Side.BUY, qty=available * 3, price=resting_request.price, tif=IOC)
 
     with step(f"Send IOC BUY {request.order_qty} @ {request.price} (only {available} available)"):
         order, _ = trading.place(request)
+
     with step(f"Check ExecutionReport: Trade {available}, PartiallyFilled"):
         fill = trading.next_report(order, ExecType.TRADE)
         check_execution_report(fill, "ExecutionReport Trade for IOC",
@@ -94,6 +100,7 @@ def test_ioc_partially_filled_and_remainder_cancelled(market, trading):
                                order_qty=request.order_qty, price=request.price,
                                last_px=resting_request.price, last_qty=available, cum_qty=available,
                                leaves_qty=request.order_qty - available)
+
     with step("Check ExecutionReport: remainder Canceled, 'not enough liquidity to fully fill IoC order'"):
         cancel = trading.next_report(order, ExecType.CANCELED)
         check_execution_report(cancel, "ExecutionReport Canceled for IOC remainder",
@@ -101,6 +108,7 @@ def test_ioc_partially_filled_and_remainder_cancelled(market, trading):
                                ord_status=OrdStatus.CANCELED, symbol=instrument.symbol,
                                order_qty=request.order_qty, price=request.price, cum_qty=available,
                                leaves_qty=0, text="not enough liquidity to fully fill IoC order")
+
     with step("Check the resting sell is fully filled"):
         passive_fill = trading.next_report(resting, ExecType.TRADE)
         check_execution_report(passive_fill, "ExecutionReport Trade for resting sell",
@@ -113,18 +121,20 @@ def test_ioc_partially_filled_and_remainder_cancelled(market, trading):
 def test_fok_without_enough_liquidity_is_killed_and_book_untouched(market, trading, market_data):
     """FOK larger than the liquidity: nothing trades at all, and the resting order keeps its full quantity."""
     instrument = market.main
-    available = instrument.round_lot
+    available = instrument.default_qty
     resting, resting_request = _resting_sell(trading, instrument, available)
     request = limit_order(instrument, Side.BUY, qty=available * 3, price=resting_request.price, tif=FOK)
 
     with step(f"Send FOK BUY {request.order_qty} @ {request.price} (only {available} available)"):
         _, report = trading.place(request)
+
     with step("Check ExecutionReport: Canceled, 'not enough liquidity to fill FoK order', nothing filled"):
         check_execution_report(report, "ExecutionReport for FOK without enough liquidity",
                                order_id=PRESENT, exec_type=ExecType.CANCELED, ord_status=OrdStatus.CANCELED,
                                symbol=instrument.symbol, order_qty=request.order_qty, price=request.price,
                                time_in_force=FOK, cum_qty=0, leaves_qty=0,
                                text="not enough liquidity to fill FoK order")
+
     with step("Check the resting sell is untouched"):
         check_order_rests(market_data.snapshot(instrument.symbol), Side.SELL, resting_request.price, available,
                           "Book after killed FOK")

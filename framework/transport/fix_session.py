@@ -47,9 +47,11 @@ class FixSession:
         self.close()
         self._sock = socket.create_connection((self.host, self.port), timeout=self.timeout)
         self._sock.settimeout(0.2)
+
         self._seq = 1
         self._parser = simplefix.FixParser()
         self._inbox.clear()
+
         self.send("A", [(98, 0), (108, self.heartbeat), (141, "Y"), (1137, self.default_appl_ver_id)])
         return self.receive(lambda m: m.get(35) == b"A")
 

@@ -38,6 +38,7 @@ def test_cancel_of_cancelled_order_is_rejected(market, trading):
 
     with step("Send OrderCancelRequest again"):
         reject = trading.cancel(order)
+
     with step("Check OrderCancelReject: 'order not found'"):
         check_cancel_reject(reject, "OrderCancelReject for second cancel",
                             order_id=order.order_id, ord_status=OrdStatus.REJECTED,
@@ -52,11 +53,13 @@ def test_cancel_with_unknown_order_id_is_rejected(market, trading, market_data):
     unknown_order_id, unknown_cl_ord_id = "999999999999999999", "ffffffffffffffff"   # venue's id formats
     with step(f"Send OrderCancelRequest with OrderID {unknown_order_id} that does not exist"):
         reject = trading.cancel_with_ids(order, order_id=unknown_order_id, orig_cl_ord_id=unknown_cl_ord_id)
+
     with step("Check OrderCancelReject: 'order not found'"):
         check_cancel_reject(reject, "OrderCancelReject for unknown order",
                             order_id=PRESENT, ord_status=OrdStatus.REJECTED,
                             cxl_rej_response_to=CxlRejResponseTo.ORDER_CANCEL_REQUEST, text="order not found",
                             orig_cl_ord_id=unknown_cl_ord_id)
+
     with step("Check the real order still rests in the book unchanged"):
         check_order_rests(market_data.snapshot(instrument.symbol), Side.BUY, request.price, request.order_qty,
                           "Book after rejected cancel")
@@ -66,13 +69,15 @@ def test_cancel_with_wrong_side_is_rejected(market, trading, market_data):
     """Side (54) must match the original order: a SELL cancel for a BUY order is rejected."""
     instrument = market.main
     order, request = _place_resting_buy(trading, instrument)
-    wrong_side = replace(order, side=Side.SELL, history=[])
+    wrong_side = replace(order, side=Side.SELL)
     with step("Send OrderCancelRequest with Side=SELL for the BUY order"):
         reject = trading.cancel(wrong_side)
+
     with step("Check OrderCancelReject: 'order not found'"):
         check_cancel_reject(reject, "OrderCancelReject for wrong side",
                             order_id=order.order_id, ord_status=OrdStatus.REJECTED,
                             cxl_rej_response_to=CxlRejResponseTo.ORDER_CANCEL_REQUEST, text="order not found")
+
     with step("Check the order still rests in the book unchanged"):
         check_order_rests(market_data.snapshot(instrument.symbol), Side.BUY, request.price, request.order_qty,
                           "Book after rejected cancel")

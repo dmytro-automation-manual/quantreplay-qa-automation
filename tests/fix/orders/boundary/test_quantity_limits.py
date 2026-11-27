@@ -29,6 +29,7 @@ def test_quantity_equal_to_minimum_is_accepted(trading, instrument):
     request = passive_buy(instrument, qty=instrument.qty_minimum)
     with step(f"Send BUY {instrument} with OrderQty = qtyMinimum = {request.order_qty}"):
         _, report = trading.place(request)
+
     with step("Check ExecutionReport: New"):
         _check_accepted(report, instrument, request, "ExecutionReport for OrderQty = qtyMinimum")
 
@@ -37,6 +38,7 @@ def test_quantity_below_minimum_is_rejected(trading, instrument):
     request = passive_buy(instrument, qty=instrument.qty_minimum - instrument.qty_multiple)
     with step(f"Send BUY {instrument} with OrderQty = qtyMinimum - qtyMultiple = {request.order_qty}"):
         _, report = trading.place(request)
+
     with step("Check ExecutionReport: Rejected, minimal quantity constraint"):
         _check_rejected(report, instrument, request, "ExecutionReport for OrderQty below qtyMinimum",
                         "minimal order quantity constraint violated")
@@ -47,6 +49,7 @@ def test_quantity_equal_to_maximum_is_accepted(trading, instrument):
     request = passive_buy(instrument, qty=instrument.qty_maximum)
     with step(f"Send BUY {instrument} with OrderQty = qtyMaximum = {request.order_qty}"):
         _, report = trading.place(request)
+
     with step("Check ExecutionReport: New"):
         _check_accepted(report, instrument, request, "ExecutionReport for OrderQty = qtyMaximum")
 
@@ -56,15 +59,17 @@ def test_quantity_above_maximum_is_rejected(trading, instrument):
     request = passive_buy(instrument, qty=instrument.qty_maximum + instrument.qty_multiple)
     with step(f"Send BUY {instrument} with OrderQty = qtyMaximum + qtyMultiple = {request.order_qty}"):
         _, report = trading.place(request)
+
     with step("Check ExecutionReport: Rejected, maximal quantity constraint"):
         _check_rejected(report, instrument, request, "ExecutionReport for OrderQty above qtyMaximum",
                         "maximal order quantity constraint violated")
 
 
 def test_quantity_not_multiple_of_lot_is_rejected(trading, instrument):
-    request = passive_buy(instrument, qty=instrument.round_lot + instrument.qty_multiple / 2)
+    request = passive_buy(instrument, qty=instrument.default_qty + instrument.qty_multiple / 2)
     with step(f"Send BUY {instrument} with OrderQty {request.order_qty} (not a multiple of {instrument.qty_multiple})"):
         _, report = trading.place(request)
+
     with step("Check ExecutionReport: Rejected, quantity multiple constraint"):
         _check_rejected(report, instrument, request, "ExecutionReport for OrderQty off the lot size",
                         "order quantity multiple constraint violated")

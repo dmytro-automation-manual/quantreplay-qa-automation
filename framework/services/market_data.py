@@ -28,6 +28,7 @@ class MarketDataService:
         md_req_id = request.md_req_id or messages.new_id()
         self._session.send(MsgType.MARKET_DATA_REQUEST.value, messages.market_data_request(request, md_req_id))
         answer = self._wait(md_req_id, (MsgType.MARKET_DATA_SNAPSHOT, MsgType.MARKET_DATA_REQUEST_REJECT))
+
         if isinstance(answer, MarketDataSnapshot) and request.subscription == SubscriptionRequestType.SUBSCRIBE:
             self.subscriptions[md_req_id] = replace(request, md_req_id=md_req_id)
         return answer
@@ -66,6 +67,7 @@ class MarketDataService:
         wanted_id, wanted_types = md_req_id.encode(), {t.value.encode() for t in types}
         msg = self._session.receive(
             lambda m: m.get(Tag.MSG_TYPE) in wanted_types and m.get(Tag.MD_REQ_ID) == wanted_id, timeout)
+
         kind = messages.msg_type(msg)
         if kind == MsgType.MARKET_DATA_SNAPSHOT.value:
             return messages.market_data_snapshot(msg)

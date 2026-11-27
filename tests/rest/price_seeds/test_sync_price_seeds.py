@@ -89,6 +89,7 @@ def test_sync_copies_changed_prices(external_instrument, api, external_price_see
     _sync(api)
 
     seed = _seed(api, instrument.symbol)
+
     check_fields(f"Simulator seed {instrument} after sync", to_price_seed(seed) if seed else None,
                  {"bid_price": bid, "mid_price": mid, "offer_price": offer})
     check_fields(f"Simulator seed {instrument}: last update", seed, {"lastUpdate": stamp})
@@ -105,6 +106,7 @@ def test_sync_updates_last_sync_time(api):
 
 def test_sync_inserts_symbol_missing_in_simulator(api, external_price_seed_table, undo):
     assert _seed(api, NEW_SYMBOL) is None, f"{NEW_SYMBOL} already exists in the simulator"
+
     bid, mid, offer = Decimal("9.98"), Decimal("10.00"), Decimal("10.02")
     undo.push(f"delete {NEW_SYMBOL} from the external DB", lambda: external_price_seed_table.delete(NEW_SYMBOL))
     with step(f"External DB: add {NEW_SYMBOL} {bid} / {mid} / {offer} (not in the simulator)"):
@@ -115,6 +117,7 @@ def test_sync_inserts_symbol_missing_in_simulator(api, external_price_seed_table
     seed = _seed(api, NEW_SYMBOL)
     if seed:
         undo.push(f"delete simulator seed {NEW_SYMBOL}", lambda: api.delete_price_seed(seed["id"]))
+
     check_fields(f"Simulator seed {NEW_SYMBOL} after sync", to_price_seed(seed) if seed else None,
                  {"symbol": NEW_SYMBOL, "security_type": "CS", "price_currency": "EUR",
                   "bid_price": bid, "mid_price": mid, "offer_price": offer})
@@ -128,11 +131,13 @@ def test_sync_with_unreachable_database_changes_nothing(external_instrument, api
     with step(f"External DB: {instrument} mid -> {instrument.mid + instrument.tick_size * 10}"):
         external_price_seed_table.set_prices(instrument.symbol, instrument.bid, instrument.mid + instrument.tick_size * 10,
                                              instrument.offer, "2026-11-04 17:30:00")
+
     connection = _setting(api, CONNECTION)
     undo.push(f"restore {CONNECTION}", lambda: api.update_settings([{"key": CONNECTION, "value": connection}]))
     wrong = connection.replace("priceseed:priceseed@", "priceseed:wrong-password@")
     with step(f"PUT /api/settings {CONNECTION}: wrong password"):
         api.update_settings([{"key": CONNECTION, "value": wrong}])
+
     seed_before, last_sync_before = _seed(api, instrument.symbol), _setting(api, LAST_SYNC)
 
     with step("POST /api/syncpriceseeds"):

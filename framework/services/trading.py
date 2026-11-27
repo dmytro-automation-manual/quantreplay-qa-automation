@@ -35,11 +35,13 @@ class TradingService:
         self._session.send(MsgType.NEW_ORDER_SINGLE.value,
                            messages.new_order_single(request, cl_ord_id, messages.transact_time()))
         report = self._wait_report(cl_ord_id)
+
         if report.ord_status == OrdStatus.REJECTED:
             return None, report
+
         order = Order(order_id=report.order_id, cl_ord_id=cl_ord_id, symbol=request.symbol, side=request.side,
                       order_qty=request.order_qty, price=request.price, ord_type=request.ord_type,
-                      time_in_force=request.time_in_force, ord_status=report.ord_status, history=[report])
+                      time_in_force=request.time_in_force, ord_status=report.ord_status)
         self.orders.append(order)
         return order, report
 
@@ -50,11 +52,13 @@ class TradingService:
         new_qty = order_qty if order_qty is not None else order.order_qty
         new_price = price if price is not None else order.price
         new_tif = order.time_in_force if time_in_force is _KEEP else time_in_force
+
         self._session.send(MsgType.ORDER_CANCEL_REPLACE_REQUEST.value,
                            messages.order_cancel_replace_request(order, cl_ord_id, messages.transact_time(),
                                                                  order_qty=new_qty, price=new_price,
                                                                  time_in_force=new_tif))
         report = self._wait_report(cl_ord_id)
+
         if isinstance(report, ExecutionReport) and report.exec_type == ExecType.REPLACED:
             order.cl_ord_id, order.order_qty, order.price = cl_ord_id, new_qty, new_price
             self._track(order, report)
@@ -66,6 +70,7 @@ class TradingService:
         self._session.send(MsgType.ORDER_CANCEL_REQUEST.value,
                            messages.order_cancel_request(order, cl_ord_id, messages.transact_time()))
         report = self._wait_report(cl_ord_id)
+
         if isinstance(report, ExecutionReport) and report.exec_type == ExecType.CANCELED:
             order.cl_ord_id = cl_ord_id
             self._track(order, report)
@@ -76,6 +81,7 @@ class TradingService:
         fake = Order(order_id=order_id, cl_ord_id=orig_cl_ord_id, symbol=order.symbol, side=order.side,
                      order_qty=order.order_qty, price=order.price, ord_type=order.ord_type,
                      time_in_force=order.time_in_force, ord_status=order.ord_status)
+
         cl_ord_id = messages.new_id()
         self._session.send(MsgType.ORDER_CANCEL_REQUEST.value,
                            messages.order_cancel_request(fake, cl_ord_id, messages.transact_time()))
@@ -110,6 +116,7 @@ class TradingService:
         active = [o for o in self.orders if o.ord_status not in TERMINAL_ORD_STATUSES]
         if not active:
             return []
+
         self._session.drain()
         for order in active:
             self.refresh(order)
@@ -126,7 +133,6 @@ class TradingService:
 
     @staticmethod
     def _track(order: Order, report: ExecutionReport) -> None:
-        order.history.append(report)
         if report.ord_status == OrdStatus.REPLACED:
             return                                    # replaced order stays active
         order.ord_status = report.ord_status

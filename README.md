@@ -121,8 +121,13 @@ start and keeps its data in memory (tmpfs), so each start is clean. It is the Qu
 * XETRA: Xetra close - prices, ISINs, tick sizes (band 11 table for non-EU shares, ESMA band 5 for VOW),
   lot size 1, fat-finger qty limits.
 * FASTMATCH (venue, listings and price seeds added on top of the demo data): ECB reference rates
-  (GBP/USD, USD/JPY, USD/CHF as cross rates), 5-decimal prices (3 for JPY), quantity in the base currency:
-  minimum 10 000, multiple of 1 000, fat-finger limit 50 000 000.
+  (GBP/USD, USD/JPY, USD/CHF as cross rates), 5-decimal prices (3 for JPY), quantity in the base currency
+  with its own limits per pair.
+* Every listing has its own profile: one extra identifier (CUSIP / SEDOL / RIC / exchange symbol / Bloomberg;
+  shares keep the ISIN too) and its own random order generator settings - passive / aggressive quantity and amount ranges,
+  depth, spread, rate, tick range. No listing has a party. The generator itself is off by default (`random_orders_enabled = false`).
+  Venue rule found by experiment: `random_amt_minimum / price` must not exceed `random_qty_minimum`
+  (otherwise the generator places no orders at all); every profile keeps it.
 The same values are the reference in `test_data/instruments.py`. Rebuild the dump with
 `scripts/build_test_db.sh` after changing the overrides.
 
@@ -131,21 +136,24 @@ External price seed database: container `external_price-seed-db` (PostgreSQL, po
 VOW and EUR/USD, with the same prices as the simulator (data in memory). The setting `SeedPriceDatabaseConnection` points to it; `POST /api/syncpriceseeds`
 copies bid / mid / offer prices by symbol into `sim.price_seed` and sets `SeedPricesLastUpdated`.
 
-| Symbol | Instrument | Mid, EUR | Tick | Max qty |
-|---|---|---|---|---|
-| AMZ | Amazon.com | 222.55 | 0.05 | 20 000 |
-| MSF | Microsoft | 468.90 | 0.05 | 10 000 |
-| NFC | Netflix | 59.58 | 0.01 | 50 000 |
-| VODI | Vodafone Group | 1.410 | 0.001 | 2 000 000 |
-| VOW | Volkswagen St. | 68.70 | 0.02 | 50 000 |
+| Symbol | Instrument | Mid, EUR | Tick | Max qty | Extra identifier |
+|---|---|---|---|---|---|
+| AMZ | Amazon.com | 222.55 | 0.05 | 20 000 | exchange symbol `AMZ` |
+| MSF | Microsoft | 468.90 | 0.05 | 10 000 | Bloomberg `MSF GY Equity` |
+| NFC | Netflix | 59.58 | 0.01 | 50 000 | RIC `NFC.DE` |
+| VODI | Vodafone Group | 1.410 | 0.001 | 2 000 000 | SEDOL `BH4HKS3` |
+| VOW | Volkswagen St. | 68.70 | 0.02 | 50 000 | CUSIP (CINS) `D94523145` |
 
-| Pair | Mid | Tick | Min / lot / max qty (base currency) |
-|---|---|---|---|
-| EUR/USD | 1.11930 | 0.00001 | 10 000 / 1 000 / 50 000 000 |
-| GBP/USD | 1.33683 | 0.00001 | same |
-| USD/JPY | 156.803 | 0.001 | same |
-| USD/CHF | 0.82435 | 0.00001 | same |
-| EUR/GBP | 0.83728 | 0.00001 | same |
+| Pair | Mid | Tick | Min / lot / max qty (base currency) | Extra identifier |
+|---|---|---|---|---|
+| EUR/USD | 1.11930 | 0.00001 | 10 000 / 1 000 / 100 000 000 | RIC `EUR=` |
+| GBP/USD | 1.33683 | 0.00001 | 25 000 / 5 000 / 50 000 000 | Bloomberg `GBPUSD Curncy` |
+| USD/JPY | 156.803 | 0.001 | 50 000 / 10 000 / 75 000 000 | exchange symbol `USDJPY` |
+| USD/CHF | 0.82435 | 0.00001 | 5 000 / 1 000 / 25 000 000 | RIC `CHF=` |
+| EUR/GBP | 0.83728 | 0.00001 | 100 000 / 50 000 / 20 000 000 | Bloomberg `EURGBP Curncy` |
+
+Random order settings per listing: `test_data/instruments.py` (`random=`) and the "Per-listing profile" block of
+`sim-run/db/real_market_overrides.sql`.
 
 ### Isolation
 
