@@ -20,8 +20,11 @@ def _settings(api) -> dict:
 def test_get_settings_returns_documented_keys(api):
     with step("GET /api/settings"):
         response = api.get_settings()
+
     check_response(response, "GET /api/settings", status_code=200)
+
     keys = sorted(s["key"] for s in response.body["settings"])
+
     check_fields("Setting keys", {"keys": keys},
                  {"keys": ["DisplayName", "SeedPriceDatabaseConnection", "SeedPricesLastUpdated"]})
 
@@ -32,7 +35,9 @@ def test_update_display_name(api, setting_table, undo):
               lambda: api.update_settings([{"key": "DisplayName", "value": original}]))
     with step("PUT /api/settings DisplayName -> 'MKTSIMULATOR-QA'"):
         response = api.update_settings([{"key": "DisplayName", "value": "MKTSIMULATOR-QA"}])
+
     check_response(response, "PUT /api/settings", status_code=200, result="General settings updated successfully")
+
     with step("Check REST and database show the new value"):
         check_fields("Settings in REST", _settings(api), {"DisplayName": "MKTSIMULATOR-QA"})
         check_fields("Settings in DB", {s.key: s.value for s in setting_table.all()},
@@ -42,6 +47,7 @@ def test_update_display_name(api, setting_table, undo):
 def test_update_unknown_setting_is_rejected(api):
     with step("PUT /api/settings with key BadKey"):
         response = api.update_settings([{"key": "BadKey", "value": "x"}])
+
     check_response(response, "PUT unknown setting", status_code=400,
                    result="Unknown `BadKey' setting update requested")
 
@@ -51,4 +57,5 @@ def test_seed_prices_last_updated_is_read_only(api):
     original = _settings(api)["SeedPricesLastUpdated"]
     with step("PUT /api/settings SeedPricesLastUpdated -> 2000-01-01 00:00:00"):
         api.update_settings([{"key": "SeedPricesLastUpdated", "value": "2000-01-01 00:00:00"}])
+
     check_fields("SeedPricesLastUpdated unchanged", _settings(api), {"SeedPricesLastUpdated": original})

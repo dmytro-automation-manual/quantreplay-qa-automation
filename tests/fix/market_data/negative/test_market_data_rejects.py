@@ -15,6 +15,7 @@ from test_data.instruments import UNKNOWN_SYMBOL
 def test_unknown_symbol_is_rejected(market_data):
     with step(f"Send Snapshot for {UNKNOWN_SYMBOL}"):
         reject = market_data.snapshot(UNKNOWN_SYMBOL)
+
     with step("Check MarketDataRequestReject: Unknown symbol, 'listing not found'"):
         check_fields("MarketDataRequestReject for unknown symbol", reject,
                      {"msg_type": MsgType.MARKET_DATA_REQUEST_REJECT, "reason": MDReqRejReason.UNKNOWN_SYMBOL,
@@ -26,8 +27,10 @@ def test_duplicate_md_req_id_of_active_subscription_is_rejected(market, market_d
     with step(f"Precondition: subscribe to {market.main} with MDReqID {md_req_id}"):
         first = market_data.subscribe(market.main.symbol, md_req_id=md_req_id)
         check_fields("Initial snapshot", first, {"msg_type": MsgType.MARKET_DATA_SNAPSHOT, "md_req_id": md_req_id})
+
     with step("Subscribe again with the same MDReqID"):
         reject = market_data.subscribe(market.main.symbol, md_req_id=md_req_id)
+
     with step("Check MarketDataRequestReject: Duplicate MDReqID, 'request identifier is used already'"):
         check_fields("MarketDataRequestReject for duplicate MDReqID", reject,
                      {"msg_type": MsgType.MARKET_DATA_REQUEST_REJECT, "md_req_id": md_req_id,
@@ -38,6 +41,7 @@ def test_unsubscribe_without_subscription_is_rejected(market, market_data):
     md_req_id = new_id()
     with step(f"Send Unsubscribe for MDReqID {md_req_id} that has no subscription"):
         reject = market_data.unsubscribe_unknown(md_req_id, market.main.symbol)
+
     with step("Check MarketDataRequestReject: 'no subscription found for the request id'"):
         check_fields("MarketDataRequestReject for unknown subscription", reject,
                      {"msg_type": MsgType.MARKET_DATA_REQUEST_REJECT, "md_req_id": md_req_id, "reason": ABSENT,
@@ -49,6 +53,7 @@ def test_request_for_several_symbols_is_rejected(market, market_data):
     first, second = market.instruments[:2]
     with step(f"Send Snapshot with NoRelatedSym=2 ({first}, {second})"):
         reject = market_data.snapshot((first.symbol, second.symbol))
+
     with step("Check MarketDataRequestReject for several securities"):
         check_fields("MarketDataRequestReject for several symbols", reject,
                      {"msg_type": MsgType.MARKET_DATA_REQUEST_REJECT, "reason": ABSENT,

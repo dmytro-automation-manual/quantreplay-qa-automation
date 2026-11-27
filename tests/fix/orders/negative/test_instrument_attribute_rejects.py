@@ -22,6 +22,7 @@ def test_wrong_currency_is_rejected(trading, instrument):
     request = passive_buy(instrument, currency=instrument.other_currency)
     with step(f"Send BUY {instrument} with Currency={request.currency} (listing: {instrument.order_currency})"):
         _, report = trading.place(request)
+
     with step("Check ExecutionReport: Rejected, 'listing not found'"):
         _check_listing_not_found(report, instrument, request, "ExecutionReport for wrong Currency")
 
@@ -31,5 +32,6 @@ def test_wrong_security_type_is_rejected(trading, instrument):
     request = passive_buy(instrument, security_type=wrong_type)
     with step(f"Send BUY {instrument} with SecurityType={wrong_type} (listing: {instrument.security_type})"):
         _, report = trading.place(request)
+
     with step("Check ExecutionReport: Rejected, 'listing not found'"):
         _check_listing_not_found(report, instrument, request, "ExecutionReport for wrong SecurityType")

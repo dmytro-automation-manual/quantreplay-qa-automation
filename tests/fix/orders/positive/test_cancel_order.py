@@ -22,6 +22,7 @@ def test_cancel_active_order(trading, instrument, make_order):
         check_execution_report(report, "ExecutionReport for NewOrderSingle",
                                order_id=PRESENT, exec_type=ExecType.NEW, ord_status=OrdStatus.NEW,
                                symbol=instrument.symbol, order_qty=request.order_qty, price=request.price)
+
     original_cl_ord_id = order.cl_ord_id
 
     with step("Send OrderCancelRequest"):

@@ -16,6 +16,7 @@ UNKNOWN_VENUE = "NOSUCHVENUE"
 def test_get_all_venues_contains_every_test_venue(api):
     with step("GET /api/venues"):
         response = api.get_venues()
+
     check_response(response, "GET /api/venues", status_code=200)
     check_fields("Venue ids", {"ids": sorted(v["id"] for v in response.body["venues"])},
                  {"ids": sorted(m.venue_id for m in MARKETS)})
@@ -26,6 +27,7 @@ def test_test_venue_configuration(market, api):
     """Matching engine, all TIFs supported, own orders match, no auto start of the generator, no persistence."""
     with step(f"GET /api/venues/{market.venue_id}"):
         response = api.get_venue(market.venue_id)
+
     check_response(response, f"GET /api/venues/{market.venue_id}", status_code=200)
     check_fields(f"Venue {market.venue_id}", to_venue(response.body), {
         "venue_id": market.venue_id, "name": market.venue_id, "engine_type": "Matching",
@@ -40,7 +42,9 @@ def test_update_venue(market, api, venue_table, undo):
     new_name = f"{market.venue_id} QA"
     with step(f"PUT /api/venues/{market.venue_id} name -> '{new_name}'"):
         response = api.update_venue(market.venue_id, {"name": new_name})
+
     check_response(response, "PUT venue", status_code=200)
+
     with step("Check REST and database show the new name"):
         check_fields("Venue in REST", to_venue(api.get_venue(market.venue_id).body), {"name": new_name})
         check_fields("Venue in DB", venue_table.get(market.venue_id), {"name": new_name})

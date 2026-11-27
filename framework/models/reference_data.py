@@ -32,13 +32,32 @@ class Listing:
     price_currency: str | None
     fx_base_currency: str | None
     security_exchange: str | None
+    party_id: str | None
+    party_role: str | None
+    cusip_id: str | None
+    sedol_id: str | None
     isin_id: str | None
+    ric_id: str | None
+    exchange_symbol_id: str | None
+    bloomberg_symbol_id: str | None
     qty_minimum: Decimal | None
     qty_maximum: Decimal | None
     qty_multiple: Decimal | None
     price_tick_size: Decimal | None
     enabled: bool | None
     random_orders_enabled: bool | None
+    random_qty_minimum: Decimal | None
+    random_qty_maximum: Decimal | None
+    random_amt_minimum: Decimal | None
+    random_amt_maximum: Decimal | None
+    random_aggressive_qty_minimum: Decimal | None
+    random_aggressive_qty_maximum: Decimal | None
+    random_aggressive_amt_minimum: Decimal | None
+    random_aggressive_amt_maximum: Decimal | None
+    random_depth_levels: int | None
+    random_orders_spread: Decimal | None
+    random_orders_rate: int | None
+    random_tick_range: int | None
 
 
 @dataclass(frozen=True)

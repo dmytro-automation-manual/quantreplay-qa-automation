@@ -27,10 +27,21 @@ class VenueTable:
 
 class ListingTable:
     _COLUMNS = """listing_id, symbol, venue_id, security_type, price_currency, fx_base_currency, security_exchange,
-                  isin_id,
+                  party_id, party_role,
+                  cusip_id, sedol_id, isin_id, ric_id, exchange_symbol_id, bloomberg_symbol_id,
                   qty_minimum::numeric as qty_minimum, qty_maximum::numeric as qty_maximum,
                   qty_multiple::numeric as qty_multiple, price_tick_size::numeric as price_tick_size,
-                  enabled, random_orders_enabled"""
+                  enabled, random_orders_enabled,
+                  random_qty_minimum::numeric as random_qty_minimum,
+                  random_qty_maximum::numeric as random_qty_maximum,
+                  random_amt_minimum::numeric as random_amt_minimum,
+                  random_amt_maximum::numeric as random_amt_maximum,
+                  random_aggressive_qty_minimum::numeric as random_aggressive_qty_minimum,
+                  random_aggressive_qty_maximum::numeric as random_aggressive_qty_maximum,
+                  random_aggressive_amt_minimum::numeric as random_aggressive_amt_minimum,
+                  random_aggressive_amt_maximum::numeric as random_aggressive_amt_maximum,
+                  random_depth_levels, random_orders_spread::numeric as random_orders_spread,
+                  random_orders_rate, random_tick_range"""
 
     def __init__(self, db: Db):
         self._db = db

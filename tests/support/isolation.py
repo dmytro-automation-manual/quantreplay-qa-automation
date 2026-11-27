@@ -30,6 +30,7 @@ class UndoStack:
                 except Exception as exc:        # keep undoing the rest, report everything at the end
                     log.error("undo failed: %s: %s", description, exc)
                     errors.append(f"{description}: {exc}")
+
         if errors:
             raise AssertionError("Teardown could not restore the state:\n" + "\n".join(errors))
 

@@ -22,6 +22,7 @@ def test_unknown_symbol_is_rejected(market, trading):
     request = replace(passive_buy(instrument), symbol=UNKNOWN_SYMBOL)
     with step(f"Send NewOrderSingle for {UNKNOWN_SYMBOL}"):
         _, report = trading.place(request)
+
     with step("Check ExecutionReport: Rejected, 'listing not found'"):
         check_execution_report(report, "ExecutionReport for unknown symbol",
                                order_id=PRESENT, exec_type=ExecType.REJECTED, ord_status=OrdStatus.REJECTED,
@@ -32,13 +33,14 @@ def test_unknown_symbol_is_rejected(market, trading):
 def test_limit_order_without_price_is_rejected(market, trading):
     """A limit order must carry Price (44): 'order price missing'."""
     instrument = market.main
-    request = NewOrderRequest(symbol=instrument.symbol, side=Side.BUY, order_qty=instrument.round_lot, price=None)
+    request = NewOrderRequest(symbol=instrument.symbol, side=Side.BUY, order_qty=instrument.default_qty, price=None)
     with step(f"Send limit NewOrderSingle {instrument} without Price (44)"):
         _, report = trading.place(request)
+
     with step("Check ExecutionReport: Rejected, 'order price missing'"):
         check_execution_report(report, "ExecutionReport for limit order without price",
                                order_id=PRESENT, exec_type=ExecType.REJECTED, ord_status=OrdStatus.REJECTED,
-                               symbol=instrument.symbol, order_qty=instrument.round_lot, price=ABSENT,
+                               symbol=instrument.symbol, order_qty=instrument.default_qty, price=ABSENT,
                                text="order price missing")
 
 
@@ -46,14 +48,15 @@ def test_market_order_with_price_is_rejected(market, trading):
     """A market order must not carry Price (44): 'order price is not allowed'."""
     instrument = market.main
     price = passive_buy_price(instrument)
-    request = NewOrderRequest(symbol=instrument.symbol, side=Side.BUY, order_qty=instrument.round_lot, price=price,
+    request = NewOrderRequest(symbol=instrument.symbol, side=Side.BUY, order_qty=instrument.default_qty, price=price,
                               ord_type=OrdType.MARKET, time_in_force=TimeInForce.IMMEDIATE_OR_CANCEL)
     with step(f"Send market NewOrderSingle {instrument} with Price {price}"):
         _, report = trading.place(request)
+
     with step("Check ExecutionReport: Rejected, 'order price is not allowed'"):
         check_execution_report(report, "ExecutionReport for market order with price",
                                order_id=PRESENT, exec_type=ExecType.REJECTED, ord_status=OrdStatus.REJECTED,
-                               symbol=instrument.symbol, order_qty=instrument.round_lot, price=price,
+                               symbol=instrument.symbol, order_qty=instrument.default_qty, price=price,
                                text="order price is not allowed")
 
 
@@ -64,6 +67,7 @@ def test_order_without_quantity_is_rejected(market, trading):
     request = NewOrderRequest(symbol=instrument.symbol, side=Side.BUY, order_qty=None, price=price)
     with step(f"Send NewOrderSingle {instrument} @ {price} without OrderQty (38)"):
         _, report = trading.place(request)
+
     with step("Check ExecutionReport: Rejected, 'order quantity missing'"):
         check_execution_report(report, "ExecutionReport for order without quantity",
                                order_id=PRESENT, exec_type=ExecType.REJECTED, ord_status=OrdStatus.REJECTED,

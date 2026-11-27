@@ -192,6 +192,7 @@ def clean_venue(market, api, db, fix_session, venue, shared_lock):
         generator_was_running = api.get_generator_status(venue_id).result == "Running"
         if generator_was_running:
             api.stop_generator(venue_id)
+
         fix_session.logon()
         dirty = _non_empty_books(fix_session, market)
         if dirty:
@@ -199,6 +200,7 @@ def clean_venue(market, api, db, fix_session, venue, shared_lock):
             venue.reset()
             dirty = _non_empty_books(fix_session, market)
             assert not dirty, f"Order books still not empty after reset: {dirty}"
+
         state_before = DatabaseState(db).capture(venue_id)
 
     yield
@@ -210,12 +212,15 @@ def clean_venue(market, api, db, fix_session, venue, shared_lock):
             dirty = _non_empty_books(fix_session, market)
             if dirty:
                 problems.append(f"orders left in the books: {dirty}")
+
         state_after = DatabaseState(db).capture(venue_id)
         changed = [t for t in state_before if state_before[t] != state_after[t]]
         if changed:
             problems.append(f"configuration tables changed by the run: {changed}")
+
         if generator_was_running:
             api.start_generator(venue_id)
+
         assert not problems, f"Test isolation broken on {venue_id}: " + "; ".join(problems)
 
 
@@ -225,7 +230,9 @@ def trading(fix_session):
     """Order entry for one test. Teardown cancels every order the test left active and checks the cancel."""
     fix_session.clear_inbox()
     service = TradingService(fix_session)
+
     yield service
+
     for order in service.active_orders():
         with allure.step(f"Teardown: cancel {order.side.name} {order.order_qty} {order.symbol} @ {order.price}"):
             report = service.cancel(order)
@@ -239,7 +246,9 @@ def trading(fix_session):
 def market_data(fix_session):
     """Market data for one test. Teardown unsubscribes every subscription the test opened."""
     service = MarketDataService(fix_session)
+
     yield service
+
     for md_req_id, request in list(service.subscriptions.items()):
         with allure.step(f"Teardown: unsubscribe {request.symbol} ({md_req_id})"):
             service.unsubscribe(md_req_id, request.symbol)

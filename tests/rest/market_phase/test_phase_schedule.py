@@ -31,6 +31,7 @@ def test_schedule_saved_together_with_a_venue_field(market, api, clear_schedule_
     body = {"name": market.venue_id, "phases": [CLOSED_PHASE]}
     with step(f"PUT /api/venues/{market.venue_id} {body}"):
         response = api.update_venue(market.venue_id, body)
+
     check_response(response, "PUT venue with name + phases", status_code=200)
     check_fields("Saved schedule", {"phases": _phases(api, market.venue_id)}, {"phases": [CLOSED_PHASE]})
 
@@ -41,5 +42,6 @@ def test_schedule_only_update_is_accepted(market, api, clear_schedule_after, pha
     body = {"phases": phases}
     with step(f"PUT /api/venues/{market.venue_id} {body} (no other venue field)"):
         response = api.update_venue(market.venue_id, body)
+
     check_response(response, "PUT venue with phases only", status_code=200)
     check_fields("Saved schedule", {"phases": _phases(api, market.venue_id)}, {"phases": phases})

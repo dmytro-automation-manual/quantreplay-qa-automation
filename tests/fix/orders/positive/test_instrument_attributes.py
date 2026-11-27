@@ -21,6 +21,7 @@ def test_order_with_all_instrument_attributes_is_accepted(trading, instrument):
     with step(f"Send BUY {request.order_qty} {instrument} @ {request.price} with SecurityType="
               f"{request.security_type}, SecurityExchange={request.security_exchange}, Currency={request.currency}"):
         _, report = trading.place(request)
+
     with step("Check ExecutionReport: New"):
         check_execution_report(report, "ExecutionReport for order with instrument attributes",
                                order_id=PRESENT, exec_type=ExecType.NEW, ord_status=OrdStatus.NEW,

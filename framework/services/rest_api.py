@@ -145,10 +145,24 @@ def to_listing(body: dict) -> Listing:
     return Listing(listing_id=body["id"], symbol=body["symbol"], venue_id=body["venueId"],
                    security_type=body.get("securityType"), price_currency=body.get("priceCurrency"),
                    fx_base_currency=body.get("fxBaseCurrency"), security_exchange=body.get("securityExchange"),
-                   isin_id=body.get("isinId"),
+                   party_id=body.get("partyId"), party_role=body.get("partyRole"),
+                   cusip_id=body.get("cusipId"), sedol_id=body.get("sedolId"), isin_id=body.get("isinId"),
+                   ric_id=body.get("ricId"), exchange_symbol_id=body.get("exchangeSymbolId"),
+                   bloomberg_symbol_id=body.get("bloombergSymbolId"),
                    qty_minimum=_dec(body.get("qtyMinimum")), qty_maximum=_dec(body.get("qtyMaximum")),
                    qty_multiple=_dec(body.get("qtyMultiple")), price_tick_size=_dec(body.get("priceTickSize")),
-                   enabled=body.get("enabled"), random_orders_enabled=body.get("randomOrdersEnabled"))
+                   enabled=body.get("enabled"), random_orders_enabled=body.get("randomOrdersEnabled"),
+                   random_qty_minimum=_dec(body.get("randomQtyMinimum")),
+                   random_qty_maximum=_dec(body.get("randomQtyMaximum")),
+                   random_amt_minimum=_dec(body.get("randomAmtMinimum")),
+                   random_amt_maximum=_dec(body.get("randomAmtMaximum")),
+                   random_aggressive_qty_minimum=_dec(body.get("randomAggQtyMinimum")),
+                   random_aggressive_qty_maximum=_dec(body.get("randomAggQtyMaximum")),
+                   random_aggressive_amt_minimum=_dec(body.get("randomAggAmtMinimum")),
+                   random_aggressive_amt_maximum=_dec(body.get("randomAggAmtMaximum")),
+                   random_depth_levels=body.get("randomDepthLevels"),
+                   random_orders_spread=_dec(body.get("randomOrdersSpread")),
+                   random_orders_rate=body.get("randomOrdersRate"), random_tick_range=body.get("randomTickRange"))
 
 
 def to_price_seed(body: dict) -> PriceSeed:

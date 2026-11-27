@@ -29,22 +29,17 @@ UPDATE sim.listing l SET
     qty_multiple = 1,
     qty_maximum = v.qty_max,
     price_tick_size = v.tick,
-    random_qty_minimum = v.rnd_qty_min,
-    random_qty_maximum = v.rnd_qty_max,
-    random_orders_spread = v.tick,
-    random_depth_levels = 5,
-    random_orders_rate = 2,
-    random_tick_range = 10,
     random_orders_enabled = false,   -- random generator off by default; tests enable it via REST
     enabled = true
 FROM (VALUES
-    ('AMZ',  'US0231351067', 0.05::real,  20000::real,    10::real,   500::real),
-    ('MSF',  'US5949181045', 0.05::real,  10000::real,     5::real,   250::real),
-    ('NFC',  'US64110L1061', 0.01::real,  50000::real,    20::real,  1000::real),
-    ('VODI', 'GB00BH4HKS39', 0.001::real, 2000000::real, 1000::real, 50000::real),
-    ('VOW',  'DE0007664005', 0.02::real,  50000::real,    20::real,  1000::real)
-) AS v(symbol, isin, tick, qty_max, rnd_qty_min, rnd_qty_max)
+    ('AMZ',  'US0231351067', 0.05::real,  20000::real),
+    ('MSF',  'US5949181045', 0.05::real,  10000::real),
+    ('NFC',  'US64110L1061', 0.01::real,  50000::real),
+    ('VODI', 'GB00BH4HKS39', 0.001::real, 2000000::real),
+    ('VOW',  'DE0007664005', 0.02::real,  50000::real)
+) AS v(symbol, isin, tick, qty_max)
 WHERE l.symbol = v.symbol AND l.venue_id = 'XETRA';
+-- Identifiers and random order settings of every listing: see "Per-listing profile" below.
 
 UPDATE sim.price_seed p SET
     security_id = v.isin,
@@ -91,7 +86,10 @@ SELECT setval('sim.data_source_data_source_id_seq', (SELECT max(data_source_id) 
 
 -- FASTMATCH: FX spot venue (second simulator instance, REST 9052, FIX 9053).
 -- Prices: 5 decimals (0.00001), JPY pairs 3 decimals (0.001); bid / offer one tick around the mid.
--- Quantities in the base currency: minimum 10 000, multiple of 1 000, fat-finger limit 50 000 000.
+-- Quantities in the base currency, own limits per pair (the most liquid pair has the widest range):
+--   EUR/USD 10 000 .. 100 000 000 by 1 000 | GBP/USD 25 000 .. 50 000 000 by 5 000
+--   USD/JPY 50 000 .. 75 000 000 by 10 000 | USD/CHF  5 000 .. 25 000 000 by 1 000
+--   EUR/GBP 100 000 .. 20 000 000 by 50 000
 INSERT INTO sim.venue (venue_id, name, engine_type, support_tif_ioc, support_tif_fok, support_tif_day,
                        include_own_orders, rest_port, order_on_startup, random_party_count, tns_enabled,
                        tns_qty_enabled, tns_side_enabled, tns_parties_enabled, timezone, cancel_on_disconnect,
@@ -100,19 +98,17 @@ VALUES ('FASTMATCH', 'FASTMATCH', 'Matching', true, true, true, true, 9052, fals
         'America/New_York', false, false);
 
 INSERT INTO sim.listing (listing_id, symbol, venue_id, security_type, price_currency, fx_base_currency, instr_symbol,
-                         qty_minimum, qty_maximum, qty_multiple, price_tick_size, enabled, random_qty_minimum,
-                         random_qty_maximum, random_depth_levels, random_orders_spread, random_orders_rate,
-                         random_tick_range, security_exchange, random_orders_enabled,
-                         random_price_exclude_current_listing)
-SELECT v.id, v.symbol, 'FASTMATCH', 'FXSPOT', v.quote, v.base, v.symbol, 10000, 50000000, 1000, v.tick, true,
-       100000, 5000000, 5, v.tick, 2, 10, 'FASTMATCH', false, false
+                         qty_minimum, qty_maximum, qty_multiple, price_tick_size, enabled,
+                         security_exchange, random_orders_enabled, random_price_exclude_current_listing)
+SELECT v.id, v.symbol, 'FASTMATCH', 'FXSPOT', v.quote, v.base, v.symbol, v.qty_min, v.qty_max, v.qty_mult, v.tick,
+       true, 'FASTMATCH', false, false
 FROM (VALUES
-    (6,  'EUR/USD', 'EUR', 'USD', 0.00001::real),
-    (7,  'GBP/USD', 'GBP', 'USD', 0.00001::real),
-    (8,  'USD/JPY', 'USD', 'JPY', 0.001::real),
-    (9,  'USD/CHF', 'USD', 'CHF', 0.00001::real),
-    (10, 'EUR/GBP', 'EUR', 'GBP', 0.00001::real)
-) AS v(id, symbol, base, quote, tick);
+    (6,  'EUR/USD', 'EUR', 'USD', 0.00001::real,  10000::real, 100000000::real,  1000::real),
+    (7,  'GBP/USD', 'GBP', 'USD', 0.00001::real,  25000::real,  50000000::real,  5000::real),
+    (8,  'USD/JPY', 'USD', 'JPY', 0.001::real,    50000::real,  75000000::real, 10000::real),
+    (9,  'USD/CHF', 'USD', 'CHF', 0.00001::real,   5000::real,  25000000::real,  1000::real),
+    (10, 'EUR/GBP', 'EUR', 'GBP', 0.00001::real, 100000::real,  20000000::real, 50000::real)
+) AS v(id, symbol, base, quote, tick, qty_min, qty_max, qty_mult);
 SELECT setval('sim.listing_listing_id_seq', (SELECT max(listing_id) FROM sim.listing));
 
 INSERT INTO sim.price_seed (price_seed_id, symbol, security_type, price_currency, instrument_symbol,
@@ -131,5 +127,58 @@ SELECT setval('sim.price_seed_price_seed_id_seq', (SELECT max(price_seed_id) FRO
 -- POST /api/syncpriceseeds copies bid / mid / offer prices from its table price_seed into sim.price_seed.
 UPDATE sim.setting SET value = 'postgresql://priceseed:priceseed@external_price-seed-db:5432/priceseed'
 WHERE key = 'SeedPriceDatabaseConnection';
+
+-- Per-listing profile: every listing has its own extra identifier and random order settings.
+--
+-- Extra identifier (ISIN stays in isin_id for shares; FX spot has no ISIN / CUSIP / SEDOL), one source each:
+--   VOW  cusip_id    D94523145      CINS of the Volkswagen ordinary share
+--   VODI sedol_id    BH4HKS3        SEDOL (part of the GB ISIN GB00BH4HKS39)
+--   NFC  ric_id      NFC.DE         Xetra RIC
+--   AMZ  exchange_symbol_id AMZ     Xetra trading symbol
+--   MSF  bloomberg_symbol_id MSF GY Equity   Bloomberg, Xetra (GY)
+--   EUR/USD ric EUR=, USD/CHF ric CHF=, GBP/USD and EUR/GBP Bloomberg "<pair> Curncy", USD/JPY exchange symbol.
+--
+-- No party on the listings (party_id / party_role stay NULL): a listing party would tie the listing to one firm.
+--
+-- Random order generator (off by default, random_orders_enabled = false):
+--   passive qty range, aggressive qty range, amount ranges (price currency), depth, spread, rate, tick range.
+--   Rule found on the venue: random_amt_minimum / price must not exceed random_qty_minimum - otherwise the
+--   generator silently places no orders at all. Every amount minimum below keeps amount / price <= qty minimum
+--   (the same is kept for the aggressive pair).
+UPDATE sim.listing l SET
+    cusip_id = v.cusip, sedol_id = v.sedol, ric_id = v.ric,
+    exchange_symbol_id = v.exch, bloomberg_symbol_id = v.bbg,
+    random_qty_minimum = v.rq_min, random_qty_maximum = v.rq_max,
+    random_amt_minimum = v.ra_min, random_amt_maximum = v.ra_max,
+    random_aggressive_qty_minimum = v.aq_min, random_aggressive_qty_maximum = v.aq_max,
+    random_aggressive_amt_minimum = v.aa_min, random_aggressive_amt_maximum = v.aa_max,
+    random_depth_levels = v.depth, random_orders_spread = v.spread,
+    random_orders_rate = v.rate, random_tick_range = v.ticks
+FROM (VALUES
+--   venue        symbol     cusip        sedol      ric       exchange  bloomberg
+--     rnd qty min / max      rnd amt min / max          aggr qty min / max   aggr amt min / max   depth spread rate ticks
+    ('XETRA',     'AMZ',     NULL,        NULL,      NULL,     'AMZ',    NULL,
+         10::real,     500::real,    2000::real,     100000::real,     5::real,    200::real,     1000::real,    40000::real,  7, 0.10::real,    3, 12),
+    ('XETRA',     'MSF',     NULL,        NULL,      NULL,     NULL,     'MSF GY Equity',
+          5::real,     250::real,    2000::real,     100000::real,     2::real,    100::real,      900::real,    45000::real,  6, 0.05::real,    2, 15),
+    ('XETRA',     'NFC',     NULL,        NULL,      'NFC.DE', NULL,     NULL,
+         20::real,    1000::real,    1000::real,      50000::real,    10::real,    400::real,      500::real,    20000::real,  8, 0.02::real,    4, 20),
+    ('XETRA',     'VODI',    NULL,        'BH4HKS3', NULL,     NULL,     NULL,
+       1000::real,   50000::real,    1200::real,      60000::real,   500::real,  20000::real,      600::real,    25000::real, 10, 0.002::real,   5, 25),
+    ('XETRA',     'VOW',     'D94523145', NULL,      NULL,     NULL,     NULL,
+         20::real,    1000::real,    1300::real,      60000::real,    10::real,    400::real,      600::real,    25000::real,  5, 0.04::real,    2, 10),
+    ('FASTMATCH', 'EUR/USD', NULL,        NULL,      'EUR=',   NULL,     NULL,
+    1000000::real, 10000000::real, 1000000::real, 10000000::real, 500000::real, 5000000::real, 500000::real, 5000000::real, 10, 0.00002::real, 8, 15),
+    ('FASTMATCH', 'GBP/USD', NULL,        NULL,      NULL,     NULL,     'GBPUSD Curncy',
+     500000::real,  5000000::real,  600000::real,  6000000::real, 250000::real, 2500000::real, 300000::real, 3000000::real,  8, 0.00003::real, 5, 12),
+    ('FASTMATCH', 'USD/JPY', NULL,        NULL,      NULL,     'USDJPY', NULL,
+    1000000::real,  8000000::real, 150000000::real, 1200000000::real, 500000::real, 4000000::real, 75000000::real, 600000000::real, 8, 0.003::real, 6, 12),
+    ('FASTMATCH', 'USD/CHF', NULL,        NULL,      'CHF=',   NULL,     NULL,
+     200000::real,  3000000::real,  150000::real,  2400000::real, 100000::real, 1500000::real,  80000::real, 1200000::real,  6, 0.00003::real, 3, 10),
+    ('FASTMATCH', 'EUR/GBP', NULL,        NULL,      NULL,     NULL,     'EURGBP Curncy',
+     500000::real,  5000000::real,  400000::real,  4000000::real, 250000::real, 2000000::real, 200000::real, 1600000::real,  5, 0.00002::real, 2, 8)
+) AS v(venue, symbol, cusip, sedol, ric, exch, bbg,
+       rq_min, rq_max, ra_min, ra_max, aq_min, aq_max, aa_min, aa_max, depth, spread, rate, ticks)
+WHERE l.venue_id = v.venue AND l.symbol = v.symbol;
 
 COMMIT;

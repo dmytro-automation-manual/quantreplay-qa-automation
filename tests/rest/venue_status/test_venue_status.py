@@ -11,6 +11,7 @@ from tests.support.rest import check_response
 def test_venue_status_of_test_venue(market, api):
     with step(f"GET /api/venuestatus/{market.venue_id}"):
         response = api.get_venue_status(market.venue_id)
+
     check_response(response, "GET venue status", status_code=200)
     check_fields("Venue status", response.body, {"id": market.venue_id, "name": market.venue_id,
                                                  "startTime": PRESENT,
@@ -19,6 +20,7 @@ def test_venue_status_of_test_venue(market, api):
 
 def test_venue_status_of_current_venue_equals_explicit_one(market, api):
     current, explicit = api.get_venue_status(), api.get_venue_status(market.venue_id)
+
     check_response(current, "GET /api/venuestatus", status_code=200)
     check_fields(f"Current venue = {market.venue_id}", current.body, {"id": explicit.body["id"],
                                                           "startTime": explicit.body["startTime"]})
@@ -30,6 +32,7 @@ def test_venue_status_of_current_venue_equals_explicit_one(market, api):
 def test_all_venue_status_contains_every_venue(api):
     with step("GET /api/allvenuestatus"):
         response = api.get_all_venue_status()
+
     check_response(response, "GET /api/allvenuestatus", status_code=200)
     check_fields("Venues in allvenuestatus", {"ids": sorted(v["id"] for v in response.body["venuestatus"])},
                  {"ids": sorted(m.venue_id for m in MARKETS)})

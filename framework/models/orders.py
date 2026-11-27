@@ -1,5 +1,5 @@
 """Order entry models: what the client sends and what the venue answers. Plain data, no behaviour."""
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from decimal import Decimal
 
 from framework.fix.tags import CxlRejResponseTo, ExecType, MsgType, OrdStatus, OrdType, Side, TimeInForce
@@ -33,7 +33,6 @@ class Order:
     ord_type: OrdType
     time_in_force: TimeInForce | None
     ord_status: OrdStatus
-    history: list = field(default_factory=list, repr=False)   # all execution reports, oldest first
 
 
 @dataclass(frozen=True)
