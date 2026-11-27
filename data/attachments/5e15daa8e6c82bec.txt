@@ -1,0 +1,22 @@
+12:31:25.049 fix    >> 8=FIXT.1.1|9=199|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=163|52=20261127-12:31:25.049|11=fa89c04ec7f849cd|55=USD/CHF|167=FXSPOT|207=FASTMATCH|15=USD|54=1|60=20261127-12:31:25.049|40=2|44=0.74190|38=1000000|59=0|10=154|
+12:31:25.050 fix    << 8=FIXT.1.1|9=251|35=8|34=181|49=SIM_FASTMATCH|52=20261127-12:31:25.049|56=CLIENT_FASTMATCH|6=0|11=fa89c04ec7f849cd|14=0|15=USD|17=261127123125000010-1|37=261127123125000010|38=1000000|39=0|40=2|44=0.7419|54=1|55=USD/CHF|59=0|150=0|151=1000000|167=FXSPOT|207=FASTMATCH|10=171|
+12:31:25.050 check  ExecutionReport for order with instrument attributes
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261127123125000010   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      USD/CHF              USD/CHF              ok    
+order_qty   1000000              1000000              ok    
+price       0.74190              0.7419               ok
+12:31:25.101 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=164|52=20261127-12:31:25.101|41=fa89c04ec7f849cd|11=bdd32339867d4240|37=261127123125000010|55=USD/CHF|54=1|60=20261127-12:31:25.101|10=220|
+12:31:25.102 fix    << 8=FIXT.1.1|9=265|35=8|34=182|49=SIM_FASTMATCH|52=20261127-12:31:25.101|56=CLIENT_FASTMATCH|6=0|11=bdd32339867d4240|14=0|15=USD|17=261127123125000010-2|37=261127123125000010|38=1000000|39=4|40=2|41=fa89c04ec7f849cd|44=0.7419|54=1|55=USD/CHF|59=0|150=4|151=0|167=FXSPOT|207=FASTMATCH|10=050|
+12:31:25.102 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261127123125000010   261127123125000010   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      USD/CHF              USD/CHF              ok    
+order_qty   1000000              1000000              ok    
+price       0.74190              0.7419               ok

@@ -1,0 +1,22 @@
+12:31:22.939 fix    >> 8=FIXT.1.1|9=171|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=73|52=20261127-12:31:22.939|11=b860d70469f94af8|55=MSF|167=CS|207=XETR|15=EUR|54=1|60=20261127-12:31:22.939|40=2|44=421.95|38=20|59=0|10=225|
+12:31:22.940 fix    << 8=FIXT.1.1|9=219|35=8|34=79|49=SIM_XETRA|52=20261127-12:31:22.940|56=CLIENT_XETRA|6=0|11=b860d70469f94af8|14=0|15=EUR|17=261127123122000010-1|37=261127123122000010|38=20|39=0|40=2|44=421.95|54=1|55=MSF|59=0|150=0|151=20|167=CS|207=XETR|10=052|
+12:31:22.940 check  ExecutionReport for order with instrument attributes
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261127123122000010   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      MSF                  MSF                  ok    
+order_qty   20                   20                   ok    
+price       421.95               421.95               ok
+12:31:22.991 fix    >> 8=FIXT.1.1|9=164|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=74|52=20261127-12:31:22.991|41=b860d70469f94af8|11=0cb891e1b5e249ae|37=261127123122000010|55=MSF|54=1|60=20261127-12:31:22.991|10=138|
+12:31:22.992 fix    << 8=FIXT.1.1|9=238|35=8|34=80|49=SIM_XETRA|52=20261127-12:31:22.991|56=CLIENT_XETRA|6=0|11=0cb891e1b5e249ae|14=0|15=EUR|17=261127123122000010-2|37=261127123122000010|38=20|39=4|40=2|41=b860d70469f94af8|44=421.95|54=1|55=MSF|59=0|150=4|151=0|167=CS|207=XETR|10=059|
+12:31:22.992 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261127123122000010   261127123122000010   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      MSF                  MSF                  ok    
+order_qty   20                   20                   ok    
+price       421.95               421.95               ok

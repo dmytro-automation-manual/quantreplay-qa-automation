@@ -1,0 +1,12 @@
+12:31:29.431 rest   >> GET /venues/FASTMATCH 
+12:31:29.444 httpx  HTTP Request: GET http://localhost:9052/api/venues/FASTMATCH "HTTP/1.1 200 OK"
+12:31:29.444 rest   << 200 {"id":"FASTMATCH","name":"FASTMATCH","engineType":"Matching","supportTifIoc":true,"supportTifFok":true,"supportTifDay":true,"includeOwnOrders":true,"restPort":9052,"orderOnStartup":false,"randomPartyCount":10,"timeAndSalesEnabled":true,"timeAndSalesQuantityEnabled":true,"timeAndSalesSideEnabled":true,"timeAndSalesPartiesEnabled":true,"timezone":"America/New_York","cancelOnDisconnect":false,"persistenceEnabled":false,"phases":[]}
+12:31:29.445 rest   >> PUT /venues/FASTMATCH {"phases": [{"phase": "Closed", "startTime": "23:00", "endTime": "23:30", "endTimeRange": 0}]}
+12:31:29.456 httpx  HTTP Request: PUT http://localhost:9052/api/venues/FASTMATCH "HTTP/1.1 400 Bad Request"
+12:31:29.456 rest   << 400 {"result":"Required fields missing for Venue model in request"}
+12:31:29.457 check  PUT venue with phases only
+field        expected  actual  result
+status_code  200       400     FAILED
+12:31:29.466 rest   >> PUT /venues/FASTMATCH {"name": "FASTMATCH", "phases": []}
+12:31:29.478 httpx  HTTP Request: PUT http://localhost:9052/api/venues/FASTMATCH "HTTP/1.1 200 OK"
+12:31:29.478 rest   << 200 {"result":"Successfully updated the FASTMATCH venue"}

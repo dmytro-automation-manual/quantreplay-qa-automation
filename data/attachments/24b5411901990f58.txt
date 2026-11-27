@@ -1,0 +1,40 @@
+12:31:22.544 rest   >> GET /listings/GBP%2FUSD 
+12:31:22.554 httpx  HTTP Request: GET http://localhost:9052/api/listings/GBP%2FUSD "HTTP/1.1 200 OK"
+12:31:22.555 rest   << 200 {"id":7,"venueId":"FASTMATCH","symbol":"GBP/USD","securityType":"FXSPOT","priceCurrency":"USD","fxBaseCurrency":"GBP","instrSymbol":"GBP/USD","qtyMinimum":25000.0,"qtyMaximum":50000000.0,"qtyMultiple":5000.0,"priceTickSize":0.00001,"enabled":true,"randomQtyMaximum":5000000.0,"randomDepthLevels":8,"randomOrdersSpread":0.00003,"randomOrdersRate":5,"randomTickRange":12,"securityExchange":"FASTMATCH","bloombergSymbolId":"GBPUSD Curncy","randomQtyMinimum":500000.0,"randomAmtMinimum":600000.0,"randomAmtMaximum":6000000.0,"randomOrdersEnabled":false,"randomAggQtyMinimum":250000.0,"randomAggQtyMaximum":2500000.0,"randomAggAmtMinimum":300000.0,"randomAggAmtMaximum":3000000.0,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+12:31:22.555 db     SQL select listing_id, symbol, venue_id, security_type, price_currency, fx_base_currency, security_exchange, party_id, party_role, cusip_id, sedol_id, isin_id, ric_id, exchange_symbol_id, bloomberg_symbol_id, qty_minimum::numeric as qty_minimum, qty_maximum::numeric as qty_maximum, qty_multiple::numeric as qty_multiple, price_tick_size::numeric as price_tick_size, enabled, random_orders_enabled, random_qty_minimum::numeric as random_qty_minimum, random_qty_maximum::numeric as random_qty_maximum, random_amt_minimum::numeric as random_amt_minimum, random_amt_maximum::numeric as random_amt_maximum, random_aggressive_qty_minimum::numeric as random_aggressive_qty_minimum, random_aggressive_qty_maximum::numeric as random_aggressive_qty_maximum, random_aggressive_amt_minimum::numeric as random_aggressive_amt_minimum, random_aggressive_amt_maximum::numeric as random_aggressive_amt_maximum, random_depth_levels, random_orders_spread::numeric as random_orders_spread, random_orders_rate, random_tick_range from sim.listing where venue_id = %s and symbol = %s ('FASTMATCH', 'GBP/USD')
+12:31:22.556 db     rows: 1
+12:31:22.556 check  REST listing GBP/USD vs sim.listing
+field                          expected       actual         result
+listing_id                     7              7              ok    
+symbol                         GBP/USD        GBP/USD        ok    
+venue_id                       FASTMATCH      FASTMATCH      ok    
+security_type                  FXSPOT         FXSPOT         ok    
+price_currency                 USD            USD            ok    
+fx_base_currency               GBP            GBP            ok    
+security_exchange              FASTMATCH      FASTMATCH      ok    
+party_id                       <none>         <none>         ok    
+party_role                     <none>         <none>         ok    
+cusip_id                       <none>         <none>         ok    
+sedol_id                       <none>         <none>         ok    
+isin_id                        <none>         <none>         ok    
+ric_id                         <none>         <none>         ok    
+exchange_symbol_id             <none>         <none>         ok    
+bloomberg_symbol_id            GBPUSD Curncy  GBPUSD Curncy  ok    
+qty_minimum                    25000          25000.0        ok    
+qty_maximum                    50000000       50000000.0     ok    
+qty_multiple                   5000           5000.0         ok    
+price_tick_size                0.00001        0.00001        ok    
+enabled                        True           True           ok    
+random_orders_enabled          False          False          ok    
+random_qty_minimum             500000         500000.0       ok    
+random_qty_maximum             5000000        5000000.0      ok    
+random_amt_minimum             600000         600000.0       ok    
+random_amt_maximum             6000000        6000000.0      ok    
+random_aggressive_qty_minimum  250000         250000.0       ok    
+random_aggressive_qty_maximum  2500000        2500000.0      ok    
+random_aggressive_amt_minimum  300000         300000.0       ok    
+random_aggressive_amt_maximum  3000000        3000000.0      ok    
+random_depth_levels            8              8              ok    
+random_orders_spread           0.00003        0.00003        ok    
+random_orders_rate             5              5              ok    
+random_tick_range              12             12             ok

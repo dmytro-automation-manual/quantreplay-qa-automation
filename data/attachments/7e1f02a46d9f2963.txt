@@ -1,0 +1,54 @@
+12:31:23.005 fix    >> 8=FIXT.1.1|9=148|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=75|52=20261127-12:31:23.005|11=eb0e3c282adc4982|55=MSF|54=2|60=20261127-12:31:23.005|40=2|44=515.85|38=40|59=0|10=000|
+12:31:23.006 fix    << 8=FIXT.1.1|9=196|35=8|34=81|49=SIM_XETRA|52=20261127-12:31:23.006|56=CLIENT_XETRA|6=0|11=eb0e3c282adc4982|14=0|17=261127123123000011-1|37=261127123123000011|38=40|39=0|40=2|44=515.85|54=2|55=MSF|59=0|150=0|151=40|10=104|
+12:31:23.006 fix    >> 8=FIXT.1.1|9=138|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=76|52=20261127-12:31:23.006|11=ff97cb8436dc4a31|55=MSF|54=1|60=20261127-12:31:23.006|40=1|38=20|59=3|10=046|
+12:31:23.007 fix    << 8=FIXT.1.1|9=186|35=8|34=82|49=SIM_XETRA|52=20261127-12:31:23.006|56=CLIENT_XETRA|6=0|11=ff97cb8436dc4a31|14=0|17=261127123123000012-1|37=261127123123000012|38=20|39=0|40=1|54=1|55=MSF|59=3|150=0|151=20|10=148|
+12:31:23.007 check  ExecutionReport New for market order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261127123123000012   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      MSF                  MSF                  ok    
+order_qty   20                   20                   ok    
+price       <not sent>           <none>               ok    
+ord_type    MARKET(1)            MARKET(1)            ok    
+12:31:23.007 fix    << 8=FIXT.1.1|9=207|35=8|34=83|49=SIM_XETRA|52=20261127-12:31:23.006|56=CLIENT_XETRA|6=515.85|11=ff97cb8436dc4a31|14=20|17=261127123123000012-2|31=515.85|32=20|37=261127123123000012|38=20|39=2|40=1|54=1|55=MSF|59=3|150=F|151=0|10=139|
+12:31:23.007 fix    << 8=FIXT.1.1|9=218|35=8|34=84|49=SIM_XETRA|52=20261127-12:31:23.007|56=CLIENT_XETRA|6=515.85|11=eb0e3c282adc4982|14=20|17=261127123123000011-2|31=515.85|32=20|37=261127123123000011|38=40|39=1|40=2|44=515.85|54=2|55=MSF|59=0|150=F|151=20|10=146|
+12:31:23.008 check  ExecutionReport Trade for market order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261127123123000012   261127123123000012   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  FILLED(2)            FILLED(2)            ok    
+symbol      MSF                  MSF                  ok    
+order_qty   20                   20                   ok    
+price       <not sent>           <none>               ok    
+last_px     515.85               515.85               ok    
+last_qty    20                   20                   ok    
+cum_qty     20                   20                   ok    
+leaves_qty  0                    0                    ok    
+avg_px      515.85               515.85               ok    
+12:31:23.008 check  ExecutionReport Trade for resting order
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261127123123000011   261127123123000011   ok    
+exec_type   TRADE(F)             TRADE(F)             ok    
+ord_status  PARTIALLY_FILLED(1)  PARTIALLY_FILLED(1)  ok    
+symbol      MSF                  MSF                  ok    
+order_qty   40                   40                   ok    
+price       515.85               515.85               ok    
+last_px     515.85               515.85               ok    
+last_qty    20                   20                   ok    
+cum_qty     20                   20                   ok    
+leaves_qty  20                   20                   ok
+12:31:23.059 fix    >> 8=FIXT.1.1|9=164|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=77|52=20261127-12:31:23.059|41=eb0e3c282adc4982|11=fdcb0e6dba1d4867|37=261127123123000011|55=MSF|54=2|60=20261127-12:31:23.059|10=054|
+12:31:23.060 fix    << 8=FIXT.1.1|9=221|35=8|34=85|49=SIM_XETRA|52=20261127-12:31:23.059|56=CLIENT_XETRA|6=515.85|11=fdcb0e6dba1d4867|14=20|17=261127123123000011-3|37=261127123123000011|38=40|39=4|40=2|41=eb0e3c282adc4982|44=515.85|54=2|55=MSF|59=0|150=4|151=0|10=009|
+12:31:23.060 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261127123123000011   261127123123000011   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      MSF                  MSF                  ok    
+order_qty   40                   40                   ok    
+price       515.85               515.85               ok

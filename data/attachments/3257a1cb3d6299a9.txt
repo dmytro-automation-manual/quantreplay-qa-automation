@@ -1,0 +1,40 @@
+12:31:24.571 rest   >> GET /listings/VODI 
+12:31:24.583 httpx  HTTP Request: GET http://localhost:9050/api/listings/VODI "HTTP/1.1 200 OK"
+12:31:24.583 rest   << 200 {"id":4,"venueId":"XETRA","symbol":"VODI","securityType":"CS","priceCurrency":"EUR","instrSymbol":"VODI","qtyMinimum":1.0,"qtyMaximum":2000000.0,"qtyMultiple":1.0,"priceTickSize":0.001,"enabled":true,"randomQtyMaximum":50000.0,"randomDepthLevels":10,"randomOrdersSpread":0.002,"randomOrdersRate":5,"randomTickRange":25,"securityExchange":"XETR","sedolId":"BH4HKS3","isinId":"GB00BH4HKS39","randomQtyMinimum":1000.0,"randomAmtMinimum":1200.0,"randomAmtMaximum":60000.0,"randomOrdersEnabled":false,"randomAggQtyMinimum":500.0,"randomAggQtyMaximum":20000.0,"randomAggAmtMinimum":600.0,"randomAggAmtMaximum":25000.0,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+12:31:24.584 db     SQL select listing_id, symbol, venue_id, security_type, price_currency, fx_base_currency, security_exchange, party_id, party_role, cusip_id, sedol_id, isin_id, ric_id, exchange_symbol_id, bloomberg_symbol_id, qty_minimum::numeric as qty_minimum, qty_maximum::numeric as qty_maximum, qty_multiple::numeric as qty_multiple, price_tick_size::numeric as price_tick_size, enabled, random_orders_enabled, random_qty_minimum::numeric as random_qty_minimum, random_qty_maximum::numeric as random_qty_maximum, random_amt_minimum::numeric as random_amt_minimum, random_amt_maximum::numeric as random_amt_maximum, random_aggressive_qty_minimum::numeric as random_aggressive_qty_minimum, random_aggressive_qty_maximum::numeric as random_aggressive_qty_maximum, random_aggressive_amt_minimum::numeric as random_aggressive_amt_minimum, random_aggressive_amt_maximum::numeric as random_aggressive_amt_maximum, random_depth_levels, random_orders_spread::numeric as random_orders_spread, random_orders_rate, random_tick_range from sim.listing where venue_id = %s and symbol = %s ('XETRA', 'VODI')
+12:31:24.585 db     rows: 1
+12:31:24.585 check  REST listing VODI vs sim.listing
+field                          expected      actual        result
+listing_id                     4             4             ok    
+symbol                         VODI          VODI          ok    
+venue_id                       XETRA         XETRA         ok    
+security_type                  CS            CS            ok    
+price_currency                 EUR           EUR           ok    
+fx_base_currency               <none>        <none>        ok    
+security_exchange              XETR          XETR          ok    
+party_id                       <none>        <none>        ok    
+party_role                     <none>        <none>        ok    
+cusip_id                       <none>        <none>        ok    
+sedol_id                       BH4HKS3       BH4HKS3       ok    
+isin_id                        GB00BH4HKS39  GB00BH4HKS39  ok    
+ric_id                         <none>        <none>        ok    
+exchange_symbol_id             <none>        <none>        ok    
+bloomberg_symbol_id            <none>        <none>        ok    
+qty_minimum                    1             1.0           ok    
+qty_maximum                    2000000       2000000.0     ok    
+qty_multiple                   1             1.0           ok    
+price_tick_size                0.001         0.001         ok    
+enabled                        True          True          ok    
+random_orders_enabled          False         False         ok    
+random_qty_minimum             1000          1000.0        ok    
+random_qty_maximum             50000         50000.0       ok    
+random_amt_minimum             1200          1200.0        ok    
+random_amt_maximum             60000         60000.0       ok    
+random_aggressive_qty_minimum  500           500.0         ok    
+random_aggressive_qty_maximum  20000         20000.0       ok    
+random_aggressive_amt_minimum  600           600.0         ok    
+random_aggressive_amt_maximum  25000         25000.0       ok    
+random_depth_levels            10            10            ok    
+random_orders_spread           0.002         0.002         ok    
+random_orders_rate             5             5             ok    
+random_tick_range              25            25            ok

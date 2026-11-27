@@ -1,0 +1,10 @@
+12:31:26.796 fix    >> 8=FIXT.1.1|9=148|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=242|52=20261127-12:31:26.796|262=99c33ceabe114021|263=1|264=0|265=1|267=2|269=0|269=1|146=1|55=EUR/USD|10=189|
+12:31:26.796 fix    << 8=FIXT.1.1|9=138|35=W|34=271|49=SIM_FASTMATCH|52=20261127-12:31:26.796|56=CLIENT_FASTMATCH|55=EUR/USD|262=99c33ceabe114021|268=0|779=20261127-12:31:26.796|10=147|
+12:31:26.796 check  Initial snapshot of the subscription
+field     expected                 actual                   result
+msg_type  MARKET_DATA_SNAPSHOT(W)  MARKET_DATA_SNAPSHOT(W)  ok    
+symbol    EUR/USD                  EUR/USD                  ok    
+12:31:26.797 check  Initial snapshot of an empty book
+field      expected  actual            result
+condition  true      True entries: []  ok
+12:31:26.798 fix    >> 8=FIXT.1.1|9=142|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=243|52=20261127-12:31:26.798|262=99c33ceabe114021|263=2|264=0|267=2|269=0|269=1|146=1|55=EUR/USD|10=175|

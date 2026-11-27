@@ -1,0 +1,12 @@
+12:31:23.834 fix    >> 8=FIXT.1.1|9=165|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=107|52=20261127-12:31:23.834|11=f09af7fb3f9847b9|55=USD/JPY|54=1|60=20261127-12:31:23.834|40=2|44=141.121|38=40000|59=0|10=094|
+12:31:23.834 fix    << 8=FIXT.1.1|9=262|35=8|34=119|49=SIM_FASTMATCH|52=20261127-12:31:23.834|56=CLIENT_FASTMATCH|6=0|11=f09af7fb3f9847b9|14=0|17=261127123123000004-1|37=261127123123000004|38=40000|39=8|40=2|44=141.121|54=1|55=USD/JPY|58=minimal order quantity constraint violated|59=0|150=8|151=40000|10=170|
+12:31:23.835 check  ExecutionReport for OrderQty below qtyMinimum
+field       expected                                    actual                                      result
+msg_type    EXECUTION_REPORT(8)                         EXECUTION_REPORT(8)                         ok    
+order_id    <non-empty>                                 261127123123000004                          ok    
+exec_type   REJECTED(8)                                 REJECTED(8)                                 ok    
+ord_status  REJECTED(8)                                 REJECTED(8)                                 ok    
+symbol      USD/JPY                                     USD/JPY                                     ok    
+order_qty   40000                                       40000                                       ok    
+price       141.121                                     141.121                                     ok    
+text        minimal order quantity constraint violated  minimal order quantity constraint violated  ok

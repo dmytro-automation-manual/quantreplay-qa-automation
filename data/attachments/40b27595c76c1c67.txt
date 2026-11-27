@@ -1,0 +1,41 @@
+12:31:25.782 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=191|52=20261127-12:31:25.782|11=fb25b4023a5e4c6b|55=EUR/GBP|54=1|60=20261127-12:31:25.782|40=2|44=0.75354|38=1000000|59=0|10=155|
+12:31:25.783 fix    << 8=FIXT.1.1|9=220|35=8|34=215|49=SIM_FASTMATCH|52=20261127-12:31:25.782|56=CLIENT_FASTMATCH|6=0|11=fb25b4023a5e4c6b|14=0|17=261127123125000002-1|37=261127123125000002|38=1000000|39=0|40=2|44=0.75354|54=1|55=EUR/GBP|59=0|150=0|151=1000000|10=216|
+12:31:25.783 check  ExecutionReport for NewOrderSingle
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261127123125000002   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      EUR/GBP              EUR/GBP              ok    
+order_qty   1000000              1000000              ok    
+price       0.75354              0.75354              ok    
+12:31:25.783 fix    >> 8=FIXT.1.1|9=210|35=G|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=192|52=20261127-12:31:25.783|41=fb25b4023a5e4c6b|11=65ff00ccd3cf47c4|37=261127123125000002|55=EUR/GBP|54=1|60=20261127-12:31:25.783|40=2|44=0.753545|38=1000000|59=0|10=088|
+12:31:25.784 fix    << 8=FIXT.1.1|9=187|35=9|34=216|49=SIM_FASTMATCH|52=20261127-12:31:25.783|56=CLIENT_FASTMATCH|11=65ff00ccd3cf47c4|37=261127123125000002|39=8|41=fb25b4023a5e4c6b|58=order price tick constraint violated|434=2|10=172|
+12:31:25.784 check  OrderCancelReject for replace off tick
+field                expected                              actual                                result
+msg_type             ORDER_CANCEL_REJECT(9)                ORDER_CANCEL_REJECT(9)                ok    
+order_id             261127123125000002                    261127123125000002                    ok    
+ord_status           REJECTED(8)                           REJECTED(8)                           ok    
+cxl_rej_response_to  ORDER_CANCEL_REPLACE_REQUEST(2)       ORDER_CANCEL_REPLACE_REQUEST(2)       ok    
+text                 order price tick constraint violated  order price tick constraint violated  ok    
+12:31:25.784 fix    >> 8=FIXT.1.1|9=142|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=193|52=20261127-12:31:25.784|262=6afcda6509ba4ee5|263=0|264=0|267=2|269=0|269=1|146=1|55=EUR/GBP|10=051|
+12:31:25.785 fix    << 8=FIXT.1.1|9=185|35=W|34=217|49=SIM_FASTMATCH|52=20261127-12:31:25.784|56=CLIENT_FASTMATCH|55=EUR/GBP|262=6afcda6509ba4ee5|268=1|269=0|278=1795782673:2|270=0.75354|271=1000000|779=20261127-12:31:25.784|10=237|
+12:31:25.785 check  Book after rejected replace: one BID at 0.75354
+field      expected  actual        result
+condition  true      True found 1  ok    
+12:31:25.785 check  Book after rejected replace
+field       expected  actual   result
+entry_type  BID(0)    BID(0)   ok    
+price       0.75354   0.75354  ok    
+size        1000000   1000000  ok
+12:31:25.836 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=194|52=20261127-12:31:25.836|41=fb25b4023a5e4c6b|11=7574bb9583b34b39|37=261127123125000002|55=EUR/GBP|54=1|60=20261127-12:31:25.836|10=196|
+12:31:25.837 fix    << 8=FIXT.1.1|9=234|35=8|34=218|49=SIM_FASTMATCH|52=20261127-12:31:25.837|56=CLIENT_FASTMATCH|6=0|11=7574bb9583b34b39|14=0|17=261127123125000002-2|37=261127123125000002|38=1000000|39=4|40=2|41=fb25b4023a5e4c6b|44=0.75354|54=1|55=EUR/GBP|59=0|150=4|151=0|10=119|
+12:31:25.837 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261127123125000002   261127123125000002   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      EUR/GBP              EUR/GBP              ok    
+order_qty   1000000              1000000              ok    
+price       0.75354              0.75354              ok

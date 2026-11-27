@@ -1,0 +1,22 @@
+12:31:24.658 fix    >> 8=FIXT.1.1|9=167|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=143|52=20261127-12:31:24.657|11=e4d6ec1b24b448ab|55=USD/CHF|54=1|60=20261127-12:31:24.657|40=2|44=0.74191|38=1000000|59=0|10=195|
+12:31:24.658 fix    << 8=FIXT.1.1|9=220|35=8|34=161|49=SIM_FASTMATCH|52=20261127-12:31:24.658|56=CLIENT_FASTMATCH|6=0|11=e4d6ec1b24b448ab|14=0|17=261127123124000000-1|37=261127123124000000|38=1000000|39=0|40=2|44=0.74191|54=1|55=USD/CHF|59=0|150=0|151=1000000|10=254|
+12:31:24.658 check  ExecutionReport for price on tick
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261127123124000000   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      USD/CHF              USD/CHF              ok    
+order_qty   1000000              1000000              ok    
+price       0.74191              0.74191              ok
+12:31:24.709 fix    >> 8=FIXT.1.1|9=177|35=F|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=144|52=20261127-12:31:24.709|41=e4d6ec1b24b448ab|11=16fece9a0ba24628|37=261127123124000000|55=USD/CHF|54=1|60=20261127-12:31:24.709|10=103|
+12:31:24.710 fix    << 8=FIXT.1.1|9=234|35=8|34=162|49=SIM_FASTMATCH|52=20261127-12:31:24.710|56=CLIENT_FASTMATCH|6=0|11=16fece9a0ba24628|14=0|17=261127123124000000-2|37=261127123124000000|38=1000000|39=4|40=2|41=e4d6ec1b24b448ab|44=0.74191|54=1|55=USD/CHF|59=0|150=4|151=0|10=017|
+12:31:24.710 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261127123124000000   261127123124000000   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      USD/CHF              USD/CHF              ok    
+order_qty   1000000              1000000              ok    
+price       0.74191              0.74191              ok

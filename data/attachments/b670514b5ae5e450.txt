@@ -1,0 +1,40 @@
+12:31:26.626 rest   >> GET /listings/EUR%2FGBP 
+12:31:26.637 httpx  HTTP Request: GET http://localhost:9052/api/listings/EUR%2FGBP "HTTP/1.1 200 OK"
+12:31:26.637 rest   << 200 {"id":10,"venueId":"FASTMATCH","symbol":"EUR/GBP","securityType":"FXSPOT","priceCurrency":"GBP","fxBaseCurrency":"EUR","instrSymbol":"EUR/GBP","qtyMinimum":100000.0,"qtyMaximum":20000000.0,"qtyMultiple":50000.0,"priceTickSize":0.00001,"enabled":true,"randomQtyMaximum":5000000.0,"randomDepthLevels":5,"randomOrdersSpread":0.00002,"randomOrdersRate":2,"randomTickRange":8,"securityExchange":"FASTMATCH","bloombergSymbolId":"EURGBP Curncy","randomQtyMinimum":500000.0,"randomAmtMinimum":400000.0,"randomAmtMaximum":4000000.0,"randomOrdersEnabled":false,"randomAggQtyMinimum":250000.0,"randomAggQtyMaximum":2000000.0,"randomAggAmtMinimum":200000.0,"randomAggAmtMaximum":1600000.0,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+12:31:26.637 check  GET /api/listings/EUR/GBP
+field        expected  actual  result
+status_code  200       200     ok    
+12:31:26.638 check  Listing EUR/GBP
+field                          expected       actual         result
+symbol                         EUR/GBP        EUR/GBP        ok    
+venue_id                       FASTMATCH      FASTMATCH      ok    
+security_type                  FXSPOT         FXSPOT         ok    
+price_currency                 GBP            GBP            ok    
+fx_base_currency               EUR            EUR            ok    
+security_exchange              FASTMATCH      FASTMATCH      ok    
+isin_id                        <none>         <none>         ok    
+cusip_id                       <none>         <none>         ok    
+sedol_id                       <none>         <none>         ok    
+ric_id                         <none>         <none>         ok    
+exchange_symbol_id             <none>         <none>         ok    
+bloomberg_symbol_id            EURGBP Curncy  EURGBP Curncy  ok    
+party_id                       <none>         <none>         ok    
+party_role                     <none>         <none>         ok    
+price_tick_size                0.00001        0.00001        ok    
+qty_minimum                    100000         100000.0       ok    
+qty_maximum                    20000000       20000000.0     ok    
+qty_multiple                   50000          50000.0        ok    
+enabled                        True           True           ok    
+random_orders_enabled          False          False          ok    
+random_qty_minimum             500000         500000.0       ok    
+random_qty_maximum             5000000        5000000.0      ok    
+random_amt_minimum             400000         400000.0       ok    
+random_amt_maximum             4000000        4000000.0      ok    
+random_aggressive_qty_minimum  250000         250000.0       ok    
+random_aggressive_qty_maximum  2000000        2000000.0      ok    
+random_aggressive_amt_minimum  200000         200000.0       ok    
+random_aggressive_amt_maximum  1600000        1600000.0      ok    
+random_depth_levels            5              5              ok    
+random_orders_spread           0.00002        0.00002        ok    
+random_orders_rate             2              2              ok    
+random_tick_range              8              8              ok

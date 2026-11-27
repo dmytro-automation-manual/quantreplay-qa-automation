@@ -1,0 +1,26 @@
+12:31:29.082 rest   >> GET /listings/AMZ 
+12:31:29.093 httpx  HTTP Request: GET http://localhost:9050/api/listings/AMZ "HTTP/1.1 200 OK"
+12:31:29.094 rest   << 200 {"id":1,"venueId":"XETRA","symbol":"AMZ","securityType":"CS","priceCurrency":"EUR","instrSymbol":"AMZ","qtyMinimum":1.0,"qtyMaximum":20000.0,"qtyMultiple":1.0,"priceTickSize":0.05,"enabled":true,"randomQtyMaximum":500.0,"randomDepthLevels":7,"randomOrdersSpread":0.1,"randomOrdersRate":3,"randomTickRange":12,"securityExchange":"XETR","isinId":"US0231351067","exchangeSymbolId":"AMZ","randomQtyMinimum":10.0,"randomAmtMinimum":2000.0,"randomAmtMaximum":100000.0,"randomOrdersEnabled":false,"randomAggQtyMinimum":5.0,"randomAggQtyMaximum":200.0,"randomAggAmtMinimum":1000.0,"randomAggAmtMaximum":40000.0,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+12:31:29.094 rest   >> GET /listings/AMZ 
+12:31:29.104 httpx  HTTP Request: GET http://localhost:9050/api/listings/AMZ "HTTP/1.1 200 OK"
+12:31:29.104 rest   << 200 {"id":1,"venueId":"XETRA","symbol":"AMZ","securityType":"CS","priceCurrency":"EUR","instrSymbol":"AMZ","qtyMinimum":1.0,"qtyMaximum":20000.0,"qtyMultiple":1.0,"priceTickSize":0.05,"enabled":true,"randomQtyMaximum":500.0,"randomDepthLevels":7,"randomOrdersSpread":0.1,"randomOrdersRate":3,"randomTickRange":12,"securityExchange":"XETR","isinId":"US0231351067","exchangeSymbolId":"AMZ","randomQtyMinimum":10.0,"randomAmtMinimum":2000.0,"randomAmtMaximum":100000.0,"randomOrdersEnabled":false,"randomAggQtyMinimum":5.0,"randomAggQtyMaximum":200.0,"randomAggAmtMinimum":1000.0,"randomAggAmtMaximum":40000.0,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+12:31:29.105 rest   >> PUT /listings/1 {"priceTickSize": 0.5}
+12:31:29.117 httpx  HTTP Request: PUT http://localhost:9050/api/listings/1 "HTTP/1.1 200 OK"
+12:31:29.117 rest   << 200 {"result":"Successfully updated the 1 listing"}
+12:31:29.118 check  PUT listing by id
+field        expected  actual  result
+status_code  200       200     ok    
+12:31:29.118 rest   >> GET /listings/1 
+12:31:29.128 httpx  HTTP Request: GET http://localhost:9050/api/listings/1 "HTTP/1.1 200 OK"
+12:31:29.128 rest   << 200 {"id":1,"venueId":"XETRA","symbol":"AMZ","securityType":"CS","priceCurrency":"EUR","instrSymbol":"AMZ","qtyMinimum":1.0,"qtyMaximum":20000.0,"qtyMultiple":1.0,"priceTickSize":0.5,"enabled":true,"randomQtyMaximum":500.0,"randomDepthLevels":7,"randomOrdersSpread":0.1,"randomOrdersRate":3,"randomTickRange":12,"securityExchange":"XETR","isinId":"US0231351067","exchangeSymbolId":"AMZ","randomQtyMinimum":10.0,"randomAmtMinimum":2000.0,"randomAmtMaximum":100000.0,"randomOrdersEnabled":false,"randomAggQtyMinimum":5.0,"randomAggQtyMaximum":200.0,"randomAggAmtMinimum":1000.0,"randomAggAmtMaximum":40000.0,"randomPriceExcludeCurrentListing":false,"randomPriceSources":[]}
+12:31:29.128 check  Listing in REST
+field            expected  actual  result
+price_tick_size  0.50      0.5     ok    
+12:31:29.129 db     SQL select listing_id, symbol, venue_id, security_type, price_currency, fx_base_currency, security_exchange, party_id, party_role, cusip_id, sedol_id, isin_id, ric_id, exchange_symbol_id, bloomberg_symbol_id, qty_minimum::numeric as qty_minimum, qty_maximum::numeric as qty_maximum, qty_multiple::numeric as qty_multiple, price_tick_size::numeric as price_tick_size, enabled, random_orders_enabled, random_qty_minimum::numeric as random_qty_minimum, random_qty_maximum::numeric as random_qty_maximum, random_amt_minimum::numeric as random_amt_minimum, random_amt_maximum::numeric as random_amt_maximum, random_aggressive_qty_minimum::numeric as random_aggressive_qty_minimum, random_aggressive_qty_maximum::numeric as random_aggressive_qty_maximum, random_aggressive_amt_minimum::numeric as random_aggressive_amt_minimum, random_aggressive_amt_maximum::numeric as random_aggressive_amt_maximum, random_depth_levels, random_orders_spread::numeric as random_orders_spread, random_orders_rate, random_tick_range from sim.listing where venue_id = %s and symbol = %s ('XETRA', 'AMZ')
+12:31:29.130 db     rows: 1
+12:31:29.130 check  Listing in DB
+field            expected  actual  result
+price_tick_size  0.50      0.5     ok
+12:31:29.131 rest   >> PUT /listings/AMZ {"priceTickSize": 0.05}
+12:31:29.141 httpx  HTTP Request: PUT http://localhost:9050/api/listings/AMZ "HTTP/1.1 200 OK"
+12:31:29.142 rest   << 200 {"result":"Successfully updated the AMZ listing"}

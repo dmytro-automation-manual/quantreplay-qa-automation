@@ -1,0 +1,7 @@
+12:31:43.924 rest   >> PUT /settings {"settings": [{"key": "BadKey", "value": "x"}]}
+12:31:43.925 httpx  HTTP Request: PUT http://localhost:9052/api/settings "HTTP/1.1 400 Bad Request"
+12:31:43.926 rest   << 400 {"result":"Unknown `BadKey' setting update requested"}
+12:31:43.926 check  PUT unknown setting
+field        expected                                   actual                                     result
+status_code  400                                        400                                        ok    
+result       Unknown `BadKey' setting update requested  Unknown `BadKey' setting update requested  ok

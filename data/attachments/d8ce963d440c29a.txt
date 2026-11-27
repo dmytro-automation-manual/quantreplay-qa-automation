@@ -1,0 +1,12 @@
+12:31:29.406 rest   >> GET /venues/XETRA 
+12:31:29.415 httpx  HTTP Request: GET http://localhost:9050/api/venues/XETRA "HTTP/1.1 200 OK"
+12:31:29.416 rest   << 200 {"id":"XETRA","name":"XETRA","engineType":"Matching","supportTifIoc":true,"supportTifFok":true,"supportTifDay":true,"includeOwnOrders":true,"restPort":9050,"orderOnStartup":false,"randomPartyCount":2,"timeAndSalesEnabled":true,"timeAndSalesQuantityEnabled":true,"timeAndSalesSideEnabled":true,"timeAndSalesPartiesEnabled":true,"timezone":"UTC","cancelOnDisconnect":false,"persistenceEnabled":false,"phases":[]}
+12:31:29.417 rest   >> PUT /venues/XETRA {"phases": [{"phase": "Closed", "startTime": "23:00", "endTime": "23:30", "endTimeRange": 0}]}
+12:31:29.429 httpx  HTTP Request: PUT http://localhost:9050/api/venues/XETRA "HTTP/1.1 400 Bad Request"
+12:31:29.429 rest   << 400 {"result":"Required fields missing for Venue model in request"}
+12:31:29.429 check  PUT venue with phases only
+field        expected  actual  result
+status_code  200       400     FAILED
+12:31:29.439 rest   >> PUT /venues/XETRA {"name": "XETRA", "phases": []}
+12:31:29.451 httpx  HTTP Request: PUT http://localhost:9050/api/venues/XETRA "HTTP/1.1 200 OK"
+12:31:29.451 rest   << 200 {"result":"Successfully updated the XETRA venue"}

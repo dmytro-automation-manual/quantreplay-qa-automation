@@ -1,0 +1,22 @@
+12:31:22.553 fix    >> 8=FIXT.1.1|9=148|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=53|52=20261127-12:31:22.553|11=c6d029f7dddf434c|55=MSF|54=1|60=20261127-12:31:22.553|40=2|44=422.00|38=20|59=0|10=047|
+12:31:22.554 fix    << 8=FIXT.1.1|9=193|35=8|34=59|49=SIM_XETRA|52=20261127-12:31:22.554|56=CLIENT_XETRA|6=0|11=c6d029f7dddf434c|14=0|17=261127123122000000-1|37=261127123122000000|38=20|39=0|40=2|44=422|54=1|55=MSF|59=0|150=0|151=20|10=000|
+12:31:22.554 check  ExecutionReport for price on tick
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261127123122000000   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      MSF                  MSF                  ok    
+order_qty   20                   20                   ok    
+price       422.00               422                  ok
+12:31:22.605 fix    >> 8=FIXT.1.1|9=164|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=54|52=20261127-12:31:22.605|41=c6d029f7dddf434c|11=acbaad69285f46be|37=261127123122000000|55=MSF|54=1|60=20261127-12:31:22.605|10=095|
+12:31:22.606 fix    << 8=FIXT.1.1|9=212|35=8|34=60|49=SIM_XETRA|52=20261127-12:31:22.606|56=CLIENT_XETRA|6=0|11=acbaad69285f46be|14=0|17=261127123122000000-2|37=261127123122000000|38=20|39=4|40=2|41=c6d029f7dddf434c|44=422|54=1|55=MSF|59=0|150=4|151=0|10=089|
+12:31:22.606 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261127123122000000   261127123122000000   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      MSF                  MSF                  ok    
+order_qty   20                   20                   ok    
+price       422.00               422                  ok

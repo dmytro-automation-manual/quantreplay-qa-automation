@@ -1,0 +1,23 @@
+12:31:25.818 fix    >> 8=FIXT.1.1|9=147|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=195|52=20261127-12:31:25.818|11=3ef74b35dfc24368|55=VOW|54=1|60=20261127-12:31:25.818|40=2|44=61.80|38=1|59=0|10=209|
+12:31:25.819 fix    << 8=FIXT.1.1|9=193|35=8|34=219|49=SIM_XETRA|52=20261127-12:31:25.818|56=CLIENT_XETRA|6=0|11=3ef74b35dfc24368|14=0|17=261127123125000003-1|37=261127123125000003|38=1|39=0|40=2|44=61.8|54=1|55=VOW|59=0|150=0|151=1|10=203|
+12:31:25.819 check  ExecutionReport for OrderQty = qtyMinimum
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261127123125000003   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      VOW                  VOW                  ok    
+order_qty   1                    1                    ok    
+price       61.80                61.8                 ok    
+leaves_qty  1                    1                    ok
+12:31:25.870 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=196|52=20261127-12:31:25.870|41=3ef74b35dfc24368|11=2558953b21e242b9|37=261127123125000003|55=VOW|54=1|60=20261127-12:31:25.870|10=068|
+12:31:25.870 fix    << 8=FIXT.1.1|9=213|35=8|34=220|49=SIM_XETRA|52=20261127-12:31:25.870|56=CLIENT_XETRA|6=0|11=2558953b21e242b9|14=0|17=261127123125000003-2|37=261127123125000003|38=1|39=4|40=2|41=3ef74b35dfc24368|44=61.8|54=1|55=VOW|59=0|150=4|151=0|10=055|
+12:31:25.871 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261127123125000003   261127123125000003   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      VOW                  VOW                  ok    
+order_qty   1                    1                    ok    
+price       61.80                61.8                 ok

@@ -1,0 +1,35 @@
+12:31:27.401 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=282|52=20261127-12:31:27.401|11=81c867c3083c45a6|55=AMZ|54=1|60=20261127-12:31:27.401|40=2|44=200.25|38=50|59=0|10=164|
+12:31:27.401 fix    << 8=FIXT.1.1|9=197|35=8|34=314|49=SIM_XETRA|52=20261127-12:31:27.401|56=CLIENT_XETRA|6=0|11=81c867c3083c45a6|14=0|17=261127123127000039-1|37=261127123127000039|38=50|39=0|40=2|44=200.25|54=1|55=AMZ|59=0|150=0|151=50|10=035|
+12:31:27.402 check  ExecutionReport for DAY order
+field          expected             actual               result
+msg_type       EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id       <non-empty>          261127123127000039   ok    
+exec_type      NEW(0)               NEW(0)               ok    
+ord_status     NEW(0)               NEW(0)               ok    
+symbol         AMZ                  AMZ                  ok    
+order_qty      50                   50                   ok    
+price          200.25               200.25               ok    
+time_in_force  DAY(0)               DAY(0)               ok    
+leaves_qty     50                   50                   ok    
+cum_qty        0                    0                    ok    
+12:31:27.402 fix    >> 8=FIXT.1.1|9=130|35=V|49=CLIENT_XETRA|56=SIM_XETRA|34=283|52=20261127-12:31:27.402|262=bce66e47ef664879|263=0|264=0|267=2|269=0|269=1|146=1|55=AMZ|10=117|
+12:31:27.402 fix    << 8=FIXT.1.1|9=168|35=W|34=315|49=SIM_XETRA|52=20261127-12:31:27.402|56=CLIENT_XETRA|55=AMZ|262=bce66e47ef664879|268=1|269=0|278=1795782673:27|270=200.25|271=50|779=20261127-12:31:27.402|10=051|
+12:31:27.403 check  Book with DAY order: one BID at 200.25
+field      expected  actual        result
+condition  true      True found 1  ok    
+12:31:27.403 check  Book with DAY order
+field       expected  actual  result
+entry_type  BID(0)    BID(0)  ok    
+price       200.25    200.25  ok    
+size        50        50      ok
+12:31:27.455 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=284|52=20261127-12:31:27.455|41=81c867c3083c45a6|11=e030c4b1328242c6|37=261127123127000039|55=AMZ|54=1|60=20261127-12:31:27.455|10=247|
+12:31:27.455 fix    << 8=FIXT.1.1|9=216|35=8|34=316|49=SIM_XETRA|52=20261127-12:31:27.455|56=CLIENT_XETRA|6=0|11=e030c4b1328242c6|14=0|17=261127123127000039-2|37=261127123127000039|38=50|39=4|40=2|41=81c867c3083c45a6|44=200.25|54=1|55=AMZ|59=0|150=4|151=0|10=141|
+12:31:27.456 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261127123127000039   261127123127000039   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      AMZ                  AMZ                  ok    
+order_qty   50                   50                   ok    
+price       200.25               200.25               ok

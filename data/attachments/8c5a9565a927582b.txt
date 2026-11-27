@@ -1,0 +1,68 @@
+12:31:33.366 rest   >> PUT /listings/EUR%2FUSD {"randomOrdersEnabled": true}
+12:31:33.377 httpx  HTTP Request: PUT http://localhost:9052/api/listings/EUR%2FUSD "HTTP/1.1 200 OK"
+12:31:33.378 rest   << 200 {"result":"Successfully updated the EUR/USD listing"}
+12:31:33.378 check  PUT listing EUR/USD
+field        expected  actual  result
+status_code  200       200     ok    
+12:31:33.378 rest   >> POST /reset/FASTMATCH 
+12:31:33.389 httpx  HTTP Request: POST http://localhost:9052/api/reset/FASTMATCH "HTTP/1.1 200 OK"
+12:31:33.389 rest   << 200 {"result":"Resetting the venue state starts."}
+12:31:34.367 fix    << 8=FIXT.1.1|9=74|35=5|34=353|49=SIM_FASTMATCH|52=20261127-12:31:34.366|56=CLIENT_FASTMATCH|10=050|
+12:31:36.369 fix    >> 8=FIXT.1.1|9=97|35=A|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=1|52=20261127-12:31:36.369|98=0|108=30|141=Y|1137=9|10=103|
+12:31:36.870 fix    >> 8=FIXT.1.1|9=97|35=A|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=1|52=20261127-12:31:36.870|98=0|108=30|141=Y|1137=9|10=100|
+12:31:37.371 fix    >> 8=FIXT.1.1|9=97|35=A|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=1|52=20261127-12:31:37.371|98=0|108=30|141=Y|1137=9|10=097|
+12:31:37.372 fix    << 8=FIXT.1.1|9=97|35=A|34=1|49=SIM_FASTMATCH|52=20261127-12:31:37.372|56=CLIENT_FASTMATCH|98=0|108=30|141=Y|1137=9|10=098|
+12:31:37.372 fix    >> 8=FIXT.1.1|9=140|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=2|52=20261127-12:31:37.372|262=ece115221de846d2|263=0|264=0|267=2|269=0|269=1|146=1|55=EUR/USD|10=064|
+12:31:37.381 fix    << 8=FIXT.1.1|9=136|35=W|34=2|49=SIM_FASTMATCH|52=20261127-12:31:37.381|56=CLIENT_FASTMATCH|55=EUR/USD|262=ece115221de846d2|268=0|779=20261127-12:31:37.381|10=031|
+12:31:37.381 rest   >> POST /genstart/FASTMATCH 
+12:31:37.383 httpx  HTTP Request: POST http://localhost:9052/api/genstart/FASTMATCH "HTTP/1.1 200 OK"
+12:31:37.383 rest   << 200 {"result":"Generator was started"}
+12:31:37.383 check  POST genstart
+field        expected               actual                 result
+status_code  200                    200                    ok    
+result       Generator was started  Generator was started  ok    
+12:31:37.384 rest   >> GET /genstatus/FASTMATCH 
+12:31:37.384 httpx  HTTP Request: GET http://localhost:9052/api/genstatus/FASTMATCH "HTTP/1.1 200 OK"
+12:31:37.385 rest   << 200 {"result":"Running"}
+12:31:37.385 check  GET genstatus after start
+field        expected  actual   result
+status_code  200       200      ok    
+result       Running   Running  ok    
+12:31:37.385 fix    >> 8=FIXT.1.1|9=140|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=3|52=20261127-12:31:37.385|262=ba3527d95dac400f|263=0|264=0|267=2|269=0|269=1|146=1|55=EUR/USD|10=115|
+12:31:37.386 fix    << 8=FIXT.1.1|9=136|35=W|34=3|49=SIM_FASTMATCH|52=20261127-12:31:37.385|56=CLIENT_FASTMATCH|55=EUR/USD|262=ba3527d95dac400f|268=0|779=20261127-12:31:37.385|10=086|
+12:31:37.886 fix    >> 8=FIXT.1.1|9=140|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=4|52=20261127-12:31:37.886|262=4bb6f22926384d51|263=0|264=0|267=2|269=0|269=1|146=1|55=EUR/USD|10=244|
+12:31:37.887 fix    << 8=FIXT.1.1|9=230|35=W|34=4|49=SIM_FASTMATCH|52=20261127-12:31:37.886|56=CLIENT_FASTMATCH|55=EUR/USD|262=4bb6f22926384d51|268=2|269=1|278=1795782697:1|270=1.11931|271=2397000|269=1|278=1795782697:2|270=1.11934|271=5713000|779=20261127-12:31:37.886|10=171|
+12:31:37.887 fix    >> 8=FIXT.1.1|9=140|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=5|52=20261127-12:31:37.887|262=0c2aab9196bd4f7f|263=0|264=0|267=2|269=0|269=1|146=1|55=EUR/USD|10=179|
+12:31:37.887 fix    << 8=FIXT.1.1|9=230|35=W|34=5|49=SIM_FASTMATCH|52=20261127-12:31:37.887|56=CLIENT_FASTMATCH|55=EUR/USD|262=0c2aab9196bd4f7f|268=2|269=1|278=1795782697:1|270=1.11931|271=2397000|269=1|278=1795782697:2|270=1.11934|271=5713000|779=20261127-12:31:37.887|10=107|
+12:31:37.888 check  EUR/USD book is not empty
+field      expected  actual  result
+condition  true      True    ok    
+12:31:37.888 rest   >> POST /genstop/FASTMATCH 
+12:31:37.889 httpx  HTTP Request: POST http://localhost:9052/api/genstop/FASTMATCH "HTTP/1.1 200 OK"
+12:31:37.889 rest   << 200 {"result":"Generator was stopped"}
+12:31:37.890 check  POST genstop
+field        expected               actual                 result
+status_code  200                    200                    ok    
+result       Generator was stopped  Generator was stopped  ok    
+12:31:37.890 rest   >> GET /genstatus/FASTMATCH 
+12:31:37.891 httpx  HTTP Request: GET http://localhost:9052/api/genstatus/FASTMATCH "HTTP/1.1 200 OK"
+12:31:37.891 rest   << 200 {"result":"Stopped"}
+12:31:37.891 check  GET genstatus after stop
+field        expected  actual   result
+status_code  200       200      ok    
+result       Stopped   Stopped  ok
+12:31:37.893 rest   >> PUT /listings/EUR%2FUSD {"randomOrdersEnabled": false}
+12:31:37.903 httpx  HTTP Request: PUT http://localhost:9052/api/listings/EUR%2FUSD "HTTP/1.1 200 OK"
+12:31:37.904 rest   << 200 {"result":"Successfully updated the EUR/USD listing"}
+12:31:37.904 rest   >> POST /genstop/FASTMATCH 
+12:31:37.905 httpx  HTTP Request: POST http://localhost:9052/api/genstop/FASTMATCH "HTTP/1.1 200 OK"
+12:31:37.905 rest   << 200 {"result":"Generator was stopped"}
+12:31:37.905 rest   >> POST /reset/FASTMATCH 
+12:31:37.914 httpx  HTTP Request: POST http://localhost:9052/api/reset/FASTMATCH "HTTP/1.1 200 OK"
+12:31:37.915 rest   << 200 {"result":"Resetting the venue state starts."}
+12:31:38.889 fix    << 8=FIXT.1.1|9=72|35=5|34=6|49=SIM_FASTMATCH|52=20261127-12:31:38.888|56=CLIENT_FASTMATCH|10=216|
+12:31:40.891 fix    >> 8=FIXT.1.1|9=97|35=A|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=1|52=20261127-12:31:40.891|98=0|108=30|141=Y|1137=9|10=098|
+12:31:41.392 fix    >> 8=FIXT.1.1|9=97|35=A|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=1|52=20261127-12:31:41.392|98=0|108=30|141=Y|1137=9|10=095|
+12:31:41.393 fix    << 8=FIXT.1.1|9=97|35=A|34=1|49=SIM_FASTMATCH|52=20261127-12:31:41.393|56=CLIENT_FASTMATCH|98=0|108=30|141=Y|1137=9|10=096|
+12:31:41.394 fix    >> 8=FIXT.1.1|9=140|35=V|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=2|52=20261127-12:31:41.394|262=a0f4bd74c4e84456|263=0|264=0|267=2|269=0|269=1|146=1|55=EUR/USD|10=072|
+12:31:41.403 fix    << 8=FIXT.1.1|9=136|35=W|34=2|49=SIM_FASTMATCH|52=20261127-12:31:41.403|56=CLIENT_FASTMATCH|55=EUR/USD|262=a0f4bd74c4e84456|268=0|779=20261127-12:31:41.403|10=020|

@@ -1,0 +1,7 @@
+12:31:29.013 rest   >> GET /listings/NOSUCHSYM 
+12:31:29.026 httpx  HTTP Request: GET http://localhost:9050/api/listings/NOSUCHSYM "HTTP/1.1 404 Not Found"
+12:31:29.026 rest   << 404 {"result":"Can not resolve a single Listing by a given key"}
+12:31:29.026 check  GET unknown listing
+field        expected                                         actual                                           result
+status_code  404                                              404                                              ok    
+result       Can not resolve a single Listing by a given key  Can not resolve a single Listing by a given key  ok

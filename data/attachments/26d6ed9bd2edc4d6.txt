@@ -1,0 +1,12 @@
+12:31:22.804 fix    >> 8=FIXT.1.1|9=164|35=D|49=CLIENT_FASTMATCH|56=SIM_FASTMATCH|34=62|52=20261127-12:31:22.804|11=1e7eccd915de4de8|55=GBP/USD|54=1|60=20261127-12:31:22.804|40=2|44=1.20313|38=20000|59=0|10=093|
+12:31:22.805 fix    << 8=FIXT.1.1|9=261|35=8|34=68|49=SIM_FASTMATCH|52=20261127-12:31:22.805|56=CLIENT_FASTMATCH|6=0|11=1e7eccd915de4de8|14=0|17=261127123122000004-1|37=261127123122000004|38=20000|39=8|40=2|44=1.20313|54=1|55=GBP/USD|58=minimal order quantity constraint violated|59=0|150=8|151=20000|10=173|
+12:31:22.805 check  ExecutionReport for OrderQty below qtyMinimum
+field       expected                                    actual                                      result
+msg_type    EXECUTION_REPORT(8)                         EXECUTION_REPORT(8)                         ok    
+order_id    <non-empty>                                 261127123122000004                          ok    
+exec_type   REJECTED(8)                                 REJECTED(8)                                 ok    
+ord_status  REJECTED(8)                                 REJECTED(8)                                 ok    
+symbol      GBP/USD                                     GBP/USD                                     ok    
+order_qty   20000                                       20000                                       ok    
+price       1.20313                                     1.20313                                     ok    
+text        minimal order quantity constraint violated  minimal order quantity constraint violated  ok

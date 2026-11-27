@@ -1,0 +1,26 @@
+12:31:23.955 fix    >> 8=FIXT.1.1|9=149|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=116|52=20261127-12:31:23.955|11=c99fbe85f1014852|55=NFC|54=2|60=20261127-12:31:23.955|40=2|44=65.55|38=200|59=0|10=226|
+12:31:23.956 fix    << 8=FIXT.1.1|9=198|35=8|34=128|49=SIM_XETRA|52=20261127-12:31:23.955|56=CLIENT_XETRA|6=0|11=c99fbe85f1014852|14=0|17=261127123123000009-1|37=261127123123000009|38=200|39=0|40=2|44=65.55|54=2|55=NFC|59=0|150=0|151=200|10=126|
+12:31:23.956 check  ExecutionReport for NewOrderSingle
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261127123123000009   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      NFC                  NFC                  ok    
+order_qty   200                  200                  ok    
+price       65.55                65.55                ok    
+12:31:23.956 fix    >> 8=FIXT.1.1|9=165|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=117|52=20261127-12:31:23.956|41=c99fbe85f1014852|11=421d37e5612a4322|37=261127123123000009|55=NFC|54=2|60=20261127-12:31:23.956|10=232|
+12:31:23.957 fix    << 8=FIXT.1.1|9=216|35=8|34=129|49=SIM_XETRA|52=20261127-12:31:23.957|56=CLIENT_XETRA|6=0|11=421d37e5612a4322|14=0|17=261127123123000009-2|37=261127123123000009|38=200|39=4|40=2|41=c99fbe85f1014852|44=65.55|54=2|55=NFC|59=0|150=4|151=0|10=134|
+12:31:23.957 check  ExecutionReport for OrderCancelRequest
+field           expected             actual               result
+msg_type        EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id        261127123123000009   261127123123000009   ok    
+exec_type       CANCELED(4)          CANCELED(4)          ok    
+ord_status      CANCELED(4)          CANCELED(4)          ok    
+symbol          NFC                  NFC                  ok    
+order_qty       200                  200                  ok    
+price           65.55                65.55                ok    
+side            SELL(2)              SELL(2)              ok    
+orig_cl_ord_id  c99fbe85f1014852     c99fbe85f1014852     ok    
+leaves_qty      0                    0                    ok    
+cum_qty         0                    0                    ok

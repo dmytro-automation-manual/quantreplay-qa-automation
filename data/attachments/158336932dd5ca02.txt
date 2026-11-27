@@ -1,0 +1,22 @@
+12:31:23.586 fix    >> 8=FIXT.1.1|9=148|35=D|49=CLIENT_XETRA|56=SIM_XETRA|34=98|52=20261127-12:31:23.586|11=bbc64d2b022141cb|55=NFC|54=1|60=20261127-12:31:23.586|40=2|44=53.62|38=200|59=0|10=242|
+12:31:23.587 fix    << 8=FIXT.1.1|9=198|35=8|34=110|49=SIM_XETRA|52=20261127-12:31:23.586|56=CLIENT_XETRA|6=0|11=bbc64d2b022141cb|14=0|17=261127123123000000-1|37=261127123123000000|38=200|39=0|40=2|44=53.62|54=1|55=NFC|59=0|150=0|151=200|10=155|
+12:31:23.587 check  ExecutionReport for price on tick
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    <non-empty>          261127123123000000   ok    
+exec_type   NEW(0)               NEW(0)               ok    
+ord_status  NEW(0)               NEW(0)               ok    
+symbol      NFC                  NFC                  ok    
+order_qty   200                  200                  ok    
+price       53.62                53.62                ok
+12:31:23.638 fix    >> 8=FIXT.1.1|9=164|35=F|49=CLIENT_XETRA|56=SIM_XETRA|34=99|52=20261127-12:31:23.638|41=bbc64d2b022141cb|11=23448d9a28de41af|37=261127123123000000|55=NFC|54=1|60=20261127-12:31:23.638|10=140|
+12:31:23.639 fix    << 8=FIXT.1.1|9=216|35=8|34=111|49=SIM_XETRA|52=20261127-12:31:23.639|56=CLIENT_XETRA|6=0|11=23448d9a28de41af|14=0|17=261127123123000000-2|37=261127123123000000|38=200|39=4|40=2|41=bbc64d2b022141cb|44=53.62|54=1|55=NFC|59=0|150=4|151=0|10=062|
+12:31:23.639 check  Teardown: ExecutionReport for OrderCancelRequest
+field       expected             actual               result
+msg_type    EXECUTION_REPORT(8)  EXECUTION_REPORT(8)  ok    
+order_id    261127123123000000   261127123123000000   ok    
+exec_type   CANCELED(4)          CANCELED(4)          ok    
+ord_status  CANCELED(4)          CANCELED(4)          ok    
+symbol      NFC                  NFC                  ok    
+order_qty   200                  200                  ok    
+price       53.62                53.62                ok
